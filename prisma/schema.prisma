@@ -1,0 +1,135 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+// NextAuth 모델 정의
+model Account {
+  id                  String    @id @default(cuid())
+  userId              String
+  type                String
+  provider            String
+  providerAccountId   String
+  refreshToken        String?   @db.Text
+  accessToken         String?   @db.Text
+  expiresAt           Int?
+  tokenType           String?
+  scope               String?
+  idToken             String?   @db.Text
+  sessionState        String?
+
+  user                User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+
+//유저 데이터 관련
+model User {
+  id              String         @id @default(cuid())
+  name            String?      
+  bio             String?      
+  email           String         @unique
+  emailVerified  DateTime?
+  image           String?      
+  accounts        Account[]
+  sessions        Session[]
+  habits          Habit[]
+  teamMembers     TeamMember[]
+  teamMessages    TeamMessage[]
+  userPoints      UserPoint[]
+}
+
+model UserPoint {
+  id            String     @id @default(cuid())
+  userId        String
+  habitId       String?
+  getTime       DateTime?
+  points        Int
+  users         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  habits        Habit?     @relation(fields: [habitId], references: [id], onDelete: Cascade)
+}
+
+//습관 데이터 관련
+model Habit {
+  id            String    @id @default(cuid())
+  userId        String    
+  title         String
+  notes         String?
+  categories    String?
+  createdAt     DateTime  @default(now()) 
+  mon           Boolean   @default(false)
+  tue           Boolean   @default(false)
+  wed           Boolean   @default(false)
+  thu           Boolean   @default(false)
+  fri           Boolean   @default(false)
+  sat           Boolean   @default(false)
+  sun           Boolean   @default(false)
+  users         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userPoints    UserPoint[]
+}
+
+//팀 데이터 관련
+model Team {
+  id            String    @id @default(cuid())
+  teamName      String
+  teamBio       String
+  createdAt     DateTime  @default(now())
+  emblem        String
+  isOpened      Boolean   @default(false)
+  teamMembers   TeamMember[]
+  teamMessages  TeamMessage[]
+}
+
+model TeamMember {
+  id              String    @id @default(cuid())
+  userId          String    
+  teamId          String    
+  joinDate        DateTime  
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  team            Team      @relation(fields: [teamId], references: [id], onDelete: Cascade)
+}
+
+model TeamQuest {
+  id             Int       @id
+  questName      String       
+  questImage     String
+  requiredPoints Int
+}
+
+model TeamMessage {
+  id         String    @id @default(cuid())
+  userId     String    
+  teamId     String    
+  createdAt  DateTime  
+  messages   String
+  users      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  teams      Team      @relation(fields: [teamId], references: [id], onDelete: Cascade)
+}
