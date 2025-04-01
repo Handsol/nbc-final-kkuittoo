@@ -103,6 +103,7 @@ model Team {
   teamBio       String
   createdAt     DateTime  @default(now())
   emblem        String
+  maxTeamSize   Int       @default(2)
   isOpened      Boolean   @default(false)
   teamMembers   TeamMember[]
   teamMessages  TeamMessage[]
