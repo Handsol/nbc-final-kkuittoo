@@ -62,6 +62,7 @@ model User {
   accounts        Account[]
   sessions        Session[]
   habits          Habit[]
+  teams           Team[]
   teamMembers     TeamMember[]
   teamMessages    TeamMessage[]
   userPoints      UserPoint[]
@@ -105,6 +106,8 @@ model Team {
   emblem        String
   maxTeamSize   Int       @default(2)
   isOpened      Boolean   @default(false)
+  ownerId       String
+  user          User      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   teamMembers   TeamMember[]
   teamMessages  TeamMessage[]
 }
