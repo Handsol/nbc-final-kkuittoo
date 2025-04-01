@@ -12,7 +12,7 @@ import { CreateHabit } from '@/types/mypage.type';
  * - 인증된 사용자가 자신의 Habit 목록 조회
  * - `userPoints` 포함, 생성일 내림차순 정렬
  */
-export async function GET() {
+export const GET = async () => {
   const session = await getServerSession(authOptions);
 
   if (!session || !session.user) {
@@ -34,7 +34,7 @@ export async function GET() {
       { status: 500 },
     );
   }
-}
+};
 
 /**
  * 새로운 Habit 생성
@@ -45,7 +45,7 @@ export async function GET() {
  * - 인증된 사용자가 새로운 Habit 생성
  * - 유효성 검사를 통해 데이터 형식과 길이를 확인
  */
-export async function POST(request: Request) {
+export const POST = async (request: Request) => {
   const session = await getServerSession(authOptions);
 
   if (!session || !session.user) {
@@ -102,4 +102,4 @@ export async function POST(request: Request) {
       { status: 500 },
     );
   }
-}
+};

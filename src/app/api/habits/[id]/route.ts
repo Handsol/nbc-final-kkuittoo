@@ -17,7 +17,7 @@ type RouteParams = {
  * - 인증된 사용자가 자신의 Habit 조회
  * - `userPoints` 포함
  */
-export async function GET(request: Request, { params }: RouteParams) {
+export const GET = async (request: Request, { params }: RouteParams) => {
   const session = await getServerSession(authOptions);
 
   if (!session || !session.user) {
@@ -52,7 +52,7 @@ export async function GET(request: Request, { params }: RouteParams) {
       { status: 500 },
     );
   }
-}
+};
 
 /**
  * Habit 수정
@@ -63,7 +63,7 @@ export async function GET(request: Request, { params }: RouteParams) {
  * - 인증된 사용자가 자신의 Habit 수정
  * - 유효성 검사를 통해 데이터 형식과 길이를 확인
  */
-export async function PATCH(request: Request, { params }: RouteParams) {
+export const PATCH = async (request: Request, { params }: RouteParams) => {
   const session = await getServerSession(authOptions);
 
   if (!session || !session.user) {
@@ -134,7 +134,7 @@ export async function PATCH(request: Request, { params }: RouteParams) {
       { status: 500 },
     );
   }
-}
+};
 
 /**
  * Habit 삭제
@@ -144,7 +144,7 @@ export async function PATCH(request: Request, { params }: RouteParams) {
  * @description
  * - 인증된 사용자가 자신의 Habit만 삭제
  */
-export async function DELETE(request: Request, { params }: RouteParams) {
+export const DELETE = async (request: Request, { params }: RouteParams) => {
   const session = await getServerSession(authOptions);
 
   if (!session || !session.user) {
@@ -180,4 +180,4 @@ export async function DELETE(request: Request, { params }: RouteParams) {
       { status: 500 },
     );
   }
-}
+};

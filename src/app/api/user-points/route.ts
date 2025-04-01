@@ -12,7 +12,7 @@ import { getServerSession } from 'next-auth';
  * - 인증된 사용자가 자신의 Habit에 포인트 추가
  * - 요일 및 1시간 제한 조건 확인 후 포인트 추가
  */
-export async function POST(request: Request) {
+export const POST = async (request: Request) => {
   const session = await getServerSession(authOptions);
 
   if (!session || !session.user) {
@@ -96,4 +96,4 @@ export async function POST(request: Request) {
       { status: 500 },
     );
   }
-}
+};
