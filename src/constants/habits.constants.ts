@@ -17,3 +17,5 @@ export const HABIT_VALIDATION = {
     MAX_LENGTH: 50,
   },
 } as const;
+export const POINTS_TO_ADD = 1;
+export const ONE_HOUR_COOLDOWN_MS = 60 * 60 * 1000;

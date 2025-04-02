@@ -3,6 +3,10 @@ import { prisma } from '@/lib/prisma';
 import { CreateUserPoint } from '@/types/mypage.type';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../auth/[...nextauth]/route';
+import {
+  ONE_HOUR_COOLDOWN_MS,
+  POINTS_TO_ADD,
+} from '@/constants/habits.constants';
 
 /**
  * 사용자가 Habit의 '+'버튼을 눌렀을 때 포인트 추가
@@ -70,7 +74,7 @@ export const POST = async (request: Request) => {
       })[0];
     if (lastPoint && lastPoint.getTime) {
       const lastTime = new Date(lastPoint.getTime);
-      const oneHourLater = new Date(lastTime.getTime() + 60 * 60 * 1000);
+      const oneHourLater = new Date(lastTime.getTime() + ONE_HOUR_COOLDOWN_MS);
       if (now < oneHourLater) {
         return NextResponse.json(
           { error: '1시간 내에는 다시 포인트를 추가할 수 없습니다.' },
@@ -85,7 +89,7 @@ export const POST = async (request: Request) => {
         userId: session.user.id,
         habitId,
         getTime: now.toISOString(),
-        points: 1, //일단 임시
+        points: POINTS_TO_ADD,
       },
     });
 
