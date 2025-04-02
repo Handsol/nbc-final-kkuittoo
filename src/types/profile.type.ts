@@ -5,3 +5,7 @@ export type User = {
   email: string;
   image: string;
 };
+
+export type UpdateProfile = Partial<
+  Omit<User, 'id' | 'userId' | 'createdAt' | 'userPoints'>
+>;
