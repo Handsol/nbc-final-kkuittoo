@@ -3,12 +3,12 @@ const MyPage = () => {
     { id: 1, title: '운동하기', notes: '매일 30분 러닝' },
     { id: 2, title: '책 읽기', notes: '하루 10페이지' },
   ];
-  const hasTeam = false;
+  const hasTeam = true;
 
   return (
     <div className="flex flex-row gap-6 p-6">
       {/* habits */}
-      <div className="flex-1 bg-gray-300 p-6 rounded-3xl">
+      <section className="flex-1 bg-gray-300 p-6 rounded-3xl">
         <div className="flex items-center justify-between mb-4">
           <h1 className="text-xl font-bold">HABITS</h1>
           <button className="px-8 py-1 bg-gray-700 text-white rounded-full">
@@ -17,7 +17,7 @@ const MyPage = () => {
         </div>
         <div className="space-y-4">
           {habits.map((habit) => (
-            <div
+            <article
               key={habit.id}
               className="flex items-center gap-4 p-2 border rounded-3xl bg-zinc-800"
             >
@@ -28,24 +28,28 @@ const MyPage = () => {
                 <h2 className="font-semibold text-white">{habit.title}</h2>
                 <p className="text-sm text-white">{habit.notes}</p>
               </div>
-            </div>
+            </article>
           ))}
         </div>
-      </div>
+      </section>
 
       {/* calendar */}
-      <div className="flex-1 bg-gray-300 p-6 rounded-3xl flex flex-col min-h-[400px]">
-        <h1 className="text-xl font-bold mb-4">APRIL</h1>
+      <section className="flex-1 bg-gray-300 p-6 rounded-3xl flex flex-col min-h-[400px]">
+        <div className="mb-4">
+          <h1 className="text-xl font-bold">APRIL</h1>
+        </div>
         <div className="flex-1 flex items-center justify-center">
           <div className="w-full h-80 bg-gray-400 rounded flex items-center justify-center">
             <p className="text-white">캘린더 영역</p>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* my team */}
-      <div className="flex-1 bg-gray-300 p-6 rounded-3xl flex flex-col min-h-[400px]">
-        <h1 className="text-xl font-bold mb-4">MY TEAM</h1>
+      <section className="flex-1 bg-gray-300 p-6 rounded-3xl flex flex-col min-h-[400px]">
+        <div className="mb-4">
+          <h1 className="text-xl font-bold">MY TEAM</h1>
+        </div>
         <div className="flex-1 flex items-center justify-center h-full">
           <div className="w-full flex flex-col items-center justify-center gap-4">
             {hasTeam ? (
@@ -93,7 +97,7 @@ const MyPage = () => {
             )}
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };
