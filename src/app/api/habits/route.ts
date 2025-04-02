@@ -7,7 +7,7 @@ import { DAYS_OF_WEEK, HABIT_VALIDATION } from '@/constants/habits.constants';
 
 /**
  * 사용자의 모든 Habit 목록을 조회
- * @param {Request} - GET 요청
+ * @param {Request} request - Habit 목록 요청
  * @returns {Promise<NextResponse>} - 조회된 Habit 목록 또는 에러
  * @throws {Error} 데이터베이스 조회 실패했을 때
  * @description
@@ -40,7 +40,7 @@ export const GET = async () => {
 
 /**
  * 새로운 Habit 생성
- * @param {Request} - POST 요청
+ * @param {Request} request - 새로운 Habit 생성 요청
  * @returns {Promise<NextResponse>} - 생성된 Habit 또는 에러
  * @throws {Error} 데이터베이스 생성 실패했을 때
  * @description

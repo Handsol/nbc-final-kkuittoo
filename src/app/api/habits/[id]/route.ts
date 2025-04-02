@@ -12,7 +12,7 @@ type RouteParams = {
 /**
  *
  * 클릭한 Habit의 정보를 조회
- * @param {Request} - GET 요청
+ * @param {Request} request - Habit 정보 요청
  * @returns {Promise<NextResponse>} - 조회된 Habit 또는 에러
  * @throws {Error} 데이터베이스 조회 실패했을 때
  * @description
@@ -58,7 +58,7 @@ export const GET = async (request: Request, { params }: RouteParams) => {
 
 /**
  * Habit 수정
- * @param {Request} - PATCH 요청
+ * @param {Request} request - Habit 수정 요청
  * @returns {Promise<NextResponse>} - 수정된 Habit 또는 에러
  * @throws {Error} 데이터베이스 업데이트 실패했을 때
  * @description
@@ -147,7 +147,7 @@ export const PATCH = async (request: Request, { params }: RouteParams) => {
 
 /**
  * Habit 삭제
- * @param {Request} - DELETE 요청
+ * @param {Request} request - Habit 삭제 요청
  * @returns {Promise<NextResponse>} - Habit 삭제 또는 에러
  * @throws {Error} 데이터베이스 삭제 실패했을 때
  * @description

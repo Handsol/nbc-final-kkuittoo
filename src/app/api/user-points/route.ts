@@ -10,12 +10,12 @@ import {
 
 /**
  * 사용자가 Habit의 '+'버튼을 눌렀을 때 포인트 추가
- * @param {Request} - POST 요청
+ * @param {Request} request - 포인트 추가 요청
  * @returns {Promise<NextResponse>} - 생성된 UserPoint 또는 에러
  * @throws {Error} 데이터베이스 생성 실패했을 때
  * @description
  * - 인증된 사용자가 자신의 Habit에 포인트 추가
- * - 요일 및 1시간 제한 조건 확인 후 포인트 추가
+ * - 요일 및 1시간 제한 조건 확인 후 포인트 추가(1점-임시)
  */
 export const POST = async (request: Request) => {
   const session = await getServerSession(authOptions);
