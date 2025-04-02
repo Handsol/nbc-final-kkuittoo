@@ -5,9 +5,7 @@ import React from 'react';
 
 const GoogleLogin = () => {
   const handleLogin = () => {
-    signIn('google', {
-      callbackUrl: process.env.NEXT_PUBLIC_CALLBACK_URL ?? '/',
-    });
+    signIn('google');
   };
   return (
     <div>

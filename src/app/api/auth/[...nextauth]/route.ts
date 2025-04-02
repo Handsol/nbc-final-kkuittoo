@@ -24,7 +24,7 @@ export const authOptions: NextAuthOptions = {
   },
 
   pages: {
-    signIn: PATH.MYPAGE,
+    signIn: PATH.HOME,
   },
 };
 
