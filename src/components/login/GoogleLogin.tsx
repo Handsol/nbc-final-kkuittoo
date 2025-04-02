@@ -6,7 +6,7 @@ import React from 'react';
 const GoogleLogin = () => {
   const handleLogin = () => {
     signIn('google', {
-      callbackUrl: 'http://localhost:3000/auth/callback',
+      callbackUrl: process.env.NEXT_PUBLIC_CALLBACK_URL ?? '/',
     });
   };
   return (
