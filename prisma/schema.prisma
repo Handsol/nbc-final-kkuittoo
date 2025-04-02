@@ -16,18 +16,18 @@ datasource db {
 
 // NextAuth 모델 정의
 model Account {
-  id                  String    @id @default(cuid())
-  userId              String
-  type                String
-  provider            String
-  providerAccountId   String
-  refreshToken        String?   @db.Text
-  accessToken         String?   @db.Text
-  expiresAt           Int?
-  tokenType           String?
-  scope               String?
-  idToken             String?   @db.Text
-  sessionState        String?
+  id                   String    @id @default(cuid())
+  userId               String
+  type                 String
+  provider             String
+  providerAccountId    String
+  refresh_token        String?   @db.Text
+  access_token         String?   @db.Text
+  expires_at           Int?
+  token_type           String?
+  scope                String?
+  id_token             String?   @db.Text
+  session_state        String?
 
   user                User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 

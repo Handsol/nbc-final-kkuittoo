@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getServerSession } from 'next-auth';
 import { CreateHabit } from '@/types/mypage.type';
+import { authOptions } from '../auth/[...nextauth]/route';
 
 /**
  * 사용자의 모든 Habit 목록을 조회
