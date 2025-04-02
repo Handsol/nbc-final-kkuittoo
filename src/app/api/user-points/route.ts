@@ -7,6 +7,7 @@ import {
   ONE_HOUR_COOLDOWN_MS,
   POINTS_TO_ADD,
 } from '@/constants/habits.constants';
+import { ERROR_MESSAGES } from '@/constants/error-messages.constants';
 
 /**
  * 사용자가 Habit의 '+'버튼을 눌렀을 때 포인트 추가
@@ -21,7 +22,10 @@ export const POST = async (request: Request) => {
   const session = await getServerSession(authOptions);
 
   if (!session || !session.user) {
-    return NextResponse.json({ error: '인증이 필요합니다.' }, { status: 403 });
+    return NextResponse.json(
+      { error: ERROR_MESSAGES.AUTH_REQUIRED },
+      { status: 403 },
+    );
   }
 
   try {
@@ -35,13 +39,13 @@ export const POST = async (request: Request) => {
 
     if (!habit) {
       return NextResponse.json(
-        { error: 'Habit을 찾을 수 없습니다.' },
+        { error: ERROR_MESSAGES.HABIT_NOT_FOUND },
         { status: 404 },
       );
     }
     if (habit.userId !== session.user.id) {
       return NextResponse.json(
-        { error: '이 Habit에 접근할 권한이 없습니다.' },
+        { error: ERROR_MESSAGES.NO_PERMISSION },
         { status: 403 },
       );
     }
@@ -60,7 +64,7 @@ export const POST = async (request: Request) => {
     ];
     if (!days[dayOfWeek]) {
       return NextResponse.json(
-        { error: '오늘은 이 습관의 반복 요일이 아닙니다.' },
+        { error: ERROR_MESSAGES.INVALID_DAY },
         { status: 400 },
       );
     }
@@ -77,7 +81,7 @@ export const POST = async (request: Request) => {
       const oneHourLater = new Date(lastTime.getTime() + ONE_HOUR_COOLDOWN_MS);
       if (now < oneHourLater) {
         return NextResponse.json(
-          { error: '1시간 내에는 다시 포인트를 추가할 수 없습니다.' },
+          { error: ERROR_MESSAGES.COOLDOWN_ACTIVE },
           { status: 400 },
         );
       }
@@ -97,7 +101,7 @@ export const POST = async (request: Request) => {
   } catch (error) {
     console.error('UserPoint 생성 에러:', error);
     return NextResponse.json(
-      { error: '포인트 추가에 실패했습니다.' },
+      { error: ERROR_MESSAGES.POINT_ADD_FAILED },
       { status: 500 },
     );
   }

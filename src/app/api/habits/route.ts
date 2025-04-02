@@ -4,6 +4,7 @@ import { getServerSession } from 'next-auth';
 import { CreateHabit } from '@/types/mypage.type';
 import { authOptions } from '../auth/[...nextauth]/route';
 import { DAYS_OF_WEEK, HABIT_VALIDATION } from '@/constants/habits.constants';
+import { ERROR_MESSAGES } from '@/constants/error-messages.constants';
 
 /**
  * 사용자의 모든 Habit 목록을 조회
@@ -18,7 +19,10 @@ export const GET = async () => {
   const session = await getServerSession(authOptions);
 
   if (!session || !session.user) {
-    return NextResponse.json({ error: '인증이 필요합니다.' }, { status: 403 });
+    return NextResponse.json(
+      { error: ERROR_MESSAGES.AUTH_REQUIRED },
+      { status: 403 },
+    );
   }
 
   try {
@@ -32,7 +36,7 @@ export const GET = async () => {
   } catch (error) {
     console.error('Habit 조회 에러:', error);
     return NextResponse.json(
-      { error: 'Habit 목록을 가져오는데 실패했습니다.' },
+      { error: ERROR_MESSAGES.FETCH_FAILED },
       { status: 500 },
     );
   }
@@ -51,7 +55,10 @@ export const POST = async (request: Request) => {
   const session = await getServerSession(authOptions);
 
   if (!session || !session.user) {
-    return NextResponse.json({ error: '인증이 필요합니다.' }, { status: 403 });
+    return NextResponse.json(
+      { error: ERROR_MESSAGES.AUTH_REQUIRED },
+      { status: 403 },
+    );
   }
 
   try {
@@ -66,7 +73,7 @@ export const POST = async (request: Request) => {
       title.trim().length > HABIT_VALIDATION.TITLE.MAX_LENGTH
     ) {
       return NextResponse.json(
-        { error: '제목은 1~15자여야 하며, 앞뒤 공백을 허용하지 않습니다.' },
+        { error: ERROR_MESSAGES.TITLE_LENGTH },
         { status: 400 },
       );
     }
@@ -76,13 +83,13 @@ export const POST = async (request: Request) => {
         notes.length > HABIT_VALIDATION.NOTES.MAX_LENGTH)
     ) {
       return NextResponse.json(
-        { error: '메모는 1~50자여야 합니다.' },
+        { error: ERROR_MESSAGES.NOTES_LENGTH },
         { status: 400 },
       );
     }
     if (!categories || categories.trim() === '') {
       return NextResponse.json(
-        { error: '카테고리는 1개 이상 선택해야 합니다.' },
+        { error: ERROR_MESSAGES.CATEGORY_REQUIRED },
         { status: 400 },
       );
     }
@@ -106,7 +113,7 @@ export const POST = async (request: Request) => {
   } catch (error) {
     console.error('Habit 생성 에러:', error);
     return NextResponse.json(
-      { error: 'Habit 생성에 실패했습니다.' },
+      { error: ERROR_MESSAGES.CREATE_FAILED },
       { status: 500 },
     );
   }
