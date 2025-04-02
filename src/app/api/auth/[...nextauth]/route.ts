@@ -3,6 +3,7 @@ import { PrismaAdapter } from '@auth/prisma-adapter';
 import GoogleProvider from 'next-auth/providers/google';
 import type { NextAuthOptions } from 'next-auth';
 import { prisma } from '@/lib/prisma';
+import { PATH } from '@/constants/path';
 
 // NextAuth 설정 옵션을 정의합니다.
 export const authOptions: NextAuthOptions = {
@@ -23,7 +24,7 @@ export const authOptions: NextAuthOptions = {
   },
 
   pages: {
-    signIn: 'mypage',
+    signIn: PATH.MYPAGE,
   },
 };
 
