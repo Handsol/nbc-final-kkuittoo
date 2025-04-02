@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma';
 import { UpdateHabit } from '@/types/mypage.type';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../auth/[...nextauth]/route';
+import { DAYS_OF_WEEK, HABIT_VALIDATION } from '@/constants/habits.constants';
 
 type RouteParams = {
   params: { id: string };
@@ -74,8 +75,7 @@ export const PATCH = async (request: Request, { params }: RouteParams) => {
   try {
     const { id } = params;
     const body = (await request.json()) as UpdateHabit;
-    const { title, notes, categories, mon, tue, wed, thu, fri, sat, sun } =
-      body;
+    const { title, notes, categories, ...days } = body;
 
     const habit = await prisma.habit.findUnique({ where: { id } });
     if (!habit) {
@@ -92,13 +92,21 @@ export const PATCH = async (request: Request, { params }: RouteParams) => {
     }
 
     // 유효성 검사
-    if (title && (title.trim().length < 1 || title.trim().length > 15)) {
+    if (
+      title &&
+      (title.trim().length < HABIT_VALIDATION.TITLE.MIN_LENGTH ||
+        title.trim().length > HABIT_VALIDATION.TITLE.MAX_LENGTH)
+    ) {
       return NextResponse.json(
         { error: '제목은 1~15자여야 하며, 앞뒤 공백을 허용하지 않습니다.' },
         { status: 400 },
       );
     }
-    if (notes && (notes.length < 1 || notes.length > 50)) {
+    if (
+      notes &&
+      (notes.length < HABIT_VALIDATION.NOTES.MIN_LENGTH ||
+        notes.length > HABIT_VALIDATION.NOTES.MAX_LENGTH)
+    ) {
       return NextResponse.json(
         { error: '메모는 1~50자여야 합니다.' },
         { status: 400 },
@@ -110,6 +118,12 @@ export const PATCH = async (request: Request, { params }: RouteParams) => {
         { status: 400 },
       );
     }
+    const dayUpdates: Record<string, boolean> = {};
+    for (const day of DAYS_OF_WEEK) {
+      if (days[day] !== undefined) {
+        dayUpdates[day] = days[day];
+      }
+    }
 
     const updatedHabit = await prisma.habit.update({
       where: { id },
@@ -117,13 +131,7 @@ export const PATCH = async (request: Request, { params }: RouteParams) => {
         ...(title !== undefined && { title: title.trim() }),
         ...(notes !== undefined && { notes }),
         ...(categories !== undefined && { categories }),
-        ...(mon !== undefined && { mon }),
-        ...(tue !== undefined && { tue }),
-        ...(wed !== undefined && { wed }),
-        ...(thu !== undefined && { thu }),
-        ...(fri !== undefined && { fri }),
-        ...(sat !== undefined && { sat }),
-        ...(sun !== undefined && { sun }),
+        ...dayUpdates,
       },
     });
 
