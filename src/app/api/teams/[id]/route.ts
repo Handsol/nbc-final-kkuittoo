@@ -15,7 +15,7 @@ type RouteParams = {
  * @param param : teamId
  * @returns singleTeamData : { 해당 팀 멤버 데이터[], 단일 팀 데이터 }
  */
-export const GET = async ({ params }: RouteParams) => {
+export const GET = async (request: NextRequest, { params }: RouteParams) => {
   try {
     const { id } = params;
     const singleTeamData = await prisma.team.findUnique({
