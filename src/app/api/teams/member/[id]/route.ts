@@ -1,11 +1,7 @@
-import {
-  COMMON_ERROR_MESSAGES,
-  TEAMS_MESSAGES,
-} from '@/constants/error-messages.constants';
+import { TEAMS_MESSAGES } from '@/constants/error-messages.constants';
 import { HTTP_STATUS } from '@/constants/http-status.constants';
 import { prisma } from '@/lib/prisma';
-import { authOptions } from '@/lib/utils/auth';
-import { getServerSession } from 'next-auth';
+import { checkAuth } from '@/lib/utils/auth-route-handler.utils';
 import { NextRequest, NextResponse } from 'next/server';
 
 type RouteParams = {
@@ -22,14 +18,8 @@ type RouteParams = {
  * @returns
  */
 export const DELETE = async (request: NextRequest, { params }: RouteParams) => {
-  const session = await getServerSession(authOptions);
-  // 인증되지 않은 유저인 경우 403 (Forbidden) 에러
-  if (!session || !session.user) {
-    return NextResponse.json(
-      { error: COMMON_ERROR_MESSAGES.UNAUTHORIZED },
-      { status: HTTP_STATUS.FORBIDDEN },
-    );
-  }
+  const { session, response } = await checkAuth();
+  if (response) return response;
 
   try {
     const { id } = params;

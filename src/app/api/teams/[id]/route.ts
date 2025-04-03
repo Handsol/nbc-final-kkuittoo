@@ -1,15 +1,11 @@
-import {
-  COMMON_ERROR_MESSAGES,
-  TEAMS_MESSAGES,
-} from '@/constants/error-messages.constants';
+import { TEAMS_MESSAGES } from '@/constants/error-messages.constants';
 import { HTTP_STATUS } from '@/constants/http-status.constants';
 import { prisma } from '@/lib/prisma';
-import { authOptions } from '@/lib/utils/auth';
+import { checkAuth } from '@/lib/utils/auth-route-handler.utils';
 import {
   checkDeleteTeamValidation,
   checkUpdateTeamValidation,
 } from '@/lib/utils/team-validation.utils';
-import { getServerSession } from 'next-auth';
 import { NextRequest, NextResponse } from 'next/server';
 
 type RouteParams = {
@@ -57,14 +53,8 @@ export const GET = async (request: NextRequest, { params }: RouteParams) => {
  * @param param : teamId
  */
 export const PATCH = async (request: NextRequest, { params }: RouteParams) => {
-  const session = await getServerSession(authOptions);
-  // 인증되지 않은 유저인 경우 403 (Forbidden) 에러
-  if (!session || !session.user) {
-    return NextResponse.json(
-      { error: COMMON_ERROR_MESSAGES.UNAUTHORIZED },
-      { status: HTTP_STATUS.FORBIDDEN },
-    );
-  }
+  const { session, response } = await checkAuth();
+  if (response) return response;
 
   try {
     const { id } = params;
@@ -82,8 +72,12 @@ export const PATCH = async (request: NextRequest, { params }: RouteParams) => {
 
     const { teamBio, isOpened } = await request.json();
 
-    // 팀 소개 유효성 검사
-    const teamUpdateValidation = checkUpdateTeamValidation(teamBio);
+    // 팀 소개 유효성 검사와 생성자 여부 판단
+    const teamUpdateValidation = checkUpdateTeamValidation(
+      teamBio,
+      singleTeamData.ownerId,
+      session.user.id,
+    );
     if (teamUpdateValidation) return teamUpdateValidation;
 
     const updatedTeamData = await prisma.team.update({
@@ -111,14 +105,8 @@ export const PATCH = async (request: NextRequest, { params }: RouteParams) => {
  * @returns
  */
 export const DELETE = async (request: NextRequest, { params }: RouteParams) => {
-  const session = await getServerSession(authOptions);
-  // 인증되지 않은 유저인 경우 403 (Forbidden) 에러
-  if (!session || !session.user) {
-    return NextResponse.json(
-      { error: COMMON_ERROR_MESSAGES.UNAUTHORIZED },
-      { status: HTTP_STATUS.FORBIDDEN },
-    );
-  }
+  const { session, response } = await checkAuth();
+  if (response) return response;
 
   try {
     const { id } = params;
