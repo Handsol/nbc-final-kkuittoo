@@ -4,6 +4,17 @@ import { TEAM_VALIDATAION } from '@/constants/validation.constants';
 import { TeamData } from '@/types/teams.type';
 import { NextResponse } from 'next/server';
 
+/**
+ * 팀 생성시 유효성 검사 로직
+ *
+ * @param body Omit<TeamData, 'id' | 'createdAt' | 'ownerId' | 'isOpened'>
+ * @returns null | NextResponse
+ * @description
+ * 1. teamName, teamBio, emblem, maxTeamSize 미선택시 error
+ * 2. teamName : 2~10자 외, 빈칸시 error
+ * 3. teamBio : 5~20자 외, 빈칸시 error
+ *
+ */
 export const checkCreateTeamValidation = (
   body: Omit<TeamData, 'id' | 'createdAt' | 'ownerId' | 'isOpened'>,
 ) => {
@@ -44,6 +55,14 @@ export const checkCreateTeamValidation = (
   return null;
 };
 
+/**
+ * 팀 수정시 유효성 검사 로직
+ *
+ * @param body Pick<TeamData, 'teamBio'>
+ * @returns null | NextResponse
+ * @description
+ * 1. teamBio : 5~20자 외, 빈칸시 error
+ */
 export const checkUpdateTeamValidation = (body: Pick<TeamData, 'teamBio'>) => {
   const { teamBio } = body;
 
@@ -80,6 +99,16 @@ type teamData = {
   maxTeamSize: number;
 };
 
+/**
+ * 팀 삭제시 유효성 검사 로직
+ *
+ * @param teamData teamData
+ * @param userId string
+ * @returns null | NextResponse
+ * @description
+ * 1. 팀 생성자를 제외한 다른 유저가 남아있는 경우
+ * 2. 팀 생성자가 아닌 경우
+ */
 export const checkDeleteTeamValidation = (
   teamData: teamData,
   userId: string,

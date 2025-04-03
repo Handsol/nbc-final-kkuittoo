@@ -16,7 +16,7 @@ export const HABIT_ERROR_MESSAGES = {
 
 export const COMMON_ERROR_MESSAGES = {
   UNAUTHORIZED: '인증이 필요합니다.',
-};
+} as const;
 
 export const TEAMS_MESSAGES = {
   // request 조건 미달
@@ -40,4 +40,4 @@ export const TEAMS_MESSAGES = {
   UPDATE_FAILED: 'Team 데이터 수정에 실패했습니다.',
   DELETE_FAILED: 'Team 데이터 삭제에 실패했습니다.',
   LEAVE_FAILED: 'Team 탈퇴에 실패했습니다.',
-};
+} as const;
