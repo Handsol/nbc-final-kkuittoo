@@ -1,8 +1,8 @@
 import { getServerSession } from 'next-auth';
-import { authOptions } from '../../auth/[...nextauth]/route';
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { UpdateProfile } from '@/types/profile.type';
+import { authOptions } from '@/lib/utils/auth';
 
 type RouteParams = {
   params: { id: string };
