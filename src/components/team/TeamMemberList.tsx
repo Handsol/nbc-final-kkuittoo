@@ -1,7 +1,4 @@
-import {
-  fetchTeamData,
-  fetchTeamMembers,
-} from '@/lib/services/team-actions.services';
+import { fetchTeamMembers } from '@/lib/services/team-actions.services';
 import TeamMemberCard from './TeamMemberCard';
 
 type TeamMemberListProps = {
