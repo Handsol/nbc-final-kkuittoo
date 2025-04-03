@@ -1,7 +1,7 @@
 import { prisma } from '@/lib/prisma';
+import { authOptions } from '@/lib/utils/auth';
 import { getServerSession } from 'next-auth';
-import { NextResponse } from 'next/server';
-import { authOptions } from '../auth/[...nextauth]/route';
+import { NextRequest, NextResponse } from 'next/server';
 
 /**
  * Team 전체 데이터 조회
@@ -27,7 +27,7 @@ export const GET = async () => {
  * @param request : { teamName, teamBio, emblem, maxTeamSize }
  * @returns newTeam : { 생성된 팀 데이터, 최초 추가된 팀 멤버 }
  */
-export const POST = async (request: Request) => {
+export const POST = async (request: NextRequest) => {
   // 인증된 유저인지 확인하는 로직
   const session = await getServerSession(authOptions);
   // 인증되지 않은 유저인 경우 403 (Forbidden) 에러
