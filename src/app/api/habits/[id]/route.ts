@@ -1,10 +1,14 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { UpdateHabit } from '@/types/mypage.type';
-import { getServerSession } from 'next-auth';
-import { DAYS_OF_WEEK, HABIT_VALIDATION } from '@/constants/habits.constants';
-import { ERROR_MESSAGES } from '@/constants/error-messages.constants';
-import { authOptions } from '@/lib/utils/auth';
+import { DAYS_OF_WEEK } from '@/constants/habits.constants';
+import { HTTP_STATUS } from '@/constants/http-status.constants';
+import { checkAuth } from '@/lib/utils/auth-route-handler.utils';
+import {
+  checkHabitPermission,
+  validateHabitInput,
+} from '@/lib/utils/habit-route-handler.utils';
+import { HABIT_ERROR_MESSAGES } from '@/constants/error-messages.constants';
 
 type RouteParams = {
   params: { id: string };
@@ -13,22 +17,16 @@ type RouteParams = {
 /**
  *
  * 클릭한 Habit의 정보를 조회
- * @param {Request} request - Habit 정보 요청
+ * @param {NextRequest} request - Habit 정보 요청
  * @returns {Promise<NextResponse>} - 조회된 Habit 또는 에러
  * @throws {Error} 데이터베이스 조회 실패했을 때
  * @description
  * - 인증된 사용자가 자신의 Habit 조회
  * - `userPoints` 포함
  */
-export const GET = async (request: Request, { params }: RouteParams) => {
-  const session = await getServerSession(authOptions);
-
-  if (!session || !session.user) {
-    return NextResponse.json(
-      { error: ERROR_MESSAGES.AUTH_REQUIRED },
-      { status: 403 },
-    );
-  }
+export const GET = async (request: NextRequest, { params }: RouteParams) => {
+  const { session, response } = await checkAuth();
+  if (response) return response;
 
   try {
     const { id } = params;
@@ -37,47 +35,31 @@ export const GET = async (request: Request, { params }: RouteParams) => {
       include: { userPoints: true },
     });
 
-    if (!habit) {
-      return NextResponse.json(
-        { error: ERROR_MESSAGES.HABIT_NOT_FOUND },
-        { status: 404 },
-      );
-    }
-    if (habit.userId !== session.user.id) {
-      return NextResponse.json(
-        { error: ERROR_MESSAGES.NO_PERMISSION },
-        { status: 403 },
-      );
-    }
+    const permissionError = checkHabitPermission(habit, session.user.id);
+    if (permissionError) return permissionError;
 
     return NextResponse.json(habit);
   } catch (error) {
     console.error('Habit 조회 에러:', error);
     return NextResponse.json(
-      { error: ERROR_MESSAGES.FETCH_FAILED },
-      { status: 500 },
+      { error: HABIT_ERROR_MESSAGES.FETCH_FAILED },
+      { status: HTTP_STATUS.INTERNAL_SERVER_ERROR },
     );
   }
 };
 
 /**
  * Habit 수정
- * @param {Request} request - Habit 수정 요청
+ * @param {NextRequest} request - Habit 수정 요청
  * @returns {Promise<NextResponse>} - 수정된 Habit 또는 에러
  * @throws {Error} 데이터베이스 업데이트 실패했을 때
  * @description
  * - 인증된 사용자가 자신의 Habit 수정
  * - 유효성 검사를 통해 데이터 형식과 길이를 확인
  */
-export const PATCH = async (request: Request, { params }: RouteParams) => {
-  const session = await getServerSession(authOptions);
-
-  if (!session || !session.user) {
-    return NextResponse.json(
-      { error: ERROR_MESSAGES.AUTH_REQUIRED },
-      { status: 403 },
-    );
-  }
+export const PATCH = async (request: NextRequest, { params }: RouteParams) => {
+  const { session, response } = await checkAuth();
+  if (response) return response;
 
   try {
     const { id } = params;
@@ -85,46 +67,13 @@ export const PATCH = async (request: Request, { params }: RouteParams) => {
     const { title, notes, categories, ...days } = body;
 
     const habit = await prisma.habit.findUnique({ where: { id } });
-    if (!habit) {
-      return NextResponse.json(
-        { error: ERROR_MESSAGES.HABIT_NOT_FOUND },
-        { status: 404 },
-      );
-    }
-    if (habit.userId !== session.user.id) {
-      return NextResponse.json(
-        { error: ERROR_MESSAGES.NO_PERMISSION },
-        { status: 403 },
-      );
-    }
+    const permissionError = checkHabitPermission(habit, session.user.id);
+    if (permissionError) return permissionError;
 
     // 유효성 검사
-    if (
-      title &&
-      (title.trim().length < HABIT_VALIDATION.TITLE.MIN_LENGTH ||
-        title.trim().length > HABIT_VALIDATION.TITLE.MAX_LENGTH)
-    ) {
-      return NextResponse.json(
-        { error: ERROR_MESSAGES.TITLE_LENGTH },
-        { status: 400 },
-      );
-    }
-    if (
-      notes &&
-      (notes.length < HABIT_VALIDATION.NOTES.MIN_LENGTH ||
-        notes.length > HABIT_VALIDATION.NOTES.MAX_LENGTH)
-    ) {
-      return NextResponse.json(
-        { error: ERROR_MESSAGES.NOTES_LENGTH },
-        { status: 400 },
-      );
-    }
-    if (categories !== undefined && categories.trim() === '') {
-      return NextResponse.json(
-        { error: ERROR_MESSAGES.CATEGORY_REQUIRED },
-        { status: 400 },
-      );
-    }
+    const validationError = validateHabitInput(body);
+    if (validationError) return validationError;
+
     const dayUpdates: Record<string, boolean> = {};
     for (const day of DAYS_OF_WEEK) {
       if (days[day] !== undefined) {
@@ -146,57 +95,40 @@ export const PATCH = async (request: Request, { params }: RouteParams) => {
   } catch (error) {
     console.error('Habit 수정 에러:', error);
     return NextResponse.json(
-      { error: ERROR_MESSAGES.UPDATE_FAILED },
-      { status: 500 },
+      { error: HABIT_ERROR_MESSAGES.UPDATE_FAILED },
+      { status: HTTP_STATUS.INTERNAL_SERVER_ERROR },
     );
   }
 };
 
 /**
  * Habit 삭제
- * @param {Request} request - Habit 삭제 요청
+ * @param {NextRequest} request - Habit 삭제 요청
  * @returns {Promise<NextResponse>} - Habit 삭제 또는 에러
  * @throws {Error} 데이터베이스 삭제 실패했을 때
  * @description
  * - 인증된 사용자가 자신의 Habit만 삭제
  */
-export const DELETE = async (request: Request, { params }: RouteParams) => {
-  const session = await getServerSession(authOptions);
-
-  if (!session || !session.user) {
-    return NextResponse.json(
-      { error: ERROR_MESSAGES.AUTH_REQUIRED },
-      { status: 403 },
-    );
-  }
+export const DELETE = async (request: NextRequest, { params }: RouteParams) => {
+  const { session, response } = await checkAuth();
+  if (response) return response;
 
   try {
     const { id } = params;
     const habit = await prisma.habit.findUnique({ where: { id } });
-
-    if (!habit) {
-      return NextResponse.json(
-        { error: ERROR_MESSAGES.HABIT_NOT_FOUND },
-        { status: 404 },
-      );
-    }
-    if (habit.userId !== session.user.id) {
-      return NextResponse.json(
-        { error: ERROR_MESSAGES.NO_PERMISSION },
-        { status: 403 },
-      );
-    }
+    const permissionError = checkHabitPermission(habit, session.user.id);
+    if (permissionError) return permissionError;
 
     await prisma.habit.delete({ where: { id } });
     return NextResponse.json(
       { message: 'Habit이 삭제되었습니다.' },
-      { status: 200 },
+      { status: HTTP_STATUS.SUCCESS },
     );
   } catch (error) {
     console.error('Habit 삭제 에러:', error);
     return NextResponse.json(
-      { error: ERROR_MESSAGES.DELETE_FAILED },
-      { status: 500 },
+      { error: HABIT_ERROR_MESSAGES.DELETE_FAILED },
+      { status: HTTP_STATUS.INTERNAL_SERVER_ERROR },
     );
   }
 };
