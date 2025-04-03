@@ -1,8 +1,8 @@
-'use server';
+// 'use server';
 
-import { prisma } from '@/lib/prisma';
+// import { prisma } from '@/lib/prisma';
 
-export const sampleServerAction = async () => {
-  const res = await prisma.user.findMany();
-  return res;
-};
+// export const sampleServerAction = async () => {
+//   const res = await prisma.user.findMany();
+//   return res;
+// };

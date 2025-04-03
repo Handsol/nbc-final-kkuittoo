@@ -1,3 +1,3 @@
-const SAMPLE_QUERY_KEYS = {
-  SAMPLE: 'sample',
-};
+// const SAMPLE_QUERY_KEYS = {
+//   SAMPLE: 'sample',
+// };
