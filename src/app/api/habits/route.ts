@@ -3,10 +3,12 @@ import { prisma } from '@/lib/prisma';
 import { getServerSession } from 'next-auth';
 import { CreateHabit } from '@/types/mypage.type';
 import { authOptions } from '../auth/[...nextauth]/route';
+import { DAYS_OF_WEEK, HABIT_VALIDATION } from '@/constants/habits.constants';
+import { ERROR_MESSAGES } from '@/constants/error-messages.constants';
 
 /**
  * 사용자의 모든 Habit 목록을 조회
- * @param {Request} - GET 요청
+ * @param {Request} request - Habit 목록 요청
  * @returns {Promise<NextResponse>} - 조회된 Habit 목록 또는 에러
  * @throws {Error} 데이터베이스 조회 실패했을 때
  * @description
@@ -17,7 +19,10 @@ export const GET = async () => {
   const session = await getServerSession(authOptions);
 
   if (!session || !session.user) {
-    return NextResponse.json({ error: '인증이 필요합니다.' }, { status: 403 });
+    return NextResponse.json(
+      { error: ERROR_MESSAGES.AUTH_REQUIRED },
+      { status: 403 },
+    );
   }
 
   try {
@@ -31,7 +36,7 @@ export const GET = async () => {
   } catch (error) {
     console.error('Habit 조회 에러:', error);
     return NextResponse.json(
-      { error: 'Habit 목록을 가져오는데 실패했습니다.' },
+      { error: ERROR_MESSAGES.FETCH_FAILED },
       { status: 500 },
     );
   }
@@ -39,7 +44,7 @@ export const GET = async () => {
 
 /**
  * 새로운 Habit 생성
- * @param {Request} - POST 요청
+ * @param {Request} request - 새로운 Habit 생성 요청
  * @returns {Promise<NextResponse>} - 생성된 Habit 또는 에러
  * @throws {Error} 데이터베이스 생성 실패했을 때
  * @description
@@ -50,33 +55,48 @@ export const POST = async (request: Request) => {
   const session = await getServerSession(authOptions);
 
   if (!session || !session.user) {
-    return NextResponse.json({ error: '인증이 필요합니다.' }, { status: 403 });
+    return NextResponse.json(
+      { error: ERROR_MESSAGES.AUTH_REQUIRED },
+      { status: 403 },
+    );
   }
 
   try {
     const body = (await request.json()) as CreateHabit;
     console.log('Request Body:', body);
-    const { title, notes, categories, mon, tue, wed, thu, fri, sat, sun } =
-      body;
+    const { title, notes, categories, ...days } = body;
 
     // 유효성 검사
-    if (!title || title.trim().length < 1 || title.trim().length > 15) {
+    if (
+      !title ||
+      title.trim().length < HABIT_VALIDATION.TITLE.MIN_LENGTH ||
+      title.trim().length > HABIT_VALIDATION.TITLE.MAX_LENGTH
+    ) {
       return NextResponse.json(
-        { error: '제목은 1~15자여야 하며, 앞뒤 공백을 허용하지 않습니다.' },
+        { error: ERROR_MESSAGES.TITLE_LENGTH },
         { status: 400 },
       );
     }
-    if (notes && (notes.length < 1 || notes.length > 50)) {
+    if (
+      notes &&
+      (notes.length < HABIT_VALIDATION.NOTES.MIN_LENGTH ||
+        notes.length > HABIT_VALIDATION.NOTES.MAX_LENGTH)
+    ) {
       return NextResponse.json(
-        { error: '메모는 1~50자여야 합니다.' },
+        { error: ERROR_MESSAGES.NOTES_LENGTH },
         { status: 400 },
       );
     }
     if (!categories || categories.trim() === '') {
       return NextResponse.json(
-        { error: '카테고리는 1개 이상 선택해야 합니다.' },
+        { error: ERROR_MESSAGES.CATEGORY_REQUIRED },
         { status: 400 },
       );
+    }
+
+    const dayData: Record<string, boolean> = {};
+    for (const day of DAYS_OF_WEEK) {
+      dayData[day] = days[day] ?? false;
     }
 
     const habit = await prisma.habit.create({
@@ -84,13 +104,7 @@ export const POST = async (request: Request) => {
         title: title.trim(),
         notes,
         categories,
-        mon: mon ?? false,
-        tue: tue ?? false,
-        wed: wed ?? false,
-        thu: thu ?? false,
-        fri: fri ?? false,
-        sat: sat ?? false,
-        sun: sun ?? false,
+        ...dayData,
         userId: session.user.id,
       },
     });
@@ -99,7 +113,7 @@ export const POST = async (request: Request) => {
   } catch (error) {
     console.error('Habit 생성 에러:', error);
     return NextResponse.json(
-      { error: 'Habit 생성에 실패했습니다.' },
+      { error: ERROR_MESSAGES.CREATE_FAILED },
       { status: 500 },
     );
   }
