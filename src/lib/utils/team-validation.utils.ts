@@ -59,11 +59,17 @@ export const checkCreateTeamValidation = (
  * 팀 수정시 유효성 검사 로직
  *
  * @param body Pick<TeamData, 'teamBio'>
+ * @param ownerId string
+ * @param userId string
  * @returns null | NextResponse
  * @description
  * 1. teamBio : 5~20자 외, 빈칸시 error
  */
-export const checkUpdateTeamValidation = (body: Pick<TeamData, 'teamBio'>) => {
+export const checkUpdateTeamValidation = (
+  body: Pick<TeamData, 'teamBio'>,
+  ownerId: string,
+  userId: string,
+) => {
   const { teamBio } = body;
 
   //팀 소개 유효성 검사 : 5~20자, 빈칸X
@@ -75,6 +81,14 @@ export const checkUpdateTeamValidation = (body: Pick<TeamData, 'teamBio'>) => {
     return NextResponse.json(
       { error: TEAMS_MESSAGES.TEAM_BIO_NOT_ALLOW },
       { status: HTTP_STATUS.BAD_REQUEST },
+    );
+  }
+
+  // 팀 생성자인지 확인 후, 아닌 경우 403 (Forbidden) 에러
+  if (ownerId !== userId) {
+    return NextResponse.json(
+      { error: TEAMS_MESSAGES.OWNER_ONLY },
+      { status: HTTP_STATUS.FORBIDDEN },
     );
   }
 
