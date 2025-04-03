@@ -1,4 +1,4 @@
-type TeamData = {
+export type TeamData = {
   id: string;
   teamName: string;
   teamBio: string;
