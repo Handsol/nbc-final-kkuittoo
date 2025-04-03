@@ -1,4 +1,4 @@
-export const ERROR_MESSAGES = {
+export const HABIT_ERROR_MESSAGES = {
   AUTH_REQUIRED: '인증이 필요합니다.',
   HABIT_NOT_FOUND: 'Habit을 찾을 수 없습니다.',
   NO_PERMISSION: '이 Habit에 접근할 권한이 없습니다.',
