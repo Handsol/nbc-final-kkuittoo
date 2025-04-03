@@ -1,7 +1,7 @@
 import { prisma } from '@/lib/prisma';
+import { authOptions } from '@/lib/utils/auth';
 import { getServerSession } from 'next-auth';
-import { NextResponse } from 'next/server';
-import { authOptions } from '../../auth/[...nextauth]/route';
+import { NextRequest, NextResponse } from 'next/server';
 
 type RouteParams = {
   params: {
@@ -47,7 +47,7 @@ export const GET = async ({ params }: RouteParams) => {
  * @param request : { teamBio, isOpened }
  * @param param : teamId
  */
-export const PATCH = async (request: Request, { params }: RouteParams) => {
+export const PATCH = async (request: NextRequest, { params }: RouteParams) => {
   const session = await getServerSession(authOptions);
   // 인증되지 않은 유저인 경우 403 (Forbidden) 에러
   if (!session || !session.user) {
@@ -109,7 +109,7 @@ export const PATCH = async (request: Request, { params }: RouteParams) => {
  * @param param : teamId
  * @returns
  */
-export const DELETE = async ({ params }: RouteParams) => {
+export const DELETE = async (request: NextRequest, { params }: RouteParams) => {
   const session = await getServerSession(authOptions);
   // 인증되지 않은 유저인 경우 403 (Forbidden) 에러
   if (!session || !session.user) {
