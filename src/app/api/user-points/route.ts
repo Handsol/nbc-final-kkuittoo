@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { CreateUserPoint } from '@/types/mypage.type';
 import { getServerSession } from 'next-auth';
@@ -8,23 +8,24 @@ import {
 } from '@/constants/habits.constants';
 import { ERROR_MESSAGES } from '@/constants/error-messages.constants';
 import { authOptions } from '@/lib/utils/auth';
+import { HTTP_STATUS } from '@/constants/http-status.constants';
 
 /**
  * 사용자가 Habit의 '+'버튼을 눌렀을 때 포인트 추가
- * @param {Request} request - 포인트 추가 요청
+ * @param {NextRequest} request - 포인트 추가 요청
  * @returns {Promise<NextResponse>} - 생성된 UserPoint 또는 에러
  * @throws {Error} 데이터베이스 생성 실패했을 때
  * @description
  * - 인증된 사용자가 자신의 Habit에 포인트 추가
  * - 요일 및 1시간 제한 조건 확인 후 포인트 추가(1점-임시)
  */
-export const POST = async (request: Request) => {
+export const POST = async (request: NextRequest) => {
   const session = await getServerSession(authOptions);
 
   if (!session || !session.user) {
     return NextResponse.json(
       { error: ERROR_MESSAGES.AUTH_REQUIRED },
-      { status: 403 },
+      { status: HTTP_STATUS.FORBIDDEN },
     );
   }
 
@@ -40,13 +41,13 @@ export const POST = async (request: Request) => {
     if (!habit) {
       return NextResponse.json(
         { error: ERROR_MESSAGES.HABIT_NOT_FOUND },
-        { status: 404 },
+        { status: HTTP_STATUS.NOT_FOUND },
       );
     }
     if (habit.userId !== session.user.id) {
       return NextResponse.json(
         { error: ERROR_MESSAGES.NO_PERMISSION },
-        { status: 403 },
+        { status: HTTP_STATUS.FORBIDDEN },
       );
     }
 
@@ -65,7 +66,7 @@ export const POST = async (request: Request) => {
     if (!days[dayOfWeek]) {
       return NextResponse.json(
         { error: ERROR_MESSAGES.INVALID_DAY },
-        { status: 400 },
+        { status: HTTP_STATUS.BAD_REQUEST },
       );
     }
 
@@ -82,7 +83,7 @@ export const POST = async (request: Request) => {
       if (now < oneHourLater) {
         return NextResponse.json(
           { error: ERROR_MESSAGES.COOLDOWN_ACTIVE },
-          { status: 400 },
+          { status: HTTP_STATUS.BAD_REQUEST },
         );
       }
     }
@@ -97,12 +98,12 @@ export const POST = async (request: Request) => {
       },
     });
 
-    return NextResponse.json(userPoint, { status: 201 });
+    return NextResponse.json(userPoint, { status: HTTP_STATUS.CREATED });
   } catch (error) {
     console.error('UserPoint 생성 에러:', error);
     return NextResponse.json(
       { error: ERROR_MESSAGES.POINT_ADD_FAILED },
-      { status: 500 },
+      { status: HTTP_STATUS.INTERNAL_SERVER_ERROR },
     );
   }
 };

@@ -1,10 +1,11 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { UpdateHabit } from '@/types/mypage.type';
 import { getServerSession } from 'next-auth';
 import { DAYS_OF_WEEK, HABIT_VALIDATION } from '@/constants/habits.constants';
 import { ERROR_MESSAGES } from '@/constants/error-messages.constants';
 import { authOptions } from '@/lib/utils/auth';
+import { HTTP_STATUS } from '@/constants/http-status.constants';
 
 type RouteParams = {
   params: { id: string };
@@ -13,20 +14,20 @@ type RouteParams = {
 /**
  *
  * 클릭한 Habit의 정보를 조회
- * @param {Request} request - Habit 정보 요청
+ * @param {NextRequest} request - Habit 정보 요청
  * @returns {Promise<NextResponse>} - 조회된 Habit 또는 에러
  * @throws {Error} 데이터베이스 조회 실패했을 때
  * @description
  * - 인증된 사용자가 자신의 Habit 조회
  * - `userPoints` 포함
  */
-export const GET = async (request: Request, { params }: RouteParams) => {
+export const GET = async (request: NextRequest, { params }: RouteParams) => {
   const session = await getServerSession(authOptions);
 
   if (!session || !session.user) {
     return NextResponse.json(
       { error: ERROR_MESSAGES.AUTH_REQUIRED },
-      { status: 403 },
+      { status: HTTP_STATUS.FORBIDDEN },
     );
   }
 
@@ -40,13 +41,13 @@ export const GET = async (request: Request, { params }: RouteParams) => {
     if (!habit) {
       return NextResponse.json(
         { error: ERROR_MESSAGES.HABIT_NOT_FOUND },
-        { status: 404 },
+        { status: HTTP_STATUS.NOT_FOUND },
       );
     }
     if (habit.userId !== session.user.id) {
       return NextResponse.json(
         { error: ERROR_MESSAGES.NO_PERMISSION },
-        { status: 403 },
+        { status: HTTP_STATUS.FORBIDDEN },
       );
     }
 
@@ -55,27 +56,27 @@ export const GET = async (request: Request, { params }: RouteParams) => {
     console.error('Habit 조회 에러:', error);
     return NextResponse.json(
       { error: ERROR_MESSAGES.FETCH_FAILED },
-      { status: 500 },
+      { status: HTTP_STATUS.INTERNAL_SERVER_ERROR },
     );
   }
 };
 
 /**
  * Habit 수정
- * @param {Request} request - Habit 수정 요청
+ * @param {NextRequest} request - Habit 수정 요청
  * @returns {Promise<NextResponse>} - 수정된 Habit 또는 에러
  * @throws {Error} 데이터베이스 업데이트 실패했을 때
  * @description
  * - 인증된 사용자가 자신의 Habit 수정
  * - 유효성 검사를 통해 데이터 형식과 길이를 확인
  */
-export const PATCH = async (request: Request, { params }: RouteParams) => {
+export const PATCH = async (request: NextRequest, { params }: RouteParams) => {
   const session = await getServerSession(authOptions);
 
   if (!session || !session.user) {
     return NextResponse.json(
       { error: ERROR_MESSAGES.AUTH_REQUIRED },
-      { status: 403 },
+      { status: HTTP_STATUS.FORBIDDEN },
     );
   }
 
@@ -88,13 +89,13 @@ export const PATCH = async (request: Request, { params }: RouteParams) => {
     if (!habit) {
       return NextResponse.json(
         { error: ERROR_MESSAGES.HABIT_NOT_FOUND },
-        { status: 404 },
+        { status: HTTP_STATUS.NOT_FOUND },
       );
     }
     if (habit.userId !== session.user.id) {
       return NextResponse.json(
         { error: ERROR_MESSAGES.NO_PERMISSION },
-        { status: 403 },
+        { status: HTTP_STATUS.FORBIDDEN },
       );
     }
 
@@ -106,7 +107,7 @@ export const PATCH = async (request: Request, { params }: RouteParams) => {
     ) {
       return NextResponse.json(
         { error: ERROR_MESSAGES.TITLE_LENGTH },
-        { status: 400 },
+        { status: HTTP_STATUS.BAD_REQUEST },
       );
     }
     if (
@@ -116,13 +117,13 @@ export const PATCH = async (request: Request, { params }: RouteParams) => {
     ) {
       return NextResponse.json(
         { error: ERROR_MESSAGES.NOTES_LENGTH },
-        { status: 400 },
+        { status: HTTP_STATUS.BAD_REQUEST },
       );
     }
     if (categories !== undefined && categories.trim() === '') {
       return NextResponse.json(
         { error: ERROR_MESSAGES.CATEGORY_REQUIRED },
-        { status: 400 },
+        { status: HTTP_STATUS.BAD_REQUEST },
       );
     }
     const dayUpdates: Record<string, boolean> = {};
@@ -147,26 +148,26 @@ export const PATCH = async (request: Request, { params }: RouteParams) => {
     console.error('Habit 수정 에러:', error);
     return NextResponse.json(
       { error: ERROR_MESSAGES.UPDATE_FAILED },
-      { status: 500 },
+      { status: HTTP_STATUS.INTERNAL_SERVER_ERROR },
     );
   }
 };
 
 /**
  * Habit 삭제
- * @param {Request} request - Habit 삭제 요청
+ * @param {NextRequest} request - Habit 삭제 요청
  * @returns {Promise<NextResponse>} - Habit 삭제 또는 에러
  * @throws {Error} 데이터베이스 삭제 실패했을 때
  * @description
  * - 인증된 사용자가 자신의 Habit만 삭제
  */
-export const DELETE = async (request: Request, { params }: RouteParams) => {
+export const DELETE = async (request: NextRequest, { params }: RouteParams) => {
   const session = await getServerSession(authOptions);
 
   if (!session || !session.user) {
     return NextResponse.json(
       { error: ERROR_MESSAGES.AUTH_REQUIRED },
-      { status: 403 },
+      { status: HTTP_STATUS.FORBIDDEN },
     );
   }
 
@@ -177,26 +178,26 @@ export const DELETE = async (request: Request, { params }: RouteParams) => {
     if (!habit) {
       return NextResponse.json(
         { error: ERROR_MESSAGES.HABIT_NOT_FOUND },
-        { status: 404 },
+        { status: HTTP_STATUS.NOT_FOUND },
       );
     }
     if (habit.userId !== session.user.id) {
       return NextResponse.json(
         { error: ERROR_MESSAGES.NO_PERMISSION },
-        { status: 403 },
+        { status: HTTP_STATUS.FORBIDDEN },
       );
     }
 
     await prisma.habit.delete({ where: { id } });
     return NextResponse.json(
       { message: 'Habit이 삭제되었습니다.' },
-      { status: 200 },
+      { status: HTTP_STATUS.SUCCESS },
     );
   } catch (error) {
     console.error('Habit 삭제 에러:', error);
     return NextResponse.json(
       { error: ERROR_MESSAGES.DELETE_FAILED },
-      { status: 500 },
+      { status: HTTP_STATUS.INTERNAL_SERVER_ERROR },
     );
   }
 };

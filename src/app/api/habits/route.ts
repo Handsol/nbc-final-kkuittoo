@@ -1,14 +1,15 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getServerSession } from 'next-auth';
 import { CreateHabit } from '@/types/mypage.type';
 import { DAYS_OF_WEEK, HABIT_VALIDATION } from '@/constants/habits.constants';
 import { ERROR_MESSAGES } from '@/constants/error-messages.constants';
 import { authOptions } from '@/lib/utils/auth';
+import { HTTP_STATUS } from '@/constants/http-status.constants';
 
 /**
  * 사용자의 모든 Habit 목록을 조회
- * @param {Request} request - Habit 목록 요청
+ * @param {NextRequest} request - Habit 목록 요청
  * @returns {Promise<NextResponse>} - 조회된 Habit 목록 또는 에러
  * @throws {Error} 데이터베이스 조회 실패했을 때
  * @description
@@ -21,7 +22,7 @@ export const GET = async () => {
   if (!session || !session.user) {
     return NextResponse.json(
       { error: ERROR_MESSAGES.AUTH_REQUIRED },
-      { status: 403 },
+      { status: HTTP_STATUS.FORBIDDEN },
     );
   }
 
@@ -37,27 +38,27 @@ export const GET = async () => {
     console.error('Habit 조회 에러:', error);
     return NextResponse.json(
       { error: ERROR_MESSAGES.FETCH_FAILED },
-      { status: 500 },
+      { status: HTTP_STATUS.INTERNAL_SERVER_ERROR },
     );
   }
 };
 
 /**
  * 새로운 Habit 생성
- * @param {Request} request - 새로운 Habit 생성 요청
+ * @param {NextRequest} request - 새로운 Habit 생성 요청
  * @returns {Promise<NextResponse>} - 생성된 Habit 또는 에러
  * @throws {Error} 데이터베이스 생성 실패했을 때
  * @description
  * - 인증된 사용자가 새로운 Habit 생성
  * - 유효성 검사를 통해 데이터 형식과 길이를 확인
  */
-export const POST = async (request: Request) => {
+export const POST = async (request: NextRequest) => {
   const session = await getServerSession(authOptions);
 
   if (!session || !session.user) {
     return NextResponse.json(
       { error: ERROR_MESSAGES.AUTH_REQUIRED },
-      { status: 403 },
+      { status: HTTP_STATUS.FORBIDDEN },
     );
   }
 
@@ -74,7 +75,7 @@ export const POST = async (request: Request) => {
     ) {
       return NextResponse.json(
         { error: ERROR_MESSAGES.TITLE_LENGTH },
-        { status: 400 },
+        { status: HTTP_STATUS.NOT_FOUND },
       );
     }
     if (
@@ -84,13 +85,13 @@ export const POST = async (request: Request) => {
     ) {
       return NextResponse.json(
         { error: ERROR_MESSAGES.NOTES_LENGTH },
-        { status: 400 },
+        { status: HTTP_STATUS.NOT_FOUND },
       );
     }
     if (!categories || categories.trim() === '') {
       return NextResponse.json(
         { error: ERROR_MESSAGES.CATEGORY_REQUIRED },
-        { status: 400 },
+        { status: HTTP_STATUS.NOT_FOUND },
       );
     }
 
@@ -109,12 +110,12 @@ export const POST = async (request: Request) => {
       },
     });
 
-    return NextResponse.json(habit, { status: 201 });
+    return NextResponse.json(habit, { status: HTTP_STATUS.CREATED });
   } catch (error) {
     console.error('Habit 생성 에러:', error);
     return NextResponse.json(
       { error: ERROR_MESSAGES.CREATE_FAILED },
-      { status: 500 },
+      { status: HTTP_STATUS.INTERNAL_SERVER_ERROR },
     );
   }
 };
