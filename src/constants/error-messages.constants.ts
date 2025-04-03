@@ -1,3 +1,7 @@
+export const COMMON_ERROR_MESSAGES = {
+  UNAUTHORIZED: '인증이 필요합니다.',
+} as const;
+
 export const HABIT_ERROR_MESSAGES = {
   AUTH_REQUIRED: '인증이 필요합니다.',
   HABIT_NOT_FOUND: 'Habit을 찾을 수 없습니다.',
@@ -12,10 +16,6 @@ export const HABIT_ERROR_MESSAGES = {
   DELETE_FAILED: 'Habit 삭제에 실패했습니다.',
   FETCH_FAILED: 'Habit을 가져오는데 실패했습니다.',
   POINT_ADD_FAILED: '포인트 추가에 실패했습니다.',
-} as const;
-
-export const COMMON_ERROR_MESSAGES = {
-  UNAUTHORIZED: '인증이 필요합니다.',
 } as const;
 
 export const TEAMS_MESSAGES = {
@@ -40,4 +40,13 @@ export const TEAMS_MESSAGES = {
   UPDATE_FAILED: 'Team 데이터 수정에 실패했습니다.',
   DELETE_FAILED: 'Team 데이터 삭제에 실패했습니다.',
   LEAVE_FAILED: 'Team 탈퇴에 실패했습니다.',
+} as const;
+
+export const USER_ERROR_MESSAGES = {
+  USER_NOT_FOUND: 'User 정보가 존재하지 않습니다.', // 404
+  INVALID_USER: '자신의 정보만 조회할 수 있습니다.', // 403
+  FETCH_FAILED: 'User 정보를 가져오는데 실패했습니다.', // 500
+  NAME_LENGTH: '닉네임은 2~10자여야 하며, 앞뒤 공백을 허용하지 않습니다.',
+  BIO_LENGTH: '자기소개는 1~20자여야 하며, 앞뒤 공백을 허용하지 않습니다.',
+  UPDATE_FAILED: 'Profile 수정에 실패했습니다.',
 } as const;
