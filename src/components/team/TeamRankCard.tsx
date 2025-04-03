@@ -1,4 +1,4 @@
-import { TeamData } from '@/types/teams';
+import { TeamData } from '@/types/teams.type';
 
 // 한 팀의 정보를 카드 형태로 보여주는 컴포넌트임당
 export const TeamCard = ({ team }: { team: TeamData }) => {

@@ -1,11 +1,11 @@
-import SampleClientComponent from '../components/SampleClientComponent';
+// import SampleClientComponent from '../components/SampleClientComponent';
 
-const ClientSamplePage = () => {
-  return (
-    <>
-      <SampleClientComponent />
-    </>
-  );
-};
+// const ClientSamplePage = () => {
+//   return (
+//     <>
+//       <SampleClientComponent />
+//     </>
+//   );
+// };
 
-export default ClientSamplePage;
+// export default ClientSamplePage;
