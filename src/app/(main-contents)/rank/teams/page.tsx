@@ -1,4 +1,4 @@
-import { TeamRankContent } from './TeamRankContent';
+import { TeamRankContent } from './team-rank-content';
 
 // ISR
 export const revalidate = 60; // 추후 시간 설정 필요
