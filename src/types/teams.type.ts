@@ -1,4 +1,4 @@
-type TeamData = {
+export type TeamData = {
   id: string;
   teamName: string;
   teamBio: string;
@@ -9,17 +9,34 @@ type TeamData = {
   ownerId: string;
 };
 
-type TeamMemberData = {
+export type TeamMemberData = {
   id: string;
   userId: string;
   teamId: string;
   joinDate: Date;
 };
 
-type TeamInput = {
+export type MemberDetailData = {
+  name: string | null;
+  bio: string | null;
+  email: string;
+  userPoints: {
+    points: number;
+    getTime: Date;
+  }[];
+};
+
+export type TeamInput = {
   teamName: string;
   teamBio: string;
   emblem: string;
   maxTeamSize: number;
   ownerId: string;
+};
+
+export type TeamQuest = {
+  id: number;
+  questName: string;
+  questImage: string;
+  requiredPoints: number;
 };
