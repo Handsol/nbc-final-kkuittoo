@@ -1,5 +1,4 @@
 type TeamMemberCardProps = {
-  id: string;
   joinDate: Date;
   member: {
     id: string;
