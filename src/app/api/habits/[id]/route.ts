@@ -2,9 +2,9 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { UpdateHabit } from '@/types/mypage.type';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '../../auth/[...nextauth]/route';
 import { DAYS_OF_WEEK, HABIT_VALIDATION } from '@/constants/habits.constants';
 import { ERROR_MESSAGES } from '@/constants/error-messages.constants';
+import { authOptions } from '@/lib/utils/auth';
 
 type RouteParams = {
   params: { id: string };
