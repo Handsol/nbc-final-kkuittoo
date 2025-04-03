@@ -1,5 +1,11 @@
+import {
+  COMMON_ERROR_MESSAGES,
+  TEAMS_MESSAGES,
+} from '@/constants/error-messages.constants';
+import { HTTP_STATUS } from '@/constants/http-status.constants';
 import { prisma } from '@/lib/prisma';
 import { authOptions } from '@/lib/utils/auth';
+import { checkCreateTeamValidation } from '@/lib/utils/team-validation.utils';
 import { getServerSession } from 'next-auth';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -15,8 +21,8 @@ export const GET = async () => {
     return NextResponse.json(teamList);
   } catch (error) {
     return NextResponse.json(
-      { error: 'team 목록을 가져오는데 실패했습니다.' },
-      { status: 500 },
+      { error: TEAMS_MESSAGES.FETCH_FAILED },
+      { status: HTTP_STATUS.SERVER_ERROR },
     );
   }
 };
@@ -24,7 +30,7 @@ export const GET = async () => {
 /**
  * 새로운 Team 데이터 생성
 
- * @param request : { teamName, teamBio, emblem, maxTeamSize }
+ * @param request : { teamName, teamBio, emblem, maxTeamSize, isOpened }
  * @returns newTeam : { 생성된 팀 데이터, 최초 추가된 팀 멤버 }
  */
 export const POST = async (request: NextRequest) => {
@@ -32,27 +38,26 @@ export const POST = async (request: NextRequest) => {
   const session = await getServerSession(authOptions);
   // 인증되지 않은 유저인 경우 403 (Forbidden) 에러
   if (!session || !session.user) {
-    return NextResponse.json({ error: '인증이 필요합니다.' }, { status: 403 });
+    return NextResponse.json(
+      { error: COMMON_ERROR_MESSAGES.UNAUTHORIZED },
+      { status: HTTP_STATUS.FORBIDDEN },
+    );
   }
 
   try {
-    const { teamName, teamBio, emblem, maxTeamSize } = await request.json();
+    const requestBody = await request.json();
 
-    // 정보 누락시 400 (Bad Request) 에러
-    if (!teamName || !teamBio || !emblem || !maxTeamSize) {
-      return NextResponse.json(
-        { error: '팀이름, 팀소개, 엠블럼, 최대인원수는 필수입니다.' },
-        { status: 400 },
-      );
-    }
+    // 유효성 검사
+    const teamValidation = checkCreateTeamValidation(requestBody);
+    if (teamValidation) return teamValidation;
 
     const newTeam = await prisma.$transaction(async () => {
       const createdTeam = await prisma.team.create({
         data: {
-          teamName,
-          teamBio,
-          emblem,
-          maxTeamSize,
+          teamName: requestBody.teamName,
+          teamBio: requestBody.teamBio,
+          emblem: requestBody.emblem,
+          maxTeamSize: requestBody.maxTeamSize,
           ownerId: session.user.id,
         },
       });
@@ -70,13 +75,13 @@ export const POST = async (request: NextRequest) => {
 
     // 성공시 201 (Created) 응답
     return NextResponse.json(
-      { message: '팀 생성 완료', newTeam: newTeam },
-      { status: 201 },
+      { message: TEAMS_MESSAGES.CREATE_SUCCESS, newTeam: newTeam },
+      { status: HTTP_STATUS.CREATED },
     );
   } catch (error) {
     return NextResponse.json(
-      { error: 'team 목록에 새 데이터를 추가하는데 실패했습니다.' },
-      { status: 500 },
+      { error: TEAMS_MESSAGES.CREATE_FAILED },
+      { status: HTTP_STATUS.SERVER_ERROR },
     );
   }
 };
