@@ -1,8 +1,8 @@
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { getServerSession } from 'next-auth';
 import AddHabitButton from './AddHabitButton';
 import HabitList from './HabitList';
 import { fetchGetAllHabits } from '@/lib/services/habit-actions.services';
+import { authOptions } from '@/lib/utils/auth';
 
 const MyPageHabits = async () => {
   const session = await getServerSession(authOptions);

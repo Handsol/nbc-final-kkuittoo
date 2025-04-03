@@ -2,9 +2,9 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getServerSession } from 'next-auth';
 import { CreateHabit } from '@/types/mypage.type';
-import { authOptions } from '../auth/[...nextauth]/route';
 import { DAYS_OF_WEEK, HABIT_VALIDATION } from '@/constants/habits.constants';
 import { ERROR_MESSAGES } from '@/constants/error-messages.constants';
+import { authOptions } from '@/lib/utils/auth';
 
 /**
  * 사용자의 모든 Habit 목록을 조회
