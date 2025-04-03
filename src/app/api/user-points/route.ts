@@ -2,12 +2,12 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { CreateUserPoint } from '@/types/mypage.type';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '../auth/[...nextauth]/route';
 import {
   ONE_HOUR_COOLDOWN_MS,
   POINTS_TO_ADD,
 } from '@/constants/habits.constants';
 import { ERROR_MESSAGES } from '@/constants/error-messages.constants';
+import { authOptions } from '@/lib/utils/auth';
 
 /**
  * 사용자가 Habit의 '+'버튼을 눌렀을 때 포인트 추가
