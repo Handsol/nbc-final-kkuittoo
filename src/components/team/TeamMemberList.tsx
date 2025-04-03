@@ -18,7 +18,7 @@ const TeamMemberList = async ({ id }: TeamMemberListProps) => {
         {teamMemberList.map((member) => {
           const { joinDate, user } = member;
           return (
-            <TeamMemberCard id={user.id} joinDate={joinDate} member={user} />
+            <TeamMemberCard key={user.id} joinDate={joinDate} member={user} />
           );
         })}
       </ul>

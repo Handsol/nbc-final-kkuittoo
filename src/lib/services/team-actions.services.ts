@@ -90,9 +90,9 @@ export const fetchGetTeamTotalPoints = async (id: string) => {
  * @returns Promise<TeamQuest> : 현재 팀퀘스트의 데이터
  */
 export const fetchGetCurrentTeamQuest = async (teamTotalPoints: number) => {
-  const teamQuestList = await prisma.teamQuest.findMany();
+  const teamQuestList = await prisma.teamQuest.findMany({
+    orderBy: { id: 'asc' },
+  });
 
-  return teamQuestList
-    .sort((a, b) => a.id - b.id)
-    .find((quest) => quest.requiredPoints > teamTotalPoints);
+  return teamQuestList.find((quest) => quest.requiredPoints > teamTotalPoints);
 };
