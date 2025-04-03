@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { getServerSession } from 'next-auth';
 import { CreateHabit } from '@/types/mypage.type';
-import { DAYS_OF_WEEK, HABIT_VALIDATION } from '@/constants/habits.constants';
-import { ERROR_MESSAGES } from '@/constants/error-messages.constants';
-import { authOptions } from '@/lib/utils/auth';
+import { DAYS_OF_WEEK } from '@/constants/habits.constants';
 import { HTTP_STATUS } from '@/constants/http-status.constants';
+import { checkAuth } from '@/lib/utils/auth-route-handler.utils';
+import { validateHabitInput } from '@/lib/utils/habit-route-handler.utils';
+import { HABIT_ERROR_MESSAGES } from '@/constants/error-messages.constants';
 
 /**
  * 사용자의 모든 Habit 목록을 조회
@@ -17,14 +17,8 @@ import { HTTP_STATUS } from '@/constants/http-status.constants';
  * - `userPoints` 포함, 생성일 내림차순 정렬
  */
 export const GET = async () => {
-  const session = await getServerSession(authOptions);
-
-  if (!session || !session.user) {
-    return NextResponse.json(
-      { error: ERROR_MESSAGES.AUTH_REQUIRED },
-      { status: HTTP_STATUS.FORBIDDEN },
-    );
-  }
+  const { session, response } = await checkAuth();
+  if (response) return response;
 
   try {
     const habits = await prisma.habit.findMany({
@@ -37,7 +31,7 @@ export const GET = async () => {
   } catch (error) {
     console.error('Habit 조회 에러:', error);
     return NextResponse.json(
-      { error: ERROR_MESSAGES.FETCH_FAILED },
+      { error: HABIT_ERROR_MESSAGES.FETCH_FAILED },
       { status: HTTP_STATUS.INTERNAL_SERVER_ERROR },
     );
   }
@@ -53,47 +47,16 @@ export const GET = async () => {
  * - 유효성 검사를 통해 데이터 형식과 길이를 확인
  */
 export const POST = async (request: NextRequest) => {
-  const session = await getServerSession(authOptions);
-
-  if (!session || !session.user) {
-    return NextResponse.json(
-      { error: ERROR_MESSAGES.AUTH_REQUIRED },
-      { status: HTTP_STATUS.FORBIDDEN },
-    );
-  }
+  const { session, response } = await checkAuth();
+  if (response) return response;
 
   try {
     const body = (await request.json()) as CreateHabit;
-    console.log('Request Body:', body);
     const { title, notes, categories, ...days } = body;
 
     // 유효성 검사
-    if (
-      !title ||
-      title.trim().length < HABIT_VALIDATION.TITLE.MIN_LENGTH ||
-      title.trim().length > HABIT_VALIDATION.TITLE.MAX_LENGTH
-    ) {
-      return NextResponse.json(
-        { error: ERROR_MESSAGES.TITLE_LENGTH },
-        { status: HTTP_STATUS.NOT_FOUND },
-      );
-    }
-    if (
-      notes &&
-      (notes.length < HABIT_VALIDATION.NOTES.MIN_LENGTH ||
-        notes.length > HABIT_VALIDATION.NOTES.MAX_LENGTH)
-    ) {
-      return NextResponse.json(
-        { error: ERROR_MESSAGES.NOTES_LENGTH },
-        { status: HTTP_STATUS.NOT_FOUND },
-      );
-    }
-    if (!categories || categories.trim() === '') {
-      return NextResponse.json(
-        { error: ERROR_MESSAGES.CATEGORY_REQUIRED },
-        { status: HTTP_STATUS.NOT_FOUND },
-      );
-    }
+    const validationError = validateHabitInput(body);
+    if (validationError) return validationError;
 
     const dayData: Record<string, boolean> = {};
     for (const day of DAYS_OF_WEEK) {
@@ -114,7 +77,7 @@ export const POST = async (request: NextRequest) => {
   } catch (error) {
     console.error('Habit 생성 에러:', error);
     return NextResponse.json(
-      { error: ERROR_MESSAGES.CREATE_FAILED },
+      { error: HABIT_ERROR_MESSAGES.CREATE_FAILED },
       { status: HTTP_STATUS.INTERNAL_SERVER_ERROR },
     );
   }
