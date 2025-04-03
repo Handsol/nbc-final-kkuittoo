@@ -7,7 +7,7 @@ import { checkAuth } from '@/lib/utils/auth-route-handler.utils';
 import {
   checkCooldown,
   checkHabitPermission,
-} from '@/lib/utils/habit-route-handler.utils';
+} from '@/lib/utils/habit-validation.utils';
 import { HABIT_ERROR_MESSAGES } from '@/constants/error-messages.constants';
 
 /**
