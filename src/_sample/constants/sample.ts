@@ -1,3 +1,3 @@
-const QUERY_KEYS = {
+const SAMPLE_QUERY_KEYS = {
   SAMPLE: 'sample',
 };

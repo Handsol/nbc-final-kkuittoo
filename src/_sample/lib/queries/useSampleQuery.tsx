@@ -3,7 +3,7 @@ import { fetchSample } from '../services/sampleServices';
 
 export const useSampleQuery = () => {
   const { data, isPending, isError } = useQuery({
-    queryKey: [QUERY_KEYS.SAMPLE],
+    queryKey: [SAMPLE_QUERY_KEYS.SAMPLE],
     queryFn: fetchSample,
   });
 
