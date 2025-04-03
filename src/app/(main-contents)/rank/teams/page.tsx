@@ -1,7 +1,8 @@
-import React from 'react';
+import { TeamRankContent } from './team-rank-content';
 
-const TeamRankPage = () => {
-  return <div>TeamRankPage</div>;
-};
+// ISR
+export const revalidate = 60; // 추후 시간 설정 필요
 
-export default TeamRankPage;
+export default function TeamRankPage() {
+  return <TeamRankContent />; // 클라이언트 컴포넌트 렌더링
+}
