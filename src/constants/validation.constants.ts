@@ -1,5 +1,5 @@
 // 팀 정보 유효성 검사
-export const TEAM_VALIDATAION = {
+export const TEAM_VALIDATION = {
   TEAM_NAME: {
     MIN: 2,
     MAX: 10,
