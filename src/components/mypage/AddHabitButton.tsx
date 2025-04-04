@@ -7,10 +7,10 @@ const AddHabitButton = ({ userId }: { userId: string }) => {
 
   return (
     <button
-      className="px-8 py-1 bg-gray-700 text-white rounded-full"
+      className="w-full py-2 bg-gray-700 text-white rounded-full"
       onClick={handleAddHabit}
     >
-      Add
+      Add Habit
     </button>
   );
 };
