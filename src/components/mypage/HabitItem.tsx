@@ -3,19 +3,7 @@
 import { Habit, UserPoint } from '@prisma/client';
 
 type HabitItemProps = {
-  habit: Pick<
-    Habit,
-    | 'id'
-    | 'title'
-    | 'notes'
-    | 'mon'
-    | 'tue'
-    | 'wed'
-    | 'thu'
-    | 'fri'
-    | 'sat'
-    | 'sun'
-  > & {
+  habit: Omit<Habit, 'userPoints' | 'userId' | 'categories' | 'createdAt'> & {
     userPoints: UserPoint[];
   };
 };
@@ -55,19 +43,30 @@ const HabitItem = ({ habit }: HabitItemProps) => {
   return (
     <article className="flex items-center gap-4 p-4 border rounded-3xl bg-white shadow-sm hover:shadow-md transition-shadow">
       <button
-        className={`w-8 h-8 font-extrabold rounded-full flex items-center justify-center transition-colors ${
-          isDisabled
-            ? 'bg-gray-300 text-gray-400 cursor-not-allowed'
-            : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
-        }`}
+        className={`w-9 h-9 font-extrabold rounded-full flex items-center justify-center text-lg transition-colors shrink-0
+          ${
+            isDisabled
+              ? 'bg-gray-300 text-gray-400 cursor-not-allowed'
+              : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+          }`}
         onClick={handleComplete}
         disabled={isDisabled}
       >
         +
       </button>
-      <div className="flex-1">
+
+      <div className="flex-1 min-w-0">
         <h2 className="font-semibold text-gray-800 truncate">{habit.title}</h2>
         <p className="text-sm text-gray-600 truncate">{habit.notes}</p>
+      </div>
+
+      <div className="flex gap-2 shrink-0">
+        <button className="w-9 h-9 text-sm rounded-full bg-gray-100 hover:bg-gray-200 text-gray-800 transition">
+          수정
+        </button>
+        <button className="w-9 h-9 text-sm rounded-full bg-gray-100 hover:bg-gray-200 text-gray-800 transition">
+          삭제
+        </button>
       </div>
     </article>
   );
