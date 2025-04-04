@@ -30,6 +30,7 @@ export const fetchTeamMembers = async (teamId: string) => {
           name: true,
           email: true,
           bio: true,
+          image: true,
           userPoints: {
             select: {
               points: true,
