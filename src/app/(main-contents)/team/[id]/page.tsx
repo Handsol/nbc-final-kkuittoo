@@ -1,4 +1,5 @@
 import TeamCalendar from '@/components/team/TeamCalendar';
+import TeamChat from '@/components/team/TeamChat';
 import TeamInfo from '@/components/team/TeamInfo';
 import TeamMemberList from '@/components/team/TeamMemberList';
 
@@ -12,14 +13,19 @@ const TeamPage = async ({ params }: RouteParams) => {
   const id = params.id;
 
   return (
-    <div className="w-screen flex flex-col gap-8 p-10">
+    <article className="w-full flex flex-col gap-4 bg-neutral-300 p-3 rounded-3xl">
+      <section className="w-full flex justify-end items-center">
+        <button className="px-8 h-8 text-center bg-white rounded-full">
+          LEAVE
+        </button>
+      </section>
       <TeamInfo id={id} />
-      <div className="flex gap-8">
+      <section className="flex gap-8">
         <TeamMemberList id={id} />
         <TeamCalendar />
-      </div>
-      <div className="flex-1 border border-black">CHAT</div>
-    </div>
+      </section>
+      <TeamChat />
+    </article>
   );
 };
 
