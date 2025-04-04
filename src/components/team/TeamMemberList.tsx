@@ -13,7 +13,8 @@ const TeamMemberList = async ({ id }: TeamMemberListProps) => {
   }
 
   return (
-    <div className="flex-1 border border-black p-5">
+    <div className="flex-1 bg-neutral-400 rounded-3xl p-4">
+      <p className="text-xl font-bold">Members</p>
       <ul className="flex flex-col gap-2">
         {teamMemberList.map((member) => {
           const { joinDate, user } = member;
