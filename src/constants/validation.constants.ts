@@ -14,7 +14,7 @@ export const TEAM_VALIDATION = {
 export const USER_VALIDATION = {
   NAME: {
     MIN: 2,
-    MAX: 10,
+    MAX: 15,
   },
   BIO: {
     MIN: 5,
