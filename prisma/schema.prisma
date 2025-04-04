@@ -54,11 +54,12 @@ model VerificationToken {
 //유저 데이터 관련
 model User {
   id              String         @id @default(cuid())
-  name            String?      
+  name            String?
   bio             String?      
   email           String         @unique
-  emailVerified  DateTime?
-  image           String?      
+  emailVerified   DateTime?
+  image           String?
+  characterImage  String         @default("/images/0.png")      
   accounts        Account[]
   sessions        Session[]
   habits          Habit[]
@@ -71,8 +72,8 @@ model User {
 model UserPoint {
   id            String     @id @default(cuid())
   userId        String
-  habitId       String?
-  getTime       DateTime?
+  habitId       String
+  getTime       DateTime
   points        Int
   users         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   habits        Habit?     @relation(fields: [habitId], references: [id], onDelete: Cascade)
@@ -83,8 +84,8 @@ model Habit {
   id            String    @id @default(cuid())
   userId        String    
   title         String
-  notes         String?
-  categories    String?
+  notes         String
+  categories    String
   createdAt     DateTime  @default(now()) 
   mon           Boolean   @default(false)
   tue           Boolean   @default(false)
