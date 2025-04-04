@@ -5,6 +5,7 @@ import {
 } from '@/lib/services/team-actions.services';
 import { Progress } from '../ui/progress';
 import Image from 'next/image';
+import TeamBio from './TeamBio';
 
 type TeamQuestProps = {
   id: string;
@@ -53,7 +54,7 @@ const TeamInfo = async ({ id }: TeamQuestProps) => {
             {teamTotalPoints}/{teamCurrentQuest.requiredPoints}
           </p>
         </section>
-        <p>{teamBio}</p>
+        <TeamBio teamBio={teamBio} />
       </article>
     </section>
   );
