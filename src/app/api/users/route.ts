@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma';
 import { checkAuth } from '@/lib/utils/auth-route-handler.utils';
 import { USER_ERROR_MESSAGES } from '@/constants/error-messages.constants';
 import { HTTP_STATUS } from '@/constants/http-status.constants';
+import { errorResponse } from '@/lib/utils/user-response.utils';
 
 /**
  * 모든 사용자 목록 조회
@@ -35,9 +36,6 @@ export const GET = async () => {
     return NextResponse.json(users);
   } catch (error) {
     console.error('Users 조회 에러:', error);
-    return NextResponse.json(
-      { error: USER_ERROR_MESSAGES.FETCH_FAILED },
-      { status: HTTP_STATUS.INTERNAL_SERVER_ERROR },
-    );
+    return errorResponse(USER_ERROR_MESSAGES.FETCH_FAILED);
   }
 };
