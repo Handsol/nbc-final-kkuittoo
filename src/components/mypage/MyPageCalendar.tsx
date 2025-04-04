@@ -7,7 +7,7 @@ const MyPageCalendar = () => {
         <h1 className="text-xl font-bold">CALENDAL</h1>
       </div>
       <div className="flex-1 flex items-center justify-center min-h-0">
-        <div className="w-full h-full rounded flex items-center justify-center bg-slate-50">
+        <div className="w-full h-full rounded flex items-center justify-center">
           <Calendar />
         </div>
       </div>
