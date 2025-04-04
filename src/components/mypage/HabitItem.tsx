@@ -1,11 +1,9 @@
 'use client';
 
+import { Habit } from '@prisma/client';
+
 type HabitItemProps = {
-  habit: {
-    id: string;
-    title: string;
-    notes?: string | null;
-  };
+  habit: Pick<Habit, 'id' | 'title' | 'notes'>;
 };
 
 const HabitItem = ({ habit }: HabitItemProps) => {
@@ -25,9 +23,7 @@ const HabitItem = ({ habit }: HabitItemProps) => {
       </button>
       <div className="flex-1">
         <h2 className="font-semibold text-gray-800 truncate">{habit.title}</h2>
-        {habit.notes && (
-          <p className="text-sm text-gray-600 truncate">{habit.notes}</p>
-        )}
+        <p className="text-sm text-gray-600 truncate">{habit.notes}</p>
       </div>
     </article>
   );
