@@ -41,7 +41,6 @@ const TeamInfo = async ({ id }: TeamQuestProps) => {
       </div>
       <article className="flex-1 flex flex-col gap-3 justify-center relative">
         <section className="absolute right-0 top-8 flex flex-col justify-center items-center gap-3">
-          <button className="w-11 h-11 rounded-full bg-white">EDIT</button>
           <button className="px-2 h-6 text-center bg-white rounded-full text-xs">
             PRIVATE
           </button>
@@ -54,7 +53,8 @@ const TeamInfo = async ({ id }: TeamQuestProps) => {
             {teamTotalPoints}/{teamCurrentQuest.requiredPoints}
           </p>
         </section>
-        <TeamBio teamBio={teamBio} />
+
+        <TeamBio teamBio={teamBio} teamId={id} />
       </article>
     </section>
   );
