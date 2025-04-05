@@ -1,12 +1,10 @@
 import { HABIT_ERROR_MESSAGES } from '@/constants/error-messages.constants';
-import {
-  HABIT_VALIDATION,
-  ONE_HOUR_COOLDOWN_MS,
-} from '@/constants/habits.constants';
+import { HABIT_VALIDATION } from '@/constants/habits.constants';
 import { HTTP_STATUS } from '@/constants/http-status.constants';
 import { CreateHabit, UpdateHabit } from '@/types/mypage.type';
 import { Habit, UserPoint } from '@prisma/client';
 import { NextResponse } from 'next/server';
+import { isCooldownActive } from './habit.utils';
 
 export const validateHabitInput = (body: CreateHabit | UpdateHabit) => {
   const { title, notes, categories } = body;
@@ -60,22 +58,11 @@ export const checkHabitPermission = (habit: Habit | null, userId: string) => {
 };
 
 export const checkCooldown = (userPoints: UserPoint[], now: Date) => {
-  const lastPoint = userPoints
-    .filter((up) => up.getTime !== null)
-    .sort((a, b) => {
-      if (a.getTime === null || b.getTime === null) return 0;
-      return new Date(b.getTime).getTime() - new Date(a.getTime).getTime();
-    })[0];
-
-  if (lastPoint && lastPoint.getTime) {
-    const lastTime = new Date(lastPoint.getTime);
-    const oneHourLater = new Date(lastTime.getTime() + ONE_HOUR_COOLDOWN_MS);
-    if (now < oneHourLater) {
-      return NextResponse.json(
-        { error: HABIT_ERROR_MESSAGES.COOLDOWN_ACTIVE },
-        { status: HTTP_STATUS.BAD_REQUEST },
-      );
-    }
+  if (isCooldownActive(userPoints, now)) {
+    return NextResponse.json(
+      { error: HABIT_ERROR_MESSAGES.COOLDOWN_ACTIVE },
+      { status: HTTP_STATUS.BAD_REQUEST },
+    );
   }
   return null;
 };

@@ -7,8 +7,9 @@ import { checkAuth } from '@/lib/utils/auth-route-handler.utils';
 import {
   checkCooldown,
   checkHabitPermission,
-} from '@/lib/utils/habit-route-handler.utils';
+} from '@/lib/utils/habit-validation.utils';
 import { HABIT_ERROR_MESSAGES } from '@/constants/error-messages.constants';
+import { getCurrentDayStatus } from '@/lib/utils/habit.utils';
 
 /**
  * 사용자가 Habit의 '+'버튼을 눌렀을 때 포인트 추가
@@ -37,17 +38,7 @@ export const POST = async (request: NextRequest) => {
 
     // 현재 요일 확인
     const now = new Date();
-    const dayOfWeek = now.getDay();
-    const days = [
-      habit!.sun,
-      habit!.mon,
-      habit!.tue,
-      habit!.wed,
-      habit!.thu,
-      habit!.fri,
-      habit!.sat,
-    ];
-    if (!days[dayOfWeek]) {
+    if (!getCurrentDayStatus(habit!)) {
       return NextResponse.json(
         { error: HABIT_ERROR_MESSAGES.INVALID_DAY },
         { status: HTTP_STATUS.BAD_REQUEST },

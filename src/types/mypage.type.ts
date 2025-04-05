@@ -35,3 +35,5 @@ export type UpdateHabit = Partial<
 export type CreateUserPoint = {
   habitId: string;
 };
+
+export type HabitFormData = Omit<Habit, 'userId' | 'createdAt' | 'userPoints'>;
