@@ -11,11 +11,11 @@ const HabitFormTags = ({ category, setCategory }: HabitFormTagsProps) => (
       Tags
     </label>
     <div className="flex flex-wrap gap-3">
-      {HABIT_CATEGORIES.map((cat) => (
+      {HABIT_CATEGORIES.map((c) => (
         <label
-          key={cat}
+          key={c}
           className={`min-w-[80px] px-2 py-1 rounded-full border text-xs text-center cursor-pointer transition ${
-            category === cat
+            category === c
               ? 'bg-slate-700 text-white'
               : 'bg-white text-gray-700 border-gray-300'
           }`}
@@ -24,10 +24,10 @@ const HabitFormTags = ({ category, setCategory }: HabitFormTagsProps) => (
             type="radio"
             name="category"
             className="hidden"
-            checked={category === cat}
-            onChange={() => setCategory(cat)}
+            checked={category === c}
+            onChange={() => setCategory(c)}
           />
-          {cat}
+          {c}
         </label>
       ))}
     </div>

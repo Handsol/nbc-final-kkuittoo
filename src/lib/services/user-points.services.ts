@@ -1,9 +1,14 @@
-export const addUserPoint = async (habitId: string) => {
-  const response = await fetch('/api/user-points', {
+/**
+ * 사용자 포인트를 추가하는 함수
+ * @param {string} habitId - 포인트를 추가할 습관의 ID
+ * @returns - 추가된 포인트 정보
+ */
+export const fetchAddUserPoint = async (habitId: string) => {
+  const res = await fetch('/api/user-points', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ habitId }),
   });
-  if (!response.ok) throw new Error('포인트 추가 실패');
-  return response.json();
+  if (!res.ok) throw new Error('포인트 추가 실패');
+  return res.json();
 };
