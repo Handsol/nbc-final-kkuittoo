@@ -70,6 +70,13 @@ export const checkUpdateTeamValidation = (
   ownerId: string,
   userId: string,
 ) => {
+  //팀 소개 타입 검사
+  if (!teamBio || typeof teamBio !== 'string') {
+    return NextResponse.json(
+      { error: TEAMS_MESSAGES.TEAM_BIO_NOT_ALLOW },
+      { status: HTTP_STATUS.BAD_REQUEST },
+    );
+  }
   //팀 소개 유효성 검사 : 5~20자, 빈칸X
   if (
     teamBio.length < TEAM_VALIDATAION.TEAM_BIO.MIN ||
