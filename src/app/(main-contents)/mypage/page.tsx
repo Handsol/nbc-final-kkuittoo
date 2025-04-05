@@ -32,7 +32,7 @@ const MyPage = async () => {
       </div>
 
       <div className="w-full max-w-[680px]">
-        <MyPageTeam />
+        <MyPageTeam userId={session.user.id} />
       </div>
     </div>
   );
