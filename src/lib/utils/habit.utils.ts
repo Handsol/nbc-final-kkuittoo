@@ -1,4 +1,5 @@
 import { ONE_HOUR_COOLDOWN_MS } from '@/constants/habits.constants';
+import { HabitFormData } from '@/types/mypage.type';
 import { Habit, UserPoint } from '@prisma/client';
 
 export const getCurrentDayStatus = (habit: Habit) => {
@@ -36,3 +37,26 @@ export const getInitialSelectedDays = (habit?: Habit) => {
     (day) => habit[day as keyof Habit],
   );
 };
+
+export const toggleDay = (days: string[], day: string): string[] =>
+  days.includes(day) ? days.filter((d) => d !== day) : [...days, day];
+
+export const createHabitData = (
+  title: string,
+  notes: string,
+  selectedDays: string[],
+  category: string,
+  id?: string,
+): HabitFormData => ({
+  id: id || Math.random().toString(),
+  title,
+  notes,
+  categories: category,
+  mon: selectedDays.includes('mon'),
+  tue: selectedDays.includes('tue'),
+  wed: selectedDays.includes('wed'),
+  thu: selectedDays.includes('thu'),
+  fri: selectedDays.includes('fri'),
+  sat: selectedDays.includes('sat'),
+  sun: selectedDays.includes('sun'),
+});
