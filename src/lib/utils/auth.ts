@@ -4,7 +4,9 @@ import type { NextAuthOptions } from 'next-auth';
 import { prisma } from '@/lib/prisma';
 import { PATH } from '@/constants/path';
 
-// NextAuth 설정 옵션을 정의합니다.
+// 구글에서 불러온 닉네임이 10자가 넘지 않도록 잘라주기
+const MAX_NICKNAME_LENGTH = 10;
+
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
@@ -19,6 +21,13 @@ export const authOptions: NextAuthOptions = {
         session.user.id = user.id;
       }
       return session;
+    },
+
+    async signIn({ user, profile }) {
+      if (profile?.name) {
+        user.name = profile.name.slice(0, MAX_NICKNAME_LENGTH);
+      }
+      return true;
     },
   },
 
