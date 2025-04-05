@@ -90,6 +90,7 @@ export const PATCH = async (request: NextRequest, { params }: RouteParams) => {
 
     return NextResponse.json(updatedTeamData);
   } catch (error) {
+    console.error('team/[id] PATCH error : ', error);
     return NextResponse.json(
       { error: TEAMS_MESSAGES.UPDATE_FAILED },
       { status: HTTP_STATUS.SERVER_ERROR },

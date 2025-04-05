@@ -58,7 +58,7 @@ export const checkCreateTeamValidation = (
 /**
  * 팀 수정시 유효성 검사 로직
  *
- * @param body Pick<TeamData, 'teamBio'>
+ * @param teamBio string
  * @param ownerId string
  * @param userId string
  * @returns null | NextResponse
@@ -66,12 +66,17 @@ export const checkCreateTeamValidation = (
  * 1. teamBio : 5~20자 외, 빈칸시 error
  */
 export const checkUpdateTeamValidation = (
-  body: Pick<TeamData, 'teamBio'>,
+  teamBio: string,
   ownerId: string,
   userId: string,
 ) => {
-  const { teamBio } = body;
-
+  //팀 소개 타입 검사
+  if (!teamBio || typeof teamBio !== 'string') {
+    return NextResponse.json(
+      { error: TEAMS_MESSAGES.TEAM_BIO_NOT_ALLOW },
+      { status: HTTP_STATUS.BAD_REQUEST },
+    );
+  }
   //팀 소개 유효성 검사 : 5~20자, 빈칸X
   if (
     teamBio.length < TEAM_VALIDATAION.TEAM_BIO.MIN ||
