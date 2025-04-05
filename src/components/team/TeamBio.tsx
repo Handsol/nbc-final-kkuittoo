@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { useTeamBioMutation } from '@/lib/mutations/useTeamBioMutation';
 import { useSingleTeamQuery } from '@/lib/queries/useSingleTeamQuery';
+import CommonInputBar from '../common/CommonInputBar';
 
 type TeamBioProps = {
   teamBio: string;
@@ -52,7 +53,7 @@ const TeamBio = ({ teamBio, teamId }: TeamBioProps) => {
         <p>데이터 불러오기 실패</p>
       ) : isEditMode ? (
         <form onSubmit={handleSubmit(handleOnSubmit)}>
-          <input id="teamBio" {...register('teamBio')} />
+          <CommonInputBar id="teamBio" {...register('teamBio')} />
           <button
             className="w-11 h-11 rounded-full bg-white"
             type="submit"
