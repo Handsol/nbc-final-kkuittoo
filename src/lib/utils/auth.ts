@@ -3,9 +3,7 @@ import GoogleProvider from 'next-auth/providers/google';
 import type { NextAuthOptions } from 'next-auth';
 import { prisma } from '@/lib/prisma';
 import { PATH } from '@/constants/path';
-
-// 구글에서 불러온 닉네임이 10자가 넘지 않도록 잘라주기
-const MAX_NICKNAME_LENGTH = 10;
+import { USER_VALIDATION } from '@/constants/validation.constants';
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -25,7 +23,7 @@ export const authOptions: NextAuthOptions = {
 
     async signIn({ user, profile }) {
       if (profile?.name) {
-        user.name = profile.name.slice(0, MAX_NICKNAME_LENGTH);
+        user.name = profile.name.slice(0, USER_VALIDATION.NAME.MAX);
       }
       return true;
     },
