@@ -1,7 +1,7 @@
-import React from 'react';
+import { UserRankContent } from './userRankContent';
 
-const UserRankPage = () => {
-  return <div>UserRankPage</div>;
-};
+export const revalidate = 60; // 추후 시간 설정 필요
 
-export default UserRankPage;
+export default function UserRankPage() {
+  return <UserRankContent />;
+}

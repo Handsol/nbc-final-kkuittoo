@@ -1,6 +1,6 @@
 'use client';
 
-import { TeamCard } from '@/components/team/TeamRankCard';
+import { TeamCard } from '@/components/rank/TeamRankCard';
 import { useTeamQuery } from '@/lib/queries/useTeamQuery';
 
 // 팀 랭킹 UI
