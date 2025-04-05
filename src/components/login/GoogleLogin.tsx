@@ -40,7 +40,7 @@ const GoogleLogin = () => {
         </div>
       ) : (
         <button
-          onClick={() => signIn('google')}
+          onClick={() => signIn('google', { callbackUrl: '/mypage' })}
           className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
         >
           구글 로그인
