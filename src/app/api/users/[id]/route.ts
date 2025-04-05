@@ -4,9 +4,45 @@ import { UpdateProfile } from '@/types/profile.type';
 import { checkAuth } from '@/lib/utils/auth-route-handler.utils';
 import { USER_ERROR_MESSAGES } from '@/constants/error-messages.constants';
 import { HTTP_STATUS } from '@/constants/http-status.constants';
+import { USER_VALIDATION } from '@/constants/validation.constants';
+import {
+  errorResponse,
+  successResponse,
+} from '@/lib/utils/user-response.utils';
+import { checkUpdateUserValidation } from '@/lib/utils/user-validation.utils';
 
 type RouteParams = {
   params: { id: string };
+};
+
+export const validateProfileInput = (body: UpdateProfile) => {
+  const { name, bio } = body;
+
+  // 닉네임 유효성 검사
+  if (
+    name &&
+    (name.trim().length < USER_VALIDATION.NAME.MIN ||
+      name.trim().length > USER_VALIDATION.NAME.MAX)
+  ) {
+    return NextResponse.json(
+      { error: USER_ERROR_MESSAGES.NAME_LENGTH },
+      { status: HTTP_STATUS.BAD_REQUEST },
+    );
+  }
+
+  // 자기소개 유효성 검사
+  if (
+    bio &&
+    (bio.trim().length < USER_VALIDATION.BIO.MIN ||
+      bio.trim().length > USER_VALIDATION.BIO.MAX)
+  ) {
+    return NextResponse.json(
+      { error: USER_ERROR_MESSAGES.BIO_LENGTH },
+      { status: HTTP_STATUS.BAD_REQUEST },
+    );
+  }
+
+  return null;
 };
 
 /**
@@ -29,26 +65,23 @@ export const GET = async (request: Request, { params }: RouteParams) => {
     });
 
     if (!user) {
-      return NextResponse.json(
-        { error: USER_ERROR_MESSAGES.USER_NOT_FOUND },
-        { status: HTTP_STATUS.NOT_FOUND },
+      return errorResponse(
+        USER_ERROR_MESSAGES.USER_NOT_FOUND,
+        HTTP_STATUS.NOT_FOUND,
       );
     }
 
     if (id !== session.user.id) {
-      return NextResponse.json(
-        { error: USER_ERROR_MESSAGES.INVALID_USER },
-        { status: HTTP_STATUS.FORBIDDEN },
+      return errorResponse(
+        USER_ERROR_MESSAGES.INVALID_USER,
+        HTTP_STATUS.FORBIDDEN,
       );
     }
 
-    return NextResponse.json(user);
+    return successResponse(user);
   } catch (error) {
-    console.error('User 조회 에러:', error);
-    return NextResponse.json(
-      { error: USER_ERROR_MESSAGES.FETCH_FAILED },
-      { status: HTTP_STATUS.INTERNAL_SERVER_ERROR },
-    );
+    console.error('Users 조회 에러:', error);
+    return errorResponse(USER_ERROR_MESSAGES.FETCH_FAILED);
   }
 };
 
@@ -61,52 +94,37 @@ export const GET = async (request: Request, { params }: RouteParams) => {
  * - 인증된 사용자가 자신의 Profile 수정
  * - 유효성 검사를 통해 데이터 형식과 길이를 확인
  */
+
 export const PATCH = async (request: Request, { params }: RouteParams) => {
-  const { session, response } = await checkAuth();
+  const { response } = await checkAuth();
   if (response) return response;
 
   try {
     const { id } = params;
     const body = (await request.json()) as UpdateProfile;
-    const { name, bio } = body;
 
     const user = await prisma.user.findUnique({ where: { id } });
-
-    // 유효성 검사
     if (!user) {
-      return NextResponse.json(
-        { error: USER_ERROR_MESSAGES.USER_NOT_FOUND },
-        { status: HTTP_STATUS.NOT_FOUND },
+      return errorResponse(
+        USER_ERROR_MESSAGES.USER_NOT_FOUND,
+        HTTP_STATUS.NOT_FOUND,
       );
     }
 
-    if (name && (name.trim().length < 2 || name.trim().length > 10)) {
-      return NextResponse.json(
-        { error: USER_ERROR_MESSAGES.NAME_LENGTH },
-        { status: HTTP_STATUS.BAD_REQUEST },
-      );
-    }
-    if (bio && (bio.length < 1 || bio.length > 20)) {
-      return NextResponse.json(
-        { error: USER_ERROR_MESSAGES.BIO_LENGTH },
-        { status: HTTP_STATUS.BAD_REQUEST },
-      );
-    }
+    const validationError = checkUpdateUserValidation(body);
+    if (validationError) return validationError;
 
     const updatedProfile = await prisma.user.update({
       where: { id },
       data: {
-        ...(name !== undefined && { name: name.trim() }),
-        ...(bio !== undefined && { bio }),
+        ...(body.name !== undefined && { name: body.name.trim() }),
+        ...(body.bio !== undefined && { bio: body.bio }),
       },
     });
 
-    return NextResponse.json(updatedProfile);
+    return successResponse(updatedProfile);
   } catch (error) {
-    console.error('Profile 수정 에러:', error);
-    return NextResponse.json(
-      { error: USER_ERROR_MESSAGES.UPDATE_FAILED },
-      { status: HTTP_STATUS.INTERNAL_SERVER_ERROR },
-    );
+    console.error('Users 업데이트 에러:', error);
+    return errorResponse(USER_ERROR_MESSAGES.FETCH_FAILED);
   }
 };
