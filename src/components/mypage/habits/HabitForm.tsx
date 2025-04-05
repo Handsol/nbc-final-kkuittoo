@@ -3,6 +3,7 @@ import { useHabitForm } from '@/lib/hooks/use-habit-form';
 import { createHabitData, toggleDay } from '@/lib/utils/habit.utils';
 import HabitFormReapeatDays from './habit-form/HabitFormRepeatDays';
 import HabitFormTags from './habit-form/HabitFormTags';
+import CommonInputBar from '@/components/common/CommonInputBar';
 
 type HabitFormProps = {
   onCancel: () => void;
@@ -32,11 +33,14 @@ const HabitForm = ({ onCancel, initialHabit, onSuccess }: HabitFormProps) => {
   return (
     <div className="p-4 bg-white rounded-xl shadow flex flex-col gap-6">
       <div className="flex items-center gap-4">
-        <label className="w-20 text-xs font-semibold text-gray-700">
+        <label
+          htmlFor="title"
+          className="w-20 text-xs font-semibold text-gray-700"
+        >
           TITLE
         </label>
-        <input
-          className="flex-1 p-2 border rounded-full text-xs text-center"
+        <CommonInputBar
+          id="title"
           placeholder="습관 제목"
           value={form.title.value}
           onChange={(e) => form.title.setValue(e.target.value)}
@@ -44,11 +48,14 @@ const HabitForm = ({ onCancel, initialHabit, onSuccess }: HabitFormProps) => {
       </div>
 
       <div className="flex items-start gap-2">
-        <label className="w-20 pt-2 text-xs font-semibold text-gray-700">
+        <label
+          htmlFor="description"
+          className="w-20 pt-2 text-xs font-semibold text-gray-700"
+        >
           DESCRIPTION
         </label>
-        <input
-          className="flex-1 p-2 border rounded-full text-xs text-center"
+        <CommonInputBar
+          id="description"
           placeholder="설명"
           value={form.notes.value}
           onChange={(e) => form.notes.setValue(e.target.value)}
