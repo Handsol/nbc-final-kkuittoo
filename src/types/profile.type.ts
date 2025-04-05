@@ -1,11 +1,12 @@
 export type User = {
   id: string;
   name: string;
-  bio: string;
+  bio?: string;
   email: string;
   image: string;
 };
 
-export type UpdateProfile = Partial<
-  Omit<User, 'id' | 'userId' | 'createdAt' | 'userPoints'>
->;
+export type UpdateProfile = {
+  name: string;
+  bio?: string;
+};
