@@ -1,7 +1,7 @@
 import { USER_ERROR_MESSAGES } from '@/constants/error-messages.constants';
 import { HTTP_STATUS } from '@/constants/http-status.constants';
 import { USER_VALIDATION } from '@/constants/validation.constants';
-import { User } from '@/types/profile.type';
+import { UpdateProfile, User } from '@/types/profile.type';
 import { NextResponse } from 'next/server';
 
 /**
@@ -14,16 +14,14 @@ import { NextResponse } from 'next/server';
  * 2. bio : 5~20자 외, 빈칸시 error
  *
  */
-export const checkUpdateUserValidation = (
-  body: Omit<User, 'id' | 'email' | 'emailVerified' | 'image'>,
-) => {
+export const checkUpdateUserValidation = (body: UpdateProfile) => {
   const { name, bio } = body;
 
-  // 닉네임 유효성 검사 : 2~10자, 빈칸 X
+  // 닉네임 유효성 검사 : 2~10자, 빈칸 X (닉네임은 undefined일 수 없음)
   if (
+    !name.trim() ||
     name.length < USER_VALIDATION.NAME.MIN ||
-    name.length > USER_VALIDATION.NAME.MAX ||
-    !name.trim()
+    name.length > USER_VALIDATION.NAME.MAX
   ) {
     return NextResponse.json(
       { error: USER_ERROR_MESSAGES.NAME_LENGTH },
@@ -31,11 +29,11 @@ export const checkUpdateUserValidation = (
     );
   }
 
-  // 자기소개 유효성 검사 : 5~20자, 빈칸 X
+  // 자기소개 유효성 검사 : 5~20자, 빈칸 X (소개는 undefined일 수 있음)
   if (
+    !bio?.trim() ||
     bio.length < USER_VALIDATION.BIO.MIN ||
-    bio.length > USER_VALIDATION.BIO.MAX ||
-    !bio.trim()
+    bio.length > USER_VALIDATION.BIO.MAX
   ) {
     return NextResponse.json(
       { error: USER_ERROR_MESSAGES.BIO_LENGTH },
