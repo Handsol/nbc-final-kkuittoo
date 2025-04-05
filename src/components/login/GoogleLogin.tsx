@@ -4,6 +4,8 @@ import { PATH } from '@/constants/path';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useEffect } from 'react';
+import LogoutButton from './LogoutButton';
+import LoginButton from './LoginButton';
 
 const GoogleLogin = () => {
   const { data: session, status } = useSession();
@@ -42,20 +44,10 @@ const GoogleLogin = () => {
               {session.user.name}
             </span>
           </div>
-          <button
-            onClick={() => signOut()}
-            className="inline-flex items-center px-3 py-1.5 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
-          >
-            로그아웃
-          </button>
+          <LogoutButton />
         </div>
       ) : (
-        <button
-          onClick={() => signIn('google', { callbackUrl: PATH.MYPAGE })}
-          className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
-        >
-          구글 로그인
-        </button>
+        <LoginButton />
       )}
     </div>
   );
