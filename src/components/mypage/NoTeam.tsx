@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 const NoTeam = () => {
   return (
-    <section className="h-full bg-gray-300 p-6 rounded-3xl flex flex-col">
+    <section className="h-full w-[680px] bg-gray-300 p-6 rounded-3xl flex flex-col">
       <div className="mb-4">
         <h1 className="text-xl font-bold">MY TEAM</h1>
       </div>
