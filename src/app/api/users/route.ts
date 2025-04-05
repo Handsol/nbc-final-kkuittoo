@@ -1,7 +1,9 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/utils/auth';
+import { checkAuth } from '@/lib/utils/auth-route-handler.utils';
+import { USER_ERROR_MESSAGES } from '@/constants/error-messages.constants';
+import { HTTP_STATUS } from '@/constants/http-status.constants';
+import { errorResponse } from '@/lib/utils/user-response.utils';
 
 /**
  * 모든 사용자 목록 조회
@@ -13,14 +15,11 @@ import { authOptions } from '@/lib/utils/auth';
  */
 
 export const GET = async () => {
-  const session = await getServerSession(authOptions);
+  const { response } = await checkAuth();
+  if (response) return response;
 
-  if (!session || !session.user) {
-    return NextResponse.json({ error: '인증이 필요합니다.' }, { status: 403 });
-  }
-
+  // 모든 사용자의 정보와 UserPoint 테이블에서 points 컬럼도 함께 가져오기
   try {
-    // 모든 사용자의 정보와 UserPoint 테이블에서 points 컬럼도 함께 가져오기
     const users = await prisma.user.findMany({
       select: {
         id: true,
@@ -37,9 +36,6 @@ export const GET = async () => {
     return NextResponse.json(users);
   } catch (error) {
     console.error('Users 조회 에러:', error);
-    return NextResponse.json(
-      { error: 'User 목록을 가져오는데 실패했습니다.' },
-      { status: 500 },
-    );
+    return errorResponse(USER_ERROR_MESSAGES.FETCH_FAILED);
   }
 };
