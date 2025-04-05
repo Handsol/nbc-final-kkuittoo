@@ -24,23 +24,40 @@ export const getCurrentDayStatus = (habit: Habit) => {
 };
 
 /**
+ * 사용자의 가장 최근 포인트 기록을 기반으로 쿨다운 상태인지 여부를 판단하는 함수
+ *
+ * @param {UserPoint[]} userPoints - 사용자의 포인트 기록
+ * @param {Date} now - 현재 시간 (비교 기준 시간)
+ * @returns {boolean} - 쿨다운 상태면 true, 아니면 false
+ */
+export const isCooldownActive = (
+  userPoints: UserPoint[],
+  now: Date,
+): boolean => {
+  const lastPoint = userPoints
+    .filter((up) => up.getTime !== null)
+    .sort((a, b) => {
+      if (a.getTime === null || b.getTime === null) return 0;
+      return new Date(b.getTime).getTime() - new Date(a.getTime).getTime();
+    })[0];
+
+  if (!lastPoint || !lastPoint.getTime) return false;
+
+  const lastTime = new Date(lastPoint.getTime);
+  const oneHourLater = new Date(lastTime.getTime() + ONE_HOUR_COOLDOWN_MS);
+
+  return now < oneHourLater;
+};
+
+/**
  * 최근 포인트 획득 시간을 기준으로 쿨다운 상태인지 확인하는 유틸리티 함수
  *
  * @param {UserPoint[]} userPoints - 유저의 포인트 이력 배열
  * @returns {boolean} - 아직 쿨다운 중이라면 true, 아니라면 false
  */
-export const getCooldownStatus = (userPoints: UserPoint[]) => {
+export const getCooldownStatus = (userPoints: UserPoint[]): boolean => {
   const now = new Date();
-  const lastPoint = userPoints
-    .filter((up) => up.getTime !== null)
-    .sort(
-      (a, b) => new Date(b.getTime!).getTime() - new Date(a.getTime!).getTime(),
-    )[0];
-
-  return lastPoint
-    ? now.getTime() <
-        new Date(lastPoint.getTime!).getTime() + ONE_HOUR_COOLDOWN_MS
-    : false;
+  return isCooldownActive(userPoints, now);
 };
 
 /**
