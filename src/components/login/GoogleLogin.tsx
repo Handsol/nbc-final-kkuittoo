@@ -1,7 +1,6 @@
 'use client';
 
-import { PATH } from '@/constants/path';
-import { signIn, signOut, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useEffect } from 'react';
 import LogoutButton from './LogoutButton';
