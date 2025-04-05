@@ -23,6 +23,6 @@ export const authOptions: NextAuthOptions = {
   },
 
   pages: {
-    signIn: PATH.HOME,
+    signIn: PATH.MYPAGE,
   },
 };
