@@ -1,5 +1,3 @@
-'use client';
-
 import { useState } from 'react';
 import { Habit, UserPoint } from '@prisma/client';
 import HabitForm from './HabitForm';
