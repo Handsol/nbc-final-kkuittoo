@@ -1,55 +1,29 @@
-'use client';
-
-import { useState } from 'react';
-import { Habit } from '@prisma/client';
 import {
   DAYS_OF_WEEK,
   DAY_LABELS,
   HABIT_CATEGORIES,
 } from '@/constants/habits.constants';
+import { HabitFormData } from '@/types/mypage.type';
+import { useHabitForm } from '@/lib/hooks/use-habit-form';
+import { createHabitData, toggleDay } from '@/lib/utils/habit.utils';
 
 type HabitFormProps = {
   onCancel: () => void;
-  initialHabit?: Omit<Habit, 'userId' | 'createdAt' | 'userPoints'>;
-  onSuccess?: (
-    updatedHabit: Omit<Habit, 'userId' | 'createdAt' | 'userPoints'>,
-  ) => void;
+  initialHabit?: HabitFormData;
+  onSuccess?: (updatedHabit: HabitFormData) => void;
 };
 
 const HabitForm = ({ onCancel, initialHabit, onSuccess }: HabitFormProps) => {
-  const [title, setTitle] = useState(initialHabit?.title || '');
-  const [notes, setNotes] = useState(initialHabit?.notes || '');
-  const [selectedDays, setSelectedDays] = useState<string[]>(
-    initialHabit
-      ? DAYS_OF_WEEK.filter(
-          (day) => initialHabit[day as keyof typeof initialHabit],
-        )
-      : [],
-  );
-  const [category, setCategory] = useState(
-    initialHabit?.categories || HABIT_CATEGORIES[0],
-  );
-
-  const handleToggleDay = (day: string) => {
-    setSelectedDays((prev) =>
-      prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day],
-    );
-  };
+  const form = useHabitForm(initialHabit);
 
   const handleSubmit = () => {
-    const habitData: Omit<Habit, 'userId' | 'createdAt' | 'userPoints'> = {
-      id: initialHabit?.id || Math.random().toString(),
-      title,
-      notes,
-      categories: category,
-      mon: selectedDays.includes('mon'),
-      tue: selectedDays.includes('tue'),
-      wed: selectedDays.includes('wed'),
-      thu: selectedDays.includes('thu'),
-      fri: selectedDays.includes('fri'),
-      sat: selectedDays.includes('sat'),
-      sun: selectedDays.includes('sun'),
-    };
+    const habitData = createHabitData(
+      form.title.value,
+      form.notes.value,
+      form.selectedDays.value,
+      form.category.value,
+      initialHabit?.id,
+    );
     if (onSuccess) {
       onSuccess(habitData);
     } else {
@@ -67,8 +41,8 @@ const HabitForm = ({ onCancel, initialHabit, onSuccess }: HabitFormProps) => {
         <input
           className="flex-1 p-2 border rounded-full text-xs text-center"
           placeholder="습관 제목"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={form.title.value}
+          onChange={(e) => form.title.setValue(e.target.value)}
         />
       </div>
 
@@ -79,8 +53,8 @@ const HabitForm = ({ onCancel, initialHabit, onSuccess }: HabitFormProps) => {
         <input
           className="flex-1 p-2 border rounded-full text-xs text-center"
           placeholder="설명"
-          value={notes}
-          onChange={(e) => setNotes(e.target.value)}
+          value={form.notes.value}
+          onChange={(e) => form.notes.setValue(e.target.value)}
         />
       </div>
 
@@ -93,7 +67,7 @@ const HabitForm = ({ onCancel, initialHabit, onSuccess }: HabitFormProps) => {
             <label
               key={day}
               className={`w-8 h-8 flex items-center justify-center rounded-full cursor-pointer text-xs font-medium border transition ${
-                selectedDays.includes(day)
+                form.selectedDays.value.includes(day)
                   ? 'bg-slate-600 text-white'
                   : 'bg-white text-gray-700 border-gray-300'
               }`}
@@ -101,8 +75,12 @@ const HabitForm = ({ onCancel, initialHabit, onSuccess }: HabitFormProps) => {
               <input
                 type="checkbox"
                 className="hidden"
-                checked={selectedDays.includes(day)}
-                onChange={() => handleToggleDay(day)}
+                checked={form.selectedDays.value.includes(day)}
+                onChange={() =>
+                  form.selectedDays.setValue(
+                    toggleDay(form.selectedDays.value, day),
+                  )
+                }
               />
               {DAY_LABELS[idx]}
             </label>
@@ -119,7 +97,7 @@ const HabitForm = ({ onCancel, initialHabit, onSuccess }: HabitFormProps) => {
             <label
               key={cat}
               className={`min-w-[80px] px-2 py-1 rounded-full border text-xs text-center cursor-pointer transition ${
-                category === cat
+                form.category.value === cat
                   ? 'bg-slate-700 text-white'
                   : 'bg-white text-gray-700 border-gray-300'
               }`}
@@ -128,8 +106,8 @@ const HabitForm = ({ onCancel, initialHabit, onSuccess }: HabitFormProps) => {
                 type="radio"
                 name="category"
                 className="hidden"
-                checked={category === cat}
-                onChange={() => setCategory(cat)}
+                checked={form.category.value === cat}
+                onChange={() => form.category.setValue(cat)}
               />
               {cat}
             </label>
