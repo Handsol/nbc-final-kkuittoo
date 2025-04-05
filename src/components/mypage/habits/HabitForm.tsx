@@ -1,11 +1,8 @@
-import {
-  DAYS_OF_WEEK,
-  DAY_LABELS,
-  HABIT_CATEGORIES,
-} from '@/constants/habits.constants';
 import { HabitFormData } from '@/types/mypage.type';
 import { useHabitForm } from '@/lib/hooks/use-habit-form';
 import { createHabitData, toggleDay } from '@/lib/utils/habit.utils';
+import HabitFormReapeatDays from './habit-form/HabitFormRepeatDays';
+import HabitFormTags from './habit-form/HabitFormTags';
 
 type HabitFormProps = {
   onCancel: () => void;
@@ -58,62 +55,16 @@ const HabitForm = ({ onCancel, initialHabit, onSuccess }: HabitFormProps) => {
         />
       </div>
 
-      <div>
-        <label className="block mb-2 text-xs font-semibold text-gray-700">
-          Repeats
-        </label>
-        <div className="flex gap-2">
-          {DAYS_OF_WEEK.map((day, idx) => (
-            <label
-              key={day}
-              className={`w-8 h-8 flex items-center justify-center rounded-full cursor-pointer text-xs font-medium border transition ${
-                form.selectedDays.value.includes(day)
-                  ? 'bg-slate-600 text-white'
-                  : 'bg-white text-gray-700 border-gray-300'
-              }`}
-            >
-              <input
-                type="checkbox"
-                className="hidden"
-                checked={form.selectedDays.value.includes(day)}
-                onChange={() =>
-                  form.selectedDays.setValue(
-                    toggleDay(form.selectedDays.value, day),
-                  )
-                }
-              />
-              {DAY_LABELS[idx]}
-            </label>
-          ))}
-        </div>
-      </div>
+      <HabitFormReapeatDays
+        selectedDays={form.selectedDays.value}
+        setSelectedDays={form.selectedDays.setValue}
+        toggleDay={toggleDay}
+      />
 
-      <div>
-        <label className="block mb-2 text-xs font-semibold text-gray-700">
-          Tags
-        </label>
-        <div className="flex flex-wrap gap-3">
-          {HABIT_CATEGORIES.map((cat) => (
-            <label
-              key={cat}
-              className={`min-w-[80px] px-2 py-1 rounded-full border text-xs text-center cursor-pointer transition ${
-                form.category.value === cat
-                  ? 'bg-slate-700 text-white'
-                  : 'bg-white text-gray-700 border-gray-300'
-              }`}
-            >
-              <input
-                type="radio"
-                name="category"
-                className="hidden"
-                checked={form.category.value === cat}
-                onChange={() => form.category.setValue(cat)}
-              />
-              {cat}
-            </label>
-          ))}
-        </div>
-      </div>
+      <HabitFormTags
+        category={form.category.value}
+        setCategory={form.category.setValue}
+      />
 
       <div className="flex justify-center gap-4 mt-4">
         <button
