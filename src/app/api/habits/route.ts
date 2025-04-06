@@ -1,14 +1,15 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { getServerSession } from 'next-auth';
 import { CreateHabit } from '@/types/mypage.type';
-import { DAYS_OF_WEEK, HABIT_VALIDATION } from '@/constants/habits.constants';
-import { ERROR_MESSAGES } from '@/constants/error-messages.constants';
-import { authOptions } from '@/lib/utils/auth';
+import { DAYS_OF_WEEK } from '@/constants/habits.constants';
+import { HTTP_STATUS } from '@/constants/http-status.constants';
+import { checkAuth } from '@/lib/utils/auth-route-handler.utils';
+import { validateHabitInput } from '@/lib/utils/habit-route-handler.utils';
+import { HABIT_ERROR_MESSAGES } from '@/constants/error-messages.constants';
 
 /**
  * 사용자의 모든 Habit 목록을 조회
- * @param {Request} request - Habit 목록 요청
+ * @param {NextRequest} request - Habit 목록 요청
  * @returns {Promise<NextResponse>} - 조회된 Habit 목록 또는 에러
  * @throws {Error} 데이터베이스 조회 실패했을 때
  * @description
@@ -16,14 +17,8 @@ import { authOptions } from '@/lib/utils/auth';
  * - `userPoints` 포함, 생성일 내림차순 정렬
  */
 export const GET = async () => {
-  const session = await getServerSession(authOptions);
-
-  if (!session || !session.user) {
-    return NextResponse.json(
-      { error: ERROR_MESSAGES.AUTH_REQUIRED },
-      { status: 403 },
-    );
-  }
+  const { session, response } = await checkAuth();
+  if (response) return response;
 
   try {
     const habits = await prisma.habit.findMany({
@@ -36,63 +31,32 @@ export const GET = async () => {
   } catch (error) {
     console.error('Habit 조회 에러:', error);
     return NextResponse.json(
-      { error: ERROR_MESSAGES.FETCH_FAILED },
-      { status: 500 },
+      { error: HABIT_ERROR_MESSAGES.FETCH_FAILED },
+      { status: HTTP_STATUS.INTERNAL_SERVER_ERROR },
     );
   }
 };
 
 /**
  * 새로운 Habit 생성
- * @param {Request} request - 새로운 Habit 생성 요청
+ * @param {NextRequest} request - 새로운 Habit 생성 요청
  * @returns {Promise<NextResponse>} - 생성된 Habit 또는 에러
  * @throws {Error} 데이터베이스 생성 실패했을 때
  * @description
  * - 인증된 사용자가 새로운 Habit 생성
  * - 유효성 검사를 통해 데이터 형식과 길이를 확인
  */
-export const POST = async (request: Request) => {
-  const session = await getServerSession(authOptions);
-
-  if (!session || !session.user) {
-    return NextResponse.json(
-      { error: ERROR_MESSAGES.AUTH_REQUIRED },
-      { status: 403 },
-    );
-  }
+export const POST = async (request: NextRequest) => {
+  const { session, response } = await checkAuth();
+  if (response) return response;
 
   try {
     const body = (await request.json()) as CreateHabit;
-    console.log('Request Body:', body);
     const { title, notes, categories, ...days } = body;
 
     // 유효성 검사
-    if (
-      !title ||
-      title.trim().length < HABIT_VALIDATION.TITLE.MIN_LENGTH ||
-      title.trim().length > HABIT_VALIDATION.TITLE.MAX_LENGTH
-    ) {
-      return NextResponse.json(
-        { error: ERROR_MESSAGES.TITLE_LENGTH },
-        { status: 400 },
-      );
-    }
-    if (
-      notes &&
-      (notes.length < HABIT_VALIDATION.NOTES.MIN_LENGTH ||
-        notes.length > HABIT_VALIDATION.NOTES.MAX_LENGTH)
-    ) {
-      return NextResponse.json(
-        { error: ERROR_MESSAGES.NOTES_LENGTH },
-        { status: 400 },
-      );
-    }
-    if (!categories || categories.trim() === '') {
-      return NextResponse.json(
-        { error: ERROR_MESSAGES.CATEGORY_REQUIRED },
-        { status: 400 },
-      );
-    }
+    const validationError = validateHabitInput(body);
+    if (validationError) return validationError;
 
     const dayData: Record<string, boolean> = {};
     for (const day of DAYS_OF_WEEK) {
@@ -109,12 +73,12 @@ export const POST = async (request: Request) => {
       },
     });
 
-    return NextResponse.json(habit, { status: 201 });
+    return NextResponse.json(habit, { status: HTTP_STATUS.CREATED });
   } catch (error) {
     console.error('Habit 생성 에러:', error);
     return NextResponse.json(
-      { error: ERROR_MESSAGES.CREATE_FAILED },
-      { status: 500 },
+      { error: HABIT_ERROR_MESSAGES.CREATE_FAILED },
+      { status: HTTP_STATUS.INTERNAL_SERVER_ERROR },
     );
   }
 };

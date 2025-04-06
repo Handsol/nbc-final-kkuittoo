@@ -11,13 +11,23 @@
   "dependencies": {
     "@auth/prisma-adapter": "^2.8.0",
     "@prisma/client": "^6.5.0",
+    "@radix-ui/react-progress": "^1.1.2",
+    "@radix-ui/react-slot": "^1.1.2",
+    "@radix-ui/react-toast": "^1.2.6",
     "@tanstack/react-query": "^5.69.3",
     "@tanstack/react-query-devtools": "4",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "date-fns": "^4.1.0",
+    "lucide-react": "^0.487.0",
     "next": "14.2.24",
     "next-auth": "^4.24.11",
     "react": "^18",
+    "react-day-picker": "8.10.1",
     "react-dom": "^18",
-    "react-icons": "^5.5.0"
+    "react-icons": "^5.5.0",
+    "tailwind-merge": "^3.1.0",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@eslint/js": "^9.23.0",

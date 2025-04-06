@@ -1,7 +1,12 @@
+import { TEAMS_MESSAGES } from '@/constants/error-messages.constants';
+import { HTTP_STATUS } from '@/constants/http-status.constants';
 import { prisma } from '@/lib/prisma';
-import { getServerSession } from 'next-auth';
-import { NextResponse } from 'next/server';
-import { authOptions } from '../../auth/[...nextauth]/route';
+import { checkAuth } from '@/lib/utils/auth-route-handler.utils';
+import {
+  checkDeleteTeamValidation,
+  checkUpdateTeamValidation,
+} from '@/lib/utils/team-validation.utils';
+import { NextRequest, NextResponse } from 'next/server';
 
 type RouteParams = {
   params: {
@@ -15,7 +20,7 @@ type RouteParams = {
  * @param param : teamId
  * @returns singleTeamData : { 해당 팀 멤버 데이터[], 단일 팀 데이터 }
  */
-export const GET = async ({ params }: RouteParams) => {
+export const GET = async (request: NextRequest, { params }: RouteParams) => {
   try {
     const { id } = params;
     const singleTeamData = await prisma.team.findUnique({
@@ -26,16 +31,16 @@ export const GET = async ({ params }: RouteParams) => {
     //해당 데이터가 없는 경우 404(Not Found) 에러
     if (!singleTeamData) {
       return NextResponse.json(
-        { error: '해당 팀 정보를 찾을 수 없습니다.' },
-        { status: 404 },
+        { error: TEAMS_MESSAGES.NOT_FOUND },
+        { status: HTTP_STATUS.NOT_FOUND },
       );
     }
 
     return NextResponse.json(singleTeamData);
   } catch (error) {
     return NextResponse.json(
-      { error: `team/id=${params.id}의 데이터를 가져오는데 실패했습니다.` },
-      { status: 500 },
+      { error: `teamID : ${params.id} / ${TEAMS_MESSAGES.FETCH_FAILED}` },
+      { status: HTTP_STATUS.SERVER_ERROR },
     );
   }
 };
@@ -47,12 +52,9 @@ export const GET = async ({ params }: RouteParams) => {
  * @param request : { teamBio, isOpened }
  * @param param : teamId
  */
-export const PATCH = async (request: Request, { params }: RouteParams) => {
-  const session = await getServerSession(authOptions);
-  // 인증되지 않은 유저인 경우 403 (Forbidden) 에러
-  if (!session || !session.user) {
-    return NextResponse.json({ error: '인증이 필요합니다.' }, { status: 403 });
-  }
+export const PATCH = async (request: NextRequest, { params }: RouteParams) => {
+  const { session, response } = await checkAuth();
+  if (response) return response;
 
   try {
     const { id } = params;
@@ -63,27 +65,20 @@ export const PATCH = async (request: Request, { params }: RouteParams) => {
     // 팀 데이터가 없는 경우 404 (Not Found) 에러
     if (!singleTeamData) {
       return NextResponse.json(
-        { error: '해당 팀 정보가 없습니다.' },
-        { status: 404 },
-      );
-    }
-
-    // 팀 생성자인지 확인 후, 아닌 경우 403 (Forbidden) 에러
-    if (singleTeamData?.ownerId !== session.user.id) {
-      return NextResponse.json(
-        { error: '수정은 팀 생성자만 가능합니다.' },
-        { status: 403 },
+        { error: `teamID : ${params.id} / ${TEAMS_MESSAGES.NOT_FOUND}` },
+        { status: HTTP_STATUS.NOT_FOUND },
       );
     }
 
     const { teamBio, isOpened } = await request.json();
-    // 모든 정보 누락시 400 (Bad Request) 에러
-    if (!teamBio && !isOpened) {
-      return NextResponse.json(
-        { error: '수정시 팀 소개/팀 공개여부 중 1개 이상 입력해야합니다.' },
-        { status: 400 },
-      );
-    }
+
+    // 팀 소개 유효성 검사와 생성자 여부 판단
+    const teamUpdateValidation = checkUpdateTeamValidation(
+      teamBio,
+      singleTeamData.ownerId,
+      session.user.id,
+    );
+    if (teamUpdateValidation) return teamUpdateValidation;
 
     const updatedTeamData = await prisma.team.update({
       where: { id },
@@ -96,8 +91,8 @@ export const PATCH = async (request: Request, { params }: RouteParams) => {
     return NextResponse.json(updatedTeamData);
   } catch (error) {
     return NextResponse.json(
-      { error: 'Team 데이터 수정에 실패했습니다.' },
-      { status: 500 },
+      { error: TEAMS_MESSAGES.UPDATE_FAILED },
+      { status: HTTP_STATUS.SERVER_ERROR },
     );
   }
 };
@@ -109,12 +104,9 @@ export const PATCH = async (request: Request, { params }: RouteParams) => {
  * @param param : teamId
  * @returns
  */
-export const DELETE = async ({ params }: RouteParams) => {
-  const session = await getServerSession(authOptions);
-  // 인증되지 않은 유저인 경우 403 (Forbidden) 에러
-  if (!session || !session.user) {
-    return NextResponse.json({ error: '인증이 필요합니다.' }, { status: 403 });
-  }
+export const DELETE = async (request: NextRequest, { params }: RouteParams) => {
+  const { session, response } = await checkAuth();
+  if (response) return response;
 
   try {
     const { id } = params;
@@ -126,38 +118,29 @@ export const DELETE = async ({ params }: RouteParams) => {
     // 팀 데이터가 없는 경우 404 (Not Found) 에러
     if (!singleTeamData) {
       return NextResponse.json(
-        { error: '해당 팀 정보가 없습니다.' },
-        { status: 404 },
+        { error: `teamID : ${params.id} / ${TEAMS_MESSAGES.NOT_FOUND}` },
+        { status: HTTP_STATUS.NOT_FOUND },
       );
     }
 
-    // 팀 생성자를 제외한 다른 유저가 가입해있는 경우, 403 (Forbidden) 에러
-    if (singleTeamData && singleTeamData.teamMembers.length > 1) {
-      return NextResponse.json(
-        {
-          error: '팀 생성자 외 다른 유저가 존재합니다.',
-        },
-        { status: 403 },
-      );
-    }
-
-    // 팀 생성자인지 확인 후, 아닌 경우 403 (Forbidden) 에러
-    if (singleTeamData.ownerId !== session.user.id) {
-      return NextResponse.json(
-        { error: '삭제는 팀 생성자만 가능합니다.' },
-        { status: 403 },
-      );
-    }
+    // 유효성 검사 : 팀 생성자 제외 다른 유저 있는지 여부, 팀 생성자 여부
+    const teamDeleteValidation = checkDeleteTeamValidation(
+      singleTeamData,
+      session.user.id,
+    );
+    if (teamDeleteValidation) return teamDeleteValidation;
 
     await prisma.team.delete({
       where: { id },
     });
 
-    return NextResponse.json({ message: '해당 team이 삭제되었습니다.' });
+    return NextResponse.json({
+      message: `teamID : ${params.id} / ${TEAMS_MESSAGES.DELETE_SUCCESS}`,
+    });
   } catch (error) {
     return NextResponse.json(
-      { error: '팀 삭제에 실패했습니다.' },
-      { status: 500 },
+      { error: TEAMS_MESSAGES.DELETE_FAILED },
+      { status: HTTP_STATUS.SERVER_ERROR },
     );
   }
 };

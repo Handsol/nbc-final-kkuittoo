@@ -1,7 +1,8 @@
-'use client'; // 클라이언트에서 실행돼요
+'use client';
 
 import { UserCard } from '@/components/rank/UserRankCard';
 import { useUserQuery } from '@/lib/queries/useUserQuery';
+import Link from 'next/link';
 
 // 유저 랭킹 UI
 export const UserRankContent = () => {
@@ -18,7 +19,12 @@ export const UserRankContent = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6">유저 랭킹</h1>{' '}
+      <h1 className="text-3xl font-bold mb-6">유저 랭킹</h1>
+      <button disabled>유저 랭킹</button>
+      <Link href="/rank/teams">
+        <button>팀 랭킹</button>
+      </Link>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {sortedUsers.map((user, index) => (
           <UserCard key={user.id} user={user} rank={index + 1} />

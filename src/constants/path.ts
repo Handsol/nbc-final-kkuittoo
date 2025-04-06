@@ -7,3 +7,5 @@ export const PATH = {
     TEAMS: '/rank/teams',
   },
 };
+
+export const PROJECT_URL = 'http://localhost:3000';
