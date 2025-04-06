@@ -1,3 +1,7 @@
+export const COMMON_ERROR_MESSAGES = {
+  UNAUTHORIZED: '인증이 필요합니다.',
+} as const;
+
 export const HABIT_ERROR_MESSAGES = {
   AUTH_REQUIRED: '인증이 필요합니다.',
   HABIT_NOT_FOUND: 'Habit을 찾을 수 없습니다.',
@@ -14,16 +18,13 @@ export const HABIT_ERROR_MESSAGES = {
   POINT_ADD_FAILED: '포인트 추가에 실패했습니다.',
 } as const;
 
-export const COMMON_ERROR_MESSAGES = {
-  UNAUTHORIZED: '인증이 필요합니다.',
-} as const;
-
 export const TEAMS_MESSAGES = {
   // request 조건 미달
   ADD_TEAM_REQUIRED: '팀이름, 팀소개, 엠블럼, 최대인원수는 필수입니다.',
   UPDATE_TEAM_REQUIRED: '수정시 팀소개/팀 공개여부 중 1개 이상 입력해야합니다.',
   TEAM_NAME_NOT_ALLOW: '팀이름이 적합하지 않습니다.',
   TEAM_BIO_NOT_ALLOW: '팀소개가 적합하지 않습니다.',
+  TEAM_BIO_BLANK: '팀 소개는 빈칸으로 작성이 불가능합니다.',
   OWNER_ONLY: '팀 생성자만 가능합니다.',
   PRIVATE_ACCESS: '본인만 가능합니다.',
   OTHERS_EXIST: '팀 생성자 외 다른 유저가 존재합니다.',
@@ -40,4 +41,13 @@ export const TEAMS_MESSAGES = {
   UPDATE_FAILED: 'Team 데이터 수정에 실패했습니다.',
   DELETE_FAILED: 'Team 데이터 삭제에 실패했습니다.',
   LEAVE_FAILED: 'Team 탈퇴에 실패했습니다.',
+} as const;
+
+export const USER_ERROR_MESSAGES = {
+  USER_NOT_FOUND: 'User 정보가 존재하지 않습니다.', // 404
+  INVALID_USER: '자신의 정보만 조회할 수 있습니다.', // 403
+  FETCH_FAILED: 'User 정보를 가져오는데 실패했습니다.', // 500
+  NAME_LENGTH: '닉네임은 2~10자여야 하며, 앞뒤 공백을 허용하지 않습니다.',
+  BIO_LENGTH: '자기소개는 1~20자여야 하며, 앞뒤 공백을 허용하지 않습니다.',
+  UPDATE_FAILED: 'Profile 수정에 실패했습니다.',
 } as const;

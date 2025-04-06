@@ -7,6 +7,14 @@ export const DAYS_OF_WEEK = [
   'sat',
   'sun',
 ] as const;
+export const DAY_LABELS = ['월', '화', '수', '목', '금', '토', '일'] as const;
+export const HABIT_CATEGORIES = [
+  '건강',
+  '운동',
+  '일상/습관',
+  '자기계발',
+  '기타',
+] as const;
 export const HABIT_VALIDATION = {
   TITLE: {
     MIN_LENGTH: 1,

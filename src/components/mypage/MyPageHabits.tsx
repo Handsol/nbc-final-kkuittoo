@@ -1,33 +1,21 @@
-import { getServerSession } from 'next-auth';
-import AddHabitButton from './AddHabitButton';
-import HabitList from './HabitList';
-import { fetchGetAllHabits } from '@/lib/services/habit-actions.services';
-import { authOptions } from '@/lib/utils/auth';
+'use client';
 
-const MyPageHabits = async () => {
-  const session = await getServerSession(authOptions);
+import { useHabitsQuery } from '@/lib/queries/useHabitsQuery';
+import HabitContent from './habits/HabitContent';
 
-  if (!session?.user) {
-    return <div className="p-4">로그인이 필요합니다.</div>;
-  }
+type MyPageHabitsProps = {
+  userId: string;
+};
 
-  const habits = await fetchGetAllHabits(session.user.id);
-
+const MyPageHabits = ({ userId }: MyPageHabitsProps) => {
+  const { data: habits = [] } = useHabitsQuery(userId);
   return (
     <section className="h-full bg-gray-100 p-6 rounded-3xl flex flex-col">
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center gap-2 mb-4">
         <h1 className="text-xl font-bold text-gray-800">HABITS</h1>
-        <AddHabitButton userId={session.user.id} />
+        <span className="text-sm text-gray-500">({habits.length}/10)</span>
       </div>
-      <div className="flex-1 overflow-y-auto">
-        {habits.length > 0 ? (
-          <HabitList habits={habits} />
-        ) : (
-          <div className="h-full flex items-center justify-center text-gray-500">
-            등록된 habit이 없습니다.
-          </div>
-        )}
-      </div>
+      <HabitContent habits={habits} userId={userId} />
     </section>
   );
 };

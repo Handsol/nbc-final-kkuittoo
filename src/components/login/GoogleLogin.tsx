@@ -1,11 +1,28 @@
 'use client';
 
-import { signIn, signOut, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
+import { useEffect } from 'react';
+import LogoutButton from './LogoutButton';
+import LoginButton from './LoginButton';
+import { useToast } from '@/hooks/use-toast';
 
 const GoogleLogin = () => {
   const { data: session, status } = useSession();
   const isLoading = status === 'loading';
+  const { toast } = useToast();
+
+  // local storage에 로그인 상태 저장
+  useEffect(() => {
+    if (status === 'authenticated') {
+      localStorage.setItem('islogined', 'true');
+
+      // 로그인 성공 시 토스트 메세지 표시
+      toast({ description: '로그인 성공' });
+    } else if (status === 'unauthenticated') {
+      localStorage.removeItem('islogined');
+    }
+  }, [status]);
 
   return (
     <div>
@@ -31,20 +48,10 @@ const GoogleLogin = () => {
               {session.user.name}
             </span>
           </div>
-          <button
-            onClick={() => signOut()}
-            className="inline-flex items-center px-3 py-1.5 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
-          >
-            로그아웃
-          </button>
+          <LogoutButton />
         </div>
       ) : (
-        <button
-          onClick={() => signIn('google')}
-          className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
-        >
-          구글 로그인
-        </button>
+        <LoginButton />
       )}
     </div>
   );

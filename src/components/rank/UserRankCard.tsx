@@ -9,17 +9,21 @@ export const UserCard = ({ user, rank }: { user: UserData; rank: number }) => {
   );
 
   return (
-    <div className="border rounded-lg p-4 w-80 shadow-md">
-      <img
-        src={user.image || '/default-user.png'}
-        alt={`${user.name}`}
-        className="w-16 h-16 mb-2"
-      />
-      <h2 className="text-xl font-bold">
-        {rank}th {user.name}
-      </h2>
-      <p className="text-gray-600">{user.bio || '소개 없음'}</p>
-      <p className="text-sm mt-2">포인트: {totalPoints}</p>
+    <div className="">
+      <div>
+        <div className="border rounded-lg p-4 w-80 shadow-md">
+          <img
+            src={user.image || '/default-user.png'}
+            alt={`${user.name}`}
+            className="w-16 h-16 mb-2"
+          />
+          <h2 className="text-xl font-bold">
+            {rank}th {user.name}
+          </h2>
+          <p className="text-gray-600">{user.bio || '소개 없음'}</p>
+          <p className="text-sm mt-2">포인트: {totalPoints}</p>
+        </div>
+      </div>
     </div>
   );
 };

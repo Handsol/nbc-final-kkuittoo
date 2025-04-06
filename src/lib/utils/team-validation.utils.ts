@@ -1,6 +1,6 @@
 import { TEAMS_MESSAGES } from '@/constants/error-messages.constants';
 import { HTTP_STATUS } from '@/constants/http-status.constants';
-import { TEAM_VALIDATAION } from '@/constants/validation.constants';
+import { TEAM_VALIDATION } from '@/constants/validation.constants';
 import { TeamData } from '@/types/teams.type';
 import { NextResponse } from 'next/server';
 
@@ -30,8 +30,8 @@ export const checkCreateTeamValidation = (
 
   // 팀 이름 유효성 검사 : 2~10자, 빈칸 X
   if (
-    teamName.length < TEAM_VALIDATAION.TEAM_NAME.MIN ||
-    teamName.length > TEAM_VALIDATAION.TEAM_NAME.MAX ||
+    teamName.length < TEAM_VALIDATION.TEAM_NAME.MIN ||
+    teamName.length > TEAM_VALIDATION.TEAM_NAME.MAX ||
     !teamName.trim()
   ) {
     return NextResponse.json(
@@ -42,8 +42,8 @@ export const checkCreateTeamValidation = (
 
   // 팀 소개 유효성 검사 : 5~20자, 빈칸 X
   if (
-    teamBio.length < TEAM_VALIDATAION.TEAM_BIO.MIN ||
-    teamBio.length > TEAM_VALIDATAION.TEAM_BIO.MAX ||
+    teamBio.length < TEAM_VALIDATION.TEAM_BIO.MIN ||
+    teamBio.length > TEAM_VALIDATION.TEAM_BIO.MAX ||
     !teamBio.trim()
   ) {
     return NextResponse.json(
@@ -58,7 +58,7 @@ export const checkCreateTeamValidation = (
 /**
  * 팀 수정시 유효성 검사 로직
  *
- * @param body Pick<TeamData, 'teamBio'>
+ * @param teamBio string
  * @param ownerId string
  * @param userId string
  * @returns null | NextResponse
@@ -66,16 +66,21 @@ export const checkCreateTeamValidation = (
  * 1. teamBio : 5~20자 외, 빈칸시 error
  */
 export const checkUpdateTeamValidation = (
-  body: Pick<TeamData, 'teamBio'>,
+  teamBio: string,
   ownerId: string,
   userId: string,
 ) => {
-  const { teamBio } = body;
-
+  //팀 소개 타입 검사
+  if (!teamBio || typeof teamBio !== 'string') {
+    return NextResponse.json(
+      { error: TEAMS_MESSAGES.TEAM_BIO_NOT_ALLOW },
+      { status: HTTP_STATUS.BAD_REQUEST },
+    );
+  }
   //팀 소개 유효성 검사 : 5~20자, 빈칸X
   if (
-    teamBio.length < TEAM_VALIDATAION.TEAM_BIO.MIN ||
-    teamBio.length > TEAM_VALIDATAION.TEAM_BIO.MAX ||
+    teamBio.length < TEAM_VALIDATION.TEAM_BIO.MIN ||
+    teamBio.length > TEAM_VALIDATION.TEAM_BIO.MAX ||
     !teamBio.trim()
   ) {
     return NextResponse.json(

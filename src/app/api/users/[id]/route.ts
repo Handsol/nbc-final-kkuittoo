@@ -1,11 +1,48 @@
-import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { UpdateProfile } from '@/types/profile.type';
-import { authOptions } from '@/lib/utils/auth';
+import { checkAuth } from '@/lib/utils/auth-route-handler.utils';
+import { USER_ERROR_MESSAGES } from '@/constants/error-messages.constants';
+import { HTTP_STATUS } from '@/constants/http-status.constants';
+import { USER_VALIDATION } from '@/constants/validation.constants';
+import {
+  errorResponse,
+  successResponse,
+} from '@/lib/utils/user-response.utils';
+import { checkUpdateUserValidation } from '@/lib/utils/user-validation.utils';
 
 type RouteParams = {
   params: { id: string };
+};
+
+export const validateProfileInput = (body: UpdateProfile) => {
+  const { name, bio } = body;
+
+  // 닉네임 유효성 검사
+  if (
+    name &&
+    (name.trim().length < USER_VALIDATION.NAME.MIN ||
+      name.trim().length > USER_VALIDATION.NAME.MAX)
+  ) {
+    return NextResponse.json(
+      { error: USER_ERROR_MESSAGES.NAME_LENGTH },
+      { status: HTTP_STATUS.BAD_REQUEST },
+    );
+  }
+
+  // 자기소개 유효성 검사
+  if (
+    bio &&
+    (bio.trim().length < USER_VALIDATION.BIO.MIN ||
+      bio.trim().length > USER_VALIDATION.BIO.MAX)
+  ) {
+    return NextResponse.json(
+      { error: USER_ERROR_MESSAGES.BIO_LENGTH },
+      { status: HTTP_STATUS.BAD_REQUEST },
+    );
+  }
+
+  return null;
 };
 
 /**
@@ -17,11 +54,8 @@ type RouteParams = {
  * - 로그인 시 Header 프로필에 유저 정보 표시
  */
 export const GET = async (request: Request, { params }: RouteParams) => {
-  const session = await getServerSession(authOptions);
-
-  if (!session || !session.user) {
-    return NextResponse.json({ error: '인증이 필요합니다.' }, { status: 403 });
-  }
+  const { session, response } = await checkAuth();
+  if (response) return response;
 
   try {
     const { id } = params;
@@ -31,26 +65,23 @@ export const GET = async (request: Request, { params }: RouteParams) => {
     });
 
     if (!user) {
-      return NextResponse.json(
-        { error: 'User 정보가 존재하지 않습니다.' },
-        { status: 404 },
+      return errorResponse(
+        USER_ERROR_MESSAGES.USER_NOT_FOUND,
+        HTTP_STATUS.NOT_FOUND,
       );
     }
 
     if (id !== session.user.id) {
-      return NextResponse.json(
-        { error: '자신의 정보만 조회할 수 있습니다.' },
-        { status: 403 },
+      return errorResponse(
+        USER_ERROR_MESSAGES.INVALID_USER,
+        HTTP_STATUS.FORBIDDEN,
       );
     }
 
-    return NextResponse.json(user);
+    return successResponse(user);
   } catch (error) {
-    console.error('User 조회 에러:', error);
-    return NextResponse.json(
-      { error: 'User 정보를 가져오는데 실패했습니다.' },
-      { status: 500 },
-    );
+    console.error('Users 조회 에러:', error);
+    return errorResponse(USER_ERROR_MESSAGES.FETCH_FAILED);
   }
 };
 
@@ -63,54 +94,37 @@ export const GET = async (request: Request, { params }: RouteParams) => {
  * - 인증된 사용자가 자신의 Profile 수정
  * - 유효성 검사를 통해 데이터 형식과 길이를 확인
  */
-export const PATCH = async (request: Request, { params }: RouteParams) => {
-  const session = await getServerSession(authOptions);
 
-  if (!session || !session.user) {
-    return NextResponse.json({ error: '인증이 필요합니다.' }, { status: 403 });
-  }
+export const PATCH = async (request: Request, { params }: RouteParams) => {
+  const { response } = await checkAuth();
+  if (response) return response;
 
   try {
     const { id } = params;
     const body = (await request.json()) as UpdateProfile;
-    const { name, bio } = body;
 
     const user = await prisma.user.findUnique({ where: { id } });
     if (!user) {
-      return NextResponse.json(
-        { error: 'User를 찾을 수 없습니다.' },
-        { status: 404 },
+      return errorResponse(
+        USER_ERROR_MESSAGES.USER_NOT_FOUND,
+        HTTP_STATUS.NOT_FOUND,
       );
     }
 
-    // 유효성 검사
-    if (name && (name.trim().length < 2 || name.trim().length > 10)) {
-      return NextResponse.json(
-        { error: '닉네임은 1~10자여야 하며, 앞뒤 공백을 허용하지 않습니다.' },
-        { status: 400 },
-      );
-    }
-    if (bio && (bio.length < 1 || bio.length > 20)) {
-      return NextResponse.json(
-        { error: '자기소개는 1~20자여야 합니다.' },
-        { status: 400 },
-      );
-    }
+    const validationError = checkUpdateUserValidation(body);
+    if (validationError) return validationError;
 
     const updatedProfile = await prisma.user.update({
       where: { id },
       data: {
-        ...(name !== undefined && { name: name.trim() }),
-        ...(bio !== undefined && { bio }),
+        ...(body.name !== undefined && { name: body.name.trim() }),
+        ...(body.bio !== undefined && { bio: body.bio }),
       },
     });
 
-    return NextResponse.json(updatedProfile);
+    return successResponse(updatedProfile);
   } catch (error) {
-    console.error('Profile 수정 에러:', error);
-    return NextResponse.json(
-      { error: 'Profile 수정에 실패했습니다.' },
-      { status: 500 },
-    );
+    console.error('Users 업데이트 에러:', error);
+    return errorResponse(USER_ERROR_MESSAGES.FETCH_FAILED);
   }
 };
