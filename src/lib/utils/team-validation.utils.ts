@@ -1,6 +1,6 @@
 import { TEAMS_MESSAGES } from '@/constants/error-messages.constants';
 import { HTTP_STATUS } from '@/constants/http-status.constants';
-import { TEAM_VALIDATAION } from '@/constants/validation.constants';
+import { TEAM_VALIDATION } from '@/constants/validation.constants';
 import { TeamData } from '@/types/teams.type';
 import { NextResponse } from 'next/server';
 
@@ -30,8 +30,8 @@ export const checkCreateTeamValidation = (
 
   // 팀 이름 유효성 검사 : 2~10자, 빈칸 X
   if (
-    teamName.length < TEAM_VALIDATAION.TEAM_NAME.MIN ||
-    teamName.length > TEAM_VALIDATAION.TEAM_NAME.MAX ||
+    teamName.length < TEAM_VALIDATION.TEAM_NAME.MIN ||
+    teamName.length > TEAM_VALIDATION.TEAM_NAME.MAX ||
     !teamName.trim()
   ) {
     return NextResponse.json(
@@ -42,8 +42,8 @@ export const checkCreateTeamValidation = (
 
   // 팀 소개 유효성 검사 : 5~20자, 빈칸 X
   if (
-    teamBio.length < TEAM_VALIDATAION.TEAM_BIO.MIN ||
-    teamBio.length > TEAM_VALIDATAION.TEAM_BIO.MAX ||
+    teamBio.length < TEAM_VALIDATION.TEAM_BIO.MIN ||
+    teamBio.length > TEAM_VALIDATION.TEAM_BIO.MAX ||
     !teamBio.trim()
   ) {
     return NextResponse.json(
@@ -79,8 +79,8 @@ export const checkUpdateTeamValidation = (
   }
   //팀 소개 유효성 검사 : 5~20자, 빈칸X
   if (
-    teamBio.length < TEAM_VALIDATAION.TEAM_BIO.MIN ||
-    teamBio.length > TEAM_VALIDATAION.TEAM_BIO.MAX ||
+    teamBio.length < TEAM_VALIDATION.TEAM_BIO.MIN ||
+    teamBio.length > TEAM_VALIDATION.TEAM_BIO.MAX ||
     !teamBio.trim()
   ) {
     return NextResponse.json(

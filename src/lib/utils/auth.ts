@@ -3,8 +3,8 @@ import GoogleProvider from 'next-auth/providers/google';
 import type { NextAuthOptions } from 'next-auth';
 import { prisma } from '@/lib/prisma';
 import { PATH } from '@/constants/path';
+import { USER_VALIDATION } from '@/constants/validation.constants';
 
-// NextAuth 설정 옵션을 정의합니다.
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
@@ -20,9 +20,16 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
+
+    async signIn({ user, profile }) {
+      if (profile?.name) {
+        user.name = profile.name.slice(0, USER_VALIDATION.NAME.MAX);
+      }
+      return true;
+    },
   },
 
   pages: {
-    signIn: PATH.HOME,
+    signIn: PATH.MYPAGE,
   },
 };
