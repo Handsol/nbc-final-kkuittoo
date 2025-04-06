@@ -20,20 +20,49 @@ export const UserRankContent = () => {
   const otherUsers = sortedUsers.slice(3); // 4위부터
 
   return (
-    <div className="container mx-auto p-4 bg-gray-400 rounded-lg">
-      <h1 className="text-3xl font-bold mb-6">유저 랭킹</h1>
-      <button className="border rounded-2xl p-1 text-gray-600" disabled>
-        Character
-      </button>
-      <Link href="/rank/teams">
-        <button className="border rounded-2xl p-1 text-gray-600">Team</button>
-      </Link>
-
-      <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {sortedUsers.map((user, index) => (
-          <UserCard key={user.id} user={user} rank={index + 1} />
-        ))}
+    <>
+      <div className="flex items-center space-x-2 mb-8">
+        <button
+          className="border rounded-2xl p-1 w-40 bg-gray-400 text-gray-600"
+          disabled
+        >
+          Character
+        </button>
+        <Link href="/rank/teams">
+          <button className="border rounded-2xl p-1 w-40 text-gray-600 hover:bg-gray-400">
+            Team
+          </button>
+        </Link>
+        <input
+          type="text"
+          placeholder="유저 이름을 검색해보세요."
+          className="border rounded-2xl p-1 text-gray-600 flex-1"
+        />
       </div>
-    </div>
+      <div className="container mx-auto p-4 bg-gray-400 rounded-2xl">
+        {/* 상단 3명: 1, 2, 3위*/}
+        <div className="mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+            {topUsers.map((user, index) => (
+              <div key={user.id}>
+                <UserCard user={user} rank={index + 1} isTopRank={true} />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* 하단: 나머지 유저 */}
+        <div className="space-y-4">
+          {otherUsers.map((user, index) => (
+            <UserCard
+              key={user.id}
+              user={user}
+              rank={index + 4}
+              isTopRank={false}
+            />
+          ))}
+        </div>
+      </div>
+    </>
   );
 };

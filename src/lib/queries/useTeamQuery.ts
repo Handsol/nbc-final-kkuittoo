@@ -15,7 +15,7 @@ export const useTeamQuery = () => {
   return useQuery<TeamWithPoints[]>({
     // TeamData 배열 반환
     queryKey: QUERY_KEYS.TEAMS,
-    queryFn: fetchGetTeamsWithPoints, // fetchTeams 호출 데이터 가져오기
+    queryFn: fetchGetTeamsWithPoints, // fetchGetTeamsWithPoints 호출 데이터 가져오기
   });
   // {data, isPending, isError} 같은 정보 반환
 };
