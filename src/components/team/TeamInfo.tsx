@@ -5,58 +5,82 @@ import {
 } from '@/lib/services/team-actions.services';
 import { Progress } from '../ui/progress';
 import Image from 'next/image';
-import TeamBio from './TeamBio';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/utils/auth';
+import TeamBioEditMode from './team-form/TeamBioEditMode';
+import TeamBioNotEditMode from './team-form/TeamBioNotEditMode';
+import TeamOpenToggleButton from './team-form/TeamOpenToggleButton';
+import TeamOpenNotEditMode from './team-form/TeamOpenNotEditMode';
+import TeamImage from './TeamImage';
+import TeamTitle from './TeamTitle';
+import TeamProgress from './TeamProgress';
 
 type TeamQuestProps = {
   id: string;
 };
 
 const TeamInfo = async ({ id }: TeamQuestProps) => {
-  //팀 기본 데이터
+  // 팀 기본 데이터
   const teamData = await fetchTeamData(id);
   // 팀의 전체 포인트와 현재 퀘스트를 가져오는 로직
   const { teamTotalPoints } = await fetchGetTeamTotalPoints(id);
   const teamCurrentQuest = await fetchGetCurrentTeamQuest(teamTotalPoints);
+  // 현재 로그인한 유저 정보
+  const session = await getServerSession(authOptions);
 
+  // teamData & session 로딩 실패시 early return 로직
+  // 이 부분은 오류 처리 로직에 대해 논의 후 수정 예정입니다.
   if (!teamData || !teamCurrentQuest) {
     return <p>데이터를 가져오는데 실패했습니다</p>;
   }
+  if (!session?.user) {
+    return (
+      <div className="flex items-center justify-center min-h-[calc(100vh-3rem)]">
+        <p className="text-lg">로그인이 필요합니다.</p>
+      </div>
+    );
+  }
 
-  const { teamName, teamBio, emblem } = teamData;
+  // 팀 생성자 여부 판단
+  const userId = session.user.id;
+  const isOwner = teamData.ownerId === userId;
+
+  const { teamName, teamBio, emblem, isOpened, id: teamId } = teamData;
 
   return (
-    <section className="w-full flex bg-neutral-400 rounded-3xl p-9 gap-5">
-      <div className="relative w-64 h-60">
-        <Image
-          src={'/teamQuest'}
-          alt="teamQuest"
-          fill
-          className="bg-neutral-500 rounded-3xl"
-        />
-        <img
-          src={emblem}
-          alt="emblem"
-          className="w-14 h-14 rounded-full bg-neutral-700 absolute bottom-3 right-3"
-        />
-      </div>
-      <article className="flex-1 flex flex-col gap-3 justify-center relative">
+    <article className="w-full flex bg-neutral-400 rounded-3xl p-9 gap-5">
+      {/* 팀 이미지 : 퀘스트 이미지 + 엠블럼 */}
+      <TeamImage
+        currentQuestImg={teamCurrentQuest.questImage}
+        emblem={emblem}
+      />
+      <section className="flex-1 flex flex-col gap-3 justify-center relative">
         <section className="absolute right-0 top-8 flex flex-col justify-center items-center gap-3">
-          <button className="px-2 h-6 text-center bg-white rounded-full text-xs">
-            PRIVATE
-          </button>
+          {/* 팀 공개 여부 토글 버튼 */}
+          {isOwner ? (
+            <TeamOpenToggleButton teamId={teamId} />
+          ) : (
+            <TeamOpenNotEditMode isOpened={isOpened} />
+          )}
         </section>
-        <p className="font-bold text-2xl">{teamName}</p>
-        <p className="font-bold text-4xl">{teamCurrentQuest.questName}</p>
-        <section>
-          <Progress value={teamTotalPoints} className="w-full h-5" />
-          <p>
-            {teamTotalPoints}/{teamCurrentQuest.requiredPoints}
-          </p>
-        </section>
-
-        <TeamBio teamBio={teamBio} teamId={id} />
-      </article>
-    </section>
+        {/* 팀 타이틀 : 팀 이름 + 팀 현재 퀘스트이름 */}
+        <TeamTitle
+          teamName={teamName}
+          currentQuestName={teamCurrentQuest.questName}
+        />
+        {/* 팀 progress : progress bar + 숫자 */}
+        <TeamProgress
+          teamTotalPoints={teamTotalPoints}
+          currentQuestRequired={teamCurrentQuest.requiredPoints}
+        />
+        {/* 팀 소개 : 생성자이면 수정버튼 활성화 */}
+        {isOwner ? (
+          <TeamBioEditMode teamBio={teamBio} teamId={id} />
+        ) : (
+          <TeamBioNotEditMode teamBio={teamBio} />
+        )}
+      </section>
+    </article>
   );
 };
 
