@@ -62,3 +62,33 @@ export const updateTeamBio = async ({ teamId, data }: updateTeamBioParam) => {
 
   return res.json();
 };
+
+/**
+ * 팀 공개여부 수정 mutationFn
+ *
+ * @param teamId
+ * @param isOpened
+ */
+type updateTeamOpenStateParam = {
+  teamId: string;
+  isOpened: boolean;
+};
+
+export const updateTeamOpenState = async ({
+  teamId,
+  isOpened,
+}: updateTeamOpenStateParam) => {
+  const res = await fetch(`/api/teams/${teamId}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ isOpened }),
+  });
+
+  if (!res.ok) {
+    throw new Error(TEAMS_MESSAGES.UPDATE_FAILED);
+  }
+
+  return res.json;
+};
