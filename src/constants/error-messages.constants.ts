@@ -24,6 +24,7 @@ export const TEAMS_MESSAGES = {
   UPDATE_TEAM_REQUIRED: '수정시 팀소개/팀 공개여부 중 1개 이상 입력해야합니다.',
   TEAM_NAME_NOT_ALLOW: '팀이름이 적합하지 않습니다.',
   TEAM_BIO_NOT_ALLOW: '팀소개가 적합하지 않습니다.',
+  TEAM_BIO_BLANK: '팀 소개는 빈칸으로 작성이 불가능합니다.',
   OWNER_ONLY: '팀 생성자만 가능합니다.',
   PRIVATE_ACCESS: '본인만 가능합니다.',
   OTHERS_EXIST: '팀 생성자 외 다른 유저가 존재합니다.',
