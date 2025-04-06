@@ -6,11 +6,10 @@ import {
   getCooldownStatus,
   getCurrentDayStatus,
 } from '@/lib/utils/habit.utils';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {
-  fetchDeleteHabit,
-  fetchUpdateHabit,
-} from '@/lib/services/habit-client.services';
+  useDeleteHabitMutation,
+  useUpdateHabitMutation,
+} from '@/lib/mutations/useHabitMutation';
 
 type HabitItemProps = {
   habit: Habit & { userPoints: UserPoint[] };
@@ -20,65 +19,8 @@ type HabitItemProps = {
 const HabitItem = ({ habit, userId }: HabitItemProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const addPointMutation = useAddPointMutation(userId);
-  const queryClient = useQueryClient();
-
-  // 수정
-  const updateMutation = useMutation({
-    mutationFn: (data: Omit<Habit, 'userId' | 'createdAt' | 'userPoints'>) =>
-      fetchUpdateHabit(habit.id, data),
-    onMutate: async (updatedData) => {
-      await queryClient.cancelQueries({ queryKey: ['habits', userId] });
-
-      const previousHabits = queryClient.getQueryData(['habits', userId]);
-
-      // 옵티미스틱 업데이트
-      queryClient.setQueryData(
-        ['habits', userId],
-        (old: (Habit & { userPoints: UserPoint[] })[]) => {
-          return old.map((h) =>
-            h.id === habit.id ? { ...h, ...updatedData } : h,
-          );
-        },
-      );
-
-      return { previousHabits };
-    },
-    onError: (err, newData, context) => {
-      queryClient.setQueryData(['habits', userId], context?.previousHabits);
-      console.error('Habit 수정 실패:', err);
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['habits', userId] });
-      setIsEditing(false);
-    },
-  });
-
-  // 삭제
-  const deleteMutation = useMutation({
-    mutationFn: () => fetchDeleteHabit(habit.id),
-    onMutate: async () => {
-      await queryClient.cancelQueries({ queryKey: ['habits', userId] });
-
-      const previousHabits = queryClient.getQueryData(['habits', userId]);
-
-      // 옵티미스틱 업데이트
-      queryClient.setQueryData(
-        ['habits', userId],
-        (old: (Habit & { userPoints: UserPoint[] })[]) => {
-          return old.filter((h) => h.id !== habit.id);
-        },
-      );
-
-      return { previousHabits };
-    },
-    onError: (err, _, context) => {
-      queryClient.setQueryData(['habits', userId], context?.previousHabits);
-      console.error('Habit 삭제 실패:', err);
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['habits', userId] });
-    },
-  });
+  const updateMutation = useUpdateHabitMutation(userId, habit.id);
+  const deleteMutation = useDeleteHabitMutation(userId, habit.id);
 
   const handleAddPoint = () => {
     addPointMutation.mutate(habit.id);
