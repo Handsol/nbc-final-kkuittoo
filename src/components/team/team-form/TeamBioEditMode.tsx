@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { useTeamBioMutation } from '@/lib/mutations/useTeamBioMutation';
 import { useSingleTeamQuery } from '@/lib/queries/useSingleTeamQuery';
-import CommonInputBar from '../common/CommonInputBar';
+import CommonInputBar from '../../common/CommonInputBar';
 
 type TeamBioProps = {
   teamBio: string;
@@ -15,7 +15,7 @@ type FormData = {
   teamBio: string;
 };
 
-const TeamBio = ({ teamBio, teamId }: TeamBioProps) => {
+const TeamBioEditMode = ({ teamBio, teamId }: TeamBioProps) => {
   const [isEditMode, setIsEditMode] = useState(false);
 
   // react-hook-form
@@ -26,7 +26,10 @@ const TeamBio = ({ teamBio, teamId }: TeamBioProps) => {
   });
 
   // tanstack query - useMutation
-  const { mutate, isPending } = useTeamBioMutation(teamId, teamBio);
+  const { mutate, isPending: isTeamBioPending } = useTeamBioMutation(
+    teamId,
+    teamBio,
+  );
   // tanstack query - useQuery
   const {
     data: teamData,
@@ -57,7 +60,7 @@ const TeamBio = ({ teamBio, teamId }: TeamBioProps) => {
           <button
             className="w-11 h-11 rounded-full bg-white"
             type="submit"
-            disabled={isPending}
+            disabled={isTeamBioPending}
           >
             확인
           </button>
@@ -77,4 +80,4 @@ const TeamBio = ({ teamBio, teamId }: TeamBioProps) => {
   );
 };
 
-export default TeamBio;
+export default TeamBioEditMode;
