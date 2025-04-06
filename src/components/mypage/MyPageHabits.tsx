@@ -1,19 +1,14 @@
 'use client';
 
+import { useHabitsQuery } from '@/lib/queries/useHabitsQuery';
 import HabitContent from './habits/HabitContent';
-import { fetchGetAllHabits } from '@/lib/services/habit-actions.services';
-import { useQuery } from '@tanstack/react-query';
 
 type MyPageHabitsProps = {
   userId: string;
 };
 
 const MyPageHabits = ({ userId }: MyPageHabitsProps) => {
-  const { data: habits = [] } = useQuery({
-    queryKey: ['habits', userId],
-    queryFn: () => fetchGetAllHabits(userId),
-    staleTime: 5 * 60 * 1000,
-  });
+  const { data: habits = [] } = useHabitsQuery(userId);
 
   return (
     <section className="h-full bg-gray-100 p-6 rounded-3xl flex flex-col">
