@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Habit, UserPoint } from '@prisma/client';
-import { useAddPointMutation } from '@/lib/mutations/use-add-point-mutation';
+import { useAddPointMutation } from '@/lib/mutations/useAddPointMutation';
 import HabitForm from './HabitForm';
 import {
   getCooldownStatus,

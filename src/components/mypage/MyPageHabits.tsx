@@ -1,6 +1,6 @@
 'use client';
 
-import { useHabitsQuery } from '@/lib/queries/use-habits-query';
+import { useHabitsQuery } from '@/lib/queries/useHabitsQuery';
 import HabitContent from './habits/HabitContent';
 
 type MyPageHabitsProps = {

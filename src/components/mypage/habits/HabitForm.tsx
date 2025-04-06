@@ -1,5 +1,5 @@
 import { HabitFormData } from '@/types/mypage.type';
-import { useHabitForm } from '@/lib/hooks/use-habit-form';
+import { useHabitForm } from '@/lib/hooks/useHabitForm';
 import { createHabitData, toggleDay } from '@/lib/utils/habit.utils';
 import HabitFormReapeatDays from './habit-form/HabitFormRepeatDays';
 import HabitFormTags from './habit-form/HabitFormTags';
