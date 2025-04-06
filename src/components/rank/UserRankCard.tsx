@@ -16,7 +16,7 @@ export const UserCard = ({ user, rank }: { user: UserData; rank: number }) => {
         className="w-16 h-16 mb-2"
       />
       <h2 className="text-xl font-bold">
-        {rank}. {user.name}
+        {rank}th {user.name}
       </h2>
       <p className="text-gray-600">{user.bio || '소개 없음'}</p>
       <p className="text-sm mt-2">포인트: {totalPoints}</p>
