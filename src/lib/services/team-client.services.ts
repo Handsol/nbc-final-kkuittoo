@@ -90,5 +90,5 @@ export const updateTeamOpenState = async ({
     throw new Error(TEAMS_MESSAGES.UPDATE_FAILED);
   }
 
-  return res.json;
+  return res.json();
 };

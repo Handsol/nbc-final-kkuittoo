@@ -10,11 +10,11 @@ type TeamOpenToggleButtonProps = {
 
 const TeamOpenToggleButton = ({ teamId }: TeamOpenToggleButtonProps) => {
   // tanstack query - useQuery
-  const { data: teamData, isLoading } = useSingleTeamQuery(teamId);
+  const { data: teamData, isPending } = useSingleTeamQuery(teamId);
   // tanstack query - useMutation
   const { mutate } = useTeamOpenMutation(teamId);
 
-  if (isLoading || !teamData) return <p>로딩 중...</p>;
+  if (isPending || !teamData) return <p>로딩 중...</p>;
 
   return (
     <div className="flex items-center gap-2">
