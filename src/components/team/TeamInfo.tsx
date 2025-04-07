@@ -3,17 +3,15 @@ import {
   fetchGetTeamTotalPoints,
   fetchTeamData,
 } from '@/lib/services/team-actions.services';
-import { Progress } from '../ui/progress';
-import Image from 'next/image';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/utils/auth';
-import TeamBioEditMode from './team-form/TeamBioEditMode';
-import TeamBioNotEditMode from './team-form/TeamBioNotEditMode';
-import TeamOpenToggleButton from './team-form/TeamOpenToggleButton';
-import TeamOpenNotEditMode from './team-form/TeamOpenNotEditMode';
+import TeamBioNotEditMode from './team-edit/TeamBioNotEditMode';
 import TeamImage from './TeamImage';
 import TeamTitle from './TeamTitle';
+import TeamOpenToggleButton from './team-edit/TeamOpenToggleButton';
+import TeamOpenNotEditMode from './team-edit/TeamOpenNotEditMode';
 import TeamProgress from './TeamProgress';
+import TeamBioEditMode from './team-edit/TeamBioEditMode';
 
 type TeamQuestProps = {
   id: string;
