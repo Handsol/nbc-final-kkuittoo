@@ -39,3 +39,10 @@ export type CreateUserPoint = {
 export type HabitFormData = Omit<Habit, 'userId' | 'createdAt' | 'userPoints'>;
 
 export type HabitWithPoints = Habit & { userPoints: UserPoint[] };
+
+export type HabitFormValues = {
+  title: string;
+  notes: string;
+  categories: string;
+  selectedDays: string[];
+};
