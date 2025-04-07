@@ -24,6 +24,7 @@ const HabitForm: React.FC<HabitFormProps> = ({
   onSuccess,
 }) => {
   const {
+    register,
     control,
     handleSubmit,
     formState: { errors },
@@ -61,34 +62,20 @@ const HabitForm: React.FC<HabitFormProps> = ({
 
   return (
     <div className="p-4 bg-white rounded-xl shadow flex flex-col gap-6">
-      <Controller
-        control={control}
-        name="title"
-        render={({ field }) => (
-          <HabitFormInput
-            id="title"
-            label="TITLE"
-            placeholder="습관 제목"
-            value={field.value}
-            onChange={field.onChange}
-            error={errors.title?.message}
-          />
-        )}
+      <HabitFormInput
+        id="title"
+        label="TITLE"
+        placeholder="습관 제목"
+        {...register('title')}
+        error={errors.title?.message}
       />
 
-      <Controller
-        control={control}
-        name="notes"
-        render={({ field }) => (
-          <HabitFormInput
-            id="description"
-            label="DESCRIPTION"
-            placeholder="설명"
-            value={field.value}
-            onChange={field.onChange}
-            error={errors.notes?.message}
-          />
-        )}
+      <HabitFormInput
+        id="description"
+        label="DESCRIPTION"
+        placeholder="설명"
+        {...register('notes')}
+        error={errors.notes?.message}
       />
 
       <Controller
