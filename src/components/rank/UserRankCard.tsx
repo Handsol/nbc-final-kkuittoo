@@ -10,7 +10,7 @@ export const UserCard = ({ user, rank, isTopRank }: UserCardProps) => {
     <div
       className={`border rounded-3xl p-4 shadow-md bg-gray-100 ${
         isTopRank
-          ? 'w-64 h-72 flex flex-col items-center justify-center'
+          ? 'w-54 h-64 flex flex-col items-center justify-center'
           : 'w-full h-24 flex flex-row items-center'
       }`}
     >

@@ -39,7 +39,7 @@ export const UserRankContent = () => {
           placeholder="캐릭터 이름을 검색해보세요."
         />
       </div>
-      <div className="container mx-auto p-4 bg-gray-400 rounded-2xl">
+      <div className="w-full max-w-[1024px] p-8 mx-auto bg-gray-400 rounded-2xl">
         {/* 상단 3명: 1, 2, 3위*/}
         <div className="mb-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">

@@ -35,7 +35,7 @@ export const TeamRankContent = () => {
         {/* 검색 입력창 (아직 기능 미구현) */}
         <CommonInputBar id="teamSearch" placeholder="팀 이름을 검색해보세요." />
       </div>
-      <div className="container mx-auto p-4 bg-gray-400 rounded-2xl">
+      <div className="-full max-w-[1024px] p-8 mx-auto bg-gray-400 rounded-2xl">
         {/* 상단 3개 팀: 1, 2, 3위 */}
         <div className="mb-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
