@@ -7,7 +7,7 @@ type LayoutProps = {
 const Layout = ({ children }: LayoutProps) => {
   return (
     <div>
-      <main className="p-8 mx-auto">{children}</main>
+      <main className="mx-auto">{children}</main>
     </div>
   );
 };
