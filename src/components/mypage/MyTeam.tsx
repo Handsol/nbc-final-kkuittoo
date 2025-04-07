@@ -38,7 +38,9 @@ const MyTeam = ({ team, teamTotalPoints, teamCurrentQuest }: MyTeamProps) => {
           {/* 팀 바로가기 버튼 */}
           <Link href={`${PATH.TEAM}/${id}`}>
             {/* 나중에 button 공통 컴포넌트 생성 후 리팩토링 */}
-            <button>팀으로 바로가기</button>
+            <button className="px-5 py-2 bg-white rounded-full">
+              팀으로 바로가기
+            </button>
           </Link>
         </div>
       </div>
