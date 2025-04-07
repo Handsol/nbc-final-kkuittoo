@@ -13,7 +13,6 @@ type MyPageTeamProps = {
 const MyPageTeam = async ({ userId }: MyPageTeamProps) => {
   // 해당 유저의 팀 정보 조회
   const myTeamWithMemberData = await fetchGetMyTeamData(userId);
-  const hasTeam = !!myTeamWithMemberData;
 
   if (!myTeamWithMemberData) {
     return <NoTeam />;
@@ -30,13 +29,11 @@ const MyPageTeam = async ({ userId }: MyPageTeamProps) => {
 
   return (
     <>
-      {hasTeam && (
-        <MyTeam
-          team={myTeam}
-          teamTotalPoints={teamTotalPoints}
-          teamCurrentQuest={teamCurrentQuest}
-        />
-      )}
+      <MyTeam
+        team={myTeam}
+        teamTotalPoints={teamTotalPoints}
+        teamCurrentQuest={teamCurrentQuest}
+      />
     </>
   );
 };
