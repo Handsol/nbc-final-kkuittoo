@@ -1,5 +1,6 @@
 'use client';
 
+import CommonInputBar from '@/components/common/CommonInputBar';
 import { UserCard } from '@/components/rank/UserRankCard';
 import { useUserQuery } from '@/lib/queries/useUserQuery';
 import Link from 'next/link';
@@ -33,10 +34,9 @@ export const UserRankContent = () => {
             Team
           </button>
         </Link>
-        <input
-          type="text"
-          placeholder="유저 이름을 검색해보세요."
-          className="border rounded-2xl p-1 text-gray-600 flex-1"
+        <CommonInputBar
+          id="userSearch"
+          placeholder="캐릭터 이름을 검색해보세요."
         />
       </div>
       <div className="container mx-auto p-4 bg-gray-400 rounded-2xl">

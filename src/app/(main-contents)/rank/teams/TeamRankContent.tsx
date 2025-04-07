@@ -1,5 +1,6 @@
 'use client';
 
+import CommonInputBar from '@/components/common/CommonInputBar';
 import { TeamCard } from '@/components/rank/TeamRankCard';
 import { useTeamQuery } from '@/lib/queries/useTeamQuery';
 import { TeamWithPoints } from '@/types/rank-users.type';
@@ -8,14 +9,14 @@ import Link from 'next/link';
 // 팀 랭킹 UI
 export const TeamRankContent = () => {
   const {
-    data: teams = [] as TeamWithPoints[],
+    data: teamsList = [] as TeamWithPoints[],
     isPending,
     isError,
   } = useTeamQuery(); // 데이터 가져오기
   if (isPending) return <div>Loading...</div>;
   if (isError) return <div>Error...</div>;
-  const topTeams = teams.slice(0, 3); // 1~3위
-  const otherTeams = teams.slice(3); // 4위부터
+  const topTeams = teamsList.slice(0, 3); // 1~3위
+  const otherTeams = teamsList.slice(3); // 4위부터
   return (
     <>
       <div className="flex items-center space-x-2 mb-8">
@@ -32,11 +33,7 @@ export const TeamRankContent = () => {
           Team
         </button>
         {/* 검색 입력창 (아직 기능 미구현) */}
-        <input
-          type="text"
-          placeholder="팀 이름을 검색해보세요."
-          className="border rounded-2xl p-1 text-gray-600 flex-1"
-        />
+        <CommonInputBar id="teamSearch" placeholder="팀 이름을 검색해보세요." />
       </div>
       <div className="container mx-auto p-4 bg-gray-400 rounded-2xl">
         {/* 상단 3개 팀: 1, 2, 3위 */}
