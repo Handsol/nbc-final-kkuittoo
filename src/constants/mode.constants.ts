@@ -9,3 +9,10 @@ export const TITLE_MODE = {
   SECTION_TITLE: 3,
   SECTION_SUBTITLE: 4,
 };
+
+export const USER_TITLE_MODE = {
+  CARD_LEVEL: 1,
+  CARD_NAME: 2,
+  CARD_RANK: 3,
+  CARD_ID: 4,
+};

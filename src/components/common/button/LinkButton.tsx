@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Title from '../Title';
-import { TITLE_MODE } from '@/constants/mode';
+import { TITLE_MODE } from '@/constants/mode.constants';
 
 type LinkButtonProps = {
   href: string;
