@@ -1,6 +1,6 @@
-import { prisma } from '@/lib/prisma';
 import {
   fetchGetCurrentTeamQuest,
+  fetchGetMyTeamData,
   fetchGetTeamTotalPoints,
 } from '@/lib/services/team-actions.services';
 import NoTeam from './NoTeam';
@@ -11,24 +11,17 @@ type MyPageTeamProps = {
 };
 
 const MyPageTeam = async ({ userId }: MyPageTeamProps) => {
-  //팀 정보 조회 - 이부분은 나중에 team-actions.services.ts로 뺴야할 거 같은데, 일단 여기에 둘게요
-  const fetchGetTeamMemberData = await prisma.teamMember.findFirst({
-    where: { userId },
-    include: { team: true },
-  });
+  // 해당 유저의 팀 정보 조회
+  const myTeamWithMemberData = await fetchGetMyTeamData(userId);
+  const hasTeam = !!myTeamWithMemberData;
 
-  //팀 가입여부 확인(테스트용으로 false를 사용하는데, 추후 삭제하겠습니다.)
-  const hasTeam = !!fetchGetTeamMemberData?.team;
-  // const hasTeam = false;
-
-  //팀이 없을 경우
-  if (!hasTeam) {
+  if (!myTeamWithMemberData) {
     return <NoTeam />;
   }
 
-  //팀이 있으면 추가적으로 데이터 조회
-  const team = fetchGetTeamMemberData.team;
-  const { teamTotalPoints } = await fetchGetTeamTotalPoints(team.id);
+  // 팀 존재 = 팀 전체 포인트, 현재 퀘스트 정보 조회
+  const myTeam = myTeamWithMemberData.team;
+  const { teamTotalPoints } = await fetchGetTeamTotalPoints(myTeam.id);
   const teamCurrentQuest = await fetchGetCurrentTeamQuest(teamTotalPoints);
 
   if (!teamCurrentQuest) {
@@ -36,11 +29,15 @@ const MyPageTeam = async ({ userId }: MyPageTeamProps) => {
   }
 
   return (
-    <MyTeam
-      team={team}
-      teamTotalPoints={teamTotalPoints}
-      teamCurrentQuest={teamCurrentQuest}
-    />
+    <>
+      {hasTeam && (
+        <MyTeam
+          team={myTeam}
+          teamTotalPoints={teamTotalPoints}
+          teamCurrentQuest={teamCurrentQuest}
+        />
+      )}
+    </>
   );
 };
 
