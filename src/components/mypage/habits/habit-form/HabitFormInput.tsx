@@ -17,7 +17,7 @@ const HabitFormInput = ({
   onChange,
   error,
 }: InputFieldProps) => (
-  <div className="flex items-center gap-4">
+  <div className="flex items-start gap-4">
     <label
       htmlFor={id}
       className="w-20 text-xs font-semibold text-gray-700 shrink-0"
@@ -31,7 +31,7 @@ const HabitFormInput = ({
         value={value}
         onChange={onChange}
       />
-      <div className="min-h-5 mt-1">
+      <div className="min-h-4 mt-1">
         {error && <p className="text-red-500 text-xs">{error}</p>}
       </div>
     </div>
