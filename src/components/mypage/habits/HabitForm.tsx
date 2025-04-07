@@ -4,10 +4,9 @@ import { createHabitData, toggleDay } from '@/lib/utils/habit.utils';
 import HabitFormReapeatDays from './habit-form/HabitFormRepeatDays';
 import HabitFormTags from './habit-form/HabitFormTags';
 import CommonInputBar from '@/components/common/CommonInputBar';
-import { HABIT_VALIDATION } from '@/constants/habits.constants';
 import { useEffect, useState } from 'react';
-import { HABIT_ERROR_MESSAGES } from '@/constants/error-messages.constants';
 import { toast } from '@/hooks/use-toast';
+import { validateHabits } from '@/lib/utils/habit-validation.utils';
 
 type HabitFormProps = {
   onCancel: () => void;
@@ -20,44 +19,19 @@ const HabitForm = ({ onCancel, initialHabit, onSuccess }: HabitFormProps) => {
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   const validateForm = () => {
-    const newErrors: { [key: string]: string } = {};
-
-    const title = form.title.value.trim();
-    if (
-      !title ||
-      title.length < HABIT_VALIDATION.TITLE.MIN_LENGTH ||
-      title.length > HABIT_VALIDATION.TITLE.MAX_LENGTH
-    ) {
-      newErrors.title = HABIT_ERROR_MESSAGES.TITLE_LENGTH;
-    }
-
-    const notes = form.notes.value.trim();
-    if (
-      !notes ||
-      notes.length < HABIT_VALIDATION.NOTES.MIN_LENGTH ||
-      notes.length > HABIT_VALIDATION.NOTES.MAX_LENGTH
-    ) {
-      newErrors.notes = HABIT_ERROR_MESSAGES.NOTES_LENGTH;
-    }
-
-    const categories = form.category.value.trim();
-    if (!categories) {
-      newErrors.categories = HABIT_ERROR_MESSAGES.CATEGORY_REQUIRED;
-    }
-
+    const newErrors = validateHabits({
+      title: form.title.value,
+      notes: form.notes.value,
+      categories: form.category.value,
+    });
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    return Object.keys(newErrors).length === 0; // 폼을 제출해도 되는지 확인! 에러가 하나라도 없을 경우만 폼 제출 가능
   };
 
   // 입력값 변경 시 유효성 검사 실행
   useEffect(() => {
     validateForm();
-  }, [
-    form.title.value,
-    form.notes.value,
-    form.category.value,
-    form.selectedDays.value,
-  ]);
+  }, [form.title.value, form.notes.value]);
 
   const handleSubmit = () => {
     if (!validateForm()) {
