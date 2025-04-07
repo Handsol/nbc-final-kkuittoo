@@ -19,7 +19,7 @@ export type UserPoint = {
   id: string;
   userId: string;
   habitId: string | null;
-  getTime: string | null;
+  getTime: Date | string | null;
   points: number;
 };
 
@@ -37,3 +37,5 @@ export type CreateUserPoint = {
 };
 
 export type HabitFormData = Omit<Habit, 'userId' | 'createdAt' | 'userPoints'>;
+
+export type HabitWithPoints = Habit & { userPoints: UserPoint[] };
