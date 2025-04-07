@@ -69,14 +69,16 @@ export const TeamRankContent = () => {
               rank={index + 4}
               isTopRank={false}
               onClick={() => setSelectedTeam(team)}
+              // 카드 클릭 싯 해당 팀 정보 저장
             />
           ))}
         </div>
       </div>
 
       <CommonModal
-        isOpen={!!selectedTeam}
+        isOpen={!!selectedTeam} // 선택된 팀이 있을 경우 모달 열림
         onClose={() => setSelectedTeam(null)}
+        // 모달 닫으면서 팀 선택 해제
       >
         {selectedTeam && (
           <TeamDetailModal

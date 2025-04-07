@@ -18,7 +18,7 @@ export const CommonModal = ({
   return (
     <div
       className="fixed inset-0 z-50 bg-black bg-opacity-60 flex justify-center items-center"
-      onClick={onClose}
+      onClick={onClose} // 배경 클릭 시 닫힘
     >
       <div
         onClick={(e) => e.stopPropagation()}
