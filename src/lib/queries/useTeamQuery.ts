@@ -3,7 +3,7 @@ import { QUERY_KEYS } from '@/constants/query-keys.constants';
 import { TeamWithPoints } from '@/types/rank-users.type';
 
 const fetchGetTeamsWithPoints = async (): Promise<TeamWithPoints[]> => {
-  const response = await fetch('/api/teams/rank', {
+  const response = await fetch('/api/teams/', {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
   });
