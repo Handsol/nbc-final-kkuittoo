@@ -14,3 +14,15 @@ export type TeamWithPoints = TeamData & {
   totalPoints: number;
   memberCount: number;
 };
+
+export type TeamCardProps = {
+  team: TeamWithPoints; // 팀 데이터
+  rank: number; // 순위
+  isTopRank: boolean; // 상단 3위 여부
+};
+
+export type UserCardProps = {
+  user: UserData;
+  rank: number;
+  isTopRank: boolean;
+};

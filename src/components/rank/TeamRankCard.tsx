@@ -1,10 +1,5 @@
-import { TeamWithPoints } from '@/types/rank-users.type';
+import { TeamCardProps } from '@/types/rank-users.type';
 
-type TeamCardProps = {
-  team: TeamWithPoints; // 팀 데이터
-  rank: number; // 순위
-  isTopRank: boolean; // 상단 3위 여부
-};
 // 한 팀의 정보를 카드 형태로 보여주는 컴포넌트임당
 // isTopRank로 상단 3위와 나머지 스타일 구별
 export const TeamCard = ({ team, rank, isTopRank }: TeamCardProps) => {
