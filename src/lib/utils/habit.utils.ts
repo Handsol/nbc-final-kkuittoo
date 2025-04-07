@@ -1,6 +1,11 @@
-import { ONE_HOUR_COOLDOWN_MS } from '@/constants/habits.constants';
+import {
+  DAYS_OF_WEEK,
+  HABIT_CATEGORIES,
+  ONE_HOUR_COOLDOWN_MS,
+} from '@/constants/habits.constants';
 import { HabitFormData } from '@/types/mypage.type';
 import { Habit, UserPoint } from '@prisma/client';
+import { HabitFormSchema } from '../schema/habit-form.schema';
 
 /**
  * 현재 요일에 해당하는 습관 수행 여부를 반환하는 유틸리티 함수
@@ -68,9 +73,7 @@ export const getCooldownStatus = (userPoints: UserPoint[]): boolean => {
  */
 export const getInitialSelectedDays = (habit?: Habit) => {
   if (!habit) return [];
-  return ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'].filter(
-    (day) => habit[day as keyof Habit],
-  );
+  return DAYS_OF_WEEK.filter((day) => habit[day as keyof Habit]);
 };
 
 /**
@@ -107,4 +110,16 @@ export const createHabitData = (
   fri: selectedDays.includes('fri'),
   sat: selectedDays.includes('sat'),
   sun: selectedDays.includes('sun'),
+});
+
+/**
+ * react-hook-form에서 사용할 기본값
+ * @param {HabitFormData} [habit] - 초기 습관 데이터 (수정일 경우 사용). 전달되지 않으면 빈 값으로 초기화
+ * @returns {HabitFormSchema} - 폼 초기값
+ */
+export const getDefaultValues = (habit?: HabitFormData): HabitFormSchema => ({
+  title: habit?.title || '',
+  notes: habit?.notes || '',
+  categories: habit?.categories || HABIT_CATEGORIES[0],
+  selectedDays: habit ? DAYS_OF_WEEK.filter((day) => (habit as any)[day]) : [],
 });

@@ -1,11 +1,14 @@
 import { HabitFormData } from '@/types/mypage.type';
-import { createHabitData, toggleDay } from '@/lib/utils/habit.utils';
+import {
+  createHabitData,
+  getDefaultValues,
+  toggleDay,
+} from '@/lib/utils/habit.utils';
 import HabitFormReapeatDays from './habit-form/HabitFormRepeatDays';
 import HabitFormTags from './habit-form/HabitFormTags';
 import { toast } from '@/hooks/use-toast';
 import HabitFormInput from './habit-form/HabitFormInput';
 import { Controller, useForm } from 'react-hook-form';
-import { DAYS_OF_WEEK, HABIT_CATEGORIES } from '@/constants/habits.constants';
 import {
   habitFormSchema,
   HabitFormSchema,
@@ -30,14 +33,7 @@ const HabitForm: React.FC<HabitFormProps> = ({
     formState: { errors },
   } = useForm<HabitFormSchema>({
     resolver: zodResolver(habitFormSchema),
-    defaultValues: {
-      title: initialHabit?.title || '',
-      notes: initialHabit?.notes || '',
-      categories: initialHabit?.categories || HABIT_CATEGORIES[0],
-      selectedDays: initialHabit
-        ? DAYS_OF_WEEK.filter((day) => (initialHabit as any)[day])
-        : [],
-    },
+    defaultValues: getDefaultValues(initialHabit),
   });
 
   const onSubmit = (data: HabitFormSchema) => {
