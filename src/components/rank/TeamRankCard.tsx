@@ -1,13 +1,18 @@
 import { TeamCardProps } from '@/types/rank-users.type';
 import Image from 'next/image';
 
+type Props = TeamCardProps & {
+  onClick?(): void;
+};
+
 // 한 팀의 정보를 카드 형태로 보여주는 컴포넌트임당
 // isTopRank로 상단 3위와 나머지 스타일 구별
-export const TeamCard = ({ team, rank, isTopRank }: TeamCardProps) => {
+export const TeamCard = ({ team, rank, isTopRank, onClick }: Props) => {
   const imageSize = isTopRank ? 112 : 64;
 
   return (
     <div
+      onClick={onClick}
       className={`border rounded-3xl p-4 shadow-md bg-gray-100 ${
         isTopRank
           ? 'w-54 h-64 flex flex-col items-center justify-center'
