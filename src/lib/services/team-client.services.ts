@@ -1,4 +1,5 @@
 import { TEAMS_MESSAGES } from '@/constants/error-messages.constants';
+import { TeamWithPoints } from '@/types/rank-users.type';
 import { TeamData } from '@/types/teams.type';
 
 // 팀 데이터 가져오기
@@ -91,4 +92,13 @@ export const updateTeamOpenState = async ({
   }
 
   return res.json();
+};
+
+export const fetchGetTeamsWithPoints = async (): Promise<TeamWithPoints[]> => {
+  const response = await fetch('/api/teams/', {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+  });
+  if (!response.ok) throw new Error('Failed to fetch teams');
+  return response.json();
 };
