@@ -17,7 +17,10 @@ export const TeamCard = ({ team, rank, isTopRank }: TeamCardProps) => {
         }
       >
         <div className={isTopRank ? 'mb-2' : 'mr-4'}>
-          <h2 className="text-xl font-bold text-gray-700">{rank}rd</h2>
+          <h2 className="text-xl font-bold text-gray-700">
+            {rank}
+            {rank === 1 ? 'st' : rank === 2 ? 'nd' : rank === 3 ? 'rd' : 'th'}
+          </h2>
         </div>
         <div
           className={`${
