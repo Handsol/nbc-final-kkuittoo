@@ -1,4 +1,8 @@
-const MyPageProfile = () => {
+type MyPageHabitsProps = {
+  userId: string;
+};
+
+const MyPageProfile = ({ userId }: MyPageHabitsProps) => {
   return (
     <div className="flex-[2] p-4 rounded-xl border shadow-sm bg-white">
       <div className="flex items-center justify-evenly">
