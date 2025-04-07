@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { fetchAddUserPoint } from '../services/user-points.services';
+import { QUERY_KEYS } from '@/constants/query-keys.constants';
 
 /**
  * 사용자 포인트 추가를 위한 React Query Mutation 훅
@@ -13,7 +14,7 @@ export const useAddPointMutation = (userId: string) => {
     mutationFn: (habitId: string) => fetchAddUserPoint(habitId),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['habits', userId],
+        queryKey: QUERY_KEYS.HABITS(userId),
       });
     },
   });
