@@ -5,7 +5,7 @@ type UserTitleProps = {
   children: string;
 };
 
-const Title = ({ mode, children }: UserTitleProps) => {
+const UserTitle = ({ mode, children }: UserTitleProps) => {
   switch (mode) {
     case USER_TITLE_MODE.CARD_LEVEL:
       return <h5>{children}</h5>;
@@ -20,4 +20,4 @@ const Title = ({ mode, children }: UserTitleProps) => {
   }
 };
 
-export default Title;
+export default UserTitle;
