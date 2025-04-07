@@ -3,10 +3,10 @@ import { useHabitForm } from '@/lib/hooks/useHabitForm';
 import { createHabitData, toggleDay } from '@/lib/utils/habit.utils';
 import HabitFormReapeatDays from './habit-form/HabitFormRepeatDays';
 import HabitFormTags from './habit-form/HabitFormTags';
-import CommonInputBar from '@/components/common/CommonInputBar';
 import { useEffect, useState } from 'react';
 import { toast } from '@/hooks/use-toast';
 import { validateHabits } from '@/lib/utils/habit-validation.utils';
+import HabitFormInput from './habit-form/HabitFormInput';
 
 type HabitFormProps = {
   onCancel: () => void;
@@ -60,49 +60,23 @@ const HabitForm = ({ onCancel, initialHabit, onSuccess }: HabitFormProps) => {
 
   return (
     <div className="p-4 bg-white rounded-xl shadow flex flex-col gap-6">
-      <div className="flex items-center gap-4 relative">
-        <label
-          htmlFor="title"
-          className="w-20 text-xs font-semibold text-gray-700 shrink-0"
-        >
-          TITLE
-        </label>
-        <div className="flex-1 relative">
-          <CommonInputBar
-            id="title"
-            placeholder="습관 제목"
-            value={form.title.value}
-            onChange={(e) => form.title.setValue(e.target.value)}
-          />
-          {errors.title && (
-            <p className="absolute top-full left-0 mt-1 text-red-500 text-xs w-[calc(100%-15px)]">
-              {errors.title}
-            </p>
-          )}
-        </div>
-      </div>
+      <HabitFormInput
+        id="title"
+        label="TITLE"
+        placeholder="습관 제목"
+        value={form.title.value}
+        onChange={(e) => form.title.setValue(e.target.value)}
+        error={errors.title}
+      />
 
-      <div className="flex items-center gap-4 relative">
-        <label
-          htmlFor="description"
-          className="w-20 text-xs font-semibold text-gray-700 shrink-0"
-        >
-          DESCRIPTION
-        </label>
-        <div className="flex-1 relative">
-          <CommonInputBar
-            id="description"
-            placeholder="설명"
-            value={form.notes.value}
-            onChange={(e) => form.notes.setValue(e.target.value)}
-          />
-          {errors.notes && (
-            <p className="absolute top-full left-0 mt-1 text-red-500 text-xs w-[calc(100%-15px)]">
-              {errors.notes}
-            </p>
-          )}
-        </div>
-      </div>
+      <HabitFormInput
+        id="description"
+        label="DESCRIPTION"
+        placeholder="설명"
+        value={form.notes.value}
+        onChange={(e) => form.notes.setValue(e.target.value)}
+        error={errors.notes}
+      />
 
       <HabitFormReapeatDays
         selectedDays={form.selectedDays.value}
