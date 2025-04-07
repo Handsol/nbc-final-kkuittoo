@@ -9,4 +9,12 @@ export const PATH = {
   },
 };
 
+export const API_PATH = {
+  USERS: '/api/users',
+  USERS_POINTS: '/api/user-points',
+  HABITS: '/api/habits',
+  TEAMS: '/api/teams',
+  MEMBERS: '/api/teams/members',
+};
+
 export const PROJECT_URL = 'http://localhost:3000';
