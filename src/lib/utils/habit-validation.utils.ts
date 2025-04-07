@@ -10,9 +10,10 @@ export const validateHabitInput = (body: CreateHabit | UpdateHabit) => {
   const { title, notes, categories } = body;
 
   if (
-    title &&
-    (title.trim().length < HABIT_VALIDATION.TITLE.MIN_LENGTH ||
-      title.trim().length > HABIT_VALIDATION.TITLE.MAX_LENGTH)
+    !title ||
+    title.trim() === '' ||
+    title.trim().length < HABIT_VALIDATION.TITLE.MIN_LENGTH ||
+    title.trim().length > HABIT_VALIDATION.TITLE.MAX_LENGTH
   ) {
     return NextResponse.json(
       { error: HABIT_ERROR_MESSAGES.TITLE_LENGTH },
@@ -21,9 +22,10 @@ export const validateHabitInput = (body: CreateHabit | UpdateHabit) => {
   }
 
   if (
-    notes &&
-    (notes.length < HABIT_VALIDATION.NOTES.MIN_LENGTH ||
-      notes.length > HABIT_VALIDATION.NOTES.MAX_LENGTH)
+    !notes ||
+    notes.trim() === '' ||
+    notes.length < HABIT_VALIDATION.NOTES.MIN_LENGTH ||
+    notes.length > HABIT_VALIDATION.NOTES.MAX_LENGTH
   ) {
     return NextResponse.json(
       { error: HABIT_ERROR_MESSAGES.NOTES_LENGTH },

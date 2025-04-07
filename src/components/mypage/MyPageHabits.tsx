@@ -9,6 +9,7 @@ type MyPageHabitsProps = {
 
 const MyPageHabits = ({ userId }: MyPageHabitsProps) => {
   const { data: habits = [] } = useHabitsQuery(userId);
+
   return (
     <section className="h-full bg-gray-100 p-6 rounded-3xl flex flex-col">
       <div className="flex items-center gap-2 mb-4">
