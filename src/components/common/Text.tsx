@@ -2,8 +2,8 @@ type TextProps = {
   children: string;
 };
 
-const Title = ({ children }: TextProps) => {
+const Text = ({ children }: TextProps) => {
   return <p>{children}</p>;
 };
 
-export default Title;
+export default Text;
