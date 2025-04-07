@@ -2,7 +2,7 @@ import { useMutation, useQueryClient, QueryKey } from '@tanstack/react-query';
 
 /**
  * 낙관적 업데이트(Optimistic Update)를 위한 커스텀 훅
- * @param options.queryKey - 캐시에서 조회할 query key (React Query의 캐시 식별자)
+ * @param options.queryKey - 캐시에서 조회할 query key
  * @param options.mutationFn - 실제 API 호출 함수 (Promise를 반환해야 함)
  * @param options.onMutateOptimistic - 낙관적 업데이트를 적용할 로직
  */

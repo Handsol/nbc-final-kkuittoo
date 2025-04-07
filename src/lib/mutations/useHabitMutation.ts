@@ -7,32 +7,24 @@ import { Habit } from '@prisma/client';
 import { QUERY_KEYS } from '@/constants/query-keys.constants';
 import { useOptimisticMutation } from './useOptimisticMutation';
 import { HabitWithPoints } from '@/types/mypage.type';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 /**
- * 새로운 Habit을 생성하는 mutation 훅 - 낙관적 업데이트(optimistic update)를 적용
+ * 새로운 Habit을 생성하는 mutation 훅
  * @param {string} userId - 현재 로그인한 사용자의 ID
  * @returns {UseMutationResult}
  */
 export const useCreateHabitMutation = (userId: string) => {
-  return useOptimisticMutation<
+  const queryClient = useQueryClient();
+
+  return useMutation<
     Habit,
-    Omit<Habit, 'id' | 'userId' | 'createdAt' | 'userPoints'>,
-    HabitWithPoints[]
+    Error,
+    Omit<Habit, 'id' | 'userId' | 'createdAt' | 'userPoints'>
   >({
-    queryKey: QUERY_KEYS.HABITS(userId),
     mutationFn: (habit) => fetchCreateHabit(habit),
-    onMutateOptimistic: (newHabit, previousData) => {
-      if (!previousData) return [];
-
-      const tempHabit: HabitWithPoints = {
-        ...newHabit,
-        id: Date.now().toString(),
-        userId,
-        createdAt: new Date().toISOString(),
-        userPoints: [],
-      };
-
-      return [tempHabit, ...previousData];
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.HABITS(userId) });
     },
   });
 };
@@ -63,20 +55,19 @@ export const useUpdateHabitMutation = (userId: string, habitId: string) => {
 };
 
 /**
- * 습관(Habit)을 삭제하는 mutation 훅 - 낙관적 업데이트(optimistic update)를 적용
+ * 습관(Habit)을 삭제하는 mutation 훅
  * @param {string} userId - 현재 로그인한 사용자의 ID
  * @param {string} habitId - 삭제할 습관의 ID
  * @returns {UseMutationResult}
  */
 
 export const useDeleteHabitMutation = (userId: string, habitId: string) => {
-  return useOptimisticMutation<void, void, HabitWithPoints[]>({
-    queryKey: QUERY_KEYS.HABITS(userId),
-    mutationFn: () => fetchDeleteHabit(habitId),
-    onMutateOptimistic: (_, previousData) => {
-      if (!previousData) return [];
+  const queryClient = useQueryClient();
 
-      return previousData.filter((habit) => habit.id !== habitId);
+  return useMutation<void, Error, void>({
+    mutationFn: () => fetchDeleteHabit(habitId),
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.HABITS(userId) });
     },
   });
 };
