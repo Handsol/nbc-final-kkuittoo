@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { FormData, updateTeamBio } from '../services/team-client.services';
+import { fetchUpdateTeamBio, FormData } from '../services/team-client.services';
 import { TeamData } from '@/types/teams.type';
 import { QUERY_KEYS } from '@/constants/query-keys.constants';
 
@@ -7,7 +7,7 @@ export const useTeamBioMutation = (teamId: string, initialBio: string) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (data: FormData) => updateTeamBio({ teamId, data }),
+    mutationFn: (data: FormData) => fetchUpdateTeamBio({ teamId, data }),
     onMutate: async (newData) => {
       // 1. 중복 방지를 위한 취소 + 이전 teamBio 저장
       await queryClient.cancelQueries({

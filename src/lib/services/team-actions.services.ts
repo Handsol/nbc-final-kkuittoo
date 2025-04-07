@@ -1,5 +1,6 @@
 'use server';
 
+import { TeamData, TeamMemberData } from '@/types/teams.type';
 import { prisma } from '../prisma';
 
 /**
@@ -96,4 +97,21 @@ export const fetchGetCurrentTeamQuest = async (teamTotalPoints: number) => {
   });
 
   return teamQuestList.find((quest) => quest.requiredPoints > teamTotalPoints);
+};
+
+/**
+ * 현재 유저의 팀 정보를 가져오는 로직
+ *
+ * @param userId {string}
+ * @returns {Promise<TeamData & TeamMemberData> | null} : 팀 정보 + 팀 멤버 정보
+ */
+export const fetchGetMyTeamData = async (userId: string) => {
+  const myTeamData = await prisma.teamMember.findFirst({
+    where: { userId },
+    include: { team: true },
+  });
+
+  if (!myTeamData) return null;
+
+  return myTeamData;
 };

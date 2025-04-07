@@ -2,9 +2,9 @@
 
 import Image from 'next/image';
 
-import { PATH } from '@/constants/path';
 import NavButton from './NavButton';
 import LogoutButton from '../login/LogoutButton';
+import { PATH } from '@/constants/path.constants';
 
 const Sidebar = () => {
   return (
