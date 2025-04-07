@@ -67,6 +67,7 @@ export const POST = async (request: NextRequest) => {
           teamBio: requestBody.teamBio,
           emblem: requestBody.emblem,
           maxTeamSize: requestBody.maxTeamSize,
+          isOpened: requestBody.isOpened,
           ownerId: session.user.id,
         },
       });
