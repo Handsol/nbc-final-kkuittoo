@@ -4,8 +4,9 @@ import TeamProgress from '../team/TeamProgress';
 import TeamTitle from '../team/TeamTitle';
 import TeamBioNotEditMode from '../team/team-edit/TeamBioNotEditMode';
 import TeamImage from '../team/TeamImage';
-import Link from 'next/link';
-import { PATH } from '@/constants/path';
+import LinkButton from '../common/button/LinkButton';
+import { LINKBUTTON_MODE, TITLE_MODE } from '@/constants/mode.constants';
+import { PATH } from '@/constants/path.constants';
 
 type MyTeamProps = {
   team: TeamData;
@@ -36,12 +37,9 @@ const MyTeam = ({ team, teamTotalPoints, teamCurrentQuest }: MyTeamProps) => {
           {/* 팀 소개 */}
           <TeamBioNotEditMode teamBio={teamBio} />
           {/* 팀 바로가기 버튼 */}
-          <Link href={`${PATH.TEAM}/${id}`}>
-            {/* 나중에 button 공통 컴포넌트 생성 후 리팩토링 */}
-            <button className="px-5 py-2 bg-white rounded-full">
-              팀으로 바로가기
-            </button>
-          </Link>
+          <LinkButton mode={LINKBUTTON_MODE.COMMON} href={`${PATH.TEAM}/${id}`}>
+            팀으로 바로가기
+          </LinkButton>
         </div>
       </div>
     </section>
