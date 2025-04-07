@@ -1,10 +1,8 @@
-import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { UpdateProfile } from '@/types/profile.type';
 import { checkAuth } from '@/lib/utils/auth-route-handler.utils';
 import { USER_ERROR_MESSAGES } from '@/constants/error-messages.constants';
 import { HTTP_STATUS } from '@/constants/http-status.constants';
-import { USER_VALIDATION } from '@/constants/validation.constants';
 import {
   errorResponse,
   successResponse,
@@ -13,36 +11,6 @@ import { checkUpdateUserValidation } from '@/lib/utils/user-validation.utils';
 
 type RouteParams = {
   params: { id: string };
-};
-
-export const validateProfileInput = (body: UpdateProfile) => {
-  const { name, bio } = body;
-
-  // 닉네임 유효성 검사
-  if (
-    name &&
-    (name.trim().length < USER_VALIDATION.NAME.MIN ||
-      name.trim().length > USER_VALIDATION.NAME.MAX)
-  ) {
-    return NextResponse.json(
-      { error: USER_ERROR_MESSAGES.NAME_LENGTH },
-      { status: HTTP_STATUS.BAD_REQUEST },
-    );
-  }
-
-  // 자기소개 유효성 검사
-  if (
-    bio &&
-    (bio.trim().length < USER_VALIDATION.BIO.MIN ||
-      bio.trim().length > USER_VALIDATION.BIO.MAX)
-  ) {
-    return NextResponse.json(
-      { error: USER_ERROR_MESSAGES.BIO_LENGTH },
-      { status: HTTP_STATUS.BAD_REQUEST },
-    );
-  }
-
-  return null;
 };
 
 /**
