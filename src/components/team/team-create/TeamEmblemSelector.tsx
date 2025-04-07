@@ -53,7 +53,7 @@ const TeamEmblemSelector = ({
           </label>
         ))}
       </div>
-      <p>{errors && TEAMS_MESSAGES.TEAM_EMBLEM_BLANK}</p>
+      <p>{errors?.emblem && TEAMS_MESSAGES.TEAM_EMBLEM_BLANK}</p>
     </section>
   );
 };

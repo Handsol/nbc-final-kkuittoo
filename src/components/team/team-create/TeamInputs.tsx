@@ -42,7 +42,7 @@ const TeamInputs = ({ teamFormContents, register }: TeamInputsProps) => {
                 })}
               />
             </label>
-            <p>{error && error.message}</p>
+            <p>{error?.message && error.message}</p>
           </section>
         );
       })}
