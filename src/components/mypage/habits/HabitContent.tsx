@@ -1,7 +1,10 @@
+'use client';
+
 import { useState } from 'react';
 import { Habit, UserPoint } from '@prisma/client';
 import HabitForm from './HabitForm';
 import HabitList from './HabitList';
+import { useCreateHabitMutation } from '@/lib/mutations/useHabitMutation';
 
 type HabitContentProps = {
   habits: (Habit & { userPoints: UserPoint[] })[];
@@ -10,6 +13,7 @@ type HabitContentProps = {
 
 const HabitContent = ({ habits, userId }: HabitContentProps) => {
   const [isCreating, setIsCreating] = useState(false);
+  const createMutation = useCreateHabitMutation(userId);
 
   const handleToggleCreate = () => {
     setIsCreating((prev) => !prev);
@@ -21,7 +25,10 @@ const HabitContent = ({ habits, userId }: HabitContentProps) => {
       <div className="flex-1 overflow-y-auto">
         {isCreating ? (
           //habit 생성
-          <HabitForm onCancel={handleToggleCreate} />
+          <HabitForm
+            onCancel={handleToggleCreate}
+            onSuccess={(habitData) => createMutation.mutate(habitData)}
+          />
         ) : habits.length > 0 ? (
           //habit 있을 때
           <HabitList habits={habits} userId={userId} />
@@ -37,6 +44,7 @@ const HabitContent = ({ habits, userId }: HabitContentProps) => {
         <button
           className="w-full py-2 bg-gray-700 text-white rounded-full"
           onClick={handleToggleCreate}
+          disabled={createMutation.isPending}
         >
           Add Habit
         </button>

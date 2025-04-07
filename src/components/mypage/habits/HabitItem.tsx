@@ -6,6 +6,10 @@ import {
   getCooldownStatus,
   getCurrentDayStatus,
 } from '@/lib/utils/habit.utils';
+import {
+  useDeleteHabitMutation,
+  useUpdateHabitMutation,
+} from '@/lib/mutations/useHabitMutation';
 
 type HabitItemProps = {
   habit: Habit & { userPoints: UserPoint[] };
@@ -15,6 +19,8 @@ type HabitItemProps = {
 const HabitItem = ({ habit, userId }: HabitItemProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const addPointMutation = useAddPointMutation(userId);
+  const updateMutation = useUpdateHabitMutation(userId, habit.id);
+  const deleteMutation = useDeleteHabitMutation(userId, habit.id);
 
   const handleAddPoint = () => {
     addPointMutation.mutate(habit.id);
@@ -23,12 +29,11 @@ const HabitItem = ({ habit, userId }: HabitItemProps) => {
   const handleUpdateHabit = (
     updatedHabit: Omit<Habit, 'userId' | 'createdAt' | 'userPoints'>,
   ) => {
-    console.log('수정 완료', habit.id, updatedHabit);
-    setIsEditing(false);
+    updateMutation.mutate(updatedHabit);
   };
 
   const handleDeleteHabit = () => {
-    console.log('삭제', habit.id);
+    deleteMutation.mutate();
   };
 
   const isValidDay = getCurrentDayStatus(habit);
@@ -46,7 +51,7 @@ const HabitItem = ({ habit, userId }: HabitItemProps) => {
               : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
           }`}
           onClick={handleAddPoint}
-          disabled={isDisabled}
+          disabled={isDisabled || addPointMutation.isPending}
         >
           +
         </button>
@@ -62,12 +67,14 @@ const HabitItem = ({ habit, userId }: HabitItemProps) => {
           <button
             className="w-9 h-9 text-sm rounded-full bg-gray-100 hover:bg-gray-200 text-gray-800 transition"
             onClick={() => setIsEditing(!isEditing)}
+            disabled={updateMutation.isPending}
           >
             수정
           </button>
           <button
             className="w-9 h-9 text-sm rounded-full bg-gray-100 hover:bg-gray-200 text-gray-800 transition"
             onClick={handleDeleteHabit}
+            disabled={deleteMutation.isPending}
           >
             삭제
           </button>
