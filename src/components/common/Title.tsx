@@ -1,4 +1,4 @@
-import { TITLE_MODE } from '@/constants/mode';
+import { TITLE_MODE } from '@/constants/mode.constants';
 
 type TitleProps = {
   mode: number;
