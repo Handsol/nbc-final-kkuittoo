@@ -10,6 +10,7 @@ import {
   useDeleteHabitMutation,
   useUpdateHabitMutation,
 } from '@/lib/mutations/useHabitMutation';
+import { toast } from '@/hooks/use-toast';
 
 type HabitItemProps = {
   habit: Habit & { userPoints: UserPoint[] };
@@ -23,18 +24,39 @@ const HabitItem = ({ habit, userId }: HabitItemProps) => {
   const deleteMutation = useDeleteHabitMutation(userId, habit.id);
 
   const handleAddPoint = () => {
-    addPointMutation.mutate(habit.id);
+    addPointMutation.mutate(habit.id, {
+      onSuccess: () =>
+        toast({ title: '성공', description: '포인트가 추가되었습니다.' }),
+      onError: (err) =>
+        toast({
+          title: '실패',
+          description: `포인트 추가 실패: ${err.message}`,
+        }),
+    });
   };
 
   const handleUpdateHabit = (
     updatedHabit: Omit<Habit, 'userId' | 'createdAt' | 'userPoints'>,
   ) => {
-    updateMutation.mutate(updatedHabit);
+    updateMutation.mutate(updatedHabit, {
+      onSuccess: () =>
+        toast({ title: '성공', description: '습관이 수정되었습니다.' }),
+      onError: (err) =>
+        toast({ title: '실패', description: `습관 수정 실패: ${err.message}` }),
+    });
     setIsEditing(false);
   };
 
   const handleDeleteHabit = () => {
-    deleteMutation.mutate();
+    deleteMutation.mutate(undefined, {
+      onSuccess: () =>
+        toast({ title: '성공', description: 'Habit이 삭제되었습니다.' }),
+      onError: (err) =>
+        toast({
+          title: '실패',
+          description: `Habit 삭제 실패: ${err.message}`,
+        }),
+    });
   };
 
   const isValidDay = getCurrentDayStatus(habit);
@@ -52,7 +74,7 @@ const HabitItem = ({ habit, userId }: HabitItemProps) => {
               : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
           }`}
           onClick={handleAddPoint}
-          disabled={isDisabled || addPointMutation.isPending}
+          disabled={isDisabled}
         >
           +
         </button>
