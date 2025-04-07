@@ -30,6 +30,7 @@ const HabitItem = ({ habit, userId }: HabitItemProps) => {
     updatedHabit: Omit<Habit, 'userId' | 'createdAt' | 'userPoints'>,
   ) => {
     updateMutation.mutate(updatedHabit);
+    setIsEditing(false);
   };
 
   const handleDeleteHabit = () => {

@@ -24,8 +24,6 @@ const HabitForm = ({ onCancel, initialHabit, onSuccess }: HabitFormProps) => {
     );
     if (onSuccess) {
       onSuccess(habitData);
-    } else {
-      console.log('생성 완료', habitData);
     }
     onCancel();
   };
