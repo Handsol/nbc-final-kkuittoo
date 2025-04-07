@@ -13,7 +13,7 @@ const TeamPage = async ({ params }: RouteParams) => {
   const id = params.id;
 
   return (
-    <article className="w-full flex flex-col gap-4 bg-neutral-300 p-3 rounded-3xl">
+    <article className="w-full flex flex-col gap-4 p-3">
       <section className="w-full flex justify-end items-center">
         <button className="px-8 h-8 text-center bg-white rounded-full">
           LEAVE

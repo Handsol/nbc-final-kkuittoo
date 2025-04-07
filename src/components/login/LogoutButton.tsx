@@ -1,4 +1,4 @@
-import { PATH } from '@/constants/path';
+import { PATH } from '@/constants/path.constants';
 import { signOut } from 'next-auth/react';
 
 const LogoutButton = () => {

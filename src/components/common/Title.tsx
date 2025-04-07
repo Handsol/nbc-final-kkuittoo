@@ -1,10 +1,38 @@
 import { TITLE_MODE } from '@/constants/mode.constants';
+import { ReactNode } from 'react';
 
 type TitleProps = {
   mode: number;
-  children: string;
+  children: string | ReactNode;
 };
 
+/**
+ * Title : 타이틀을 위한 텍스트 컴포넌트
+ * ⚠️ import시 경로 주의해주세요!
+ *
+ * 1. mode
+ * TITLE_MODE.LOGO => 로고. 해당 태그 안에 Image 태그 사용하기
+ * TITLE_MODE.LINK => 링크
+ * TITLE_MODE.SECTION_TITLE => section의 타이틀 (e.g. HABITS, CALANDAR ...)
+ * TITLE_MODE.SECTION_SUBTITLE => section의 부제목 (e.g. TEAM NAME, TEAM BIO ...)
+ * ⚠️ TITLE_MODE 상수 사용해주세요
+ *
+ * 3. children
+ * 텍스트
+ *
+ * @param mode {number}
+ * @param children {string | ReactNode}
+ * @returns
+ *
+ * @example
+ * <Title mode={TITLE_MODE.LOGO}>
+ *    <Image src="/images/logo.png" ... />
+ * </Title>
+ *
+ * <Title mode={TITLE_MODE.SECTION_TITLE}>
+ *    HABITS
+ * </Title>
+ */
 const Title = ({ mode, children }: TitleProps) => {
   switch (mode) {
     case TITLE_MODE.LOGO:
