@@ -72,13 +72,15 @@ export const PATCH = async (request: NextRequest, { params }: RouteParams) => {
 
     const { teamBio, isOpened } = await request.json();
 
-    // 팀 소개 유효성 검사와 생성자 여부 판단
-    const teamUpdateValidation = checkUpdateTeamValidation(
-      teamBio,
-      singleTeamData.ownerId,
-      session.user.id,
-    );
-    if (teamUpdateValidation) return teamUpdateValidation;
+    // 팀 소개 수정시 : 팀 소개 유효성 검사와 생성자 여부 판단
+    if (teamBio !== undefined) {
+      const teamUpdateValidation = checkUpdateTeamValidation(
+        teamBio,
+        singleTeamData.ownerId,
+        session.user.id,
+      );
+      if (teamUpdateValidation) return teamUpdateValidation;
+    }
 
     const updatedTeamData = await prisma.team.update({
       where: { id },
