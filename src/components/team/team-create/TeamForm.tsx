@@ -20,11 +20,7 @@ type TeamFormInputs = {
   isOpened: boolean;
 };
 
-type TeamFormProps = {
-  userId: string;
-};
-
-const TeamForm = ({ userId }: TeamFormProps) => {
+const TeamForm = () => {
   //toast
   const { toast } = useToast();
   // react-hook-form
@@ -74,10 +70,10 @@ const TeamForm = ({ userId }: TeamFormProps) => {
   ];
 
   const emblemOptions = [
-    { id: 'lion', src: '/images/emblem-lion.png' },
-    { id: 'owl', src: '/images/emblem-owl.png' },
-    { id: 'cat', src: '/images/emblem-cat.png' },
-    { id: 'deer', src: '/images/emblem-deer.png' },
+    { id: 'LION', src: '/images/emblem-lion.png' },
+    { id: 'OWL', src: '/images/emblem-owl.png' },
+    { id: 'CAT', src: '/images/emblem-cat.png' },
+    { id: 'DEER', src: '/images/emblem-deer.png' },
   ];
 
   const selectedEmblem = watch('emblem');
@@ -137,7 +133,7 @@ const TeamForm = ({ userId }: TeamFormProps) => {
             error,
           } = item;
           return (
-            <section>
+            <section key={id}>
               <label htmlFor={name}>
                 <Title mode={TITLE_MODE.SECTION_SUBTITLE}>{title}</Title>
                 <CommonInputBar
