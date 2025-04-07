@@ -1,8 +1,11 @@
 import { TeamCardProps } from '@/types/rank-users.type';
+import Image from 'next/image';
 
 // 한 팀의 정보를 카드 형태로 보여주는 컴포넌트임당
 // isTopRank로 상단 3위와 나머지 스타일 구별
 export const TeamCard = ({ team, rank, isTopRank }: TeamCardProps) => {
+  const imageSize = isTopRank ? 112 : 64;
+
   return (
     <div
       className={`border rounded-3xl p-4 shadow-md bg-gray-100 ${
@@ -27,12 +30,12 @@ export const TeamCard = ({ team, rank, isTopRank }: TeamCardProps) => {
             isTopRank ? 'w-28 h-28 mb-2' : 'w-16 h-16 mr-4'
           } bg-gray-300 rounded-lg flex items-center justify-center`}
         >
-          <img
-            src={team.emblem}
+          <Image
+            src={'/images/default-emblem.png'}
             alt={`${team.teamName}`}
-            className={`${
-              isTopRank ? 'w-28 h-28 mb-2' : 'w-16 h-16 mr-4'
-            } rounded-lg object-cover`}
+            width={imageSize}
+            height={imageSize}
+            className="object-cover rounded-lg"
           />
         </div>
         <div className={isTopRank ? 'text-center' : 'flex-1'}>

@@ -1,8 +1,11 @@
 import { UserCardProps } from '@/types/rank-users.type';
+import Image from 'next/image';
 
 // 유저 정보를 카드로 보여주는 컴포넌트
 // isTopRank로 상단 3위와 나머지 스타일 구별
 export const UserCard = ({ user, rank, isTopRank }: UserCardProps) => {
+  const imageSize = isTopRank ? 112 : 64;
+
   return (
     <div
       className={`border rounded-3xl p-4 shadow-md bg-gray-100 ${
@@ -27,12 +30,12 @@ export const UserCard = ({ user, rank, isTopRank }: UserCardProps) => {
             isTopRank ? 'w-28 h-28 mb-2' : 'w-16 h-16 mr-4'
           } bg-gray-300 rounded-lg flex items-center justify-center`}
         >
-          <img
+          <Image
             src={user.image}
             alt={`${user.name}`}
-            className={`${
-              isTopRank ? 'w-28 h-28 mb-2' : 'w-16 h-16 mr-4'
-            } rounded-lg object-cover`}
+            width={imageSize}
+            height={imageSize}
+            className="object-cover rounded-lg"
           />
         </div>
         <div className={isTopRank ? 'text-center' : 'flex-1'}>
