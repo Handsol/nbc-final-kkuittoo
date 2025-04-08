@@ -16,8 +16,10 @@ const MyPageHabits = ({ userId }: MyPageHabitsProps) => {
   return (
     <section className="h-full bg-gray-100 p-6 rounded-3xl flex flex-col">
       <div className="flex items-center gap-2 mb-4">
-        <Title mode={TITLE_MODE.SECTION_TITLE}>HABITS</Title>
-        <Text>({habits.length}/10)</Text>
+        <Title mode={TITLE_MODE.SECTION_TITLE} className="text-xl font-bold">
+          HABITS
+        </Title>
+        <Text className="text-sm">({habits.length}/10)</Text>
       </div>
       <HabitContent habits={habits} userId={userId} />
     </section>
