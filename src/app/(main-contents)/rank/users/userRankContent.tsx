@@ -2,12 +2,12 @@
 
 import CommonInputBar from '@/components/common/CommonInputBar';
 import { UserCard } from '@/components/rank/UserRankCard';
-import { useUserQuery } from '@/lib/queries/useUserQuery';
+import { useUserRankQuery } from '@/lib/queries/useUserQuery';
 import Link from 'next/link';
 
 // 유저 랭킹 UI
 export const UserRankContent = () => {
-  const { data: users, isPending, isError } = useUserQuery();
+  const { data: users, isPending, isError } = useUserRankQuery();
   if (isPending) return <div>Loading...</div>;
   if (isError) return <div>Error...</div>;
 
