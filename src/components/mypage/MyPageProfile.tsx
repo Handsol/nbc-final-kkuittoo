@@ -3,7 +3,6 @@ import Text from '../common/Text';
 import { USER_TITLE_MODE } from '@/constants/mode.constants';
 import UserTitle from '../common/UserTitle';
 import UserProgress from './profile/UserProgress';
-
 import {
   getCurrentExp,
   getExpPercent,
@@ -11,6 +10,7 @@ import {
   MAX_EXP,
 } from '@/lib/utils/user-level.utils';
 import UserLevel from './profile/UserLevel';
+import UserProfileEdit from './profile/UserProfileEdit';
 
 type MyPageHabitsProps = {
   userId: string;
@@ -35,24 +35,21 @@ const MyPageProfile = async ({ userId }: MyPageHabitsProps) => {
       <div className="flex items-center justify-evenly">
         <UserLevel level={level} />
         <div className="text-center">
-          <UserTitle mode={USER_TITLE_MODE.CARD_NAME}>
-            {profileData.name}
-          </UserTitle>
           <UserTitle mode={USER_TITLE_MODE.CARD_ID}>
             @{profileData.id.slice(-8)}
           </UserTitle>
         </div>
-        <button className="px-4 py-2 text-sm font-medium text-white bg-gray-500 rounded-full">
-          수정
-        </button>
       </div>
       <UserProgress
         currentExp={currentExp}
         maxExp={MAX_EXP}
         value={expPercent}
       />
-
-      <Text>{profileData.bio}</Text>
+      <UserProfileEdit
+        name={profileData.name || ''}
+        bio={profileData.bio || ''}
+        userId={profileData.id}
+      />
     </div>
   );
 };
