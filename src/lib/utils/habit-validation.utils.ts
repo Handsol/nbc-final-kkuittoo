@@ -1,11 +1,16 @@
 import { HABIT_ERROR_MESSAGES } from '@/constants/error-messages.constants';
 import { HABIT_VALIDATION } from '@/constants/habits.constants';
 import { HTTP_STATUS } from '@/constants/http-status.constants';
-import { CreateHabit, UpdateHabit } from '@/types/mypage.type';
+import { CreateHabit, UpdateHabit } from '@/types/habits.type';
 import { Habit, UserPoint } from '@prisma/client';
 import { NextResponse } from 'next/server';
 import { isCooldownActive } from './habit.utils';
 
+/**
+ * 습관 데이터의 유효성을 검사
+ * @param {Object} data - 검증할 습관 데이터
+ * @returns {Record<string, string>} - 유효성 검사 실패 시 에러 메시지를 포함한 객체
+ */
 export const validateHabits = (data: {
   title?: string;
   notes?: string;
@@ -39,6 +44,11 @@ export const validateHabits = (data: {
   return errors;
 };
 
+/**
+ * 습관 입력 데이터를 검증하고 에러 응답을 반환
+ * @param {CreateHabit | UpdateHabit} body - 검증할 습관 입력 데이터
+ * @returns {NextResponse | null} - 에러가 있으면 응답 객체, 없으면 null
+ */
 export const validateHabitInput = (body: CreateHabit | UpdateHabit) => {
   const errors = validateHabits(body);
   if (Object.keys(errors).length > 0) {
@@ -51,6 +61,12 @@ export const validateHabitInput = (body: CreateHabit | UpdateHabit) => {
   return null;
 };
 
+/**
+ * 습관에 대한 사용자 권한을 확인
+ * @param {Habit | null} habit - 확인할 습관 객체
+ * @param {string} userId - 현재 사용자 ID
+ * @returns {NextResponse | null} - 권한 문제가 있으면 응답 객체, 없으면 null
+ */
 export const checkHabitPermission = (habit: Habit | null, userId: string) => {
   if (!habit) {
     return NextResponse.json(
@@ -67,6 +83,12 @@ export const checkHabitPermission = (habit: Habit | null, userId: string) => {
   return null;
 };
 
+/**
+ * 습관의 쿨다운 상태를 확인합니다.
+ * @param {UserPoint[]} userPoints - 사용자의 포인트 기록
+ * @param {Date} now - 현재 시간
+ * @returns {NextResponse | null} - 쿨다운 중이면 응답 객체, 아니면 null
+ */
 export const checkCooldown = (userPoints: UserPoint[], now: Date) => {
   if (isCooldownActive(userPoints, now)) {
     return NextResponse.json(
