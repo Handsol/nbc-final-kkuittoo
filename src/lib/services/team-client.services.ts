@@ -169,3 +169,29 @@ export const fetchDeleteTeam = async (teamId: string) => {
 
   return response;
 };
+
+/**
+ * 팀 가입 로직
+ *
+ * @param teamId {string}
+ * @returns
+ */
+export const fetchCreateTeamMember = async (
+  teamId: string,
+  password?: string,
+) => {
+  const response = await fetch(API_PATH.MEMBERS, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      teamId,
+      password,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error('팀멤버 데이터를 추가(가입)하는데 실패했습니다.');
+  }
+
+  return response;
+};
