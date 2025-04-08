@@ -1,10 +1,12 @@
 import { TEAMS_MESSAGES } from '@/constants/error-messages.constants';
+import { API_PATH } from '@/constants/path.constants';
 import { TeamWithPoints } from '@/types/rank-users.type';
 import { TeamData } from '@/types/teams.type';
+import { TeamFormInputs } from '../hooks/useTeamCreateForm';
 
 // 팀 데이터 가져오기
 export const fetchGetTeams = async (): Promise<TeamData[]> => {
-  const res = await fetch('/api/teams', {
+  const res = await fetch(API_PATH.TEAMS, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -17,7 +19,7 @@ export const fetchGetTeams = async (): Promise<TeamData[]> => {
 };
 
 export const fetchGetSingleTeam = async (teamId: string) => {
-  const res = await fetch(`/api/teams/${teamId}`, {
+  const res = await fetch(`${API_PATH.TEAMS}/${teamId}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -48,8 +50,11 @@ export type updateTeamBioParam = {
   data: FormData;
 };
 
-export const updateTeamBio = async ({ teamId, data }: updateTeamBioParam) => {
-  const res = await fetch(`/api/teams/${teamId}`, {
+export const fetchUpdateTeamBio = async ({
+  teamId,
+  data,
+}: updateTeamBioParam) => {
+  const res = await fetch(`${API_PATH.TEAMS}/${teamId}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
@@ -75,11 +80,11 @@ type updateTeamOpenStateParam = {
   isOpened: boolean;
 };
 
-export const updateTeamOpenState = async ({
+export const fetchUpdateTeamOpenState = async ({
   teamId,
   isOpened,
 }: updateTeamOpenStateParam) => {
-  const res = await fetch(`/api/teams/${teamId}`, {
+  const res = await fetch(`${API_PATH.TEAMS}/${teamId}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
@@ -94,11 +99,33 @@ export const updateTeamOpenState = async ({
   return res.json();
 };
 
+// !!이 로직, 위에 fetchGetTeams와 중복인 것 같습니다
 export const fetchGetTeamsWithPoints = async (): Promise<TeamWithPoints[]> => {
-  const response = await fetch('/api/teams/', {
+  const response = await fetch(API_PATH.TEAMS, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
   });
   if (!response.ok) throw new Error('Failed to fetch teams');
   return response.json();
+};
+
+/**
+ * 새로운 팀 생성 로직
+ *
+ * @param data {TeamFormInputs}
+ * @returns
+ */
+export const fetchCreateNewTeam = async (data: TeamFormInputs) => {
+  const response = await fetch(API_PATH.TEAMS, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      ...data,
+      maxTeamSize: parseInt(data.maxTeamSize, 10),
+    }),
+  });
+
+  return response;
 };

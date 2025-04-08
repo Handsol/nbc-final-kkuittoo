@@ -1,9 +1,19 @@
 import { HabitFormData } from '@/types/mypage.type';
-import { useHabitForm } from '@/lib/hooks/useHabitForm';
-import { createHabitData, toggleDay } from '@/lib/utils/habit.utils';
+import {
+  createHabitData,
+  getDefaultValues,
+  toggleDay,
+} from '@/lib/utils/habit.utils';
 import HabitFormReapeatDays from './habit-form/HabitFormRepeatDays';
 import HabitFormTags from './habit-form/HabitFormTags';
-import CommonInputBar from '@/components/common/CommonInputBar';
+import { toast } from '@/hooks/use-toast';
+import HabitFormInput from './habit-form/HabitFormInput';
+import { Controller, useForm } from 'react-hook-form';
+import {
+  habitFormSchema,
+  HabitFormSchema,
+} from '@/lib/schema/habit-form.schema';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 type HabitFormProps = {
   onCancel: () => void;
@@ -11,66 +21,77 @@ type HabitFormProps = {
   onSuccess?: (updatedHabit: HabitFormData) => void;
 };
 
-const HabitForm = ({ onCancel, initialHabit, onSuccess }: HabitFormProps) => {
-  const form = useHabitForm(initialHabit);
+const HabitForm: React.FC<HabitFormProps> = ({
+  onCancel,
+  initialHabit,
+  onSuccess,
+}) => {
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<HabitFormSchema>({
+    resolver: zodResolver(habitFormSchema),
+    defaultValues: getDefaultValues(initialHabit),
+  });
 
-  const handleSubmit = () => {
+  const onSubmit = (data: HabitFormSchema) => {
     const habitData = createHabitData(
-      form.title.value,
-      form.notes.value,
-      form.selectedDays.value,
-      form.category.value,
+      data.title,
+      data.notes,
+      data.selectedDays,
+      data.categories,
       initialHabit?.id,
     );
     if (onSuccess) {
       onSuccess(habitData);
-    } else {
-      console.log('생성 완료', habitData);
+      toast({
+        title: '성공',
+        description: initialHabit
+          ? '습관이 수정되었습니다.'
+          : '습관이 생성되었습니다.',
+      });
     }
     onCancel();
   };
 
   return (
     <div className="p-4 bg-white rounded-xl shadow flex flex-col gap-6">
-      <div className="flex items-center gap-4">
-        <label
-          htmlFor="title"
-          className="w-20 text-xs font-semibold text-gray-700"
-        >
-          TITLE
-        </label>
-        <CommonInputBar
-          id="title"
-          placeholder="습관 제목"
-          value={form.title.value}
-          onChange={(e) => form.title.setValue(e.target.value)}
-        />
-      </div>
-
-      <div className="flex items-start gap-2">
-        <label
-          htmlFor="description"
-          className="w-20 pt-2 text-xs font-semibold text-gray-700"
-        >
-          DESCRIPTION
-        </label>
-        <CommonInputBar
-          id="description"
-          placeholder="설명"
-          value={form.notes.value}
-          onChange={(e) => form.notes.setValue(e.target.value)}
-        />
-      </div>
-
-      <HabitFormReapeatDays
-        selectedDays={form.selectedDays.value}
-        setSelectedDays={form.selectedDays.setValue}
-        toggleDay={toggleDay}
+      <HabitFormInput
+        id="title"
+        label="TITLE"
+        placeholder="습관 제목"
+        {...register('title')}
+        error={errors.title?.message}
       />
 
-      <HabitFormTags
-        category={form.category.value}
-        setCategory={form.category.setValue}
+      <HabitFormInput
+        id="description"
+        label="DESCRIPTION"
+        placeholder="설명"
+        {...register('notes')}
+        error={errors.notes?.message}
+      />
+
+      <Controller
+        control={control}
+        name="selectedDays"
+        render={({ field }) => (
+          <HabitFormReapeatDays
+            selectedDays={field.value}
+            setSelectedDays={field.onChange}
+            toggleDay={toggleDay}
+          />
+        )}
+      />
+
+      <Controller
+        control={control}
+        name="categories"
+        render={({ field }) => (
+          <HabitFormTags category={field.value} setCategory={field.onChange} />
+        )}
       />
 
       <div className="flex justify-center gap-4 mt-4">
@@ -81,7 +102,7 @@ const HabitForm = ({ onCancel, initialHabit, onSuccess }: HabitFormProps) => {
           취소
         </button>
         <button
-          onClick={handleSubmit}
+          onClick={handleSubmit(onSubmit)}
           className="px-6 py-2 bg-gray-600 text-white rounded-full text-xs"
         >
           완료
