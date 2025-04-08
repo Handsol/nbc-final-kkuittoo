@@ -2,12 +2,16 @@ import { ReactNode } from 'react';
 
 type LayoutProps = {
   children: ReactNode;
+  modal: ReactNode;
 };
 
-const Layout = ({ children }: LayoutProps) => {
+const Layout = ({ children, modal }: LayoutProps) => {
   return (
     <div>
-      <main className="mx-auto">{children}</main>
+      <main className="w-full">
+        {children}
+        {modal}
+      </main>
     </div>
   );
 };

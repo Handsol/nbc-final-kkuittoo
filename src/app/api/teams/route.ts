@@ -1,5 +1,6 @@
 import { TEAMS_MESSAGES } from '@/constants/error-messages.constants';
 import { HTTP_STATUS } from '@/constants/http-status.constants';
+import { EMBLEM } from '@/constants/teams.constants';
 import { prisma } from '@/lib/prisma';
 import { fetchGetTeamTotalPoints } from '@/lib/services/team-actions.services';
 import { checkAuth } from '@/lib/utils/auth-route-handler.utils';
@@ -65,8 +66,9 @@ export const POST = async (request: NextRequest) => {
         data: {
           teamName: requestBody.teamName,
           teamBio: requestBody.teamBio,
-          emblem: requestBody.emblem,
+          emblem: EMBLEM[requestBody.emblem as 'LION' | 'OWL' | 'CAT' | 'DEER'],
           maxTeamSize: requestBody.maxTeamSize,
+          isOpened: requestBody.isOpened,
           ownerId: session.user.id,
         },
       });

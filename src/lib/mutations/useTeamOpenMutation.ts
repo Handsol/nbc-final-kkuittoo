@@ -1,14 +1,14 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { updateTeamOpenState } from '../services/team-client.services';
 import { TeamData } from '@/types/teams.type';
 import { QUERY_KEYS } from '@/constants/query-keys.constants';
+import { fetchUpdateTeamOpenState } from '../services/team-client.services';
 
 export const useTeamOpenMutation = (teamId: string) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (isOpened: boolean) =>
-      updateTeamOpenState({ teamId, isOpened }),
+      fetchUpdateTeamOpenState({ teamId, isOpened }),
     onMutate: async (newIsOpened) => {
       // 1. 중복 방지를 위한 취소 + 이전 isOpened 저장
       await queryClient.cancelQueries({

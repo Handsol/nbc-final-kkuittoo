@@ -6,8 +6,13 @@ import { Habit, UserPoint } from '@prisma/client';
 import { NextResponse } from 'next/server';
 import { isCooldownActive } from './habit.utils';
 
-export const validateHabitInput = (body: CreateHabit | UpdateHabit) => {
-  const { title, notes, categories } = body;
+export const validateHabits = (data: {
+  title?: string;
+  notes?: string;
+  categories?: string;
+}): Record<string, string> => {
+  const errors: Record<string, string> = {}; // 빈객체인데, 필요한 에러만 채움
+  const { title, notes, categories } = data;
 
   if (
     !title ||
@@ -15,31 +20,34 @@ export const validateHabitInput = (body: CreateHabit | UpdateHabit) => {
     title.trim().length < HABIT_VALIDATION.TITLE.MIN_LENGTH ||
     title.trim().length > HABIT_VALIDATION.TITLE.MAX_LENGTH
   ) {
-    return NextResponse.json(
-      { error: HABIT_ERROR_MESSAGES.TITLE_LENGTH },
-      { status: HTTP_STATUS.BAD_REQUEST },
-    );
+    errors.title = HABIT_ERROR_MESSAGES.TITLE_LENGTH;
   }
 
   if (
     !notes ||
     notes.trim() === '' ||
-    notes.length < HABIT_VALIDATION.NOTES.MIN_LENGTH ||
-    notes.length > HABIT_VALIDATION.NOTES.MAX_LENGTH
+    (notes && notes.length < HABIT_VALIDATION.NOTES.MIN_LENGTH) ||
+    (notes && notes.length > HABIT_VALIDATION.NOTES.MAX_LENGTH)
   ) {
-    return NextResponse.json(
-      { error: HABIT_ERROR_MESSAGES.NOTES_LENGTH },
-      { status: HTTP_STATUS.BAD_REQUEST },
-    );
+    errors.notes = HABIT_ERROR_MESSAGES.NOTES_LENGTH;
   }
 
   if (categories !== undefined && categories.trim() === '') {
+    errors.categories = HABIT_ERROR_MESSAGES.CATEGORY_REQUIRED;
+  }
+
+  return errors;
+};
+
+export const validateHabitInput = (body: CreateHabit | UpdateHabit) => {
+  const errors = validateHabits(body);
+  if (Object.keys(errors).length > 0) {
+    const firstError = Object.values(errors)[0];
     return NextResponse.json(
-      { error: HABIT_ERROR_MESSAGES.CATEGORY_REQUIRED },
+      { error: firstError },
       { status: HTTP_STATUS.BAD_REQUEST },
     );
   }
-
   return null;
 };
 

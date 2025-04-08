@@ -1,6 +1,6 @@
 'use client';
 
-import { PATH } from '@/constants/path';
+import { PATH } from '@/constants/path.constants';
 import { signIn } from 'next-auth/react';
 
 const LoginButton = () => {
