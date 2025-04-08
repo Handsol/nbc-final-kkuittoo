@@ -30,6 +30,7 @@ export const TEAMS_MESSAGES = {
   TEAM_BIO_LENGTH: '팀 소개는 5~20자여야 하며, 공백을 허용하지 않습니다.',
   // maxTeamsize 관련
   TEAM_SIZE_BLANK: '팀 인원을 선택해주세요.',
+  TEAM_SIZE_MAX: '팀 최대 인원수를 초과했습니다.',
   // emblem 관련
   TEAM_EMBLEM_BLANK: '팀 엠블럼을 선택해주세요.',
   // 권한 관련
