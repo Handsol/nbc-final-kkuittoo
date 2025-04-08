@@ -27,7 +27,7 @@ type TeamChatProps = {
     messagesEndRef: 새 메시지가 생기면 자동으로 아래로 스크롤하기 위해 사용됩니다.
   */
 }
-export default function TeamChat({ teamId }: TeamChatProps) {
+export const TeamChat = ({ teamId }: TeamChatProps) => {
   const [messages, setMessages] = useState<TeamMessage[]>([]);
   const [newMessage, setNewMessage] = useState('');
   const { data: session } = useSession();
@@ -172,4 +172,4 @@ export default function TeamChat({ teamId }: TeamChatProps) {
       </div>
     </section>
   );
-}
+};

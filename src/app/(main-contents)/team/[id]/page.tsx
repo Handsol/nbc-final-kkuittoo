@@ -1,5 +1,5 @@
 import TeamCalendar from '@/components/team/TeamCalendar';
-import TeamChat from '@/components/team/TeamChat';
+import { TeamChat } from '@/components/team/TeamChat';
 import TeamInfo from '@/components/team/TeamInfo';
 import TeamMemberList from '@/components/team/TeamMemberList';
 
