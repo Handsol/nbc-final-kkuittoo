@@ -2,12 +2,12 @@
 
 import CommonInputBar from '@/components/common/CommonInputBar';
 import { UserCard } from './UserRankCard';
-import { useUserQuery } from '@/lib/queries/useUserQuery';
+import { useUserRankQuery } from '@/lib/queries/useUserQuery';
 import Link from 'next/link';
 
 // 유저 랭킹 UI
 export const UserRankContent = () => {
-  const { data: users, isPending, isError } = useUserQuery();
+  const { data: users, isPending, isError } = useUserRankQuery();
   if (isPending) return <div>Loading...</div>;
   if (isError) return <div>Error...</div>;
 
@@ -17,7 +17,7 @@ export const UserRankContent = () => {
     const bPoints = b.userPoints.reduce((sum, p) => sum + p.points, 0);
     return bPoints - aPoints; // 높은 포인트가 위로
   });
-  const topUsers = sortedUsers.slice(0, 3); // 1~3위
+  const topUsers = sortedUsers.slice(0, 3); // 1~3d위
   const otherUsers = sortedUsers.slice(3); // 4위부터
 
   return (
