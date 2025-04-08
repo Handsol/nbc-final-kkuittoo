@@ -14,7 +14,7 @@ import {
   HabitFormSchema,
 } from '@/lib/schema/habit-form.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import ActionButton from '@/components/common/button/ActionBUtton';
+import ActionButton from '@/components/common/button/ActionButton';
 import { ACTIONBUTTON_MODE } from '@/constants/mode.constants';
 
 type HabitFormProps = {

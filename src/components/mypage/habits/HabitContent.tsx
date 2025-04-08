@@ -5,7 +5,7 @@ import { Habit, UserPoint } from '@prisma/client';
 import HabitForm from './HabitForm';
 import HabitList from './HabitList';
 import { useCreateHabitMutation } from '@/lib/mutations/useHabitMutation';
-import ActionButton from '@/components/common/button/ActionBUtton';
+import ActionButton from '@/components/common/button/ActionButton';
 import { ACTIONBUTTON_MODE } from '@/constants/mode.constants';
 
 type HabitContentProps = {
