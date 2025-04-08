@@ -2,12 +2,9 @@ import { HabitFormData } from '@/types/habits.type';
 import { createHabitData, getDefaultValues } from '@/lib/utils/habit.utils';
 import { toast } from '@/hooks/use-toast';
 import { useForm } from 'react-hook-form';
-import {
-  habitFormSchema,
-  HabitFormSchema,
-} from '@/lib/schema/habit-form.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
+import { habitFormSchema, HabitFormSchema } from '../schema/habit.schema';
 
 type UseHabitFormHandlerProps = {
   initialHabit?: HabitFormData;
