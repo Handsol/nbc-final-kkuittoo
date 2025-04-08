@@ -12,7 +12,7 @@ import { ReactNode } from 'react';
  * @param {boolean} isOpen - 기본값은 `false`이며, `true`일 때만 모달이 보입니다.
  * @param {() => void} onClose - 모달을 닫을 때 실행할 함수입니다. (예: 상태 초기화)
  * @param {ReactNode} children - 모달 내부에 렌더링할 콘텐츠입니다. (예: 상세 정보, 폼 등)
- *
+ * @param {'common' | 'parallel'} mode - 모달 모드 분기 (기본: common)
  * @example
  *
  * ```tsx
@@ -25,12 +25,14 @@ type CommonModalProps = {
   isOpen: boolean;
   onClose: () => void;
   children: ReactNode;
+  mode?: 'common' | 'parallel';
 };
 
 export const CommonModal = ({
   isOpen = false, // 기본값 설정
   onClose,
   children,
+  mode = 'common',
 }: CommonModalProps) => {
   if (!isOpen) return null;
 

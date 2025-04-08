@@ -1,7 +1,7 @@
 'use client';
 
 import CommonInputBar from '@/components/common/CommonInputBar';
-import { UserCard } from '@/components/rank/UserRankCard';
+import { UserCard } from './UserRankCard';
 import { useUserQuery } from '@/lib/queries/useUserQuery';
 import Link from 'next/link';
 
