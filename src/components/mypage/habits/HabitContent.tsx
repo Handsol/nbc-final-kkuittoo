@@ -1,5 +1,3 @@
-'use client';
-
 import { useState } from 'react';
 import { Habit, UserPoint } from '@prisma/client';
 import HabitForm from './HabitForm';
@@ -24,19 +22,15 @@ const HabitContent = ({ habits, userId }: HabitContentProps) => {
 
   return (
     <>
-      {/* 메인 영역 */}
       <div className="flex-1 overflow-y-auto">
         {isCreating ? (
-          //habit 생성
           <HabitForm
             onCancel={handleToggleCreate}
             onSuccess={(habitData) => createMutation.mutate(habitData)}
           />
         ) : habits.length > 0 ? (
-          //habit 있을 때
           <HabitList habits={habits} userId={userId} />
         ) : (
-          //habit 없을 때
           <Text>등록된 habit이 없습니다.</Text>
         )}
       </div>
