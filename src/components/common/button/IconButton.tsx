@@ -42,8 +42,8 @@ const IconButton = ({
       variantClasses = 'bg-gray-200 text-gray-800 hover:bg-gray-300';
       break;
     default:
-      icon = <Plus className="w-5 h-5" />;
-      variantClasses = 'bg-gray-200 text-gray-800 hover:bg-gray-300';
+      icon = <Pencil className="w-4 h-4" />;
+      variantClasses = 'bg-gray-100 hover:bg-gray-200 text-gray-800';
       break;
   }
 
