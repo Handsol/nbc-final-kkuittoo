@@ -17,7 +17,7 @@ type ConfirmDialogProps = {
     uiButtonText: string;
     title: string;
     description: string;
-    cancleButtonText: string;
+    cancelButtonText: string;
     confirmButtonText: string;
   };
   onClick: () => Promise<void>;
@@ -30,7 +30,7 @@ type ConfirmDialogProps = {
  *  - uiButtonText : UI로 렌더링 되는 버튼의 텍스트
  *  - title : 모달창 타이틀
  *  - description : 모달창 서브 텍스트
- *  - cancleButtonText : 취소 버튼의 텍스트
+ *  - cancelButtonText : 취소 버튼의 텍스트
  *  - confirmButtonText : 확인 버튼의 텍스트
  *
  * @param contents {Object}
@@ -42,7 +42,7 @@ const ConfirmDialog = ({ contents, onClick }: ConfirmDialogProps) => {
     uiButtonText,
     title,
     description,
-    cancleButtonText,
+    cancelButtonText,
     confirmButtonText,
   } = contents;
 
@@ -59,7 +59,7 @@ const ConfirmDialog = ({ contents, onClick }: ConfirmDialogProps) => {
           <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>{cancleButtonText}</AlertDialogCancel>
+          <AlertDialogCancel>{cancelButtonText}</AlertDialogCancel>
           <AlertDialogAction onClick={onClick}>
             {confirmButtonText}
           </AlertDialogAction>

@@ -32,7 +32,7 @@ const TeamDisbandButton = ({
     uiButtonText: 'DISBAND',
     title: '정말로 해체하시겠습니까?',
     description: '해체 시 기여도는 모두 사라집니다. 계속하시겠습니까?',
-    cancleButtonText: 'NO',
+    cancelButtonText: 'NO',
     confirmButtonText: 'YES',
   };
 

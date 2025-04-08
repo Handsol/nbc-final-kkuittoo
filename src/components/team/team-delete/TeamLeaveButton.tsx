@@ -21,7 +21,7 @@ const TeamLeaveButton = ({ id }: TeamLeaveButtonProps) => {
     uiButtonText: 'LEAVE',
     title: '정말로 탈퇴하시겠습니까?',
     description: '탈퇴 시 기여도는 모두 사라집니다. 계속하시겠습니까?',
-    cancleButtonText: 'NO',
+    cancelButtonText: 'NO',
     confirmButtonText: 'YES',
   };
 
