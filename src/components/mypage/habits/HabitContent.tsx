@@ -5,6 +5,8 @@ import { Habit, UserPoint } from '@prisma/client';
 import HabitForm from './HabitForm';
 import HabitList from './HabitList';
 import { useCreateHabitMutation } from '@/lib/mutations/useHabitMutation';
+import ActionButton from '@/components/common/button/ActionBUtton';
+import { ACTIONBUTTON_MODE } from '@/constants/mode.constants';
 
 type HabitContentProps = {
   habits: (Habit & { userPoints: UserPoint[] })[];
@@ -39,15 +41,15 @@ const HabitContent = ({ habits, userId }: HabitContentProps) => {
           </div>
         )}
       </div>
-      {/* 추가 버튼  */}
+
       <div className="mt-4 w-full">
-        <button
-          className="w-full py-2 bg-gray-700 text-white rounded-full"
+        <ActionButton
+          mode={ACTIONBUTTON_MODE.FULL}
           onClick={handleToggleCreate}
           disabled={createMutation.isPending}
         >
           Add Habit
-        </button>
+        </ActionButton>
       </div>
     </>
   );

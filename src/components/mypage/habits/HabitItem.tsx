@@ -11,6 +11,7 @@ import {
   useUpdateHabitMutation,
 } from '@/lib/mutations/useHabitMutation';
 import { toast } from '@/hooks/use-toast';
+import { ICONBUTTON_MODE } from '@/constants/mode.constants';
 import IconButton from '@/components/common/button/IconButton';
 
 type HabitItemProps = {
@@ -69,12 +70,9 @@ const HabitItem = ({ habit, userId }: HabitItemProps) => {
     <div className="flex flex-col gap-2">
       <article className="flex items-center gap-4 p-4 border rounded-3xl bg-white shadow-sm hover:shadow-md transition-shadow">
         <IconButton
-          variant="add"
+          mode={ICONBUTTON_MODE.ADD}
           onClick={handleAddPoint}
           disabled={isDisabled}
-          className={
-            isDisabled ? 'bg-gray-300 text-gray-400 cursor-not-allowed' : ''
-          }
         />
 
         <div className="flex-1 min-w-0">
@@ -85,8 +83,14 @@ const HabitItem = ({ habit, userId }: HabitItemProps) => {
         </div>
 
         <div className="flex gap-2 shrink-0">
-          <IconButton variant="edit" onClick={() => setIsEditing(!isEditing)} />
-          <IconButton variant="delete" onClick={handleDeleteHabit} />
+          <IconButton
+            mode={ICONBUTTON_MODE.EDIT}
+            onClick={() => setIsEditing(true)}
+          />
+          <IconButton
+            mode={ICONBUTTON_MODE.DELETE}
+            onClick={handleDeleteHabit}
+          />
         </div>
       </article>
 
