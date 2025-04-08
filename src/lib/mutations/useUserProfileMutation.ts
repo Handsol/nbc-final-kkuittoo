@@ -1,13 +1,17 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@/constants/query-keys.constants';
 import { toast } from '@/hooks/use-toast';
-import { fetchUpdateUserProfile } from '../services/user-client.services';
+import {
+  fetchUpdateUserProfile,
+  UserFormData,
+} from '../services/user-client.services';
 
 export const useUserProfileMutation = (userId: string) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (data: FormData) => fetchUpdateUserProfile({ userId, data }),
+    mutationFn: (data: UserFormData) =>
+      fetchUpdateUserProfile({ userId, data }),
 
     // 1. 중복 방지를 위한 취소 + 이전 user Profile 저장
     onMutate: async (newData) => {
@@ -53,6 +57,10 @@ export const useUserProfileMutation = (userId: string) => {
 
     // 6. 성공 시 토스트 출력
     onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.SINGLE_USER(userId),
+      });
+
       toast({
         title: '수정 완료',
         description: '프로필이 성공적으로 수정되었습니다.',
