@@ -1,7 +1,11 @@
-import { fetchGetMyTeamData } from '@/lib/services/team-actions.services';
+import {
+  fetchGetMyTeamData,
+  fetchGetMyTeamMemberData,
+} from '@/lib/services/team-actions.services';
 import { authOptions } from '@/lib/utils/auth';
 import { getServerSession } from 'next-auth';
 import TeamLeaveButton from './team-delete/TeamLeaveButton';
+import TeamDisbandButton from './team-delete/TeamDisbandButton';
 
 type TeamLeaveProps = {
   id: string;
@@ -20,6 +24,10 @@ const TeamLeave = async ({ id }: TeamLeaveProps) => {
   if (!myTeamData) {
     return <p>데이터를 가져오는데 실패했습니다</p>;
   }
+  const myTeamMembers = await fetchGetMyTeamMemberData(id);
+  if (!myTeamMembers) {
+    return <p>데이터를 가져오는데 실패했습니다</p>;
+  }
 
   // 팀 생성자 여부 판단
   const isOwner = myTeamData.team.ownerId === userId;
@@ -28,7 +36,11 @@ const TeamLeave = async ({ id }: TeamLeaveProps) => {
   return (
     <div>
       {isOwner ? (
-        <button>팀 해체</button>
+        <TeamDisbandButton
+          teamId={id}
+          ownerId={myTeamData.team.ownerId}
+          memberList={myTeamMembers}
+        />
       ) : (
         <TeamLeaveButton id={teamMemberId} />
       )}
