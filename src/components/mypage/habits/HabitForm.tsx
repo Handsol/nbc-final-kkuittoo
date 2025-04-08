@@ -1,4 +1,4 @@
-import { HabitFormData } from '@/types/mypage.type';
+import { HabitFormData } from '@/types/habits.type';
 import {
   createHabitData,
   getDefaultValues,

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { UpdateHabit } from '@/types/mypage.type';
+import { UpdateHabit } from '@/types/habits.type';
 import { DAYS_OF_WEEK } from '@/constants/habits.constants';
 import { HTTP_STATUS } from '@/constants/http-status.constants';
 import { checkAuth } from '@/lib/utils/auth-route-handler.utils';

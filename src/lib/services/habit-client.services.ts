@@ -1,4 +1,4 @@
-import { CreateHabit, UpdateHabit } from '@/types/mypage.type';
+import { CreateHabit, UpdateHabit } from '@/types/habits.type';
 import { Habit } from '@prisma/client';
 
 /**
