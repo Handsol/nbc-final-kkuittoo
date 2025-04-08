@@ -44,8 +44,7 @@ export const DELETE = async (request: NextRequest, { params }: RouteParams) => {
       );
     }
 
-    // delete의 경우 PK만 접근 가능
-    // 아직 PK 설정이 안되어 있기 때문에 우선 deleteMany로 처리함
+    // 삭제 로직
     await prisma.teamMember.delete({
       where: { id },
     });

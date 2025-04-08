@@ -117,7 +117,7 @@ model TeamMember {
   id              String    @id @default(cuid())
   userId          String    
   teamId          String    
-  joinDate        DateTime  
+  joinDate        DateTime  @default(now())
   user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   team            Team      @relation(fields: [teamId], references: [id], onDelete: Cascade)
 }

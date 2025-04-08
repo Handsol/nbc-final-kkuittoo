@@ -115,3 +115,17 @@ export const fetchGetMyTeamData = async (userId: string) => {
 
   return myTeamData;
 };
+
+/**
+ * 현재 팀의 멤버 리스트 정보만 가져오는 로직
+ *
+ * @param teamId {string}
+ * @returns
+ */
+export const fetchGetMyTeamMemberData = async (teamId: string) => {
+  const myTeamMemberList = await prisma.teamMember.findMany({
+    where: { teamId },
+  });
+
+  return myTeamMemberList;
+};
