@@ -127,7 +127,5 @@ export const fetchGetMyTeamMemberData = async (teamId: string) => {
     where: { teamId },
   });
 
-  if (!myTeamMemberList) return null;
-
   return myTeamMemberList;
 };
