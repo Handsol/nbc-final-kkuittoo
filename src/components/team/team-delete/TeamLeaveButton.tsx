@@ -1,16 +1,6 @@
 'use client';
 
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
+import ConfirmDialog from '@/components/common/ConfirmDialog';
 import { PATH } from '@/constants/path.constants';
 import { useToast } from '@/hooks/use-toast';
 import { fetchDeleteMyTeamMember } from '@/lib/services/team-client.services';
@@ -25,6 +15,15 @@ const TeamLeaveButton = ({ id }: TeamLeaveButtonProps) => {
   const { toast } = useToast();
   // route
   const router = useRouter();
+
+  // alert-dialog에 들어갈 컨텐츠
+  const leaveContents = {
+    uiButtonText: 'LEAVE',
+    title: '정말로 탈퇴하시겠습니까?',
+    description: '탈퇴 시 기여도는 모두 사라집니다. 계속하시겠습니까?',
+    cancleButtonText: 'NO',
+    confirmButtonText: 'YES',
+  };
 
   const handleLeaveBtnClick = async () => {
     const res = await fetchDeleteMyTeamMember(id);
@@ -42,27 +41,7 @@ const TeamLeaveButton = ({ id }: TeamLeaveButtonProps) => {
   };
 
   return (
-    <AlertDialog>
-      <AlertDialogTrigger asChild>
-        {/* 화면에서 보여지는 팀 탈퇴 버튼 */}
-        <button>팀 탈퇴</button>
-      </AlertDialogTrigger>
-      {/* 모달창 */}
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>정말로 탈퇴하시겠습니까?</AlertDialogTitle>
-          <AlertDialogDescription>
-            탈퇴 시 기여도는 모두 사라집니다. 계속하시겠습니까?
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>취소</AlertDialogCancel>
-          <AlertDialogAction onClick={handleLeaveBtnClick}>
-            확인
-          </AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+    <ConfirmDialog contents={leaveContents} onClick={handleLeaveBtnClick} />
   );
 };
 
