@@ -53,8 +53,7 @@ const TeamJoin = ({ team, hasTeam, currentMembers }: TeamJoinProps) => {
   };
 
   const handleJoinOpenTeam = async () => {
-    const res = await fetchCreateTeamMember(teamId);
-    const data = await res.json();
+    const data = await fetchCreateTeamMember(teamId);
 
     if (data) {
       toast({

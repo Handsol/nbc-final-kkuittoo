@@ -45,8 +45,10 @@ const TeamPasswordForm = ({ teamId }: TeamPasswordFormProps) => {
     }
 
     // 일치 시 POST 요청
-    const res = await fetchCreateTeamMember(teamId, data.teamPassword);
-    const newMemberData = await res.json();
+    const newMemberData = await fetchCreateTeamMember(
+      teamId,
+      data.teamPassword,
+    );
 
     if (newMemberData) {
       toast({
