@@ -100,6 +100,17 @@ export const checkUpdateTeamValidation = (
   return null;
 };
 
+/**
+ * 팀 삭제시 유효성 검사 로직
+ *
+ * @param teamData teamData
+ * @param userId string
+ * @returns null | NextResponse
+ * @description
+ * 1. 팀 생성자를 제외한 다른 유저가 남아있는 경우
+ * 2. 팀 생성자가 아닌 경우
+ */
+
 type teamData = {
   teamMembers: {
     id: string;
@@ -118,16 +129,6 @@ type teamData = {
   maxTeamSize: number;
 };
 
-/**
- * 팀 삭제시 유효성 검사 로직
- *
- * @param teamData teamData
- * @param userId string
- * @returns null | NextResponse
- * @description
- * 1. 팀 생성자를 제외한 다른 유저가 남아있는 경우
- * 2. 팀 생성자가 아닌 경우
- */
 export const checkDeleteTeamValidation = (
   teamData: teamData,
   userId: string,
@@ -151,4 +152,22 @@ export const checkDeleteTeamValidation = (
   }
 
   return null;
+};
+
+/**
+ * 팀 id 기반으로 생성된 비밀번호와 사용자 입력값 확인 로직
+ *
+ * @param teamId {string}
+ * @param passwordInput {string | undefined}
+ * @returns {boolean}
+ */
+export const checkTeamPassword = (
+  teamId: string,
+  passwordInput?: string,
+): boolean => {
+  // 비밀번호input이 없는 경우 false 반환
+  if (!passwordInput) return false;
+  // 팀 비밀번호 = teamId의 뒤 6글자
+  const teamPassword = teamId.slice(-6);
+  return teamPassword === passwordInput;
 };
