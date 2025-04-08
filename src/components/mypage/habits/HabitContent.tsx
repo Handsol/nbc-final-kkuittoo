@@ -7,6 +7,7 @@ import HabitList from './HabitList';
 import { useCreateHabitMutation } from '@/lib/mutations/useHabitMutation';
 import ActionButton from '@/components/common/button/ActionButton';
 import { ACTIONBUTTON_MODE } from '@/constants/mode.constants';
+import Text from '@/components/common/Text';
 
 type HabitContentProps = {
   habits: (Habit & { userPoints: UserPoint[] })[];
@@ -36,9 +37,7 @@ const HabitContent = ({ habits, userId }: HabitContentProps) => {
           <HabitList habits={habits} userId={userId} />
         ) : (
           //habit 없을 때
-          <div className="h-full flex items-center justify-center text-gray-500">
-            등록된 habit이 없습니다.
-          </div>
+          <Text>등록된 habit이 없습니다.</Text>
         )}
       </div>
 
