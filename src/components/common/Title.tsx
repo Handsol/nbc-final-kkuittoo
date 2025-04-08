@@ -4,6 +4,7 @@ import { ReactNode } from 'react';
 type TitleProps = {
   mode: number;
   children: string | ReactNode;
+  className?: string;
 };
 
 /**
@@ -33,18 +34,18 @@ type TitleProps = {
  *    HABITS
  * </Title>
  */
-const Title = ({ mode, children }: TitleProps) => {
+const Title = ({ mode, children, className }: TitleProps) => {
   switch (mode) {
     case TITLE_MODE.LOGO:
-      return <h1>{children}</h1>;
+      return <h1 className={className}>{children}</h1>;
     case TITLE_MODE.LINK:
-      return <h2>{children}</h2>;
+      return <h2 className={className}>{children}</h2>;
     case TITLE_MODE.SECTION_TITLE:
-      return <h3>{children}</h3>;
+      return <h3 className={className}>{children}</h3>;
     case TITLE_MODE.SECTION_SUBTITLE:
-      return <h4>{children}</h4>;
+      return <h4 className={className}>{children}</h4>;
     default:
-      return <span>{children}</span>; // fallback
+      return <span className={className}>{children}</span>;
   }
 };
 
