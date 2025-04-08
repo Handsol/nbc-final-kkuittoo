@@ -14,7 +14,7 @@ export const API_PATH = {
   USERS_POINTS: '/api/user-points',
   HABITS: '/api/habits',
   TEAMS: '/api/teams',
-  MEMBERS: '/api/teams/members',
+  MEMBERS: '/api/teams/member',
 };
 
 export const PROJECT_URL = 'http://localhost:3000';

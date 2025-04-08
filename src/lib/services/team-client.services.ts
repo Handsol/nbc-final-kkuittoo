@@ -129,3 +129,43 @@ export const fetchCreateNewTeam = async (data: TeamFormInputs) => {
 
   return response;
 };
+
+/**
+ * 본인의 teamMember 데이터 (팀 가입 데이터) 삭제 로직
+ * 팀원의 TeamLeaveButton에서 사용되는 로직
+ *
+ * @param id {string}
+ * @returns
+ */
+export const fetchDeleteMyTeamMember = async (id: string) => {
+  const response = await fetch(`${API_PATH.MEMBERS}/${id}`, {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+  if (!response.ok) {
+    throw new Error('팀멤버 데이터를 삭제(탈퇴)하는데 실패했습니다.');
+  }
+
+  return response;
+};
+
+/**
+ * 팀 생성자의 경우 team 데이터 삭제(해체) 로직
+ * 팀장의 TeamDisbandButton에서 사용되는 로직
+ *
+ * @param teamId {string}
+ * @returns
+ */
+export const fetchDeleteTeam = async (teamId: string) => {
+  const response = await fetch(`${API_PATH.TEAMS}/${teamId}`, {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+  if (!response.ok) {
+    throw new Error('팀 데이터를 삭제(해체)하는데 실패했습니다.');
+  }
+
+  return response;
+};
