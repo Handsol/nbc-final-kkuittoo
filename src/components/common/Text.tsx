@@ -1,9 +1,12 @@
+import { ReactNode } from 'react';
+
 type TextProps = {
-  children: string;
+  children: ReactNode;
+  className?: string;
 };
 
-const Text = ({ children }: TextProps) => {
-  return <p>{children}</p>;
+const Text = ({ children, className = '' }: TextProps) => {
+  return <p className={className}>{children}</p>;
 };
 
 export default Text;

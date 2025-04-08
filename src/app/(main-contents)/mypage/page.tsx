@@ -24,7 +24,7 @@ const MyPage = async () => {
         </div>
 
         <div className="w-[280px] h-[640px] flex flex-col gap-4">
-          <MyPageProfile />
+          <MyPageProfile userId={session.user.id} />
           <div className="flex-[3]">
             <MyPageCalendar />
           </div>

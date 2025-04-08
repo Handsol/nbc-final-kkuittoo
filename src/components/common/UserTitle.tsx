@@ -1,8 +1,9 @@
 import { USER_TITLE_MODE } from '@/constants/mode.constants';
+import { ReactNode } from 'react';
 
 type UserTitleProps = {
   mode: number;
-  children: string;
+  children: ReactNode;
 };
 
 const UserTitle = ({ mode, children }: UserTitleProps) => {
