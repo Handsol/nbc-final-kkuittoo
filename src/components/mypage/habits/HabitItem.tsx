@@ -5,9 +5,11 @@ import {
   getCooldownStatus,
   getCurrentDayStatus,
 } from '@/lib/utils/habit.utils';
-import { ICONBUTTON_MODE } from '@/constants/mode.constants';
+import { ICONBUTTON_MODE, TITLE_MODE } from '@/constants/mode.constants';
 import IconButton from '@/components/common/button/IconButton';
 import { useHabitItemHandlers } from '@/lib/hooks/useHabitItemHandlers';
+import Title from '@/components/common/Title';
+import Text from '@/components/common/Text';
 
 type HabitItemProps = {
   habit: Habit & { userPoints: UserPoint[] };
@@ -47,10 +49,13 @@ const HabitItem = ({ habit, userId }: HabitItemProps) => {
         />
 
         <div className="flex-1 min-w-0">
-          <h2 className="font-semibold text-gray-800 truncate">
+          <Title
+            mode={TITLE_MODE.LINK}
+            className="font-semibold text-gray-800 truncate"
+          >
             {habit.title}
-          </h2>
-          <p className="text-sm text-gray-600 truncate">{habit.notes}</p>
+          </Title>
+          <Text className="text-sm text-gray-600 truncate">{habit.notes}</Text>
         </div>
 
         <div className="flex gap-2">

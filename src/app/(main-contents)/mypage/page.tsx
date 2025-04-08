@@ -1,3 +1,4 @@
+import Text from '@/components/common/Text';
 import MyPageCalendar from '@/components/mypage/MyPageCalendar';
 import MyPageHabits from '@/components/mypage/MyPageHabits';
 import MyPageProfile from '@/components/mypage/MyPageProfile';
@@ -11,7 +12,7 @@ const MyPage = async () => {
   if (!session?.user) {
     return (
       <div className="flex items-center justify-center min-h-[calc(100vh-3rem)]">
-        <p className="text-lg">로그인이 필요합니다.</p>
+        <Text>로그인이 필요합니다.</Text>
       </div>
     );
   }
@@ -26,6 +27,7 @@ const MyPage = async () => {
         <div className="w-[280px] h-[640px] flex flex-col gap-4">
           <MyPageProfile userId={session.user.id} />
           <div className="flex-[3]">
+            {/* 없어질 예정 */}
             <MyPageCalendar />
           </div>
         </div>

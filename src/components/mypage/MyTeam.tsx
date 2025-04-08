@@ -7,6 +7,7 @@ import TeamImage from '../team/TeamImage';
 import LinkButton from '../common/button/LinkButton';
 import { LINKBUTTON_MODE, TITLE_MODE } from '@/constants/mode.constants';
 import { PATH } from '@/constants/path.constants';
+import Title from '../common/Title';
 
 type MyTeamProps = {
   team: TeamData;
@@ -21,7 +22,9 @@ const MyTeam = ({ team, teamTotalPoints, teamCurrentQuest }: MyTeamProps) => {
   return (
     <section className="h-full w-[680px] bg-gray-300 p-6 rounded-3xl flex flex-col">
       {/* 제목 */}
-      <h1 className="text-xl font-bold mb-4">MY TEAM</h1>
+      <Title mode={TITLE_MODE.SECTION_TITLE} className="text-xl font-bold mb-4">
+        MY TEAM
+      </Title>
       {/* 메인 영역 */}
       <div className="w-full max-w-5xl flex flex-row gap-4">
         {/* 팀 이미지 */}
