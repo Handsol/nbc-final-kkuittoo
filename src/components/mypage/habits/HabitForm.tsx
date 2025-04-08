@@ -14,6 +14,8 @@ import {
   HabitFormSchema,
 } from '@/lib/schema/habit-form.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import ActionButton from '@/components/common/button/ActionButton';
+import { ACTIONBUTTON_MODE } from '@/constants/mode.constants';
 
 type HabitFormProps = {
   onCancel: () => void;
@@ -95,18 +97,20 @@ const HabitForm: React.FC<HabitFormProps> = ({
       />
 
       <div className="flex justify-center gap-4 mt-4">
-        <button
+        <ActionButton
+          mode={ACTIONBUTTON_MODE.SECONDARY_SMALL}
           onClick={onCancel}
-          className="px-6 py-2 bg-gray-300 rounded-full text-xs"
+          className="px-6"
         >
           취소
-        </button>
-        <button
+        </ActionButton>
+        <ActionButton
+          mode={ACTIONBUTTON_MODE.PRIMARY_SMALL}
           onClick={handleSubmit(onSubmit)}
-          className="px-6 py-2 bg-gray-600 text-white rounded-full text-xs"
+          className="px-6 bg-gray-600"
         >
           완료
-        </button>
+        </ActionButton>
       </div>
     </div>
   );
