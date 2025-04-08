@@ -1,7 +1,7 @@
 'use client';
 
 import ConfirmDialog from '@/components/common/ConfirmDialog';
-import { API_PATH, PATH } from '@/constants/path.constants';
+import { PATH } from '@/constants/path.constants';
 import { useToast } from '@/hooks/use-toast';
 import { fetchDeleteTeam } from '@/lib/services/team-client.services';
 import { TeamMemberData } from '@/types/teams.type';
@@ -48,8 +48,7 @@ const TeamDisbandButton = ({
       return;
     }
 
-    const res = await fetchDeleteTeam(teamId);
-    const data = await res.json();
+    const data = await fetchDeleteTeam(teamId);
 
     if (data) {
       toast({

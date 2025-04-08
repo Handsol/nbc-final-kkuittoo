@@ -30,10 +30,9 @@ const TeamForm = () => {
   // submit 로직
   const onSubmit = async (data: TeamFormInputs) => {
     try {
-      const res = await fetchCreateNewTeam(data);
-      const result = await res.json();
+      const result = await fetchCreateNewTeam(data);
 
-      if (res.ok && result) {
+      if (result) {
         toast({
           title: '팀 생성 완료!',
           description: '팀이 성공적으로 생성되었습니다',

@@ -26,8 +26,7 @@ const TeamLeaveButton = ({ id }: TeamLeaveButtonProps) => {
   };
 
   const handleLeaveBtnClick = async () => {
-    const res = await fetchDeleteMyTeamMember(id);
-    const data = await res.json();
+    const data = await fetchDeleteMyTeamMember(id);
 
     if (data) {
       toast({
