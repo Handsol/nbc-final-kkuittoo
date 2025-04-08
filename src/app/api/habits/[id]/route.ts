@@ -68,7 +68,7 @@ export const PATCH = async (request: NextRequest, { params }: RouteParams) => {
     if (permissionError) return permissionError;
 
     // Zod 유효성 검사
-    const result = updateHabitSchema.safeParse(body);
+    const result = updateHabitSchema.safeParse(body); // safeParse는 Zod 라이브러리에서 제공하는 검증 메서드로, 데이터의 유효성을 검사하면서도 에러를 발생시키지 않는 안전한 방식
     if (!result.success) {
       const firstError = result.error.errors[0].message;
       return NextResponse.json(
