@@ -4,8 +4,8 @@ import { CreateHabit } from '@/types/habits.type';
 import { DAYS_OF_WEEK } from '@/constants/habits.constants';
 import { HTTP_STATUS } from '@/constants/http-status.constants';
 import { checkAuth } from '@/lib/utils/auth-route-handler.utils';
-import { validateHabitInput } from '@/lib/utils/habit-validation.utils';
 import { HABIT_ERROR_MESSAGES } from '@/constants/error-messages.constants';
+import { createHabitSchema } from '@/lib/schema/habit.schema';
 
 /**
  * 사용자의 모든 Habit 목록을 조회
@@ -44,7 +44,7 @@ export const GET = async () => {
  * @throws {Error} 데이터베이스 생성 실패했을 때
  * @description
  * - 인증된 사용자가 새로운 Habit 생성
- * - 유효성 검사를 통해 데이터 형식과 길이를 확인
+ * - 유효성 검사를 통해 데이터 형식과 길이를 확인 - zod
  */
 export const POST = async (request: NextRequest) => {
   const { session, response } = await checkAuth();
@@ -52,17 +52,23 @@ export const POST = async (request: NextRequest) => {
 
   try {
     const body = (await request.json()) as CreateHabit;
-    const { title, notes, categories, ...days } = body;
 
-    // 유효성 검사
-    const validationError = validateHabitInput(body);
-    if (validationError) return validationError;
+    // Zod 유효성 검사
+    const result = createHabitSchema.safeParse(body);
+    if (!result.success) {
+      const firstError = result.error.errors[0].message;
+      return NextResponse.json(
+        { error: firstError },
+        { status: HTTP_STATUS.BAD_REQUEST },
+      );
+    }
+
+    const { title, notes, categories, ...days } = result.data;
 
     const dayData: Record<string, boolean> = {};
     for (const day of DAYS_OF_WEEK) {
       dayData[day] = days[day] ?? false;
     }
-
     const habit = await prisma.habit.create({
       data: {
         title: title.trim(),
