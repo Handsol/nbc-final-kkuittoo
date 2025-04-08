@@ -24,7 +24,7 @@ const TeamPage = async ({ params }: RouteParams) => {
         <TeamMemberList id={id} />
         <TeamCalendar />
       </section>
-      <TeamChat />
+      <TeamChat teamId={id} />
     </article>
   );
 };
