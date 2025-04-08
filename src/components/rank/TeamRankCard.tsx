@@ -7,6 +7,12 @@ type Props = TeamCardProps & {
 
 // 한 팀의 정보를 카드 형태로 보여주는 컴포넌트임당
 // isTopRank로 상단 3위와 나머지 스타일 구별
+
+// ?? 민경 코멘트 - To.본승님
+// TeamRankContent(서버 컴포넌트)에서 데이터를 내려주는 방법으로 진행하시는거죠?
+// TopRankCard / NomalRankCard 컴포넌트로 아예 분리하는 것을 추천드립니다
+// 아마 Card 컴포넌트에 TeamJoin 컴포넌트를 추가하면 이벤트 버블링 이슈가 발생할 수도 있습니다. 이부분은 본승님 리팩토링 이후, 제가 컴포넌트 적용하면서 해결하겠습니다.
+
 export const TeamCard = ({ team, rank, isTopRank, onClick }: Props) => {
   const imageSize = isTopRank ? 112 : 64;
 
