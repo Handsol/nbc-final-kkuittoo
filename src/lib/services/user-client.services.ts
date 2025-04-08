@@ -15,9 +15,14 @@ export const fetchGetUsers = async (): Promise<UserData[]> => {
   return res.json();
 };
 
+export type UserFormData = {
+  name: string;
+  bio: string;
+};
+
 export type updateUserProfile = {
   userId: string;
-  data: FormData;
+  data: UserFormData;
 };
 
 export const fetchUpdateUserProfile = async ({
