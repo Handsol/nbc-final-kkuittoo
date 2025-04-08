@@ -5,7 +5,7 @@ import {
 } from '@/constants/habits.constants';
 import { HabitFormData } from '@/types/habits.type';
 import { Habit, UserPoint } from '@prisma/client';
-import { HabitFormSchema } from '../schema/habit-form.schema';
+import { HabitFormSchema } from '../schema/habit.schema';
 
 /**
  * 현재 요일에 해당하는 습관 수행 여부를 반환하는 유틸리티 함수
