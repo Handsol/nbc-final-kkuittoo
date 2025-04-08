@@ -2,6 +2,7 @@ import { TITLE_MODE } from '@/constants/mode.constants';
 import Title from '../common/Title';
 import { Calendar } from '../ui/calendar';
 
+// 디자인 나오면 캘린더 영역은 사라질 가능성이 높음
 const MyPageCalendar = () => {
   return (
     <section className="h-full bg-gray-200 p-6 rounded-3xl flex flex-col">

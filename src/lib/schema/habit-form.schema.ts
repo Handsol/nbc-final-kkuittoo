@@ -1,5 +1,5 @@
 import { HABIT_ERROR_MESSAGES } from '@/constants/error-messages.constants';
-import { HABIT_VALIDATION } from '@/constants/habits.constants';
+import { HABIT_VALIDATION } from '@/constants/validation.constants';
 import { z } from 'zod';
 
 export const habitFormSchema = z.object({

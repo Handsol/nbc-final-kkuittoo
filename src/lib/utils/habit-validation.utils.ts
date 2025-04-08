@@ -1,10 +1,10 @@
 import { HABIT_ERROR_MESSAGES } from '@/constants/error-messages.constants';
-import { HABIT_VALIDATION } from '@/constants/habits.constants';
 import { HTTP_STATUS } from '@/constants/http-status.constants';
 import { CreateHabit, UpdateHabit } from '@/types/habits.type';
 import { Habit, UserPoint } from '@prisma/client';
 import { NextResponse } from 'next/server';
 import { isCooldownActive } from './habit.utils';
+import { HABIT_VALIDATION } from '@/constants/validation.constants';
 
 /**
  * 습관 데이터의 유효성을 검사
