@@ -1,4 +1,5 @@
-import { fetchGetUserProfile } from '@/lib/services/user-actions.services';
+'use client';
+
 import Text from '../common/Text';
 import { USER_TITLE_MODE } from '@/constants/mode.constants';
 import UserTitle from '../common/UserTitle';
@@ -11,14 +12,16 @@ import {
 } from '@/lib/utils/user-level.utils';
 import UserLevel from './profile/UserLevel';
 import UserProfileEdit from './profile/UserProfileEdit';
+import { useUserQuery } from '@/lib/queries/useUserQuery';
 
 type MyPageHabitsProps = {
   userId: string;
 };
 
-const MyPageProfile = async ({ userId }: MyPageHabitsProps) => {
-  const profileData = await fetchGetUserProfile(userId);
+const MyPageProfile = ({ userId }: MyPageHabitsProps) => {
+  const { data: profileData, isLoading } = useUserQuery(userId);
 
+  if (isLoading) return <Text>로딩 중...</Text>;
   if (!profileData) return <Text>존재하지 않는 유저입니다.</Text>;
 
   // 레벨 계산
