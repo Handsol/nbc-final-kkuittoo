@@ -24,7 +24,7 @@ export const useHabitItemHandlers = ({
   const handleAddPoint = () => {
     addPointMutation.mutate(habitId, {
       onSuccess: () =>
-        toast({ title: '성공', description: '포인트가 추가되었습니다.' }),
+        toast({ title: '성공', description: '포인트가 추가되었습니다.' }), // 문구 수정해야할 거 같아서 상수로 분리는 나중에 할게요.
       onError: (err) =>
         toast({
           title: '실패',

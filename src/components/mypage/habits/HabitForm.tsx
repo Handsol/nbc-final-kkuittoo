@@ -1,21 +1,12 @@
 import { HabitFormData } from '@/types/habits.type';
-import {
-  createHabitData,
-  getDefaultValues,
-  toggleDay,
-} from '@/lib/utils/habit.utils';
+import { toggleDay } from '@/lib/utils/habit.utils';
 import HabitFormReapeatDays from './habit-form/HabitFormRepeatDays';
 import HabitFormTags from './habit-form/HabitFormTags';
-import { toast } from '@/hooks/use-toast';
 import HabitFormInput from './habit-form/HabitFormInput';
-import { Controller, useForm } from 'react-hook-form';
-import {
-  habitFormSchema,
-  HabitFormSchema,
-} from '@/lib/schema/habit-form.schema';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { Controller } from 'react-hook-form';
 import ActionButton from '@/components/common/button/ActionButton';
 import { ACTIONBUTTON_MODE } from '@/constants/mode.constants';
+import { useHabitFormHandler } from '@/lib/hooks/useHabitFormHandler';
 
 type HabitFormProps = {
   onCancel: () => void;
@@ -28,35 +19,12 @@ const HabitForm: React.FC<HabitFormProps> = ({
   initialHabit,
   onSuccess,
 }) => {
-  const {
-    register,
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<HabitFormSchema>({
-    resolver: zodResolver(habitFormSchema),
-    defaultValues: getDefaultValues(initialHabit),
-  });
-
-  const onSubmit = (data: HabitFormSchema) => {
-    const habitData = createHabitData(
-      data.title,
-      data.notes,
-      data.selectedDays,
-      data.categories,
-      initialHabit?.id,
-    );
-    if (onSuccess) {
-      onSuccess(habitData);
-      toast({
-        title: '성공',
-        description: initialHabit
-          ? '습관이 수정되었습니다.'
-          : '습관이 생성되었습니다.',
-      });
-    }
-    onCancel();
-  };
+  const { register, control, handleSubmit, errors, handleFormSubmit } =
+    useHabitFormHandler({
+      initialHabit,
+      onSuccess,
+      onCancel,
+    });
 
   return (
     <div className="p-4 bg-white rounded-xl shadow flex flex-col gap-6">
@@ -106,7 +74,7 @@ const HabitForm: React.FC<HabitFormProps> = ({
         </ActionButton>
         <ActionButton
           mode={ACTIONBUTTON_MODE.PRIMARY_SMALL}
-          onClick={handleSubmit(onSubmit)}
+          onClick={handleSubmit(handleFormSubmit)}
           className="px-6 bg-gray-600"
         >
           완료
