@@ -35,13 +35,9 @@ const HabitItem = ({ habit, userId }: HabitItemProps) => {
 
   return (
     <div className="flex flex-col gap-2 relative">
-      {(isAddPending || isUpdatePending || isDeletePending) && (
-        <div className="absolute inset-0 bg-white bg-opacity-50 rounded-3xl z-10" />
-      )}
-
       <article
         className={`flex items-center gap-4 p-4 border rounded-3xl bg-white shadow-sm hover:shadow-md transition-shadow ${
-          isAddPending ? 'opacity-70' : ''
+          isAddPending || isUpdatePending || isDeletePending ? 'opacity-50' : ''
         }`}
       >
         <IconButton
