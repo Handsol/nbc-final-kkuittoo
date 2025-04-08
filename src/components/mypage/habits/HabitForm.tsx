@@ -19,15 +19,21 @@ const HabitForm: React.FC<HabitFormProps> = ({
   initialHabit,
   onSuccess,
 }) => {
-  const { register, control, handleSubmit, errors, handleFormSubmit } =
-    useHabitFormHandler({
-      initialHabit,
-      onSuccess,
-      onCancel,
-    });
+  const {
+    register,
+    control,
+    handleSubmit,
+    errors,
+    handleFormSubmit,
+    isSubmitting,
+  } = useHabitFormHandler({
+    initialHabit,
+    onSuccess,
+    onCancel,
+  });
 
   return (
-    <div className="p-4 bg-white rounded-xl shadow flex flex-col gap-6">
+    <div className={`p-4 bg-white rounded-xl shadow flex flex-col gap-6`}>
       <HabitFormInput
         id="title"
         label="TITLE"
@@ -69,6 +75,7 @@ const HabitForm: React.FC<HabitFormProps> = ({
           mode={ACTIONBUTTON_MODE.SECONDARY_SMALL}
           onClick={onCancel}
           className="px-6"
+          disabled={isSubmitting}
         >
           취소
         </ActionButton>
@@ -76,6 +83,7 @@ const HabitForm: React.FC<HabitFormProps> = ({
           mode={ACTIONBUTTON_MODE.PRIMARY_SMALL}
           onClick={handleSubmit(handleFormSubmit)}
           className="px-6 bg-gray-600"
+          disabled={isSubmitting}
         >
           완료
         </ActionButton>

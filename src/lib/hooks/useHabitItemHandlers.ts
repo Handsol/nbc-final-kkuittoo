@@ -24,7 +24,7 @@ export const useHabitItemHandlers = ({
   const handleAddPoint = () => {
     addPointMutation.mutate(habitId, {
       onSuccess: () =>
-        toast({ title: '성공', description: '포인트가 추가되었습니다.' }), // 문구 수정해야할 거 같아서 상수로 분리는 나중에 할게요.
+        toast({ title: '성공', description: '포인트가 추가되었습니다.' }),
       onError: (err) =>
         toast({
           title: '실패',
@@ -37,12 +37,13 @@ export const useHabitItemHandlers = ({
     updatedHabit: Omit<Habit, 'userId' | 'createdAt' | 'userPoints'>,
   ) => {
     updateMutation.mutate(updatedHabit, {
-      onSuccess: () =>
-        toast({ title: '성공', description: '습관이 수정되었습니다.' }),
+      onSuccess: () => {
+        toast({ title: '성공', description: '습관이 수정되었습니다.' });
+        onEditToggle(false);
+      },
       onError: (err) =>
         toast({ title: '실패', description: `습관 수정 실패: ${err.message}` }),
     });
-    onEditToggle(false);
   };
 
   const handleDeleteHabit = () => {
@@ -62,5 +63,7 @@ export const useHabitItemHandlers = ({
     handleUpdateHabit,
     handleDeleteHabit,
     isAddPending: addPointMutation.isPending,
+    isUpdatePending: updateMutation.isPending,
+    isDeletePending: deleteMutation.isPending,
   };
 };

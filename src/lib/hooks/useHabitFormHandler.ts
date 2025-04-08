@@ -7,6 +7,7 @@ import {
   HabitFormSchema,
 } from '@/lib/schema/habit-form.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useState } from 'react';
 
 type UseHabitFormHandlerProps = {
   initialHabit?: HabitFormData;
@@ -19,6 +20,8 @@ export const useHabitFormHandler = ({
   onSuccess,
   onCancel,
 }: UseHabitFormHandlerProps) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const {
     register,
     control,
@@ -29,25 +32,42 @@ export const useHabitFormHandler = ({
     defaultValues: getDefaultValues(initialHabit),
   });
 
-  const handleFormSubmit = (data: HabitFormSchema) => {
-    const habitData = createHabitData(
-      data.title,
-      data.notes,
-      data.selectedDays,
-      data.categories,
-      initialHabit?.id,
-    );
-    if (onSuccess) {
-      onSuccess(habitData);
-      toast({
-        title: '성공',
-        description: initialHabit
-          ? '습관이 수정되었습니다.'
-          : '습관이 생성되었습니다.',
-      });
-    }
-    onCancel();
-  };
+  const handleFormSubmit = async (data: HabitFormSchema) => {
+    setIsSubmitting(true);
+    try {
+      const habitData = createHabitData(
+        data.title,
+        data.notes,
+        data.selectedDays,
+        data.categories,
+        initialHabit?.id,
+      );
 
-  return { register, control, handleSubmit, errors, handleFormSubmit };
+      if (onSuccess) {
+        await onSuccess(habitData);
+        toast({
+          title: '성공',
+          description: initialHabit
+            ? '습관이 수정되었습니다.'
+            : '습관이 생성되었습니다.',
+        });
+      }
+    } catch (error) {
+      toast({
+        title: '오류',
+        description: '처리 중 오류가 발생했습니다.',
+      });
+    } finally {
+      setIsSubmitting(false);
+      onCancel();
+    }
+  };
+  return {
+    register,
+    control,
+    handleSubmit,
+    errors,
+    handleFormSubmit,
+    isSubmitting,
+  };
 };
