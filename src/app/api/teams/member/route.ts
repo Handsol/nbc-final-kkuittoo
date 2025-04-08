@@ -3,6 +3,7 @@ import { HTTP_STATUS } from '@/constants/http-status.constants';
 import { prisma } from '@/lib/prisma';
 import {
   fetchGetMyTeamData,
+  fetchGetMyTeamMemberData,
   fetchTeamData,
 } from '@/lib/services/team-actions.services';
 import { checkAuth } from '@/lib/utils/auth-route-handler.utils';
@@ -43,17 +44,30 @@ export const POST = async (request: NextRequest) => {
       );
     }
 
-    // 해당 팀 공개 여부에 따른 분기처리
+    // 해당 팀 공개 여부 + 팀 멤버 수에 따른 분기처리
     const teamData = await fetchTeamData(teamId);
-    if (!teamData) {
+    const teamMembers = await fetchGetMyTeamMemberData(teamId);
+    if (!teamData || !teamMembers) {
       return NextResponse.json(
         { error: TEAMS_MESSAGES.NOT_FOUND },
         { status: HTTP_STATUS.NOT_FOUND },
       );
     }
 
+    // 팀 최대 인원이 초과하였을 경우 400 에러
+    const maxNumber = teamData.maxTeamSize;
+    const currentMemberNumber = teamMembers.length;
+
+    if (maxNumber <= currentMemberNumber) {
+      return NextResponse.json(
+        { error: TEAMS_MESSAGES.TEAM_SIZE_MAX },
+        { status: HTTP_STATUS.BAD_REQUEST },
+      );
+    }
+
     // 비공개 팀 : 비밀번호가 틀리면 400 에러
     const isOpened = teamData.isOpened;
+
     if (!isOpened) {
       const passwordValidate = checkTeamPassword(teamId, password);
       if (!passwordValidate) {
