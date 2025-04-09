@@ -1,13 +1,18 @@
 import TeamCalendar from '@/components/team/TeamCalendar';
-import TeamChat from '@/components/team/TeamChat';
+import { TeamChat } from '@/components/team/TeamChat';
 import TeamInfo from '@/components/team/TeamInfo';
 import TeamLeave from '@/components/team/TeamLeave';
 import TeamMemberList from '@/components/team/TeamMemberList';
+import { generateTeamMetadata } from '@/lib/seo/generateTeamMetadata';
 
 type RouteParams = {
   params: {
     id: string;
   };
+};
+
+export const generateMetadata = async ({ params }: RouteParams) => {
+  return await generateTeamMetadata(params.id);
 };
 
 const TeamPage = async ({ params }: RouteParams) => {
@@ -23,7 +28,7 @@ const TeamPage = async ({ params }: RouteParams) => {
         <TeamMemberList id={id} />
         <TeamCalendar />
       </section>
-      <TeamChat />
+      <TeamChat teamId={id} />
     </article>
   );
 };

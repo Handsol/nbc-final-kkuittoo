@@ -12,6 +12,7 @@ import TeamOpenToggleButton from './team-edit/TeamOpenToggleButton';
 import TeamOpenNotEditMode from './team-edit/TeamOpenNotEditMode';
 import TeamProgress from './TeamProgress';
 import TeamBioEditMode from './team-edit/TeamBioEditMode';
+import Text from '../common/Text';
 
 type TeamQuestProps = {
   id: string;
@@ -29,12 +30,12 @@ const TeamInfo = async ({ id }: TeamQuestProps) => {
   // teamData & session 로딩 실패시 early return 로직
   // 이 부분은 오류 처리 로직에 대해 논의 후 수정 예정입니다.
   if (!teamData || !teamCurrentQuest) {
-    return <p>데이터를 가져오는데 실패했습니다</p>;
+    return <Text>데이터를 가져오는데 실패했습니다</Text>;
   }
   if (!session?.user) {
     return (
       <div className="flex items-center justify-center min-h-[calc(100vh-3rem)]">
-        <p className="text-lg">로그인이 필요합니다.</p>
+        <Text className="text-lg">로그인이 필요합니다.</Text>
       </div>
     );
   }

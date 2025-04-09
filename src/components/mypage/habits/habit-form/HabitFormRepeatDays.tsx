@@ -10,7 +10,7 @@ const HabitFormReapeatDays = ({
   setSelectedDays,
   toggleDay,
 }: HabitFormRepeatDaysProps) => (
-  <div>
+  <>
     <label className="block mb-2 text-xs font-semibold text-gray-700">
       Repeats
     </label>
@@ -34,7 +34,7 @@ const HabitFormReapeatDays = ({
         </label>
       ))}
     </div>
-  </div>
+  </>
 );
 
 export default HabitFormReapeatDays;

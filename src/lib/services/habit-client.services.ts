@@ -1,4 +1,5 @@
-import { CreateHabit, UpdateHabit } from '@/types/mypage.type';
+import { API_PATH } from '@/constants/path.constants';
+import { CreateHabit, UpdateHabit } from '@/types/habits.type';
 import { Habit } from '@prisma/client';
 
 /**
@@ -7,7 +8,7 @@ import { Habit } from '@prisma/client';
  * @returns {Promise<Habit>} 생성된 Habit
  */
 export const fetchCreateHabit = async (data: CreateHabit): Promise<Habit> => {
-  const res = await fetch('/api/habits', {
+  const res = await fetch(API_PATH.HABITS, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
@@ -26,7 +27,7 @@ export const fetchUpdateHabit = async (
   id: string,
   data: UpdateHabit,
 ): Promise<Habit> => {
-  const res = await fetch(`/api/habits/${id}`, {
+  const res = await fetch(`${API_PATH.HABITS}/${id}`, {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
@@ -41,6 +42,6 @@ export const fetchUpdateHabit = async (
  * @returns {Promise<void>}
  */
 export const fetchDeleteHabit = async (id: string): Promise<void> => {
-  const res = await fetch(`/api/habits/${id}`, { method: 'DELETE' });
+  const res = await fetch(`${API_PATH.HABITS}/${id}`, { method: 'DELETE' });
   if (!res.ok) throw new Error('habit 삭제에 실패하였습니다.');
 };

@@ -5,7 +5,7 @@ import { prisma } from '@/lib/prisma';
 import { fetchGetTeamTotalPoints } from '@/lib/services/team-actions.services';
 import { checkAuth } from '@/lib/utils/auth-route-handler.utils';
 import { checkCreateTeamValidation } from '@/lib/utils/team-validation.utils';
-import { TeamWithPoints } from '@/types/rank-users.type';
+import { TeamWithPoints } from '@/types/rank.type';
 import { NextRequest, NextResponse } from 'next/server';
 
 /**

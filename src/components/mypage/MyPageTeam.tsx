@@ -5,6 +5,7 @@ import {
 } from '@/lib/services/team-actions.services';
 import NoTeam from './NoTeam';
 import MyTeam from './MyTeam';
+import Text from '../common/Text';
 
 type MyPageTeamProps = {
   userId: string;
@@ -24,17 +25,15 @@ const MyPageTeam = async ({ userId }: MyPageTeamProps) => {
   const teamCurrentQuest = await fetchGetCurrentTeamQuest(teamTotalPoints);
 
   if (!teamCurrentQuest) {
-    return <div>퀘스트 데이터를 가져오는데 실패했습니다.</div>;
+    return <Text>퀘스트 데이터를 가져오는데 실패했습니다.</Text>;
   }
 
   return (
-    <>
-      <MyTeam
-        team={myTeam}
-        teamTotalPoints={teamTotalPoints}
-        teamCurrentQuest={teamCurrentQuest}
-      />
-    </>
+    <MyTeam
+      team={myTeam}
+      teamTotalPoints={teamTotalPoints}
+      teamCurrentQuest={teamCurrentQuest}
+    />
   );
 };
 

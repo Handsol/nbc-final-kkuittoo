@@ -3,19 +3,18 @@ import {
   HABIT_CATEGORIES,
   ONE_HOUR_COOLDOWN_MS,
 } from '@/constants/habits.constants';
-import { HabitFormData } from '@/types/mypage.type';
+import { HabitFormData } from '@/types/habits.type';
 import { Habit, UserPoint } from '@prisma/client';
-import { HabitFormSchema } from '../schema/habit-form.schema';
+import { HabitFormSchema } from '../schema/habit.schema';
 
 /**
  * 현재 요일에 해당하는 습관 수행 여부를 반환하는 유틸리티 함수
- *
  * @param {Habit} habit - 확인할 habit
  * @returns {boolean} - 오늘이 습관 수행 요일인지 여부
  */
 export const getCurrentDayStatus = (habit: Habit) => {
   const now = new Date();
-  const dayOfWeek = now.getDay();
+  const dayOfWeek = now.getDay(); //현재 요일을 숫자로 가져옴
   const days = [
     habit.sun,
     habit.mon,
@@ -25,12 +24,11 @@ export const getCurrentDayStatus = (habit: Habit) => {
     habit.fri,
     habit.sat,
   ];
-  return days[dayOfWeek];
+  return days[dayOfWeek]; //오늘 요일에 해당하는 인덱스의 값을 반환
 };
 
 /**
  * 사용자의 가장 최근 포인트 기록을 기반으로 쿨다운 상태인지 여부를 판단하는 함수
- *
  * @param {UserPoint[]} userPoints - 사용자의 포인트 기록
  * @param {Date} now - 현재 시간 (비교 기준 시간)
  * @returns {boolean} - 쿨다운 상태면 true, 아니면 false
@@ -39,24 +37,22 @@ export const isCooldownActive = (
   userPoints: UserPoint[],
   now: Date,
 ): boolean => {
-  const lastPoint = userPoints
-    .filter((up) => up.getTime !== null)
-    .sort((a, b) => {
-      if (a.getTime === null || b.getTime === null) return 0;
-      return new Date(b.getTime).getTime() - new Date(a.getTime).getTime();
-    })[0];
+  // 포인트 기록이 없으면 쿨다운 없음
+  if (userPoints.length === 0) return false;
 
-  if (!lastPoint || !lastPoint.getTime) return false;
+  // 가장 최근 포인트를 시간순으로 정렬해 가져옴
+  const lastPoint = userPoints.sort((a, b) => {
+    return new Date(b.getTime).getTime() - new Date(a.getTime).getTime();
+  })[0];
 
   const lastTime = new Date(lastPoint.getTime);
   const oneHourLater = new Date(lastTime.getTime() + ONE_HOUR_COOLDOWN_MS);
 
-  return now < oneHourLater;
+  return now < oneHourLater; // 쿨다운 여부
 };
 
 /**
  * 최근 포인트 획득 시간을 기준으로 쿨다운 상태인지 확인하는 유틸리티 함수
- *
  * @param {UserPoint[]} userPoints - 유저의 포인트 이력 배열
  * @returns {boolean} - 아직 쿨다운 중이라면 true, 아니라면 false
  */
@@ -67,7 +63,6 @@ export const getCooldownStatus = (userPoints: UserPoint[]): boolean => {
 
 /**
  * 선택된 요일 목록을 반환하는 유틸리티 함수
- *
  * @param {Habit} [habit] - 선택된 요일 정보를 가진 습관 객체
  * @returns {string[]} - 선택된 요일 문자열 배열 (예: ['mon', 'wed'])
  */
@@ -78,7 +73,6 @@ export const getInitialSelectedDays = (habit?: Habit) => {
 
 /**
  * 요일 선택 토글하는 유틸리티 함수
- *
  * @param {string[]} days - 현재 선택된 요일 배열
  * @param {string} day - 토글할 요일
  * @returns {string[]} - 토글 결과 반영된 새로운 요일 배열
@@ -88,7 +82,6 @@ export const toggleDay = (days: string[], day: string): string[] =>
 
 /**
  * habit 생성 또는 수정할 때 사용될 habit data 생성하는 유틸리티 함수
- *
  * @param {string} [id] - 습관 ID (수정 시 사용)
  * @returns {HabitFormData}
  */

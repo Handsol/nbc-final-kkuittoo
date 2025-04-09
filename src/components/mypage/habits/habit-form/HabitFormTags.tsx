@@ -6,7 +6,7 @@ type HabitFormTagsProps = {
 };
 
 const HabitFormTags = ({ category, setCategory }: HabitFormTagsProps) => (
-  <div>
+  <>
     <label className="block mb-2 text-xs font-semibold text-gray-700">
       Tags
     </label>
@@ -31,7 +31,7 @@ const HabitFormTags = ({ category, setCategory }: HabitFormTagsProps) => (
         </label>
       ))}
     </div>
-  </div>
+  </>
 );
 
 export default HabitFormTags;

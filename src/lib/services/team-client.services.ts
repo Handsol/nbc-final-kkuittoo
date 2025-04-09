@@ -1,6 +1,6 @@
 import { TEAMS_MESSAGES } from '@/constants/error-messages.constants';
 import { API_PATH } from '@/constants/path.constants';
-import { TeamWithPoints } from '@/types/rank-users.type';
+import { TeamWithPoints } from '@/types/rank.type';
 import { TeamData } from '@/types/teams.type';
 import { TeamFormInputs } from '../hooks/useTeamCreateForm';
 

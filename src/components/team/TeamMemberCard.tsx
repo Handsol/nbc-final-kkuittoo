@@ -1,4 +1,7 @@
 import Image from 'next/image';
+import UserTitle from '../common/UserTitle';
+import { USER_TITLE_MODE } from '@/constants/mode.constants';
+import Text from '../common/Text';
 
 type TeamMemberCardProps = {
   joinDate: Date;
@@ -29,14 +32,11 @@ const TeamMemberCard = ({ joinDate, member }: TeamMemberCardProps) => {
       <div className="w-14 h-14 rounded-full bg-neutral-300 relative overflow-hidden">
         {member.image && <Image src={member.image} alt="user_image" fill />}
       </div>
-      <p className="font-bold text-2xl">Lv.</p>
+      <UserTitle mode={USER_TITLE_MODE.CARD_LEVEL}>Lv.</UserTitle>
       <div className="flex-1">
-        <p>{member.name}</p>
-        <p className="text-neutral-500">{member.bio}</p>
+        <UserTitle mode={USER_TITLE_MODE.CARD_NAME}>{member.name}</UserTitle>
+        <Text>{member.bio}</Text>
       </div>
-      <p className="w-14 h-14 rounded-full text-center text-bold text-2xl bg-neutral-500">
-        {memberContribution}
-      </p>
     </li>
   );
 };

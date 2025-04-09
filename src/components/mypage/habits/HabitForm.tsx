@@ -1,21 +1,12 @@
-import { HabitFormData } from '@/types/mypage.type';
-import {
-  createHabitData,
-  getDefaultValues,
-  toggleDay,
-} from '@/lib/utils/habit.utils';
-import HabitFormReapeatDays from './habit-form/HabitFormRepeatDays';
-import HabitFormTags from './habit-form/HabitFormTags';
-import { toast } from '@/hooks/use-toast';
-import HabitFormInput from './habit-form/HabitFormInput';
-import { Controller, useForm } from 'react-hook-form';
-import {
-  habitFormSchema,
-  HabitFormSchema,
-} from '@/lib/schema/habit-form.schema';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { HabitFormData } from '@/types/habits.type';
+import { toggleDay } from '@/lib/utils/habit.utils';
+import { Controller } from 'react-hook-form';
 import ActionButton from '@/components/common/button/ActionButton';
 import { ACTIONBUTTON_MODE } from '@/constants/mode.constants';
+import { useHabitFormHandler } from '@/lib/hooks/useHabitFormHandler';
+import HabitFormInput from './habit-form/HabitFormInput';
+import HabitFormReapeatDays from './habit-form/HabitFormRepeatDays';
+import HabitFormTags from './habit-form/HabitFormTags';
 
 type HabitFormProps = {
   onCancel: () => void;
@@ -32,34 +23,17 @@ const HabitForm: React.FC<HabitFormProps> = ({
     register,
     control,
     handleSubmit,
-    formState: { errors },
-  } = useForm<HabitFormSchema>({
-    resolver: zodResolver(habitFormSchema),
-    defaultValues: getDefaultValues(initialHabit),
+    errors,
+    handleFormSubmit,
+    isSubmitting,
+  } = useHabitFormHandler({
+    initialHabit,
+    onSuccess,
+    onCancel,
   });
 
-  const onSubmit = (data: HabitFormSchema) => {
-    const habitData = createHabitData(
-      data.title,
-      data.notes,
-      data.selectedDays,
-      data.categories,
-      initialHabit?.id,
-    );
-    if (onSuccess) {
-      onSuccess(habitData);
-      toast({
-        title: '성공',
-        description: initialHabit
-          ? '습관이 수정되었습니다.'
-          : '습관이 생성되었습니다.',
-      });
-    }
-    onCancel();
-  };
-
   return (
-    <div className="p-4 bg-white rounded-xl shadow flex flex-col gap-6">
+    <div className={`p-4 bg-white rounded-xl shadow flex flex-col gap-6`}>
       <HabitFormInput
         id="title"
         label="TITLE"
@@ -101,13 +75,15 @@ const HabitForm: React.FC<HabitFormProps> = ({
           mode={ACTIONBUTTON_MODE.SECONDARY_SMALL}
           onClick={onCancel}
           className="px-6"
+          disabled={isSubmitting}
         >
           취소
         </ActionButton>
         <ActionButton
           mode={ACTIONBUTTON_MODE.PRIMARY_SMALL}
-          onClick={handleSubmit(onSubmit)}
+          onClick={handleSubmit(handleFormSubmit)}
           className="px-6 bg-gray-600"
+          disabled={isSubmitting}
         >
           완료
         </ActionButton>

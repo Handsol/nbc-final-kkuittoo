@@ -3,7 +3,7 @@ import { QUERY_KEYS } from '@/constants/query-keys.constants';
 import { UserPoint } from '@prisma/client';
 import { POINTS_TO_ADD } from '@/constants/habits.constants';
 import { useOptimisticMutation } from './useOptimisticMutation';
-import { HabitWithPoints } from '@/types/mypage.type';
+import { HabitWithPoints } from '@/types/habits.type';
 
 /**
  * 사용자 포인트 추가를 위한 React Query Mutation 훅

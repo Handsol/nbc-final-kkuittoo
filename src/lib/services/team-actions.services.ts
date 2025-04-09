@@ -2,6 +2,7 @@
 
 import { TeamData, TeamMemberData } from '@/types/teams.type';
 import { prisma } from '../prisma';
+import { TeamWithPoints } from '@/types/rank.type';
 
 /**
  * 팀 데이터 가져오는 로직
@@ -128,4 +129,25 @@ export const fetchGetMyTeamMemberData = async (teamId: string) => {
   });
 
   return myTeamMemberList;
+};
+
+export const getTeamsWithPoints = async (): Promise<TeamWithPoints[]> => {
+  const teamList = await prisma.team.findMany({
+    include: {
+      teamMembers: true,
+    },
+  });
+
+  const teamsWithPoints = await Promise.all(
+    teamList.map(async (team) => {
+      const { teamTotalPoints } = await fetchGetTeamTotalPoints(team.id);
+      return {
+        ...team,
+        totalPoints: teamTotalPoints,
+        memberCount: team.teamMembers.length,
+      };
+    }),
+  );
+
+  return teamsWithPoints.sort((a, b) => b.totalPoints - a.totalPoints);
 };

@@ -1,14 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { UpdateHabit } from '@/types/mypage.type';
+import { UpdateHabit } from '@/types/habits.type';
 import { DAYS_OF_WEEK } from '@/constants/habits.constants';
 import { HTTP_STATUS } from '@/constants/http-status.constants';
 import { checkAuth } from '@/lib/utils/auth-route-handler.utils';
-import {
-  checkHabitPermission,
-  validateHabitInput,
-} from '@/lib/utils/habit-validation.utils';
+import { checkHabitPermission } from '@/lib/utils/habit-validation.utils';
 import { HABIT_ERROR_MESSAGES } from '@/constants/error-messages.constants';
+import { updateHabitSchema } from '@/lib/schema/habit.schema';
 
 type RouteParams = {
   params: { id: string };
@@ -55,7 +53,7 @@ export const GET = async (request: NextRequest, { params }: RouteParams) => {
  * @throws {Error} 데이터베이스 업데이트 실패했을 때
  * @description
  * - 인증된 사용자가 자신의 Habit 수정
- * - 유효성 검사를 통해 데이터 형식과 길이를 확인
+ * - 유효성 검사를 통해 데이터 형식과 길이를 확인 - zod
  */
 export const PATCH = async (request: NextRequest, { params }: RouteParams) => {
   const { session, response } = await checkAuth();
@@ -64,15 +62,22 @@ export const PATCH = async (request: NextRequest, { params }: RouteParams) => {
   try {
     const { id } = params;
     const body = (await request.json()) as UpdateHabit;
-    const { title, notes, categories, ...days } = body;
 
     const habit = await prisma.habit.findUnique({ where: { id } });
     const permissionError = checkHabitPermission(habit, session.user.id);
     if (permissionError) return permissionError;
 
-    // 유효성 검사
-    const validationError = validateHabitInput(body);
-    if (validationError) return validationError;
+    // Zod 유효성 검사
+    const result = updateHabitSchema.safeParse(body); // safeParse는 Zod 라이브러리에서 제공하는 검증 메서드로, 데이터의 유효성을 검사하면서도 에러를 발생시키지 않는 안전한 방식
+    if (!result.success) {
+      const firstError = result.error.errors[0].message;
+      return NextResponse.json(
+        { error: firstError },
+        { status: HTTP_STATUS.BAD_REQUEST },
+      );
+    }
+
+    const { title, notes, categories, ...days } = result.data;
 
     const dayUpdates: Record<string, boolean> = {};
     for (const day of DAYS_OF_WEEK) {
