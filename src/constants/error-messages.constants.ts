@@ -38,11 +38,13 @@ export const TEAMS_MESSAGES = {
   PRIVATE_ACCESS: '본인만 가능합니다.',
   OTHERS_EXIST: '팀 생성자 외 다른 유저가 존재합니다.',
   ALREADY_EXIST: '이미 데이터가 존재합니다.',
+  // 비밀번호 관련
+  PASSWORD_REQUIRED: '비공개 팀의 경우, 비밀번호는 필수입니다.',
+  PASSWORD_LENGTH: '비밀번호는 6자여야 합니다.',
   // 기타
   ADD_TEAM_REQUIRED: '팀이름, 팀소개, 엠블럼, 최대 인원수는 필수입니다.',
   UPDATE_TEAM_REQUIRED: '수정시 팀소개/팀 공개여부 중 1개 이상 입력해야합니다.',
   JOIN_REQUIRED: 'teamId와 userId는 필수입니다.',
-  PASSWORD_REQUIRED: '비공개 팀의 경우, 비밀번호는 필수입니다.',
   WRONG_PASSWORD: '비밀번호가 다릅니다.',
   // -----success 모음-----
   CREATE_SUCCESS: 'Team 데이터 생성에 성공했습니다.',

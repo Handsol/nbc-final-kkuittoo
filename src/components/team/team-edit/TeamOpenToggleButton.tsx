@@ -1,5 +1,6 @@
 'use client';
 
+import Text from '@/components/common/Text';
 import { Switch } from '@/components/ui/switch';
 import { useTeamOpenMutation } from '@/lib/mutations/useTeamOpenMutation';
 import { useSingleTeamQuery } from '@/lib/queries/useSingleTeamQuery';
@@ -14,7 +15,7 @@ const TeamOpenToggleButton = ({ teamId }: TeamOpenToggleButtonProps) => {
   // tanstack query - useMutation
   const { mutate } = useTeamOpenMutation(teamId);
 
-  if (isPending || !teamData) return <p>로딩 중...</p>;
+  if (isPending || !teamData) return <Text>로딩 중...</Text>;
 
   return (
     <div className="flex items-center gap-2">

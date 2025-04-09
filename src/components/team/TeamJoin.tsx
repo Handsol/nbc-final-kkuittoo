@@ -7,6 +7,7 @@ import { fetchCreateTeamMember } from '@/lib/services/team-client.services';
 import { TeamData } from '@/types/teams.type';
 import { useRouter } from 'next/navigation';
 import TeamJoinPrivateModal from './team-join/TeamJoinPrivateModal';
+import { TEAM_TOAST_MESSAGES } from '@/constants/toast-messages.contants';
 
 type TeamJoinProps = {
   team: TeamData;
@@ -57,8 +58,8 @@ const TeamJoin = ({ team, hasTeam, currentMembers }: TeamJoinProps) => {
 
     if (data) {
       toast({
-        title: '팀 가입 완료!',
-        description: '이제 함께 모험을 떠나볼까요?',
+        title: TEAM_TOAST_MESSAGES.SUCCESS.TEAM_JOIN.TITLE,
+        description: TEAM_TOAST_MESSAGES.SUCCESS.TEAM_JOIN.DESCRIPTION,
       });
 
       // 팀 페이지로 이동

@@ -1,13 +1,13 @@
 'use client';
 
 import CommonInputBar from '@/components/common/CommonInputBar';
-import { CommonModal } from '@/components/common/CommonModal';
 import { TeamCard } from './TeamRankCard';
 import { useTeamQuery } from '@/lib/queries/useTeamQuery';
 import { TeamWithPoints } from '@/types/rank-users.type';
 import Link from 'next/link';
 import { useState } from 'react';
 import { TeamDetailModal } from './TeamDetailModalContents';
+import { CommonModal } from '@/components/common/CommonModal';
 
 // 팀 랭킹 UI
 export const TeamRankContent = () => {
