@@ -11,9 +11,13 @@ export type UserData = {
   userPoints: { points: number }[]; // 포인트 배열 (합산해서 랭킹 계산)
 };
 
-export type TeamWithPoints = TeamData & {
+export type TeamWithPoints = {
+  id: string;
+  teamName: string;
+  teamBio: string;
   totalPoints: number;
   memberCount: number;
+  maxTeamSize: number;
 };
 
 export type TeamCardProps = {

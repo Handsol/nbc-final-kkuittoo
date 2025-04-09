@@ -1,6 +1,6 @@
 'use client';
 
-import { UserCardProps } from '@/types/rank-users.type';
+import { UserCardProps } from '@/types/rank.type';
 import { TopRankCard } from './UserTopRankCard';
 import { NormalRankCard } from './UserNomalRankCard';
 

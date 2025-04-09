@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetchGetUsers } from '../services/user-client.services';
-import { UserData } from '@/types/rank-users.type';
+import { UserData } from '@/types/rank.type';
 import { QUERY_KEYS } from '@/constants/query-keys.constants';
 import { fetchGetUserProfile } from '../services/user-actions.services';
 

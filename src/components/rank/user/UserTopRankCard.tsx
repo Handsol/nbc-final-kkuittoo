@@ -1,4 +1,4 @@
-import { UserData } from '@/types/rank-users.type';
+import { UserData } from '@/types/rank.type';
 import Image from 'next/image';
 
 type Props = {

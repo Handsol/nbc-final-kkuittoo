@@ -1,26 +1,11 @@
-'use client';
-
 import CommonInputBar from '@/components/common/CommonInputBar';
-import { CommonModal } from '@/components/common/commonModal';
 import { TeamCard } from './TeamRankCard';
-import { useTeamQuery } from '@/lib/queries/useTeamQuery';
-import { TeamWithPoints } from '@/types/rank-users.type';
 import Link from 'next/link';
-import { useState } from 'react';
-import { TeamDetailModal } from './TeamDetailModalContents';
+import { getTeamsWithPoints } from '@/lib/services/team-actions.services';
 
 // 팀 랭킹 UI
-export const TeamRankContent = () => {
-  const {
-    data: teamsList = [] as TeamWithPoints[],
-    isPending,
-    isError,
-  } = useTeamQuery(); // 데이터 가져오기
-
-  const [selectedTeam, setSelectedTeam] = useState<TeamWithPoints | null>(null);
-
-  if (isPending) return <div>Loading...</div>;
-  if (isError) return <div>Error...</div>;
+export const TeamRankContent = async () => {
+  const teamsList = await getTeamsWithPoints();
   const topTeams = teamsList.slice(0, 3); // 1~3위
   const otherTeams = teamsList.slice(3); // 4위부터
   return (
@@ -48,12 +33,7 @@ export const TeamRankContent = () => {
             {topTeams.map((team, index) => (
               <div key={team.id}>
                 {/* isTopRank:true로 상단 스타일 적용 */}
-                <TeamCard
-                  team={team}
-                  rank={index + 1}
-                  isTopRank={true}
-                  onClick={() => setSelectedTeam(team)}
-                />
+                <TeamCard team={team} rank={index + 1} isTopRank={true} />
               </div>
             ))}
           </div>
@@ -68,25 +48,10 @@ export const TeamRankContent = () => {
               team={team}
               rank={index + 4}
               isTopRank={false}
-              onClick={() => setSelectedTeam(team)}
-              // 카드 클릭 시 해당 팀 정보 저장
             />
           ))}
         </div>
       </div>
-
-      <CommonModal
-        isOpen={!!selectedTeam} // 선택된 팀이 있을 경우 모달 열림
-        onClose={() => setSelectedTeam(null)}
-        // 모달 닫으면서 팀 선택 해제
-      >
-        {selectedTeam && (
-          <TeamDetailModal
-            team={selectedTeam}
-            onClose={() => setSelectedTeam(null)}
-          />
-        )}
-      </CommonModal>
     </>
   );
 };
