@@ -1,5 +1,5 @@
 import TeamCalendar from '@/components/team/TeamCalendar';
-import TeamChat from '@/components/team/TeamChat';
+import { TeamChat } from '@/components/team/TeamChat';
 import TeamInfo from '@/components/team/TeamInfo';
 import TeamLeave from '@/components/team/TeamLeave';
 import TeamMemberList from '@/components/team/TeamMemberList';
@@ -23,7 +23,7 @@ const TeamPage = async ({ params }: RouteParams) => {
         <TeamMemberList id={id} />
         <TeamCalendar />
       </section>
-      <TeamChat />
+      <TeamChat teamId={id} />
     </article>
   );
 };
