@@ -1,5 +1,6 @@
 'use client';
 
+import ErrorMessage from '@/components/common/ErrorMessage';
 import Title from '@/components/common/Title';
 import { TEAMS_MESSAGES } from '@/constants/error-messages.constants';
 import { TITLE_MODE } from '@/constants/mode.constants';
@@ -53,7 +54,9 @@ const TeamEmblemSelector = ({
           </label>
         ))}
       </div>
-      <p>{errors?.emblem && TEAMS_MESSAGES.TEAM_EMBLEM_BLANK}</p>
+      <ErrorMessage>
+        {errors?.emblem && TEAMS_MESSAGES.TEAM_EMBLEM_BLANK}
+      </ErrorMessage>
     </section>
   );
 };

@@ -1,6 +1,7 @@
 'use client';
 
 import CommonInputBar from '@/components/common/CommonInputBar';
+import ErrorMessage from '@/components/common/ErrorMessage';
 import { TEAMS_MESSAGES } from '@/constants/error-messages.constants';
 import { PATH } from '@/constants/path.constants';
 import { PLACEHOLDER } from '@/constants/placeholder.constants';
@@ -79,7 +80,9 @@ const TeamPasswordForm = ({ teamId }: TeamPasswordFormProps) => {
           },
         })}
       />
-      {errors.teamPassword && <p>{errors.teamPassword.message}</p>}
+      {errors.teamPassword && (
+        <ErrorMessage>{errors.teamPassword.message}</ErrorMessage>
+      )}
       <button type="submit">JOIN</button>
     </form>
   );
