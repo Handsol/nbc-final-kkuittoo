@@ -1,6 +1,6 @@
 import { USER_ERROR_MESSAGES } from '@/constants/error-messages.constants';
 import { API_PATH } from '@/constants/path.constants';
-import { UserData } from '@/types/rank-users.type';
+import { UserData } from '@/types/rank.type';
 // 서버에서 유저 데이터 가져오기
 export const fetchGetUsers = async (): Promise<UserData[]> => {
   const res = await fetch('/api/users', {
