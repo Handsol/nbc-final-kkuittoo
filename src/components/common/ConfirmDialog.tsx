@@ -69,7 +69,7 @@ const ConfirmDialog = ({ contents, onClick }: ConfirmDialogProps) => {
             </ActionButton>
           </AlertDialogCancel>
           <AlertDialogAction onClick={onClick}>
-            <ActionButton mode={ACTIONBUTTON_MODE.SECONDARY_SMALL}>
+            <ActionButton mode={ACTIONBUTTON_MODE.PRIMARY_SMALL}>
               {confirmButtonText}
             </ActionButton>
           </AlertDialogAction>
