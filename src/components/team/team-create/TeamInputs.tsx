@@ -1,6 +1,7 @@
 'use client';
 
 import CommonInputBar from '@/components/common/CommonInputBar';
+import ErrorMessage from '@/components/common/ErrorMessage';
 import Title from '@/components/common/Title';
 import { TITLE_MODE } from '@/constants/mode.constants';
 import { TeamFormContents } from '@/lib/hooks/useTeamCreateContents';
@@ -42,7 +43,7 @@ const TeamInputs = ({ teamFormContents, register }: TeamInputsProps) => {
                 })}
               />
             </label>
-            <p>{error?.message && error.message}</p>
+            <ErrorMessage>{error?.message && error.message}</ErrorMessage>
           </section>
         );
       })}

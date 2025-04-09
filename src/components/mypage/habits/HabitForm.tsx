@@ -1,12 +1,12 @@
 import { HabitFormData } from '@/types/habits.type';
 import { toggleDay } from '@/lib/utils/habit.utils';
-import HabitFormReapeatDays from './habit-form/HabitFormRepeatDays';
-import HabitFormTags from './habit-form/HabitFormTags';
-import HabitFormInput from './habit-form/HabitFormInput';
 import { Controller } from 'react-hook-form';
 import ActionButton from '@/components/common/button/ActionButton';
 import { ACTIONBUTTON_MODE } from '@/constants/mode.constants';
 import { useHabitFormHandler } from '@/lib/hooks/useHabitFormHandler';
+import HabitFormInput from './habit-form/HabitFormInput';
+import HabitFormReapeatDays from './habit-form/HabitFormRepeatDays';
+import HabitFormTags from './habit-form/HabitFormTags';
 
 type HabitFormProps = {
   onCancel: () => void;

@@ -11,6 +11,8 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
+import ActionButton from './button/ActionButton';
+import { ACTIONBUTTON_MODE } from '@/constants/mode.constants';
 
 type ConfirmDialogProps = {
   contents: {
@@ -50,7 +52,9 @@ const ConfirmDialog = ({ contents, onClick }: ConfirmDialogProps) => {
     <AlertDialog>
       <AlertDialogTrigger asChild>
         {/* 화면에서 보여지는 팀 탈퇴 버튼 */}
-        <button>{uiButtonText}</button>
+        <ActionButton mode={ACTIONBUTTON_MODE.PRIMARY}>
+          {uiButtonText}
+        </ActionButton>
       </AlertDialogTrigger>
       {/* 모달창 */}
       <AlertDialogContent>
@@ -59,9 +63,15 @@ const ConfirmDialog = ({ contents, onClick }: ConfirmDialogProps) => {
           <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>{cancelButtonText}</AlertDialogCancel>
+          <AlertDialogCancel>
+            <ActionButton mode={ACTIONBUTTON_MODE.SECONDARY_SMALL}>
+              {cancelButtonText}
+            </ActionButton>
+          </AlertDialogCancel>
           <AlertDialogAction onClick={onClick}>
-            {confirmButtonText}
+            <ActionButton mode={ACTIONBUTTON_MODE.PRIMARY_SMALL}>
+              {confirmButtonText}
+            </ActionButton>
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

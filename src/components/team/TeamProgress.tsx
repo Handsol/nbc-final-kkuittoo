@@ -1,3 +1,4 @@
+import Text from '../common/Text';
 import { Progress } from '../ui/progress';
 
 type TeamProgressProps = {
@@ -14,9 +15,9 @@ const TeamProgress = ({
   return (
     <section className="w-full">
       <Progress value={progressPercent} className="w-full h-5" />
-      <p>
+      <Text>
         {teamTotalPoints}/{currentQuestRequired}
-      </p>
+      </Text>
     </section>
   );
 };
