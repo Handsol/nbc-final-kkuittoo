@@ -1,3 +1,4 @@
+import Text from '@/components/common/Text';
 import { FaLock } from 'react-icons/fa6';
 import { FaLockOpen } from 'react-icons/fa6';
 
@@ -11,12 +12,12 @@ const TeamOpenNotEditMode = ({ isOpened }: TeamOpenNotEditModeProps) => {
       {isOpened ? (
         <div className="flex items-center gap-2">
           <FaLockOpen />
-          <p>OPEN</p>
+          <Text>OPEN</Text>
         </div>
       ) : (
         <div className="flex items-center gap-2">
           <FaLock />
-          <p>PRIVATE</p>
+          <Text>PRIVATE</Text>
         </div>
       )}
     </>

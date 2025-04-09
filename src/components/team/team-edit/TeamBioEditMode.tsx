@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useTeamBioMutation } from '@/lib/mutations/useTeamBioMutation';
 import { useSingleTeamQuery } from '@/lib/queries/useSingleTeamQuery';
 import CommonInputBar from '../../common/CommonInputBar';
+import Text from '@/components/common/Text';
 
 type TeamBioProps = {
   teamBio: string;
@@ -51,9 +52,9 @@ const TeamBioEditMode = ({ teamBio, teamId }: TeamBioProps) => {
   return (
     <div>
       {isTeamDataPending ? (
-        <p>로딩 중...</p>
+        <Text>로딩 중...</Text>
       ) : isTeamDataError || !teamData ? (
-        <p>데이터 불러오기 실패</p>
+        <Text>데이터 불러오기 실패</Text>
       ) : isEditMode ? (
         <form onSubmit={handleSubmit(handleOnSubmit)}>
           <CommonInputBar id="teamBio" {...register('teamBio')} />
@@ -67,7 +68,7 @@ const TeamBioEditMode = ({ teamBio, teamId }: TeamBioProps) => {
         </form>
       ) : (
         <>
-          <p>{teamData.teamBio}</p>
+          <Text>{teamData.teamBio}</Text>
           <button
             className="w-11 h-11 rounded-full bg-white"
             onClick={handleEditBtnClick}
