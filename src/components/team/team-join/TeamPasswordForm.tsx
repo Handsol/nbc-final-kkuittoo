@@ -7,6 +7,7 @@ import { TEAMS_MESSAGES } from '@/constants/error-messages.constants';
 import { ACTIONBUTTON_MODE } from '@/constants/mode.constants';
 import { PATH } from '@/constants/path.constants';
 import { PLACEHOLDER } from '@/constants/placeholder.constants';
+import { TEAM_TOAST_MESSAGES } from '@/constants/toast-messages.contants';
 import { useToast } from '@/hooks/use-toast';
 import { fetchCreateTeamMember } from '@/lib/services/team-client.services';
 import { checkTeamPassword } from '@/lib/utils/team-validation.utils';
@@ -39,8 +40,8 @@ const TeamPasswordForm = ({ teamId }: TeamPasswordFormProps) => {
     const isCorrectPassword = checkTeamPassword(teamId, data.teamPassword);
     if (!isCorrectPassword) {
       toast({
-        title: '비밀번호가 다릅니다!',
-        description: '비밀번호를 다시 확인해주세요.',
+        title: TEAM_TOAST_MESSAGES.FAIL.TEAM_PASSWORD.TITLE,
+        description: TEAM_TOAST_MESSAGES.FAIL.TEAM_PASSWORD.DESCRIPTION,
         variant: 'destructive',
       });
 
@@ -55,8 +56,8 @@ const TeamPasswordForm = ({ teamId }: TeamPasswordFormProps) => {
 
     if (newMemberData) {
       toast({
-        title: '팀 가입 완료!',
-        description: '이제 함께 모험을 떠나볼까요?',
+        title: TEAM_TOAST_MESSAGES.SUCCESS.TEAM_JOIN.TITLE,
+        description: TEAM_TOAST_MESSAGES.SUCCESS.TEAM_JOIN.DESCRIPTION,
       });
 
       // 팀 페이지로 이동
@@ -74,11 +75,11 @@ const TeamPasswordForm = ({ teamId }: TeamPasswordFormProps) => {
           required: TEAMS_MESSAGES.PASSWORD_REQUIRED,
           minLength: {
             value: 6,
-            message: '비밀번호는 6자여야 합니다.',
+            message: TEAMS_MESSAGES.PASSWORD_LENGTH,
           },
           maxLength: {
             value: 6,
-            message: '비밀번호는 6자여야 합니다.',
+            message: TEAMS_MESSAGES.PASSWORD_LENGTH,
           },
         })}
       />
