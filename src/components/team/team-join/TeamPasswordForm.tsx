@@ -1,8 +1,10 @@
 'use client';
 
+import ActionButton from '@/components/common/button/ActionButton';
 import CommonInputBar from '@/components/common/CommonInputBar';
 import ErrorMessage from '@/components/common/ErrorMessage';
 import { TEAMS_MESSAGES } from '@/constants/error-messages.constants';
+import { ACTIONBUTTON_MODE } from '@/constants/mode.constants';
 import { PATH } from '@/constants/path.constants';
 import { PLACEHOLDER } from '@/constants/placeholder.constants';
 import { useToast } from '@/hooks/use-toast';
@@ -83,7 +85,9 @@ const TeamPasswordForm = ({ teamId }: TeamPasswordFormProps) => {
       {errors.teamPassword && (
         <ErrorMessage>{errors.teamPassword.message}</ErrorMessage>
       )}
-      <button type="submit">JOIN</button>
+      <ActionButton mode={ACTIONBUTTON_MODE.PRIMARY} type="submit">
+        JOIN
+      </ActionButton>
     </form>
   );
 };

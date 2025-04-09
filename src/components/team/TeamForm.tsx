@@ -1,7 +1,7 @@
 'use client';
 
 import Title from '@/components/common/Title';
-import { TITLE_MODE } from '@/constants/mode.constants';
+import { ACTIONBUTTON_MODE, TITLE_MODE } from '@/constants/mode.constants';
 import {
   TeamFormInputs,
   useTeamCreateForm,
@@ -15,6 +15,7 @@ import TeamInputs from './team-create/TeamInputs';
 import TeamSizeSelector from './team-create/TeamSizeSelector';
 import TeamEmblemSelector from './team-create/TeamEmblemSelector';
 import TeamOpenToggle from './team-create/TeamOpenToggle';
+import ActionButton from '../common/button/ActionButton';
 
 const TeamForm = () => {
   //router
@@ -70,7 +71,9 @@ const TeamForm = () => {
         />
         <TeamOpenToggle watch={watch} control={control} />
 
-        <button type="submit">확인</button>
+        <ActionButton mode={ACTIONBUTTON_MODE.PRIMARY} type="submit">
+          확인
+        </ActionButton>
       </form>
     </div>
   );

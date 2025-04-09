@@ -2,10 +2,11 @@
 
 import { useState } from 'react';
 import TeamPasswordForm from './TeamPasswordForm';
-import { TITLE_MODE } from '@/constants/mode.constants';
+import { ACTIONBUTTON_MODE, TITLE_MODE } from '@/constants/mode.constants';
 import Title from '@/components/common/Title';
 import Text from '@/components/common/Text';
 import { CommonModal } from '@/components/common/CommonModal';
+import ActionButton from '@/components/common/button/ActionButton';
 
 type TeamJoinPrivateModalProps = {
   teamId: string;
@@ -17,9 +18,13 @@ const TeamJoinPrivateModal = ({ teamId }: TeamJoinPrivateModalProps) => {
 
   return (
     <div>
-      <button type="button" onClick={() => setIsModalOpen(true)}>
+      <ActionButton
+        mode={ACTIONBUTTON_MODE.PRIMARY}
+        type="button"
+        onClick={() => setIsModalOpen(true)}
+      >
         JOIN
-      </button>
+      </ActionButton>
       <CommonModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <Title mode={TITLE_MODE.SECTION_SUBTITLE}>JOIN THIS PRIVATE TEAM</Title>
         <Text>

@@ -6,6 +6,9 @@ import { useTeamBioMutation } from '@/lib/mutations/useTeamBioMutation';
 import { useSingleTeamQuery } from '@/lib/queries/useSingleTeamQuery';
 import CommonInputBar from '../../common/CommonInputBar';
 import Text from '@/components/common/Text';
+import ActionButton from '@/components/common/button/ActionButton';
+import { ACTIONBUTTON_MODE, ICONBUTTON_MODE } from '@/constants/mode.constants';
+import IconButton from '@/components/common/button/IconButton';
 
 type TeamBioProps = {
   teamBio: string;
@@ -58,23 +61,21 @@ const TeamBioEditMode = ({ teamBio, teamId }: TeamBioProps) => {
       ) : isEditMode ? (
         <form onSubmit={handleSubmit(handleOnSubmit)}>
           <CommonInputBar id="teamBio" {...register('teamBio')} />
-          <button
-            className="w-11 h-11 rounded-full bg-white"
+          <ActionButton
+            mode={ACTIONBUTTON_MODE.PRIMARY}
             type="submit"
             disabled={isTeamBioPending}
           >
             확인
-          </button>
+          </ActionButton>
         </form>
       ) : (
         <>
           <Text>{teamData.teamBio}</Text>
-          <button
-            className="w-11 h-11 rounded-full bg-white"
+          <IconButton
+            mode={ICONBUTTON_MODE.EDIT}
             onClick={handleEditBtnClick}
-          >
-            수정
-          </button>
+          />
         </>
       )}
     </div>
