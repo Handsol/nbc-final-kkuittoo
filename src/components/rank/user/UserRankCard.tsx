@@ -1,3 +1,5 @@
+'use client';
+
 import { UserCardProps } from '@/types/rank-users.type';
 import Image from 'next/image';
 
@@ -31,7 +33,7 @@ export const UserCard = ({ user, rank, isTopRank }: UserCardProps) => {
           } bg-gray-300 rounded-lg flex items-center justify-center`}
         >
           <Image
-            src={user.image}
+            src={user.image ?? '/images/default.png'}
             alt={`${user.name}`}
             width={imageSize}
             height={imageSize}
