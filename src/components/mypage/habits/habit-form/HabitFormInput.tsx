@@ -1,5 +1,6 @@
 import { forwardRef } from 'react';
 import CommonInputBar from '@/components/common/CommonInputBar';
+import Text from '@/components/common/Text';
 
 type InputFieldProps = React.InputHTMLAttributes<HTMLInputElement> & {
   id: string;
@@ -19,7 +20,7 @@ const HabitFormInput = forwardRef<HTMLInputElement, InputFieldProps>(
       <div className="flex-1">
         <CommonInputBar id={id} ref={ref} {...rest} />
         <div className="min-h-4 mt-1">
-          {error && <p className="text-red-500 text-xs">{error}</p>}
+          {error && <Text className="text-red-500 text-xs">{error}</Text>}
         </div>
       </div>
     </div>

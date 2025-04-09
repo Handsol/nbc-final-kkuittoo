@@ -21,3 +21,14 @@ export const USER_VALIDATION = {
     MAX: 20,
   },
 };
+
+export const HABIT_VALIDATION = {
+  TITLE: {
+    MIN_LENGTH: 1,
+    MAX_LENGTH: 15,
+  },
+  NOTES: {
+    MIN_LENGTH: 1,
+    MAX_LENGTH: 50,
+  },
+} as const;

@@ -19,7 +19,7 @@ export type UserPoint = {
   id: string;
   userId: string;
   habitId: string | null;
-  getTime: Date | string | null;
+  getTime: Date | string;
   points: number;
 };
 

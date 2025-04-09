@@ -6,7 +6,7 @@ import {
 import { Habit } from '@prisma/client';
 import { QUERY_KEYS } from '@/constants/query-keys.constants';
 import { useOptimisticMutation } from './useOptimisticMutation';
-import { HabitWithPoints } from '@/types/mypage.type';
+import { HabitWithPoints } from '@/types/habits.type';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 /**

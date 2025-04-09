@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { CreateUserPoint } from '@/types/mypage.type';
+import { CreateUserPoint } from '@/types/habits.type';
 import { POINTS_TO_ADD } from '@/constants/habits.constants';
 import { HTTP_STATUS } from '@/constants/http-status.constants';
 import { checkAuth } from '@/lib/utils/auth-route-handler.utils';
