@@ -1,7 +1,7 @@
 'use client';
 
 import CommonInputBar from '@/components/common/CommonInputBar';
-import { CommonModal } from '@/components/common/commonModal';
+import { CommonModal } from '@/components/common/CommonModal';
 import { TeamCard } from './TeamRankCard';
 import { useTeamQuery } from '@/lib/queries/useTeamQuery';
 import { TeamWithPoints } from '@/types/rank-users.type';
