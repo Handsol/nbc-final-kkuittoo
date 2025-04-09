@@ -7,7 +7,7 @@ import { TeamWithPoints } from '@/types/rank-users.type';
 import Link from 'next/link';
 import { useState } from 'react';
 import { TeamDetailModal } from './TeamDetailModalContents';
-import { CommonModal } from '@/components/common/commonModal';
+import { CommonModal } from '@/components/common/CommonModal';
 
 // 팀 랭킹 UI
 export const TeamRankContent = () => {

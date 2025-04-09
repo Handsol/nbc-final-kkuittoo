@@ -5,7 +5,7 @@ import TeamPasswordForm from './TeamPasswordForm';
 import { TITLE_MODE } from '@/constants/mode.constants';
 import Title from '@/components/common/Title';
 import Text from '@/components/common/Text';
-import { CommonModal } from '@/components/common/commonModal';
+import { CommonModal } from '@/components/common/CommonModal';
 
 type TeamJoinPrivateModalProps = {
   teamId: string;
