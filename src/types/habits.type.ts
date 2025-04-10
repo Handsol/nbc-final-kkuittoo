@@ -1,19 +1,4 @@
-export type Habit = {
-  id: string;
-  userId: string;
-  title: string;
-  notes: string;
-  categories: string;
-  createdAt: string;
-  mon: boolean;
-  tue: boolean;
-  wed: boolean;
-  thu: boolean;
-  fri: boolean;
-  sat: boolean;
-  sun: boolean;
-  userPoints: UserPoint[];
-};
+import { Categories, Habit } from '@prisma/client';
 
 export type UserPoint = {
   id: string;
@@ -43,6 +28,6 @@ export type HabitWithPoints = Habit & { userPoints: UserPoint[] };
 export type HabitFormValues = {
   title: string;
   notes: string;
-  categories: string;
+  categories: Categories;
   selectedDays: string[];
 };

@@ -4,7 +4,7 @@ import {
   ONE_HOUR_COOLDOWN_MS,
 } from '@/constants/habits.constants';
 import { HabitFormData } from '@/types/habits.type';
-import { Habit, UserPoint } from '@prisma/client';
+import { Categories, Habit, UserPoint } from '@prisma/client';
 import { HabitFormSchema } from '../schema/habit.schema';
 
 /**
@@ -89,7 +89,7 @@ export const createHabitData = (
   title: string,
   notes: string,
   selectedDays: string[],
-  category: string,
+  category: Categories,
   id?: string,
 ): HabitFormData => ({
   id: id || Math.random().toString(),
