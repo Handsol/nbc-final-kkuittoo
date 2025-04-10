@@ -1,11 +1,8 @@
 import Text from '@/components/common/Text';
-import MyPageCalendar from '@/components/mypage/MyPageCalendar';
 import MyPageHabits from '@/components/mypage/MyPageHabits';
-import MyPageProfile from '@/components/mypage/MyPageProfile';
 import MyPageTeam from '@/components/mypage/MyPageTeam';
-import { authOptions } from '@/lib/utils/auth';
+import { getUserSession } from '@/lib/services/getUserSession.services';
 import { Metadata } from 'next';
-import { getServerSession } from 'next-auth';
 
 export const metadata: Metadata = {
   title: '마이페이지 | KKUITTOO',
@@ -30,9 +27,9 @@ export const metadata: Metadata = {
 };
 
 const MyPage = async () => {
-  const session = await getServerSession(authOptions);
+  const session = await getUserSession();
 
-  if (!session?.user) {
+  if (!session) {
     return (
       <div className="flex items-center justify-center min-h-[calc(100vh-3rem)]">
         <Text>로그인이 필요합니다.</Text>
