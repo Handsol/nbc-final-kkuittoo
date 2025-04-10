@@ -10,7 +10,9 @@ const TeamTitle = ({ teamName, currentQuestName }: TeamTitleProps) => {
   return (
     <div>
       <UserTitle mode={USER_TITLE_MODE.CARD_NAME}>{teamName}</UserTitle>
-      <UserTitle mode={USER_TITLE_MODE.CARD_NAME}>{currentQuestName}</UserTitle>
+      <UserTitle mode={USER_TITLE_MODE.CARD_LEVEL}>
+        {currentQuestName}
+      </UserTitle>
     </div>
   );
 };
