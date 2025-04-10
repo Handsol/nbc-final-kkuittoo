@@ -11,7 +11,7 @@ type Props = {
 
 export const TopRankTeamCard = ({ team, rank, onClick }: Props) => {
   return (
-    <div
+    <article
       onClick={onClick}
       className="border rounded-3xl p-4 shadow-md bg-gray-100 w-54 h-64 flex flex-col items-center justify-center"
     >
@@ -36,6 +36,6 @@ export const TopRankTeamCard = ({ team, rank, onClick }: Props) => {
         </p>
         <p className="text-gray-600">{team.teamBio}</p>
       </div>
-    </div>
+    </article>
   );
 };
