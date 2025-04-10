@@ -20,6 +20,7 @@ export const fetchGetUserProfile = async (
       name: true,
       bio: true,
       userPoints: true,
+      teamMembers: true,
     },
   });
 };
