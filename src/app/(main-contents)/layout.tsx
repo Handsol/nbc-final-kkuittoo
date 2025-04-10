@@ -10,8 +10,10 @@ const Layout = ({ children, modal }: LayoutProps) => {
   return (
     <main className="w-full flex flex-row">
       <Sidebar />
-      {children}
-      {modal}
+      <div className="ml-[200px]">
+        {children}
+        {modal}
+      </div>
     </main>
   );
 };

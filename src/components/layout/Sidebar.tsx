@@ -19,7 +19,7 @@ const Sidebar = async () => {
   }
 
   return (
-    <aside className="w-[200px] bg-white p-4 flex flex-col gap-4 shrink-0 items-center">
+    <aside className="fixed top-0 h-screen w-[200px] bg-white p-4 flex flex-col gap-4 shrink-0 items-center">
       <Image src="/logo_test.png" alt="logo" width={153} height={20} />
 
       <div className="w-full flex flex-col gap-2">
