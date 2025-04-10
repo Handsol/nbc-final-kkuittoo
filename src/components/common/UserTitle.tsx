@@ -11,7 +11,7 @@ const UserTitle = ({ mode, children }: UserTitleProps) => {
     case USER_TITLE_MODE.CARD_LEVEL:
       return <h5 className="font-dohyeon text-lg">{children}</h5>;
     case USER_TITLE_MODE.CARD_NAME:
-      return <h5 className="font-dohyeon text-2xl">{children}</h5>;
+      return <h5 className="font-dohyeon text-2xl truncate">{children}</h5>;
     case USER_TITLE_MODE.CARD_RANK:
       return <h5 className="font-dohyeon text-2xl text-white">{children}</h5>;
     case USER_TITLE_MODE.CARD_ID:
