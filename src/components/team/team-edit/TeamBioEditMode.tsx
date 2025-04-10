@@ -9,21 +9,18 @@ import Text from '@/components/common/Text';
 import ActionButton from '@/components/common/button/ActionButton';
 import { ACTIONBUTTON_MODE, ICONBUTTON_MODE } from '@/constants/mode.constants';
 import IconButton from '@/components/common/button/IconButton';
+import { TeamFormData } from '@/lib/services/team-client.services';
 
 type TeamBioProps = {
   teamBio: string;
   teamId: string;
 };
 
-type FormData = {
-  teamBio: string;
-};
-
 const TeamBioEditMode = ({ teamBio, teamId }: TeamBioProps) => {
   const [isEditMode, setIsEditMode] = useState(false);
 
   // react-hook-form
-  const { register, handleSubmit } = useForm<FormData>({
+  const { register, handleSubmit } = useForm<TeamFormData>({
     defaultValues: {
       teamBio,
     },
@@ -42,7 +39,7 @@ const TeamBioEditMode = ({ teamBio, teamId }: TeamBioProps) => {
   } = useSingleTeamQuery(teamId);
 
   // form onSubmit handler
-  const handleOnSubmit = (data: FormData) => {
+  const handleOnSubmit = (data: TeamFormData) => {
     mutate(data);
     setIsEditMode(false);
   };

@@ -13,6 +13,7 @@ import {
 import UserLevel from './profile/UserLevel';
 import UserProfileEdit from './profile/UserProfileEdit';
 import { useUserQuery } from '@/lib/queries/useUserQuery';
+import { ID_SLICE } from '@/constants/magic-numbers.constants';
 
 type MyPageHabitsProps = {
   userId: string;
@@ -39,7 +40,7 @@ const MyPageProfile = ({ userId }: MyPageHabitsProps) => {
         <UserLevel level={level} />
         <div className="text-center">
           <UserTitle mode={USER_TITLE_MODE.CARD_ID}>
-            @{profileData.id.slice(-8)}
+            @{profileData.id.slice(ID_SLICE.USER)}
           </UserTitle>
         </div>
       </div>

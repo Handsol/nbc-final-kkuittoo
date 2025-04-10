@@ -3,7 +3,7 @@
 import { useSession } from 'next-auth/react';
 import { useEffect } from 'react';
 import LoginButton from './LoginButton';
-import { useToast } from '@/hooks/use-toast';
+import { useToast } from '@/lib/hooks/use-toast';
 
 const GoogleLogin = () => {
   const { data: session, status } = useSession();
