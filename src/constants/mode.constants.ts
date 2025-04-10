@@ -26,7 +26,7 @@ export const ICONBUTTON_MODE = {
 export const ACTIONBUTTON_MODE = {
   PRIMARY: 'primary',
   SECONDARY: 'secondary',
-  FULL: 'full',
+  ROUNDED_MD: 'rounded-mb',
   PRIMARY_SMALL: 'primary-small',
   SECONDARY_SMALL: 'secondary-small',
 } as const;
