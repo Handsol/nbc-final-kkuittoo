@@ -1,3 +1,4 @@
+import MainLayout from '@/components/layout/MainLayout';
 import { ReactNode } from 'react';
 
 type LayoutProps = {
@@ -9,8 +10,10 @@ const Layout = ({ children, modal }: LayoutProps) => {
   return (
     <div>
       <main className="w-full">
-        {children}
-        {modal}
+        <MainLayout>
+          {children}
+          {modal}
+        </MainLayout>
       </main>
     </div>
   );
