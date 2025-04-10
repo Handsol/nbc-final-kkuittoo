@@ -9,7 +9,7 @@ import { useUserProfileMutation } from '@/lib/mutations/useUserProfileMutation';
 import { UserFormData } from '@/lib/services/user-client.services';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { toast } from '@/hooks/use-toast';
+import { toast } from '@/lib/hooks/use-toast';
 import { validateUserProfile } from '@/lib/utils/client/user-validation.client';
 
 type Props = {

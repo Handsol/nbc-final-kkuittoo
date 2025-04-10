@@ -10,14 +10,14 @@ const TeamImage = ({ currentQuestImg, emblem }: TeamImageProps) => {
     <div className="relative w-64 h-60">
       {/* src는 추후에 수정할 예정 */}
       <Image
-        src={'/teamQuest'}
+        src={currentQuestImg}
         alt="teamQuest"
         fill
         sizes="256px"
         className="bg-neutral-500 rounded-3xl"
       />
       <Image
-        src={'/emblem'}
+        src={emblem}
         alt="emblem"
         width={60}
         height={60}

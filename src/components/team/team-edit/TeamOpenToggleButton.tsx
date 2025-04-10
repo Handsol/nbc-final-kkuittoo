@@ -15,7 +15,9 @@ const TeamOpenToggleButton = ({ teamId }: TeamOpenToggleButtonProps) => {
   // tanstack query - useMutation
   const { mutate } = useTeamOpenMutation(teamId);
 
-  if (isPending || !teamData) return <Text>로딩 중...</Text>;
+  if (isPending) return <Text>로딩 중...</Text>;
+
+  if (!teamData) return <Text>데이터를 가져오는데 실패했습니다</Text>;
 
   return (
     <div className="flex items-center gap-2">

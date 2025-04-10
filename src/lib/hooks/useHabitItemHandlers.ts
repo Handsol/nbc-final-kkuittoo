@@ -3,7 +3,7 @@ import {
   useDeleteHabitMutation,
   useUpdateHabitMutation,
 } from '@/lib/mutations/useHabitMutation';
-import { toast } from '@/hooks/use-toast';
+import { toast } from '@/lib/hooks/use-toast';
 import { Habit } from '@prisma/client';
 
 type useHabitItemHandlersProps = {

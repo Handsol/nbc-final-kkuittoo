@@ -26,7 +26,7 @@ const MyTeam = ({ team, teamTotalPoints, teamCurrentQuest }: MyTeamProps) => {
         MY TEAM
       </Title>
       {/* 메인 영역 */}
-      <div className="w-full max-w-5xl flex flex-row gap-4">
+      <article className="w-full max-w-5xl flex flex-row gap-4">
         {/* 팀 이미지 */}
         <TeamImage currentQuestImg={questImage} emblem={emblem} />
         <div className="w-3/5 flex flex-col gap-3 text-sm">
@@ -44,7 +44,7 @@ const MyTeam = ({ team, teamTotalPoints, teamCurrentQuest }: MyTeamProps) => {
             팀으로 바로가기
           </LinkButton>
         </div>
-      </div>
+      </article>
     </section>
   );
 };

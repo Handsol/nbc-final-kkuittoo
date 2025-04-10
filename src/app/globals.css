@@ -8,8 +8,6 @@
   }
 }
 
-
-
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -66,8 +64,6 @@
   }
 }
 
-
-
 @layer base {
   * {
     @apply border-border;
@@ -75,4 +71,19 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@font-face {
+  font-family: 'BMDOHYEON';
+  src: url('/assets/fonts/BMDOHYEON.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  src: url('/assets/fonts/PretendardVariable.woff2') format('woff2');
+  font-weight: 45 920;
+  font-style: normal;
+  font-display: swap;
 }

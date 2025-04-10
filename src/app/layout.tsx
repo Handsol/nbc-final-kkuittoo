@@ -1,20 +1,7 @@
 import type { Metadata } from 'next';
-import localFont from 'next/font/local';
-import TQProviders from '@/lib/providers/TQProvider';
 import './globals.css';
-import AuthProvider from '@/lib/providers/authProvider';
 import { Toaster } from '@/components/ui/toaster';
-
-const geistSans = localFont({
-  src: './fonts/GeistVF.woff',
-  variable: '--font-geist-sans',
-  weight: '100 900',
-});
-const geistMono = localFont({
-  src: './fonts/GeistMonoVF.woff',
-  variable: '--font-geist-mono',
-  weight: '100 900',
-});
+import Provider from '@/lib/providers/Provider';
 
 export const metadata: Metadata = {
   title: 'KKUITTOO',
@@ -28,15 +15,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <AuthProvider>
-          <TQProviders>
-            {children}
-            <Toaster />
-          </TQProviders>
-        </AuthProvider>
+      <body>
+        <Provider>
+          {children}
+          <Toaster />
+        </Provider>
       </body>
     </html>
   );
