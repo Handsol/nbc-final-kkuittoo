@@ -4,6 +4,8 @@ import Text from '@/components/common/Text';
 import { Switch } from '@/components/ui/switch';
 import { useTeamOpenMutation } from '@/lib/mutations/useTeamOpenMutation';
 import { useSingleTeamQuery } from '@/lib/queries/useSingleTeamQuery';
+import { FaLock } from 'react-icons/fa6';
+import { FaLockOpen } from 'react-icons/fa6';
 
 type TeamOpenToggleButtonProps = {
   teamId: string;
@@ -21,11 +23,11 @@ const TeamOpenToggleButton = ({ teamId }: TeamOpenToggleButtonProps) => {
 
   return (
     <div className="flex items-center gap-2">
+      <label>{teamData.isOpened ? <FaLockOpen /> : <FaLock />}</label>
       <Switch
         checked={teamData.isOpened}
         onCheckedChange={(checked) => mutate(checked)}
       />
-      <label>{teamData.isOpened ? 'OPEN' : 'PRIVATE'}</label>
     </div>
   );
 };

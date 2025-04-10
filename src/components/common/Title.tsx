@@ -2,9 +2,8 @@ import { TITLE_MODE } from '@/constants/mode.constants';
 import { ReactNode } from 'react';
 
 type TitleProps = {
-  mode: number;
+  mode: string;
   children: string | ReactNode;
-  className?: string;
 };
 
 /**
@@ -21,7 +20,7 @@ type TitleProps = {
  * 3. children
  * 텍스트
  *
- * @param mode {number}
+ * @param mode {string}
  * @param children {string | ReactNode}
  * @returns
  *
@@ -34,18 +33,18 @@ type TitleProps = {
  *    HABITS
  * </Title>
  */
-const Title = ({ mode, children, className }: TitleProps) => {
+const Title = ({ mode, children }: TitleProps) => {
   switch (mode) {
     case TITLE_MODE.LOGO:
-      return <h1 className={className}>{children}</h1>;
+      return <h1>{children}</h1>;
     case TITLE_MODE.LINK:
-      return <h2 className={className}>{children}</h2>;
+      return <h2 className="font-dohyeon text-lg">{children}</h2>;
     case TITLE_MODE.SECTION_TITLE:
-      return <h3 className={className}>{children}</h3>;
+      return <h3 className="font-dohyeon text-2xl text-black">{children}</h3>;
     case TITLE_MODE.SECTION_SUBTITLE:
-      return <h4 className={className}>{children}</h4>;
+      return <h4 className="font-dohyeon text-lg text-black">{children}</h4>;
     default:
-      return <span className={className}>{children}</span>;
+      return <span className="font-pretendard text-black">{children}</span>;
   }
 };
 
