@@ -72,11 +72,11 @@ model User {
 model UserPoint {
   id            String     @id @default(cuid())
   userId        String
-  habitId       String
+  habitId       String?
   getTime       DateTime
   points        Int
   users         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  habits        Habit?     @relation(fields: [habitId], references: [id], onDelete: Cascade)
+  habits        Habit?     @relation(fields: [habitId], references: [id], onDelete: SetNull)
 }
 
 //습관 데이터 관련
