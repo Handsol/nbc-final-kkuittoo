@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetchGetAllHabits } from '@/lib/services/habit-actions.services';
 import { QUERY_KEYS } from '@/constants/query-keys.constants';
+import { HabitWithPoints } from '@/types/habits.type';
 
 /**
  * 사용자의 습관 목록을 조회하기 위한 React Query 훅
@@ -8,7 +9,7 @@ import { QUERY_KEYS } from '@/constants/query-keys.constants';
  * @returns
  */
 export const useHabitsQuery = (userId: string) => {
-  return useQuery({
+  return useQuery<HabitWithPoints[]>({
     queryKey: QUERY_KEYS.HABITS(userId),
     queryFn: () => fetchGetAllHabits(userId),
     enabled: !!userId,
