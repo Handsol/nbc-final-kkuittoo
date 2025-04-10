@@ -1,4 +1,7 @@
-import { HABIT_CATEGORIES } from '@/constants/habits.constants';
+import {
+  HABIT_CATEGORIES,
+  HABIT_CATEGORY_LABELS,
+} from '@/constants/habits.constants';
 import { Categories } from '@prisma/client';
 
 type HabitFormTagsProps = {
@@ -28,7 +31,7 @@ const HabitFormTags = ({ category, setCategory }: HabitFormTagsProps) => (
             checked={category === c}
             onChange={() => setCategory(c)}
           />
-          {c}
+          {HABIT_CATEGORY_LABELS[c]}
         </label>
       ))}
     </div>
