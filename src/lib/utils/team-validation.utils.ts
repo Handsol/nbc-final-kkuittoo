@@ -1,5 +1,6 @@
 import { TEAMS_MESSAGES } from '@/constants/error-messages.constants';
 import { HTTP_STATUS } from '@/constants/http-status.constants';
+import { ID_SLICE } from '@/constants/magic-numbers.constants';
 import { TEAM_VALIDATION } from '@/constants/validation.constants';
 import { TeamData } from '@/types/teams.type';
 import { NextResponse } from 'next/server';
@@ -168,6 +169,6 @@ export const checkTeamPassword = (
   // 비밀번호input이 없는 경우 false 반환
   if (!passwordInput) return false;
   // 팀 비밀번호 = teamId의 뒤 6글자
-  const teamPassword = teamId.slice(-6);
+  const teamPassword = teamId.slice(ID_SLICE.TEAM);
   return teamPassword === passwordInput;
 };

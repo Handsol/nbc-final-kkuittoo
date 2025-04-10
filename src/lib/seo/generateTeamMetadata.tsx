@@ -1,3 +1,4 @@
+import { ID_SLICE } from '@/constants/magic-numbers.constants';
 import { PROJECT_URL } from '@/constants/path.constants';
 import { fetchTeamData } from '@/lib/services/team-actions.services';
 import { TeamData } from '@/types/teams.type';
@@ -16,7 +17,7 @@ export const generateTeamMetadata = async (
   if (mode === TEAM_METADATA_MODE.SINGLE_TEAM && !!id) {
     const teamData = await fetchTeamData(id);
     const { teamName, isOpened, id: teamId } = teamData as TeamData;
-    const teamPassword = teamId.slice(-6);
+    const teamPassword = teamId.slice(ID_SLICE.TEAM);
 
     return {
       title: `${teamName} | KKUITTOO`,
