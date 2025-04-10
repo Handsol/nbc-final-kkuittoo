@@ -2,11 +2,10 @@ import {
   getCurrentExp,
   getExpPercent,
   getUserLevel,
-  MAX_EXP,
 } from '@/lib/utils/user-level.utils';
 import UserLevel from '../profile/UserLevel';
-import UserProgress from '../profile/UserProgress';
 import { HabitWithPoints } from '@/types/habits.type';
+import { Progress } from '@/components/ui/progress';
 
 type HabitLevelProgressProps = {
   habits: HabitWithPoints[];
@@ -18,17 +17,12 @@ const HabitLevelProgress = ({ habits }: HabitLevelProgressProps) => {
   }, 0);
 
   const level = getUserLevel(totalPoints);
-  const currentExp = getCurrentExp(totalPoints);
   const expPercent = getExpPercent(totalPoints);
 
   return (
-    <article className="flex items-end gap-2">
+    <article className="flex items-center gap-2">
       <UserLevel level={level} />
-      <UserProgress
-        currentExp={currentExp}
-        maxExp={MAX_EXP}
-        value={expPercent}
-      />
+      <Progress value={expPercent} className="w-full h-5" />
     </article>
   );
 };
