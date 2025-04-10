@@ -3,7 +3,7 @@
 import ConfirmDialog from '@/components/common/ConfirmDialog';
 import { PATH } from '@/constants/path.constants';
 import { TEAM_TOAST_MESSAGES } from '@/constants/toast-messages.contants';
-import { useToast } from '@/hooks/use-toast';
+import { useToast } from '@/lib/hooks/use-toast';
 import { fetchDeleteMyTeamMember } from '@/lib/services/team-client.services';
 import { useRouter } from 'next/navigation';
 

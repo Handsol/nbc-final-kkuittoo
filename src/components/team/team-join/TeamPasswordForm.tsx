@@ -8,7 +8,7 @@ import { ACTIONBUTTON_MODE } from '@/constants/mode.constants';
 import { PATH } from '@/constants/path.constants';
 import { PLACEHOLDER } from '@/constants/placeholder.constants';
 import { TEAM_TOAST_MESSAGES } from '@/constants/toast-messages.contants';
-import { useToast } from '@/hooks/use-toast';
+import { useToast } from '@/lib/hooks/use-toast';
 import { fetchCreateTeamMember } from '@/lib/services/team-client.services';
 import { checkTeamPassword } from '@/lib/utils/team-validation.utils';
 import { useRouter } from 'next/navigation';
