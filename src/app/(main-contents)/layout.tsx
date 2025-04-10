@@ -1,3 +1,4 @@
+import Sidebar from '@/components/layout/Sidebar';
 import { ReactNode } from 'react';
 
 type LayoutProps = {
@@ -8,7 +9,8 @@ type LayoutProps = {
 const Layout = ({ children, modal }: LayoutProps) => {
   return (
     <div>
-      <main className="w-full">
+      <main className="w-full flex flex-row">
+        <Sidebar />
         {children}
         {modal}
       </main>
