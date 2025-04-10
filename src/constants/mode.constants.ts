@@ -29,4 +29,5 @@ export const ACTIONBUTTON_MODE = {
   FULL: 'full',
   PRIMARY_SMALL: 'primary-small',
   SECONDARY_SMALL: 'secondary-small',
+  LOGOUT: 'logout',
 } as const;
