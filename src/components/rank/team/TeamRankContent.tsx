@@ -1,17 +1,17 @@
 import CommonInputBar from '@/components/common/CommonInputBar';
 import { TeamCard } from './TeamRankCard';
-import { getTeamsWithPoints } from '@/lib/services/team-actions.services';
+import { fetchGetTeamsWithPoints } from '@/lib/services/team-actions.services';
 import LinkButton from '@/components/common/button/LinkButton';
 import { ACTIONBUTTON_MODE, LINKBUTTON_MODE } from '@/constants/mode.constants';
 import ActionButton from '@/components/common/button/ActionButton';
 
 // 팀 랭킹 UI
 export const TeamRankContent = async () => {
-  const teamsList = await getTeamsWithPoints();
+  const teamsList = await fetchGetTeamsWithPoints();
   const topTeams = teamsList.slice(0, 3); // 1~3위
   const otherTeams = teamsList.slice(3); // 4위부터
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <section className="flex items-center space-x-2 mb-8">
         <article>
           <LinkButton mode={LINKBUTTON_MODE.COMMON} href="/rank/users">
@@ -31,7 +31,7 @@ export const TeamRankContent = async () => {
           />
         </article>
       </section>
-      <section className="-full max-w-[1024px] p-8 mx-auto bg-gray-400 rounded-2xl">
+      <section className="w-full max-w-[1024px] p-8 mx-auto bg-gray-400 rounded-2xl">
         {/* 상단 3개 팀: 1, 2, 3위 */}
         <section className="mb-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
@@ -56,6 +56,6 @@ export const TeamRankContent = async () => {
           </ul>
         </section>
       </section>
-    </>
+    </div>
   );
 };
