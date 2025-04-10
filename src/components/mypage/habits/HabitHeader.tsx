@@ -17,13 +17,11 @@ const HabitHeader = ({
   return (
     <header className="flex items-center justify-between">
       <div className="flex items-center gap-2">
-        <Title mode={TITLE_MODE.SECTION_TITLE} className="text-xl font-bold">
-          HABITS
-        </Title>
-        <Text className="text-sm">({habitsCount})</Text>
+        <Title mode={TITLE_MODE.SECTION_TITLE}>HABITS</Title>
+        <Text>({habitsCount})</Text>
       </div>
       <ActionButton
-        mode={ACTIONBUTTON_MODE.PRIMARY_SMALL}
+        mode={ACTIONBUTTON_MODE.ROUNDED_MD}
         onClick={onToggleCreate}
         disabled={isCreating}
       >

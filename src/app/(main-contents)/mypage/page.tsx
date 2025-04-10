@@ -12,7 +12,7 @@ const MyPage = async () => {
 
   if (!session) {
     return (
-      <div className="flex items-center justify-center min-h-[calc(100vh-3rem)]">
+      <div className="flex flex-col items-center px-[30px] py-6 min-h-[calc(100vh-3rem)]">
         <Text>로그인이 필요합니다.</Text>
       </div>
     );
