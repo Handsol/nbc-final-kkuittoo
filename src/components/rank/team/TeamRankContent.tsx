@@ -1,7 +1,9 @@
 import CommonInputBar from '@/components/common/CommonInputBar';
 import { TeamCard } from './TeamRankCard';
-import Link from 'next/link';
 import { getTeamsWithPoints } from '@/lib/services/team-actions.services';
+import LinkButton from '@/components/common/button/LinkButton';
+import { ACTIONBUTTON_MODE, LINKBUTTON_MODE } from '@/constants/mode.constants';
+import ActionButton from '@/components/common/button/ActionButton';
 
 // 팀 랭킹 UI
 export const TeamRankContent = async () => {
@@ -12,21 +14,16 @@ export const TeamRankContent = async () => {
     <>
       <section className="flex items-center space-x-2 mb-8">
         <article>
-          <Link href="/rank/users">
-            <button className="border rounded-2xl p-1 w-40 text-gray-600 hover:bg-gray-400">
-              Character
-            </button>
-          </Link>
+          <LinkButton mode={LINKBUTTON_MODE.COMMON} href="/rank/users">
+            Character
+          </LinkButton>
         </article>
         <article>
-          <button
-            className="border rounded-2xl p-1 w-40 bg-gray-400 text-gray-600"
-            disabled
-          >
+          <ActionButton mode={ACTIONBUTTON_MODE.SECONDARY} disabled={true}>
             Team
-          </button>
+          </ActionButton>
         </article>
-        {/* 검색 입력창 (아직 기능 미구현) */}
+
         <article>
           <CommonInputBar
             id="teamSearch"
