@@ -80,21 +80,29 @@ model UserPoint {
 }
 
 //습관 데이터 관련
+enum Categories {
+  HEALTH
+  EXERCISE
+  ROUTINE
+  SD
+  ETC
+}
+
 model Habit {
-  id            String    @id @default(cuid())
+  id            String      @id @default(cuid())
   userId        String    
   title         String
   notes         String
-  categories    String
-  createdAt     DateTime  @default(now()) 
-  mon           Boolean   @default(false)
-  tue           Boolean   @default(false)
-  wed           Boolean   @default(false)
-  thu           Boolean   @default(false)
-  fri           Boolean   @default(false)
-  sat           Boolean   @default(false)
-  sun           Boolean   @default(false)
-  users         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  categories    Categories  @default(ROUTINE)
+  createdAt     DateTime    @default(now()) 
+  mon           Boolean     @default(false)
+  tue           Boolean     @default(false)
+  wed           Boolean     @default(false)
+  thu           Boolean     @default(false)
+  fri           Boolean     @default(false)
+  sat           Boolean     @default(false)
+  sun           Boolean     @default(false)
+  users         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   userPoints    UserPoint[]
 }
 
