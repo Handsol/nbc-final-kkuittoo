@@ -2,7 +2,7 @@
 
 import ConfirmDialog from '@/components/common/ConfirmDialog';
 import { PATH } from '@/constants/path.constants';
-import { useToast } from '@/hooks/use-toast';
+import { useToast } from '@/lib/hooks/use-toast';
 import { fetchCreateTeamMember } from '@/lib/services/team-client.services';
 import { TeamData } from '@/types/teams.type';
 import { useRouter } from 'next/navigation';

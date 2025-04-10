@@ -8,7 +8,7 @@ import {
 } from '@/lib/hooks/useTeamCreateForm';
 import { useTeamCreateContents } from '@/lib/hooks/useTeamCreateContents';
 import { fetchCreateNewTeam } from '@/lib/services/team-client.services';
-import { useToast } from '@/hooks/use-toast';
+import { useToast } from '@/lib/hooks/use-toast';
 import { useRouter } from 'next/navigation';
 import { handleCloseModalWithSuccess } from '@/lib/utils/modal.utils';
 import TeamInputs from './team-create/TeamInputs';

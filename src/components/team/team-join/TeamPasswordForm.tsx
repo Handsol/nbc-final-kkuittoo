@@ -8,13 +8,13 @@ import { ACTIONBUTTON_MODE } from '@/constants/mode.constants';
 import { PATH } from '@/constants/path.constants';
 import { PLACEHOLDER } from '@/constants/placeholder.constants';
 import { TEAM_TOAST_MESSAGES } from '@/constants/toast-messages.contants';
-import { useToast } from '@/hooks/use-toast';
+import { useToast } from '@/lib/hooks/use-toast';
 import { fetchCreateTeamMember } from '@/lib/services/team-client.services';
 import { checkTeamPassword } from '@/lib/utils/team-validation.utils';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
-type FormData = {
+type TeamPasswordFormData = {
   teamPassword: string;
 };
 
@@ -32,10 +32,10 @@ const TeamPasswordForm = ({ teamId }: TeamPasswordFormProps) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<TeamPasswordFormData>();
 
   // 비공개 팀 가입 로직
-  const onSubmit = async (data: FormData) => {
+  const onSubmit = async (data: TeamPasswordFormData) => {
     // 사용자 입력값과 비밀번호 일치 여부 판단
     const isCorrectPassword = checkTeamPassword(teamId, data.teamPassword);
     if (!isCorrectPassword) {

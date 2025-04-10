@@ -1,6 +1,6 @@
 import { HabitFormData } from '@/types/habits.type';
 import { createHabitData, getDefaultValues } from '@/lib/utils/habit.utils';
-import { toast } from '@/hooks/use-toast';
+import { toast } from '@/lib/hooks/use-toast';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';

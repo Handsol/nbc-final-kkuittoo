@@ -41,13 +41,14 @@ export const fetchGetSingleTeam = async (teamId: string) => {
  * @returns
  */
 
-export type FormData = {
+export type TeamFormData = {
   teamBio: string;
+  isOpened?: boolean;
 };
 
 export type updateTeamBioParam = {
   teamId: string;
-  data: FormData;
+  data: TeamFormData;
 };
 
 export const fetchUpdateTeamBio = async ({
