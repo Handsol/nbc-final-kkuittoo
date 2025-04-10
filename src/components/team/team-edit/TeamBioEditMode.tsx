@@ -56,8 +56,13 @@ const TeamBioEditMode = ({ teamBio, teamId }: TeamBioProps) => {
       ) : isTeamDataError || !teamData ? (
         <Text>데이터 불러오기 실패</Text>
       ) : isEditMode ? (
-        <form onSubmit={handleSubmit(handleOnSubmit)}>
-          <CommonInputBar id="teamBio" {...register('teamBio')} />
+        <form
+          onSubmit={handleSubmit(handleOnSubmit)}
+          className="w-full flex justify-between items-center gap-5"
+        >
+          <div className="flex-1">
+            <CommonInputBar id="teamBio" {...register('teamBio')} />
+          </div>
           <ActionButton
             mode={ACTIONBUTTON_MODE.PRIMARY}
             type="submit"
@@ -67,13 +72,13 @@ const TeamBioEditMode = ({ teamBio, teamId }: TeamBioProps) => {
           </ActionButton>
         </form>
       ) : (
-        <>
+        <div className="flex justify-between items-center gap-5">
           <Text>{teamData.teamBio}</Text>
           <IconButton
             mode={ICONBUTTON_MODE.EDIT}
             onClick={handleEditBtnClick}
           />
-        </>
+        </div>
       )}
     </div>
   );

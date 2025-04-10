@@ -22,16 +22,15 @@ const TeamPage = async ({ params }: RouteParams) => {
   const id = params.id;
 
   return (
-    <section className="w-full flex flex-col gap-4 p-3">
-      <article className="w-full flex justify-end items-center">
+    <section className="w-full pt-5 px-10">
+      <article className="w-full flex justify-end items-center mb-5">
         <TeamLeave id={id} />
       </article>
-      <TeamInfo id={id} />
-      <article className="flex gap-8">
+      <article className="w-full flex flex-col gap-10">
+        <TeamInfo id={id} />
         <TeamMemberList id={id} />
-        <TeamCalendar />
+        <TeamChat teamId={id} />
       </article>
-      <TeamChat teamId={id} />
     </section>
   );
 };
