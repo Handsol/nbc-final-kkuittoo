@@ -20,7 +20,7 @@ const HabitHeader = ({
         <Title mode={TITLE_MODE.SECTION_TITLE} className="text-xl font-bold">
           HABITS
         </Title>
-        <Text className="text-sm">({habitsCount}/10)</Text>
+        <Text className="text-sm">({habitsCount})</Text>
       </div>
       <ActionButton
         mode={ACTIONBUTTON_MODE.PRIMARY_SMALL}
