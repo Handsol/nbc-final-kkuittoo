@@ -1,3 +1,6 @@
+import { USER_TITLE_MODE } from '@/constants/mode.constants';
+import UserTitle from '../common/UserTitle';
+
 type TeamTitleProps = {
   teamName: string;
   currentQuestName: string;
@@ -6,8 +9,8 @@ type TeamTitleProps = {
 const TeamTitle = ({ teamName, currentQuestName }: TeamTitleProps) => {
   return (
     <div>
-      <p className="font-bold text-2xl">{teamName}</p>
-      <p className="font-bold text-4xl">{currentQuestName}</p>
+      <UserTitle mode={USER_TITLE_MODE.CARD_NAME}>{teamName}</UserTitle>
+      <UserTitle mode={USER_TITLE_MODE.CARD_NAME}>{currentQuestName}</UserTitle>
     </div>
   );
 };
