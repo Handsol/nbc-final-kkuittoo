@@ -15,9 +15,6 @@ const TeamProgress = ({
   return (
     <section className="w-full">
       <Progress value={progressPercent} className="w-full h-5" />
-      <Text>
-        {teamTotalPoints}/{currentQuestRequired}
-      </Text>
     </section>
   );
 };
