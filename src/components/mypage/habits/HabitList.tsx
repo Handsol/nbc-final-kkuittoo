@@ -20,8 +20,14 @@ const HabitList = ({
   const createMutation = useCreateHabitMutation(userId);
 
   const handleCreateSuccess = (habitData: HabitFormData) => {
-    createMutation.mutate(habitData);
-    onToggleCreate();
+    createMutation.mutate(habitData, {
+      onSuccess: () => {
+        onToggleCreate();
+      },
+      onError: (error) => {
+        console.error('습관 생성 실패:', error);
+      },
+    });
   };
 
   return (

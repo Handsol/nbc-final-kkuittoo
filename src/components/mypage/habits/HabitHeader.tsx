@@ -4,14 +4,12 @@ import Title from '@/components/common/Title';
 import { ACTIONBUTTON_MODE, TITLE_MODE } from '@/constants/mode.constants';
 
 type HabitHeaderProps = {
-  userId: string;
   habitsCount: number;
   isCreating: boolean;
   onToggleCreate: () => void;
 };
 
 const HabitHeader = ({
-  userId,
   habitsCount,
   isCreating,
   onToggleCreate,
