@@ -21,7 +21,12 @@ const Sidebar = async () => {
 
   return (
     <aside className="fixed top-0 h-screen w-[200px] bg-white p-4 flex flex-col gap-4 shrink-0 items-center">
-      <Image src="/logo_test.png" alt="logo" width={153} height={20} />
+      <Image
+        src="/assets/images/logo_test.png"
+        alt="logo"
+        width={153}
+        height={20}
+      />
 
       <div className="w-full flex flex-col gap-2">
         <LinkButton mode={LINKBUTTON_MODE.NAV} href={PATH.MYPAGE}>
@@ -38,7 +43,12 @@ const Sidebar = async () => {
         </LinkButton>
       </div>
 
-      <Image src="/user_lv1.png" alt="user" width={150} height={150} />
+      <Image
+        src="/assets/images/user_lv1.png"
+        alt="user"
+        width={150}
+        height={150}
+      />
 
       <LogoutButton />
     </aside>
