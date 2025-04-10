@@ -9,13 +9,14 @@ import { authOptions } from '@/lib/utils/auth';
 
 const Sidebar = async () => {
   const session = await getServerSession(authOptions);
-  const userId = session?.user.id;
 
   let teamId = '';
 
-  if (userId) {
-    const myTeam = await fetchGetMyTeamData(userId);
-    teamId = myTeam?.teamId || '';
+  if (session) {
+    const myTeam = await fetchGetMyTeamData(session.user.id);
+    if (myTeam) {
+      teamId = myTeam.teamId;
+    }
   }
 
   return (
