@@ -36,15 +36,16 @@ const MyPage = async () => {
       </div>
     );
   }
+  const userId = session.user.id;
 
   return (
     <div className="flex flex-col items-center px-[30px] py-6 min-h-[calc(100vh-3rem)] gap-10 ">
       <div className="w-full max-w-[680px]">
-        <MyPageTeam userId={session.user.id} />
+        <MyPageTeam userId={userId} />
       </div>
 
       <div className="w-full max-w-[680px]">
-        <MyPageHabits userId={session.user.id} />
+        <MyPageHabits userId={userId} />
       </div>
     </div>
   );
