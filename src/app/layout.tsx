@@ -4,7 +4,6 @@ import TQProviders from '@/lib/providers/TQProvider';
 import './globals.css';
 import AuthProvider from '@/lib/providers/authProvider';
 import { Toaster } from '@/components/ui/toaster';
-import LayoutWrapper from '@/components/layout/LayoutWrapper';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -34,7 +33,7 @@ export default function RootLayout({
       >
         <AuthProvider>
           <TQProviders>
-            <LayoutWrapper>{children}</LayoutWrapper>
+            {children}
             <Toaster />
           </TQProviders>
         </AuthProvider>

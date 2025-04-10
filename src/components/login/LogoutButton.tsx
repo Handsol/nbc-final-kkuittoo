@@ -1,14 +1,18 @@
+'use client';
+
 import { PATH } from '@/constants/path.constants';
 import { signOut } from 'next-auth/react';
+import ActionButton from '../common/button/ActionButton';
+import { ACTIONBUTTON_MODE } from '@/constants/mode.constants';
 
 const LogoutButton = () => {
   return (
-    <button
+    <ActionButton
+      mode={ACTIONBUTTON_MODE.PRIMARY}
       onClick={() => signOut({ callbackUrl: PATH.HOME })}
-      className="inline-flex items-center px-3 py-1.5 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
     >
       로그아웃
-    </button>
+    </ActionButton>
   );
 };
 
