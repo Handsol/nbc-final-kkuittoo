@@ -1,4 +1,4 @@
-import { TeamWithPoints } from '@/types/rank-users.type';
+import { TeamWithPoints } from '@/types/rank.type';
 
 type Props = {
   team: TeamWithPoints;

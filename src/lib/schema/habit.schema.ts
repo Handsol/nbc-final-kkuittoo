@@ -1,4 +1,5 @@
 import { HABIT_ERROR_MESSAGES } from '@/constants/error-messages.constants';
+import { HABIT_CATEGORIES } from '@/constants/habits.constants';
 import { HABIT_VALIDATION } from '@/constants/validation.constants';
 import { z } from 'zod';
 
@@ -13,7 +14,9 @@ const baseHabitSchema = z.object({
     .string()
     .min(HABIT_VALIDATION.NOTES.MIN_LENGTH, HABIT_ERROR_MESSAGES.NOTES_LENGTH)
     .max(HABIT_VALIDATION.NOTES.MAX_LENGTH, HABIT_ERROR_MESSAGES.NOTES_LENGTH),
-  categories: z.string().min(1, HABIT_ERROR_MESSAGES.CATEGORY_REQUIRED),
+  categories: z.enum(HABIT_CATEGORIES, {
+    required_error: HABIT_ERROR_MESSAGES.CATEGORY_REQUIRED,
+  }),
 });
 
 //habit의 요일별 수행 여부 스키마. 각 요일은 선택적 boolean 값

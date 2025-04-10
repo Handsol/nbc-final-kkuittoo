@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@/constants/query-keys.constants';
-import { TeamWithPoints } from '@/types/rank-users.type';
+import { TeamWithPoints } from '@/types/rank.type';
 import { fetchGetTeamsWithPoints } from '../services/team-client.services';
 
 // 팀 데이터 가져오기 훅
