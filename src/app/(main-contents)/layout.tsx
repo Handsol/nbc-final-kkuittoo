@@ -1,4 +1,4 @@
-import MainLayout from '@/components/layout/MainLayout';
+import Sidebar from '@/components/layout/Sidebar';
 import { ReactNode } from 'react';
 
 type LayoutProps = {
@@ -9,11 +9,10 @@ type LayoutProps = {
 const Layout = ({ children, modal }: LayoutProps) => {
   return (
     <div>
-      <main className="w-full">
-        <MainLayout>
-          {children}
-          {modal}
-        </MainLayout>
+      <main className="w-full flex flex-row">
+        <Sidebar />
+        {children}
+        {modal}
       </main>
     </div>
   );
