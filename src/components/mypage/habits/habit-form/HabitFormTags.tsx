@@ -1,8 +1,9 @@
 import { HABIT_CATEGORIES } from '@/constants/habits.constants';
+import { Categories } from '@prisma/client';
 
 type HabitFormTagsProps = {
-  category: string;
-  setCategory: (category: string) => void;
+  category: Categories;
+  setCategory: (category: Categories) => void;
 };
 
 const HabitFormTags = ({ category, setCategory }: HabitFormTagsProps) => (
