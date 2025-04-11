@@ -160,7 +160,7 @@ export const fetchGetMyTeamMemberData = async (teamId: string) => {
   return myTeamMemberList;
 };
 
-export const getTeamsWithPoints = async (): Promise<TeamWithPoints[]> => {
+export const fetchGetTeamsWithPoints = async (): Promise<TeamWithPoints[]> => {
   const teamList = await prisma.team.findMany({
     include: {
       teamMembers: true,
