@@ -25,7 +25,8 @@ const ActionButton = ({
   disabled = false,
   ...props
 }: ActionButtonProps) => {
-  const baseStyle = 'py-2 rounded-full font-semibold transition-colors';
+  const baseStyle =
+    'py-2 rounded-full font-semibold transition-colors font-dohyeon';
 
   let sizeStyle: string;
   let variantStyle: string;
@@ -48,8 +49,12 @@ const ActionButton = ({
       variantStyle = 'bg-light-gray text-black ';
       break;
     case ACTIONBUTTON_MODE.ROUNDED_MD:
-      sizeStyle = 'w-[180px] h-[40px] text-sm rounded-md';
-      variantStyle = 'bg-main text-white';
+      sizeStyle = 'w-[180px] h-[40px] text-sm ';
+      variantStyle = 'bg-main text-white rounded-md';
+      break;
+    case ACTIONBUTTON_MODE.LOGOUT:
+      sizeStyle = 'px-4 text-sm';
+      variantStyle = 'text-black';
       break;
     default:
       sizeStyle = 'px-6 text-sm';
