@@ -137,27 +137,6 @@ export const fetchGetTeamTotalPoints = async (id: string) => {
 };
 
 /**
- * 팀 전체 포인트에 맞는 퀘스트를 가져오는 로직
- *
- * @param teamTotalPoint {number}
- * @returns Promise<TeamQuest> : 현재 팀퀘스트의 데이터
- */
-export const fetchGetCurrentTeamQuest = async (teamTotalPoints: number) => {
-  try {
-    const teamQuestList = await prisma.teamQuest.findMany({
-      orderBy: { id: 'asc' },
-    });
-
-    return teamQuestList.find(
-      (quest) => quest.requiredPoints > teamTotalPoints,
-    );
-  } catch (error) {
-    console.error('fetchGetCurrentTeamQuest 에러:', error);
-    throw new Error(`${TEAMS_MESSAGES.FETCH_FAILED}, team's Quest`);
-  }
-};
-
-/**
  * 현재 유저의 팀 정보를 가져오는 로직
  *
  * @param userId {string}

@@ -1,5 +1,4 @@
 import {
-  fetchGetCurrentTeamQuest,
   fetchGetTeamData,
   fetchGetTeamTotalPoints,
 } from '@/lib/services/team-actions.services';
@@ -12,6 +11,7 @@ import TeamBioEditMode from './team-edit/TeamBioEditMode';
 import Text from '../common/Text';
 import Image from 'next/image';
 import { getUserSession } from '@/lib/services/getUserSession.services';
+import { getCurrentTeamQuest } from '@/lib/utils/team.utils';
 
 type TeamQuestProps = {
   id: string;
@@ -22,7 +22,7 @@ const TeamInfo = async ({ id }: TeamQuestProps) => {
   const teamData = await fetchGetTeamData(id);
   // 팀의 전체 포인트와 현재 퀘스트를 가져오는 로직
   const { teamTotalPoints } = await fetchGetTeamTotalPoints(id);
-  const teamCurrentQuest = await fetchGetCurrentTeamQuest(teamTotalPoints);
+  const teamCurrentQuest = getCurrentTeamQuest(teamTotalPoints);
   // 현재 로그인한 유저 정보
   const session = await getUserSession();
 
