@@ -37,14 +37,14 @@ const LinkButton = ({ href, mode, children }: LinkButtonProps) => {
       {mode === 'nav' ? (
         // nav 모드
         <Link href={href}>
-          <button className="px-5 py-2 duration-200 hover:bg-slate-500">
+          <button className="flex items-center justify-center px-5 py-2 rounded-full border border-transparent duration-300 hover:border hover:border-main hover:text-main">
             <Title mode={TITLE_MODE.LINK}>{children}</Title>
           </button>
         </Link>
       ) : (
         // common 모드
         <Link href={href}>
-          <button className="px-5 py-2 bg-white rounded-full">
+          <button className="flex items-center justify-center px-5 py-2 rounded-full text-main border border-main bg-white duration-300 hover:bg-main hover:text-white">
             <Title mode={TITLE_MODE.LINK}>{children}</Title>
           </button>
         </Link>

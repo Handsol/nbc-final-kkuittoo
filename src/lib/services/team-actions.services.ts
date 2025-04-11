@@ -23,7 +23,7 @@ export const fetchTeamData = async (id: string) => {
  * @returns Promise<TeamMemberData[] & MemberDetailData[]> : 팀멤버별 유저정보 + 포인트
  */
 export const fetchTeamMembers = async (teamId: string) => {
-  return await prisma.teamMember.findMany({
+  const members = await prisma.teamMember.findMany({
     where: { teamId },
     include: {
       user: {
@@ -43,6 +43,35 @@ export const fetchTeamMembers = async (teamId: string) => {
       },
     },
   });
+
+  return members
+    .map((member) => {
+      const totalPoints = member.user.userPoints.reduce(
+        (sum, pointLog) => sum + pointLog.points,
+        0,
+      );
+
+      const filteredPoints = member.user.userPoints.filter(
+        (point) => point.getTime >= member.joinDate,
+      );
+      const totalContribution = filteredPoints.reduce(
+        (sum, point) => sum + point.points,
+        0,
+      );
+
+      return {
+        ...member,
+        user: {
+          ...member.user,
+          userPoints: filteredPoints.sort(
+            (a, b) => a.getTime.getTime() - b.getTime.getTime(),
+          ),
+        },
+        totalPoints,
+        totalContribution,
+      };
+    })
+    .sort((a, b) => b.totalContribution - a.totalContribution);
 };
 
 /**

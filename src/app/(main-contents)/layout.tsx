@@ -8,13 +8,11 @@ type LayoutProps = {
 
 const Layout = ({ children, modal }: LayoutProps) => {
   return (
-    <div>
-      <main className="w-full flex flex-row">
-        <Sidebar />
-        {children}
-        {modal}
-      </main>
-    </div>
+    <main className="w-full flex flex-row">
+      <Sidebar />
+      {children}
+      {modal}
+    </main>
   );
 };
 

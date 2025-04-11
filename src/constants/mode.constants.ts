@@ -4,10 +4,10 @@ export const LINKBUTTON_MODE = {
 };
 
 export const TITLE_MODE = {
-  LOGO: 1,
-  LINK: 2,
-  SECTION_TITLE: 3,
-  SECTION_SUBTITLE: 4,
+  LOGO: 'logo',
+  LINK: 'link',
+  SECTION_TITLE: 'title',
+  SECTION_SUBTITLE: 'subtitle',
 };
 
 export const USER_TITLE_MODE = {
