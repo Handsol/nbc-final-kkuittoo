@@ -8,7 +8,10 @@ import {
   checkCooldown,
   checkHabitPermission,
 } from '@/lib/utils/habit-validation.utils';
-import { HABIT_ERROR_MESSAGES } from '@/constants/error-messages.constants';
+import {
+  COMMON_ERROR_MESSAGES,
+  HABIT_ERROR_MESSAGES,
+} from '@/constants/error-messages.constants';
 import { getCurrentDayStatus } from '@/lib/utils/habit.utils';
 
 /**
@@ -69,21 +72,30 @@ export const POST = async (request: NextRequest) => {
   }
 };
 
+/**
+ * 사용자 포인트 목록 조회
+ * @param {NextRequest} request - 요청 객체
+ * @returns {Promise<NextResponse>} - 포인트 목록 또는 에러 응답
+ * @description
+ * - 인증된 사용자의 포인트 목록 조회
+ * - userId 쿼리 파라미터 필수
+ * - 최신순 정렬
+ */
 export const GET = async (request: NextRequest) => {
-  const { response } = await checkAuth();
-  if (response) return response;
+  const { response: authResponse } = await checkAuth();
+  if (authResponse) return authResponse;
+
+  const { searchParams } = new URL(request.url);
+  const userId = searchParams.get('userId');
+
+  if (!userId) {
+    return NextResponse.json(
+      { error: COMMON_ERROR_MESSAGES.UNAUTHORIZED },
+      { status: HTTP_STATUS.BAD_REQUEST },
+    );
+  }
 
   try {
-    const { searchParams } = new URL(request.url);
-    const userId = searchParams.get('userId');
-
-    if (!userId) {
-      return NextResponse.json(
-        { error: 'User ID is required' },
-        { status: HTTP_STATUS.BAD_REQUEST },
-      );
-    }
-
     const userPoints = await prisma.userPoint.findMany({
       where: { userId },
       orderBy: { getTime: 'desc' },
@@ -92,6 +104,7 @@ export const GET = async (request: NextRequest) => {
     return NextResponse.json(userPoints);
   } catch (error) {
     console.error('UserPoint 조회 에러:', error);
+
     return NextResponse.json(
       { error: HABIT_ERROR_MESSAGES.POINT_FETCH_FAILED },
       { status: HTTP_STATUS.INTERNAL_SERVER_ERROR },
