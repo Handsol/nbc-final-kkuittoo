@@ -24,7 +24,7 @@ const SidebarNav = async () => {
   }
 
   return (
-    <div className="w-full flex flex-col mt-[70px] gap-4">
+    <div className="w-full flex flex-col gap-2">
       {NAV_ITEMS.map((item) => (
         <LinkButton key={item.name} mode={LINKBUTTON_MODE.NAV} href={item.href}>
           {item.name}
