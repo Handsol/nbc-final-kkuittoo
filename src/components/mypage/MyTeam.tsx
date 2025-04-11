@@ -1,5 +1,4 @@
-import { TeamData } from '@/types/teams.type';
-import { TeamQuest } from '@prisma/client';
+import { TeamData, TeamQuest } from '@/types/teams.type';
 import TeamProgress from '../team/TeamProgress';
 import TeamTitle from '../team/TeamTitle';
 import TeamBioNotEditMode from '../team/team-edit/TeamBioNotEditMode';

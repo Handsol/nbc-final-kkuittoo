@@ -3,7 +3,7 @@ import { TeamFormInputs } from './useTeamCreateForm';
 import { PLACEHOLDER } from '@/constants/placeholder.constants';
 import { TEAMS_MESSAGES } from '@/constants/error-messages.constants';
 import { TEAM_VALIDATION } from '@/constants/validation.constants';
-import { EMBLEM } from '@/constants/teams.constants';
+import { EMBLEM } from '@/constants/team-contents.constants';
 
 export type TeamFormContents = {
   title: string;

@@ -4,7 +4,7 @@ import { prisma } from '@/lib/prisma';
 import {
   fetchGetMyTeamData,
   fetchGetMyTeamMemberData,
-  fetchTeamData,
+  fetchGetTeamData,
 } from '@/lib/services/team-actions.services';
 import { checkAuth } from '@/lib/utils/auth-route-handler.utils';
 import { checkTeamPassword } from '@/lib/utils/team-validation.utils';
@@ -45,7 +45,7 @@ export const POST = async (request: NextRequest) => {
     }
 
     // 해당 팀 공개 여부 + 팀 멤버 수에 따른 분기처리
-    const teamData = await fetchTeamData(teamId);
+    const teamData = await fetchGetTeamData(teamId);
     const teamMembers = await fetchGetMyTeamMemberData(teamId);
     if (!teamData || !teamMembers) {
       return NextResponse.json(
