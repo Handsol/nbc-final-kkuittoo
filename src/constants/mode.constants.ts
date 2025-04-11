@@ -31,3 +31,8 @@ export const ACTIONBUTTON_MODE = {
   SECONDARY_SMALL: 'secondary-small',
   LOGOUT: 'logout',
 } as const;
+
+export const MODAL_MODE = {
+  COMMON: 'common',
+  PARALLEL: 'parallel',
+} as const;
