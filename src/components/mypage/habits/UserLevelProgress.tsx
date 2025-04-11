@@ -1,27 +1,20 @@
 import { getExpPercent, getUserLevel } from '@/lib/utils/user-level.utils';
 import UserLevel from '../profile/UserLevel';
-import { HabitWithPoints } from '@/types/habits.type';
 import { Progress } from '@/components/ui/progress';
-import { UserPoint } from '@prisma/client';
+import Text from '@/components/common/Text';
+import { useUserQuery } from '@/lib/queries/useUserQuery';
 
 type UserLevelProgressProps = {
-  habits: HabitWithPoints[];
-  userPoints?: UserPoint[];
+  userId: string;
 };
 
-const UserLevelProgress = ({ habits, userPoints }: UserLevelProgressProps) => {
-  // habits에 연결된 포인트 + 연결되지 않은 포인트 모두 합산
-  const habitsPoints = habits.reduce((sum, habit) => {
-    return sum + (habit.userPoints?.reduce((acc, p) => acc + p.points, 0) || 0);
-  }, 0);
+const UserLevelProgress = ({ userId }: UserLevelProgressProps) => {
+  const { data: user, isPending } = useUserQuery(userId);
 
-  const legacyPoints =
-    userPoints
-      ?.filter((p) => !p.habitId) // habitId가 없는 포인트
-      .reduce((sum, point) => sum + point.points, 0) || 0;
+  if (isPending) return <Text>로딩중</Text>;
+  if (!user) return <Text>존재하지 않는 유저입니다.</Text>;
 
-  const totalPoints = habitsPoints + legacyPoints;
-
+  const totalPoints = user.userPoints.reduce((sum, p) => sum + p.points, 0);
   const level = getUserLevel(totalPoints);
   const expPercent = getExpPercent(totalPoints);
 

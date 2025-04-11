@@ -2,11 +2,12 @@
 
 import { useHabitsQuery } from '@/lib/queries/useHabitsQuery';
 import Text from '../common/Text';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import HabitHeader from './habits/HabitHeader';
 import HabitList from './habits/HabitList';
 import HabitsFilter from './habits/HabitsFilter';
 import UserLevelProgress from './habits/UserLevelProgress';
+import { HabitWithPoints } from '@/types/habits.type';
 
 type MyPageHabitsProps = {
   userId: string;
@@ -15,31 +16,40 @@ type MyPageHabitsProps = {
 const MyPageHabits = ({ userId }: MyPageHabitsProps) => {
   const [isCreating, setIsCreating] = useState(false);
   const { data, isPending } = useHabitsQuery(userId);
+  const [filteredHabits, setFilteredHabits] = useState<HabitWithPoints[]>([]);
+
   const habits = data?.habits || [];
-  const userPoints = data?.userPoints || [];
+
+  useEffect(() => {
+    if (filteredHabits.length === 0 && habits.length > 0) {
+      setFilteredHabits(habits);
+    }
+  }, [habits]);
 
   const handleToggleCreate = () => setIsCreating((prev) => !prev);
 
   if (isPending) return <Text>로딩중</Text>;
 
   return (
-    <section className="h-full p-6 flex flex-col gap-8">
+    <section className="flex flex-col h-full p-6 gap-4">
       <HabitHeader
         habitsCount={habits.length}
         onToggleCreate={handleToggleCreate}
         isCreating={isCreating}
       />
 
-      <UserLevelProgress habits={habits} userPoints={userPoints} />
+      <UserLevelProgress userId={userId} />
 
-      <HabitsFilter />
+      <HabitsFilter habits={habits} onFilterChange={setFilteredHabits} />
 
-      <HabitList
-        habits={habits}
-        userId={userId}
-        isCreating={isCreating}
-        onToggleCreate={handleToggleCreate}
-      />
+      <div className="flex-1 overflow-hidden">
+        <HabitList
+          habits={filteredHabits}
+          userId={userId}
+          isCreating={isCreating}
+          onToggleCreate={handleToggleCreate}
+        />
+      </div>
     </section>
   );
 };
