@@ -38,7 +38,7 @@ const HabitItem = ({ habit, userId }: HabitItemProps) => {
   return (
     <div className="flex flex-col gap-2 relative">
       <article
-        className={`flex items-center gap-4 p-4 border rounded-3xl bg-white shadow-sm hover:shadow-md transition-shadow ${
+        className={`flex items-center gap-4 p-4 border-b ${
           isAddPending || isUpdatePending || isDeletePending ? 'opacity-50' : ''
         }`}
       >
@@ -49,13 +49,10 @@ const HabitItem = ({ habit, userId }: HabitItemProps) => {
         />
 
         <div className="flex-1 min-w-0">
-          <Title
-            mode={TITLE_MODE.LINK}
-            className="font-semibold text-gray-800 truncate"
-          >
-            {habit.title}
-          </Title>
-          <Text className="text-sm text-gray-600 truncate">{habit.notes}</Text>
+          <Title mode={TITLE_MODE.LINK}>{habit.title}</Title>
+          <Text className="text-sm text-medium-gray truncate">
+            {habit.notes}
+          </Text>
         </div>
 
         <div className="flex gap-2">

@@ -5,8 +5,6 @@ import {
 } from '../services/habit-client.services';
 import { Habit } from '@prisma/client';
 import { QUERY_KEYS } from '@/constants/query-keys.constants';
-import { useOptimisticMutation } from './useOptimisticMutation';
-import { HabitWithPoints } from '@/types/habits.type';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 /**
@@ -30,26 +28,26 @@ export const useCreateHabitMutation = (userId: string) => {
 };
 
 /**
- * 기존의 습관(Habit)을 수정하는 mutation 훅 - 낙관적 업데이트(optimistic update)를 적용
+ * 기존의 습관(Habit)을 수정하는 mutation 훅
  * @param {string} userId - 현재 로그인한 사용자의 ID
  * @param {string} habitId - 수정할 습관의 ID
  * @returns {UseMutationResult}
  */
 
 export const useUpdateHabitMutation = (userId: string, habitId: string) => {
-  return useOptimisticMutation<
-    Habit,
-    Omit<Habit, 'userId' | 'createdAt' | 'userPoints'>,
-    HabitWithPoints[]
-  >({
-    queryKey: QUERY_KEYS.HABITS(userId),
-    mutationFn: (updatedData) => fetchUpdateHabit(habitId, updatedData),
-    onMutateOptimistic: (updatedData, previousData) => {
-      if (!previousData) return [];
+  const queryClient = useQueryClient();
 
-      return previousData.map((habit) =>
-        habit.id === habitId ? { ...habit, ...updatedData } : habit,
-      );
+  return useMutation<
+    Habit,
+    Error,
+    Omit<Habit, 'userId' | 'createdAt' | 'userPoints'>
+  >({
+    mutationFn: (updatedData) => fetchUpdateHabit(habitId, updatedData),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.HABITS(userId) });
+    },
+    onError: (error) => {
+      console.error('습관 수정 실패:', error);
     },
   });
 };

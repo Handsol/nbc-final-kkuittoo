@@ -114,5 +114,5 @@ export const getDefaultValues = (habit?: HabitFormData): HabitFormSchema => ({
   title: habit?.title || '',
   notes: habit?.notes || '',
   categories: habit?.categories || HABIT_CATEGORIES[0],
-  selectedDays: habit ? DAYS_OF_WEEK.filter((day) => (habit as any)[day]) : [],
+  selectedDays: habit ? DAYS_OF_WEEK.filter((day) => habit[day]) : [],
 });

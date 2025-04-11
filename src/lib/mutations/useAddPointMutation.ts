@@ -12,11 +12,14 @@ import { HabitWithPoints } from '@/types/habits.type';
  */
 
 export const useAddPointMutation = (userId: string) => {
-  return useOptimisticMutation<HabitWithPoints[], string>({
+  return useOptimisticMutation<
+    { habits: HabitWithPoints[]; userPoints: UserPoint[] },
+    string
+  >({
     queryKey: QUERY_KEYS.HABITS(userId),
     mutationFn: (habitId) => fetchAddUserPoint(habitId),
     onMutateOptimistic: (habitId, previousData) => {
-      if (!previousData) return [];
+      if (!previousData) return { habits: [], userPoints: [] };
 
       const tempPoint: UserPoint = {
         id: Date.now().toString(),
@@ -26,11 +29,16 @@ export const useAddPointMutation = (userId: string) => {
         points: POINTS_TO_ADD,
       };
 
-      return previousData.map((habit) =>
+      const updatedHabits = previousData.habits.map((habit) =>
         habit.id === habitId
           ? { ...habit, userPoints: [...habit.userPoints, tempPoint] }
           : habit,
       );
+
+      return {
+        habits: updatedHabits,
+        userPoints: [...previousData.userPoints, tempPoint],
+      };
     },
   });
 };
