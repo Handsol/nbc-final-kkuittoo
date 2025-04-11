@@ -1,6 +1,6 @@
 import { TEAMS_MESSAGES } from '@/constants/error-messages.constants';
 import { HTTP_STATUS } from '@/constants/http-status.constants';
-import { EMBLEM } from '@/constants/teams.constants';
+import { EMBLEM } from '@/constants/team-contents.constants';
 import { prisma } from '@/lib/prisma';
 import { fetchGetTeamTotalPoints } from '@/lib/services/team-actions.services';
 import { checkAuth } from '@/lib/utils/auth-route-handler.utils';

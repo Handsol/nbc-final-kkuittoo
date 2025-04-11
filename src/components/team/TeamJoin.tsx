@@ -24,7 +24,7 @@ type TeamJoinProps = {
  *   서버 컴포넌트 : team-actions.services.ts
  *   클라이언트 컴포넌트 : team-client.services.ts
  * @param team {TeamData} : 카드에 해당하는 팀의 모든 정보
- *        서버 => fetchTeamData(teamId)
+ *        서버 => fetchGetTeamData(teamId)
  *        클라 => fetchGetSingleTeam(teamId)
  * @param hasTeam {boolean} : 해당 유저가 가입한 팀이 있는지 여부
  *        서버 => fetchGetMyTeamData(userId)
