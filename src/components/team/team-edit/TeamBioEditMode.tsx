@@ -1,6 +1,5 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { useTeamBioMutation } from '@/lib/mutations/useTeamBioMutation';
 import { useSingleTeamQuery } from '@/lib/queries/useSingleTeamQuery';
@@ -10,6 +9,8 @@ import ActionButton from '@/components/common/button/ActionButton';
 import { ACTIONBUTTON_MODE, ICONBUTTON_MODE } from '@/constants/mode.constants';
 import IconButton from '@/components/common/button/IconButton';
 import { TeamFormData } from '@/lib/services/team-client.services';
+import ErrorMessage from '@/components/common/ErrorMessage';
+import { useTeamBioUpdateForm } from '@/lib/hooks/useTeamBioUpdateForm';
 
 type TeamBioProps = {
   teamBio: string;
@@ -20,17 +21,11 @@ const TeamBioEditMode = ({ teamBio, teamId }: TeamBioProps) => {
   const [isEditMode, setIsEditMode] = useState(false);
 
   // react-hook-form
-  const { register, handleSubmit } = useForm<TeamFormData>({
-    defaultValues: {
-      teamBio,
-    },
-  });
+  const { teamBioValidation, register, handleSubmit, errors } =
+    useTeamBioUpdateForm(teamBio);
 
   // tanstack query - useMutation
-  const { mutate, isPending: isTeamBioPending } = useTeamBioMutation(
-    teamId,
-    teamBio,
-  );
+  const { mutate, isPending: isTeamBioPending } = useTeamBioMutation(teamId);
   // tanstack query - useQuery
   const {
     data: teamData,
@@ -58,10 +53,16 @@ const TeamBioEditMode = ({ teamBio, teamId }: TeamBioProps) => {
       ) : isEditMode ? (
         <form
           onSubmit={handleSubmit(handleOnSubmit)}
-          className="w-full flex justify-between items-center gap-5"
+          className="w-full flex justify-between items-start gap-5"
         >
-          <div className="flex-1">
-            <CommonInputBar id="teamBio" {...register('teamBio')} />
+          <div className="flex-1 flex flex-col justify-start mt-1">
+            <CommonInputBar
+              id="teamBio"
+              {...register('teamBio', teamBioValidation)}
+            />
+            <ErrorMessage>
+              {errors.teamBio && errors.teamBio.message}
+            </ErrorMessage>
           </div>
           <ActionButton
             mode={ACTIONBUTTON_MODE.PRIMARY}

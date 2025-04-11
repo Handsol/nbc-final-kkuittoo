@@ -6,7 +6,7 @@ type ErrorMessageProps = {
 };
 const ErrorMessage = ({ children }: ErrorMessageProps) => {
   return (
-    <Text className="font-pretendard font-thin text-sm text-sub">
+    <Text className="flex h-5 items-center font-pretendard font-thin text-sm text-main">
       {children}
     </Text>
   );

@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "prisma generate",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "gen:prisma": "prisma generate"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.8.0",

@@ -19,3 +19,13 @@ export const teamTeamSchema = z.object({
 });
 
 export type TeamFormSchema = z.infer<typeof teamTeamSchema>;
+
+export const teamBioSchema = z.object({
+  teamBio: z
+    .string()
+    .min(TEAM_VALIDATION.TEAM_BIO.MIN, TEAMS_MESSAGES.TEAM_BIO_LENGTH)
+    .max(TEAM_VALIDATION.TEAM_BIO.MAX, TEAMS_MESSAGES.TEAM_BIO_LENGTH)
+    .transform((value) => value.trim()),
+});
+
+export type TeamBioFormSchema = z.infer<typeof teamBioSchema>;

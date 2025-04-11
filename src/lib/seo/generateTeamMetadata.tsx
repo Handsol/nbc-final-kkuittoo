@@ -1,8 +1,8 @@
 import { ID_SLICE } from '@/constants/magic-numbers.constants';
 import { PROJECT_URL } from '@/constants/path.constants';
-import { fetchTeamData } from '@/lib/services/team-actions.services';
 import { TeamData } from '@/types/teams.type';
 import { Metadata } from 'next';
+import { fetchGetTeamData } from '../services/team-actions.services';
 
 export const TEAM_METADATA_MODE = {
   SINGLE_TEAM: 'singleTeam',
@@ -15,7 +15,7 @@ export const generateTeamMetadata = async (
 ): Promise<Metadata> => {
   // team/[id]/page.tsx(팀 있는 경우)의 metadata
   if (mode === TEAM_METADATA_MODE.SINGLE_TEAM && !!id) {
-    const teamData = await fetchTeamData(id);
+    const teamData = await fetchGetTeamData(id);
     const { teamName, isOpened, id: teamId } = teamData as TeamData;
     const teamPassword = teamId.slice(ID_SLICE.TEAM);
 

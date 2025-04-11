@@ -2,11 +2,10 @@ import {
   fetchGetMyTeamData,
   fetchGetMyTeamMemberData,
 } from '@/lib/services/team-actions.services';
-import { authOptions } from '@/lib/utils/auth';
-import { getServerSession } from 'next-auth';
 import TeamLeaveButton from './team-delete/TeamLeaveButton';
 import TeamDisbandButton from './team-delete/TeamDisbandButton';
 import Text from '../common/Text';
+import { getUserSession } from '@/lib/services/getUserSession.services';
 
 type TeamLeaveProps = {
   id: string;
@@ -14,7 +13,7 @@ type TeamLeaveProps = {
 
 const TeamLeave = async ({ id }: TeamLeaveProps) => {
   // 현재 로그인한 유저 정보
-  const session = await getServerSession(authOptions);
+  const session = await getUserSession();
   if (!session || !session.user) {
     return <Text>로그인이 필요합니다.</Text>;
   }

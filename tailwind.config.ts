@@ -24,6 +24,7 @@ const config: Config = {
         'light-gray': '#F2F2F2',
         main: '#8948FF',
         sub: '#CBADFF',
+        'sub-light': '#EBE0FF',
         'sub-dark': '1A0047',
         card: {
           DEFAULT: 'hsl(var(--card))',
@@ -74,7 +75,19 @@ const config: Config = {
         'light-gray': '#F2F2F2',
         main: '#8948FF',
         sub: '#CBADFF',
+        'sub-light': '#EBE0FF',
         'sub-dark': '1A0047',
+      },
+      fontSize: {
+        'heading-xl': ['32px', { lineHeight: '36px' }],
+        'heading-lg': ['28px', { lineHeight: '32px' }],
+        'heading-md': ['24px', { lineHeight: '28px' }],
+        'heading-sm': ['22px', { lineHeight: '26px' }],
+        'body-xl': ['20px', { lineHeight: '24px' }],
+        'body-lg': ['18px', { lineHeight: '22px' }],
+        'body-md': ['16px', { lineHeight: '20px' }],
+        'body-sm': ['14px', { lineHeight: '18px' }],
+        'body-xs': ['12px', { lineHeight: '16px' }],
       },
       textColor: {
         background: 'hsl(var(--background))',
@@ -86,6 +99,7 @@ const config: Config = {
         'light-gray': '#F2F2F2',
         main: '#8948FF',
         sub: '#CBADFF',
+        'sub-light': '#EBE0FF',
         'sub-dark': '1A0047',
       },
       borderRadius: {
