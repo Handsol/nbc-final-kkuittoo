@@ -1,0 +1,148 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+// NextAuth 모델 정의
+model Account {
+  id                   String    @id @default(cuid())
+  userId               String
+  type                 String
+  provider             String
+  providerAccountId    String
+  refresh_token        String?   @db.Text
+  access_token         String?   @db.Text
+  expires_at           Int?
+  token_type           String?
+  scope                String?
+  id_token             String?   @db.Text
+  session_state        String?
+
+  user                User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+
+//유저 데이터 관련
+model User {
+  id              String         @id @default(cuid())
+  name            String?
+  bio             String?      
+  email           String         @unique
+  emailVerified   DateTime?
+  image           String?
+  characterImage  String         @default("/images/0.png")      
+  accounts        Account[]
+  sessions        Session[]
+  habits          Habit[]
+  teams           Team[]
+  teamMembers     TeamMember[]
+  teamMessages    TeamMessage[]
+  userPoints      UserPoint[]
+}
+
+model UserPoint {
+  id            String     @id @default(cuid())
+  userId        String
+  habitId       String?
+  getTime       DateTime
+  points        Int
+  users         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  habits        Habit?     @relation(fields: [habitId], references: [id], onDelete: SetNull)
+}
+
+//습관 데이터 관련
+enum Categories {
+  HEALTH
+  EXERCISE
+  ROUTINE
+  SD
+  ETC
+}
+
+model Habit {
+  id            String      @id @default(cuid())
+  userId        String    
+  title         String
+  notes         String
+  categories    Categories  @default(ROUTINE)
+  createdAt     DateTime    @default(now()) 
+  mon           Boolean     @default(false)
+  tue           Boolean     @default(false)
+  wed           Boolean     @default(false)
+  thu           Boolean     @default(false)
+  fri           Boolean     @default(false)
+  sat           Boolean     @default(false)
+  sun           Boolean     @default(false)
+  users         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userPoints    UserPoint[]
+}
+
+//팀 데이터 관련
+model Team {
+  id            String    @id @default(cuid())
+  teamName      String
+  teamBio       String
+  createdAt     DateTime  @default(now())
+  emblem        String
+  maxTeamSize   Int       @default(2)
+  isOpened      Boolean   @default(false)
+  ownerId       String
+  user          User      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  teamMembers   TeamMember[]
+  teamMessages  TeamMessage[]
+}
+
+model TeamMember {
+  id              String    @id @default(cuid())
+  userId          String    
+  teamId          String    
+  joinDate        DateTime  @default(now())
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  team            Team      @relation(fields: [teamId], references: [id], onDelete: Cascade)
+}
+
+model TeamQuest {
+  id             Int       @id
+  questName      String       
+  questImage     String
+  requiredPoints Int
+}
+
+model TeamMessage {
+  id         String    @id @default(cuid())
+  userId     String    // senderId 
+  teamId     String    // room
+  createdAt  DateTime  
+  messages   String    // content
+  users      User      @relation(fields: [userId], references: [id], onDelete: Cascade)// sender
+  teams      Team      @relation(fields: [teamId], references: [id], onDelete: Cascade)
+}

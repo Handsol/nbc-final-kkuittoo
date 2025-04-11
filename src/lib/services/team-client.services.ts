@@ -1,0 +1,198 @@
+import { TEAMS_MESSAGES } from '@/constants/error-messages.constants';
+import { API_PATH } from '@/constants/path.constants';
+import { TeamWithPoints } from '@/types/rank.type';
+import { TeamData } from '@/types/teams.type';
+import { TeamFormInputs } from '../hooks/useTeamCreateForm';
+
+// 팀 데이터 가져오기
+export const fetchGetTeams = async (): Promise<TeamData[]> => {
+  const response = await fetch(API_PATH.TEAMS, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  if (!response.ok) {
+    throw new Error('팀 데이터를 가져오는데 실패했습니다.');
+  }
+  return response.json();
+};
+
+export const fetchGetSingleTeam = async (teamId: string) => {
+  const response = await fetch(`${API_PATH.TEAMS}/${teamId}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(TEAMS_MESSAGES.FETCH_FAILED);
+  }
+
+  return response.json();
+};
+
+/**
+ * 팀 소개 수정 mutationFn
+ *
+ * @param data
+ * @param teamId
+ * @returns
+ */
+
+export type TeamFormData = {
+  teamBio: string;
+  isOpened?: boolean;
+};
+
+export type updateTeamBioParam = {
+  teamId: string;
+  data: TeamFormData;
+};
+
+export const fetchUpdateTeamBio = async ({
+  teamId,
+  data,
+}: updateTeamBioParam) => {
+  const response = await fetch(`${API_PATH.TEAMS}/${teamId}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    throw new Error(TEAMS_MESSAGES.UPDATE_FAILED);
+  }
+
+  return response.json();
+};
+
+/**
+ * 팀 공개여부 수정 mutationFn
+ *
+ * @param teamId
+ * @param isOpened
+ */
+type updateTeamOpenStateParam = {
+  teamId: string;
+  isOpened: boolean;
+};
+
+export const fetchUpdateTeamOpenState = async ({
+  teamId,
+  isOpened,
+}: updateTeamOpenStateParam) => {
+  const response = await fetch(`${API_PATH.TEAMS}/${teamId}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ isOpened }),
+  });
+
+  if (!response.ok) {
+    throw new Error(TEAMS_MESSAGES.UPDATE_FAILED);
+  }
+
+  return response.json();
+};
+
+// !!이 로직, 위에 fetchGetTeams와 중복인 것 같습니다
+export const fetchGetTeamsWithPoints = async (): Promise<TeamWithPoints[]> => {
+  const response = await fetch(API_PATH.TEAMS, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+  });
+  if (!response.ok) throw new Error('Failed to fetch teams');
+  return response.json();
+};
+
+/**
+ * 새로운 팀 생성 로직
+ *
+ * @param data {TeamFormInputs}
+ * @returns
+ */
+export const fetchCreateNewTeam = async (data: TeamFormInputs) => {
+  const response = await fetch(API_PATH.TEAMS, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      ...data,
+      maxTeamSize: parseInt(data.maxTeamSize, 10),
+    }),
+  });
+
+  return response.json();
+};
+
+/**
+ * 본인의 teamMember 데이터 (팀 가입 데이터) 삭제 로직
+ * 팀원의 TeamLeaveButton에서 사용되는 로직
+ *
+ * @param id {string}
+ * @returns
+ */
+export const fetchDeleteMyTeamMember = async (id: string) => {
+  const response = await fetch(`${API_PATH.MEMBERS}/${id}`, {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+  if (!response.ok) {
+    throw new Error('팀멤버 데이터를 삭제(탈퇴)하는데 실패했습니다.');
+  }
+
+  return response.json();
+};
+
+/**
+ * 팀 생성자의 경우 team 데이터 삭제(해체) 로직
+ * 팀장의 TeamDisbandButton에서 사용되는 로직
+ *
+ * @param teamId {string}
+ * @returns
+ */
+export const fetchDeleteTeam = async (teamId: string) => {
+  const response = await fetch(`${API_PATH.TEAMS}/${teamId}`, {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+  if (!response.ok) {
+    throw new Error('팀 데이터를 삭제(해체)하는데 실패했습니다.');
+  }
+
+  return response.json();
+};
+
+/**
+ * 팀 가입 로직
+ *
+ * @param teamId {string}
+ * @returns
+ */
+export const fetchCreateTeamMember = async (
+  teamId: string,
+  password?: string,
+) => {
+  const response = await fetch(API_PATH.MEMBERS, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      teamId,
+      password,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error('팀멤버 데이터를 추가(가입)하는데 실패했습니다.');
+  }
+
+  return response.json();
+};
