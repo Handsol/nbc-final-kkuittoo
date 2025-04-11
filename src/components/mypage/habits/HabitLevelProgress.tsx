@@ -18,12 +18,12 @@ const HabitLevelProgress = ({
     return sum + (habit.userPoints?.reduce((acc, p) => acc + p.points, 0) || 0);
   }, 0);
 
-  const orphanPoints =
+  const legacyPoints =
     userPoints
       ?.filter((p) => !p.habitId) // habitId가 없는 포인트
       .reduce((sum, point) => sum + point.points, 0) || 0;
 
-  const totalPoints = habitsPoints + orphanPoints;
+  const totalPoints = habitsPoints + legacyPoints;
 
   const level = getUserLevel(totalPoints);
   const expPercent = getExpPercent(totalPoints);
