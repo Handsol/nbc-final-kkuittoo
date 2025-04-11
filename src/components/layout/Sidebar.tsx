@@ -5,7 +5,7 @@ import SidebarNav from './SidebarNav';
 
 const Sidebar = () => {
   return (
-    <aside className="fixed top-0 h-screen w-[200px] bg-white p-4 flex flex-col gap-4 shrink-0 items-center">
+    <aside className="sticky top-0 h-screen w-[240px] bg-white p-4 flex flex-col gap-4 shrink-0 items-center">
       <SidebarLogo />
       <SidebarNav />
       <SidebarProfile />
