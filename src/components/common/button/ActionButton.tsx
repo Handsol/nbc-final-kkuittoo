@@ -25,8 +25,7 @@ const ActionButton = ({
   disabled = false,
   ...props
 }: ActionButtonProps) => {
-  const baseStyle =
-    'py-2 rounded-full font-semibold transition-colors font-dohyeon';
+  const baseStyle = 'py-2 font-semibold transition-colors font-dohyeon';
 
   let sizeStyle: string;
   let variantStyle: string;
@@ -34,15 +33,15 @@ const ActionButton = ({
   switch (mode) {
     case ACTIONBUTTON_MODE.PRIMARY:
       sizeStyle = 'px-6 text-sm';
-      variantStyle = 'bg-medium-gray text-white ';
+      variantStyle = 'bg-medium-gray text-white rounded-full ';
       break;
     case ACTIONBUTTON_MODE.SECONDARY:
       sizeStyle = 'px-6 text-sm';
-      variantStyle = 'bg-light-gray text-black';
+      variantStyle = 'bg-light-gray text-black rounded-full';
       break;
     case ACTIONBUTTON_MODE.PRIMARY_SMALL:
       sizeStyle = 'px-4 text-xs';
-      variantStyle = 'bg-medium-gray text-white';
+      variantStyle = 'bg-medium-gray text-white rounded-full';
       break;
     case ACTIONBUTTON_MODE.SECONDARY_SMALL:
       sizeStyle = 'px-4 text-xs';
@@ -58,12 +57,12 @@ const ActionButton = ({
       break;
     default:
       sizeStyle = 'px-6 text-sm';
-      variantStyle = 'bg-medium-gray text-white ';
+      variantStyle = 'bg-medium-gray text-white rounded-full';
       break;
   }
 
   const disabledStyle = disabled
-    ? 'bg-light-gray text-medium-gray cursor-not-allowed'
+    ? 'bg-light-gray text-medium-gray cursor-not-allowed '
     : variantStyle;
 
   return (
