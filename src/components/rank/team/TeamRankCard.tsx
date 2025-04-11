@@ -1,6 +1,6 @@
 import { TeamCardProps } from '@/types/rank.type';
-import { TopRankTeamCard } from './TeamTopRankCard';
-import { NormalRankTeamCard } from './TeamNormalRankCard';
+import { TopRankTeamCard } from './top/TopTeamRankCard';
+import { NormalRankTeamCard } from './normal/NormalTeamRankCard.tsx';
 
 // 한 팀의 정보를 카드 형태로 보여주는 컴포넌트임당
 // isTopRank로 상단 3위와 나머지 스타일 구별
