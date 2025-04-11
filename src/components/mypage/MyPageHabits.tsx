@@ -14,7 +14,9 @@ type MyPageHabitsProps = {
 
 const MyPageHabits = ({ userId }: MyPageHabitsProps) => {
   const [isCreating, setIsCreating] = useState(false);
-  const { data: habits = [], isPending } = useHabitsQuery(userId);
+  const { data, isPending } = useHabitsQuery(userId);
+  const habits = data?.habits || [];
+  const userPoints = data?.userPoints || [];
 
   const handleToggleCreate = () => setIsCreating((prev) => !prev);
 
@@ -28,7 +30,7 @@ const MyPageHabits = ({ userId }: MyPageHabitsProps) => {
         isCreating={isCreating}
       />
 
-      <HabitLevelProgress habits={habits} />
+      <HabitLevelProgress habits={habits} userPoints={userPoints} />
 
       <HabitsFilter />
 

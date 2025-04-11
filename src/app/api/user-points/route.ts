@@ -68,3 +68,33 @@ export const POST = async (request: NextRequest) => {
     );
   }
 };
+
+export const GET = async (request: NextRequest) => {
+  const { response } = await checkAuth();
+  if (response) return response;
+
+  try {
+    const { searchParams } = new URL(request.url);
+    const userId = searchParams.get('userId');
+
+    if (!userId) {
+      return NextResponse.json(
+        { error: 'User ID is required' },
+        { status: HTTP_STATUS.BAD_REQUEST },
+      );
+    }
+
+    const userPoints = await prisma.userPoint.findMany({
+      where: { userId },
+      orderBy: { getTime: 'desc' },
+    });
+
+    return NextResponse.json(userPoints);
+  } catch (error) {
+    console.error('UserPoint 조회 에러:', error);
+    return NextResponse.json(
+      { error: HABIT_ERROR_MESSAGES.POINT_FETCH_FAILED },
+      { status: HTTP_STATUS.INTERNAL_SERVER_ERROR },
+    );
+  }
+};
