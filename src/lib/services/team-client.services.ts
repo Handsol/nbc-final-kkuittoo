@@ -6,31 +6,43 @@ import { TeamFormInputs } from '../hooks/useTeamCreateForm';
 
 // 팀 데이터 가져오기
 export const fetchGetTeams = async (): Promise<TeamData[]> => {
-  const response = await fetch(API_PATH.TEAMS, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-  if (!response.ok) {
-    throw new Error('팀 데이터를 가져오는데 실패했습니다.');
+  try {
+    const response = await fetch(API_PATH.TEAMS, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(TEAMS_MESSAGES.FETCH_FAILED);
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error('fetchGetTeams 에러:', error);
+    throw new Error(TEAMS_MESSAGES.FETCH_FAILED);
   }
-  return response.json();
 };
 
 export const fetchGetSingleTeam = async (teamId: string) => {
-  const response = await fetch(`${API_PATH.TEAMS}/${teamId}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
+  try {
+    const response = await fetch(`${API_PATH.TEAMS}/${teamId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
-  if (!response.ok) {
+    if (!response.ok) {
+      throw new Error(TEAMS_MESSAGES.FETCH_FAILED);
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error('fetchGetSingleTeam 에러:', error);
     throw new Error(TEAMS_MESSAGES.FETCH_FAILED);
   }
-
-  return response.json();
 };
 
 /**
@@ -55,19 +67,24 @@ export const fetchUpdateTeamBio = async ({
   teamId,
   data,
 }: updateTeamBioParam) => {
-  const response = await fetch(`${API_PATH.TEAMS}/${teamId}`, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  });
+  try {
+    const response = await fetch(`${API_PATH.TEAMS}/${teamId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
 
-  if (!response.ok) {
+    if (!response.ok) {
+      throw new Error(TEAMS_MESSAGES.UPDATE_FAILED);
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error('fetchUpdateTeamBio 에러:', error);
     throw new Error(TEAMS_MESSAGES.UPDATE_FAILED);
   }
-
-  return response.json();
 };
 
 /**
@@ -85,29 +102,24 @@ export const fetchUpdateTeamOpenState = async ({
   teamId,
   isOpened,
 }: updateTeamOpenStateParam) => {
-  const response = await fetch(`${API_PATH.TEAMS}/${teamId}`, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ isOpened }),
-  });
+  try {
+    const response = await fetch(`${API_PATH.TEAMS}/${teamId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ isOpened }),
+    });
 
-  if (!response.ok) {
+    if (!response.ok) {
+      throw new Error(TEAMS_MESSAGES.UPDATE_FAILED);
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error('fetchUpdateTeamOpenState 에러:', error);
     throw new Error(TEAMS_MESSAGES.UPDATE_FAILED);
   }
-
-  return response.json();
-};
-
-// !!이 로직, 위에 fetchGetTeams와 중복인 것 같습니다
-export const fetchGetTeamsWithPoints = async (): Promise<TeamWithPoints[]> => {
-  const response = await fetch(API_PATH.TEAMS, {
-    method: 'GET',
-    headers: { 'Content-Type': 'application/json' },
-  });
-  if (!response.ok) throw new Error('Failed to fetch teams');
-  return response.json();
 };
 
 /**
@@ -117,18 +129,27 @@ export const fetchGetTeamsWithPoints = async (): Promise<TeamWithPoints[]> => {
  * @returns
  */
 export const fetchCreateNewTeam = async (data: TeamFormInputs) => {
-  const response = await fetch(API_PATH.TEAMS, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      ...data,
-      maxTeamSize: parseInt(data.maxTeamSize, 10),
-    }),
-  });
+  try {
+    const response = await fetch(API_PATH.TEAMS, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        ...data,
+        maxTeamSize: parseInt(data.maxTeamSize, 10),
+      }),
+    });
 
-  return response.json();
+    if (!response) {
+      throw new Error(TEAMS_MESSAGES.CREATE_FAILED);
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error('fetchCreateNewTeam 에러:', error);
+    throw new Error(TEAMS_MESSAGES.CREATE_FAILED);
+  }
 };
 
 /**
@@ -139,16 +160,21 @@ export const fetchCreateNewTeam = async (data: TeamFormInputs) => {
  * @returns
  */
 export const fetchDeleteMyTeamMember = async (id: string) => {
-  const response = await fetch(`${API_PATH.MEMBERS}/${id}`, {
-    method: 'DELETE',
-    headers: { 'Content-Type': 'application/json' },
-  });
+  try {
+    const response = await fetch(`${API_PATH.MEMBERS}/${id}`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+    });
 
-  if (!response.ok) {
-    throw new Error('팀멤버 데이터를 삭제(탈퇴)하는데 실패했습니다.');
+    if (!response.ok) {
+      throw new Error(`${TEAMS_MESSAGES.DELETE_FAILED}, 팀 탈퇴`);
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error('fetchDeleteMyTeamMember 에러:', error);
+    throw new Error(TEAMS_MESSAGES.DELETE_FAILED);
   }
-
-  return response.json();
 };
 
 /**
@@ -159,16 +185,21 @@ export const fetchDeleteMyTeamMember = async (id: string) => {
  * @returns
  */
 export const fetchDeleteTeam = async (teamId: string) => {
-  const response = await fetch(`${API_PATH.TEAMS}/${teamId}`, {
-    method: 'DELETE',
-    headers: { 'Content-Type': 'application/json' },
-  });
+  try {
+    const response = await fetch(`${API_PATH.TEAMS}/${teamId}`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+    });
 
-  if (!response.ok) {
-    throw new Error('팀 데이터를 삭제(해체)하는데 실패했습니다.');
+    if (!response.ok) {
+      throw new Error(`${TEAMS_MESSAGES.DELETE_FAILED}, 팀 해체`);
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error('fetchDeleteTeam 에러:', error);
+    throw new Error(TEAMS_MESSAGES.DELETE_FAILED);
   }
-
-  return response.json();
 };
 
 /**
@@ -181,18 +212,23 @@ export const fetchCreateTeamMember = async (
   teamId: string,
   password?: string,
 ) => {
-  const response = await fetch(API_PATH.MEMBERS, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      teamId,
-      password,
-    }),
-  });
+  try {
+    const response = await fetch(API_PATH.MEMBERS, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        teamId,
+        password,
+      }),
+    });
 
-  if (!response.ok) {
-    throw new Error('팀멤버 데이터를 추가(가입)하는데 실패했습니다.');
+    if (!response.ok) {
+      throw new Error(TEAMS_MESSAGES.JOIN_FAILED);
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error('fetchDeleteTeam 에러:', error);
+    throw new Error(TEAMS_MESSAGES.JOIN_FAILED);
   }
-
-  return response.json();
 };

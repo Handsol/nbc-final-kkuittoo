@@ -3,6 +3,7 @@
 import { TeamData, TeamMemberData } from '@/types/teams.type';
 import { prisma } from '../prisma';
 import { TeamWithPoints } from '@/types/rank.type';
+import { TEAMS_MESSAGES } from '@/constants/error-messages.constants';
 
 /**
  * 팀 데이터 가져오는 로직
@@ -10,10 +11,17 @@ import { TeamWithPoints } from '@/types/rank.type';
  * @param id {string} : teamId
  * @returns Promise<TeamData> : team 정보만
  */
-export const fetchTeamData = async (id: string) => {
-  return await prisma.team.findUnique({
-    where: { id },
-  });
+export const fetchGetTeamData = async (id: string) => {
+  try {
+    const teamData = await prisma.team.findUnique({
+      where: { id },
+    });
+
+    return teamData;
+  } catch (error) {
+    console.error('fetchGetTeamData 에러:', error);
+    throw new Error(`${TEAMS_MESSAGES.FETCH_FAILED}, single team`);
+  }
 };
 
 /**
@@ -22,56 +30,61 @@ export const fetchTeamData = async (id: string) => {
  * @param teamId {string} : teamId
  * @returns Promise<TeamMemberData[] & MemberDetailData[]> : 팀멤버별 유저정보 + 포인트
  */
-export const fetchTeamMembers = async (teamId: string) => {
-  const members = await prisma.teamMember.findMany({
-    where: { teamId },
-    include: {
-      user: {
-        select: {
-          id: true,
-          name: true,
-          email: true,
-          bio: true,
-          image: true,
-          userPoints: {
-            select: {
-              points: true,
-              getTime: true,
+export const fetchGetTeamMembers = async (teamId: string) => {
+  try {
+    const members = await prisma.teamMember.findMany({
+      where: { teamId },
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            bio: true,
+            image: true,
+            userPoints: {
+              select: {
+                points: true,
+                getTime: true,
+              },
             },
           },
         },
       },
-    },
-  });
+    });
 
-  return members
-    .map((member) => {
-      const totalPoints = member.user.userPoints.reduce(
-        (sum, pointLog) => sum + pointLog.points,
-        0,
-      );
+    return members
+      .map((member) => {
+        const totalPoints = member.user.userPoints.reduce(
+          (sum, pointLog) => sum + pointLog.points,
+          0,
+        );
 
-      const filteredPoints = member.user.userPoints.filter(
-        (point) => point.getTime >= member.joinDate,
-      );
-      const totalContribution = filteredPoints.reduce(
-        (sum, point) => sum + point.points,
-        0,
-      );
+        const filteredPoints = member.user.userPoints.filter(
+          (point) => point.getTime >= member.joinDate,
+        );
+        const totalContribution = filteredPoints.reduce(
+          (sum, point) => sum + point.points,
+          0,
+        );
 
-      return {
-        ...member,
-        user: {
-          ...member.user,
-          userPoints: filteredPoints.sort(
-            (a, b) => a.getTime.getTime() - b.getTime.getTime(),
-          ),
-        },
-        totalPoints,
-        totalContribution,
-      };
-    })
-    .sort((a, b) => b.totalContribution - a.totalContribution);
+        return {
+          ...member,
+          user: {
+            ...member.user,
+            userPoints: filteredPoints.sort(
+              (a, b) => a.getTime.getTime() - b.getTime.getTime(),
+            ),
+          },
+          totalPoints,
+          totalContribution,
+        };
+      })
+      .sort((a, b) => b.totalContribution - a.totalContribution);
+  } catch (error) {
+    console.error('fetchGetTeamMembers 에러:', error);
+    throw new Error(`${TEAMS_MESSAGES.FETCH_FAILED}, teamMember`);
+  }
 };
 
 /**
@@ -81,38 +94,46 @@ export const fetchTeamMembers = async (teamId: string) => {
  * @returns Promise<number> : 팀멤버의 총 포인트
  */
 export const fetchGetTeamTotalPoints = async (id: string) => {
-  const teamData = await prisma.team.findUnique({
-    where: { id },
-  });
+  try {
+    const teamData = await prisma.team.findUnique({
+      where: { id },
+    });
 
-  if (!teamData) {
-    throw new Error('팀 정보를 가져오는데 오류가 발생했습니다.');
+    if (!teamData) {
+      throw new Error('팀 정보를 가져오는데 오류가 발생했습니다.');
+    }
+
+    const teamCreatedAt = teamData.createdAt;
+    const teamMembersData = await fetchGetTeamMembers(teamData.id);
+
+    // 팀 전체 포인트
+    const teamTotalPoints = teamMembersData
+      .flatMap(({ user: { userPoints } }) => userPoints)
+      .filter(
+        (point) =>
+          point.getTime instanceof Date &&
+          point.getTime.getTime() >= teamCreatedAt.getTime(),
+      )
+      .reduce(
+        (totalPoint, currentPoint) => totalPoint + currentPoint.points,
+        0,
+      );
+
+    // 팀 가입 이후의 멤버들 포인트
+    const teamMembersPoints = teamMembersData.flatMap(({ user }) => ({
+      userId: user.id,
+      userPoint: user.userPoints.filter(
+        (point) =>
+          point.getTime instanceof Date &&
+          point.getTime.getTime() >= teamCreatedAt.getTime(),
+      ),
+    }));
+
+    return { teamTotalPoints, teamMembersPoints };
+  } catch (error) {
+    console.error('fetchGetTeamTotalPoints 에러:', error);
+    throw new Error(`${TEAMS_MESSAGES.FETCH_FAILED}, teamPoints`);
   }
-
-  const teamCreatedAt = teamData.createdAt;
-  const teamMembersData = await fetchTeamMembers(teamData.id);
-
-  // 팀 전체 포인트
-  const teamTotalPoints = teamMembersData
-    .flatMap(({ user: { userPoints } }) => userPoints)
-    .filter(
-      (point) =>
-        point.getTime instanceof Date &&
-        point.getTime.getTime() >= teamCreatedAt.getTime(),
-    )
-    .reduce((totalPoint, currentPoint) => totalPoint + currentPoint.points, 0);
-
-  // 팀 가입 이후의 멤버들 포인트
-  const teamMembersPoints = teamMembersData.flatMap(({ user }) => ({
-    userId: user.id,
-    userPoint: user.userPoints.filter(
-      (point) =>
-        point.getTime instanceof Date &&
-        point.getTime.getTime() >= teamCreatedAt.getTime(),
-    ),
-  }));
-
-  return { teamTotalPoints, teamMembersPoints };
 };
 
 /**
@@ -122,11 +143,18 @@ export const fetchGetTeamTotalPoints = async (id: string) => {
  * @returns Promise<TeamQuest> : 현재 팀퀘스트의 데이터
  */
 export const fetchGetCurrentTeamQuest = async (teamTotalPoints: number) => {
-  const teamQuestList = await prisma.teamQuest.findMany({
-    orderBy: { id: 'asc' },
-  });
+  try {
+    const teamQuestList = await prisma.teamQuest.findMany({
+      orderBy: { id: 'asc' },
+    });
 
-  return teamQuestList.find((quest) => quest.requiredPoints > teamTotalPoints);
+    return teamQuestList.find(
+      (quest) => quest.requiredPoints > teamTotalPoints,
+    );
+  } catch (error) {
+    console.error('fetchGetCurrentTeamQuest 에러:', error);
+    throw new Error(`${TEAMS_MESSAGES.FETCH_FAILED}, team's Quest`);
+  }
 };
 
 /**
@@ -136,14 +164,19 @@ export const fetchGetCurrentTeamQuest = async (teamTotalPoints: number) => {
  * @returns {Promise<TeamData & TeamMemberData> | null} : 팀 정보 + 팀 멤버 정보
  */
 export const fetchGetMyTeamData = async (userId: string) => {
-  const myTeamData = await prisma.teamMember.findFirst({
-    where: { userId },
-    include: { team: true },
-  });
+  try {
+    const myTeamData = await prisma.teamMember.findFirst({
+      where: { userId },
+      include: { team: true },
+    });
 
-  if (!myTeamData) return null;
+    if (!myTeamData) return null;
 
-  return myTeamData;
+    return myTeamData;
+  } catch (error) {
+    console.error('fetchGetMyTeamData 에러:', error);
+    throw new Error(`${TEAMS_MESSAGES.FETCH_FAILED}, user's Team`);
+  }
 };
 
 /**
@@ -153,30 +186,40 @@ export const fetchGetMyTeamData = async (userId: string) => {
  * @returns
  */
 export const fetchGetMyTeamMemberData = async (teamId: string) => {
-  const myTeamMemberList = await prisma.teamMember.findMany({
-    where: { teamId },
-  });
+  try {
+    const myTeamMemberList = await prisma.teamMember.findMany({
+      where: { teamId },
+    });
 
-  return myTeamMemberList;
+    return myTeamMemberList;
+  } catch (error) {
+    console.error('fetchGetMyTeamMemberData 에러:', error);
+    throw new Error(`${TEAMS_MESSAGES.FETCH_FAILED}, user's TeamMembers`);
+  }
 };
 
 export const fetchGetTeamsWithPoints = async (): Promise<TeamWithPoints[]> => {
-  const teamList = await prisma.team.findMany({
-    include: {
-      teamMembers: true,
-    },
-  });
+  try {
+    const teamList = await prisma.team.findMany({
+      include: {
+        teamMembers: true,
+      },
+    });
 
-  const teamsWithPoints = await Promise.all(
-    teamList.map(async (team) => {
-      const { teamTotalPoints } = await fetchGetTeamTotalPoints(team.id);
-      return {
-        ...team,
-        totalPoints: teamTotalPoints,
-        memberCount: team.teamMembers.length,
-      };
-    }),
-  );
+    const teamsWithPoints = await Promise.all(
+      teamList.map(async (team) => {
+        const { teamTotalPoints } = await fetchGetTeamTotalPoints(team.id);
+        return {
+          ...team,
+          totalPoints: teamTotalPoints,
+          memberCount: team.teamMembers.length,
+        };
+      }),
+    );
 
-  return teamsWithPoints.sort((a, b) => b.totalPoints - a.totalPoints);
+    return teamsWithPoints.sort((a, b) => b.totalPoints - a.totalPoints);
+  } catch (error) {
+    console.error('fetchGetMyTeamMemberData 에러:', error);
+    throw new Error(`${TEAMS_MESSAGES.FETCH_FAILED}, teams with points`);
+  }
 };
