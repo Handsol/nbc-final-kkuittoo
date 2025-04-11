@@ -49,12 +49,7 @@ const HabitItem = ({ habit, userId }: HabitItemProps) => {
         />
 
         <div className="flex-1 min-w-0">
-          <Title
-            mode={TITLE_MODE.LINK}
-            className="font-semibold text-dark-gray truncate"
-          >
-            {habit.title}
-          </Title>
+          <Title mode={TITLE_MODE.LINK}>{habit.title}</Title>
           <Text className="text-sm text-medium-gray truncate">
             {habit.notes}
           </Text>

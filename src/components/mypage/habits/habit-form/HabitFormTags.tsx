@@ -11,17 +11,17 @@ type HabitFormTagsProps = {
 
 const HabitFormTags = ({ category, setCategory }: HabitFormTagsProps) => (
   <>
-    <label className="block mb-2 text-xs font-semibold text-gray-700">
+    <label className="block mb-2 text-xs font-semibold text-dark-gray font-dohyeon">
       Tags
     </label>
     <div className="flex flex-wrap gap-3">
       {HABIT_CATEGORIES.map((c) => (
         <label
           key={c}
-          className={`min-w-[80px] px-2 py-1 rounded-full border text-xs text-center cursor-pointer transition ${
+          className={`min-w-[80px] px-2 py-1 rounded-full border text-xs text-center cursor-pointer transition font-dohyeon ${
             category === c
-              ? 'bg-slate-700 text-white'
-              : 'bg-white text-gray-700 border-gray-300'
+              ? 'bg-sub text-white'
+              : 'bg-white text-dark-gray border-gray-300'
           }`}
         >
           <input

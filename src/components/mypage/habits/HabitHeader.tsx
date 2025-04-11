@@ -17,7 +17,7 @@ const HabitHeader = ({
   return (
     <header className="flex items-center justify-between">
       <div className="flex items-center gap-2">
-        <Title mode={TITLE_MODE.SECTION_TITLE}>HABITS</Title>
+        <Title mode={TITLE_MODE.SECTION_TITLE}>MY HABITS</Title>
         <Text>({habitsCount})</Text>
       </div>
       <ActionButton

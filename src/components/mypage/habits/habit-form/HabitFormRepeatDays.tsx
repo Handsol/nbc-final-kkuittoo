@@ -11,17 +11,17 @@ const HabitFormReapeatDays = ({
   toggleDay,
 }: HabitFormRepeatDaysProps) => (
   <>
-    <label className="block mb-2 text-xs font-semibold text-gray-700">
+    <label className="block mb-2 text-xs font-semibold text-dark-gray font-dohyeon">
       Repeats
     </label>
     <div className="flex gap-2">
-      {DAYS_OF_WEEK.map((day, idx) => (
+      {DAYS_OF_WEEK.map((day, i) => (
         <label
           key={day}
-          className={`w-8 h-8 flex items-center justify-center rounded-full cursor-pointer text-xs font-medium border transition ${
+          className={`w-8 h-8 flex items-center justify-center rounded-full cursor-pointer text-xs font-medium border transition font-dohyeon ${
             selectedDays.includes(day)
-              ? 'bg-slate-600 text-white'
-              : 'bg-white text-gray-700 border-gray-300'
+              ? 'bg-sub text-white'
+              : 'bg-white text-dark-gray border-gray-300'
           }`}
         >
           <input
@@ -30,7 +30,7 @@ const HabitFormReapeatDays = ({
             checked={selectedDays.includes(day)}
             onChange={() => setSelectedDays(toggleDay(selectedDays, day))}
           />
-          {DAY_LABELS[idx]}
+          {DAY_LABELS[i]}
         </label>
       ))}
     </div>
