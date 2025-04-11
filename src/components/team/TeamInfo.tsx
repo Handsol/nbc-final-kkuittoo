@@ -1,7 +1,7 @@
 import {
   fetchGetCurrentTeamQuest,
+  fetchGetTeamData,
   fetchGetTeamTotalPoints,
-  fetchTeamData,
 } from '@/lib/services/team-actions.services';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/utils/auth';
@@ -20,7 +20,7 @@ type TeamQuestProps = {
 
 const TeamInfo = async ({ id }: TeamQuestProps) => {
   // 팀 기본 데이터
-  const teamData = await fetchTeamData(id);
+  const teamData = await fetchGetTeamData(id);
   // 팀의 전체 포인트와 현재 퀘스트를 가져오는 로직
   const { teamTotalPoints } = await fetchGetTeamTotalPoints(id);
   const teamCurrentQuest = await fetchGetCurrentTeamQuest(teamTotalPoints);
