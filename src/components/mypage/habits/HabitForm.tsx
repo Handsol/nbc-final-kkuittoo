@@ -72,17 +72,15 @@ const HabitForm: React.FC<HabitFormProps> = ({
 
       <div className="flex justify-center gap-4 mt-4">
         <ActionButton
-          mode={ACTIONBUTTON_MODE.SECONDARY_SMALL}
+          mode={ACTIONBUTTON_MODE.ROUNDED_MD}
           onClick={onCancel}
-          className="px-6"
           disabled={isSubmitting}
         >
           취소
         </ActionButton>
         <ActionButton
-          mode={ACTIONBUTTON_MODE.PRIMARY_SMALL}
+          mode={ACTIONBUTTON_MODE.ROUNDED_MD}
           onClick={handleSubmit(handleFormSubmit)}
-          className="px-6 bg-gray-600"
           disabled={isSubmitting}
         >
           완료

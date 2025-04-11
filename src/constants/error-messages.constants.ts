@@ -16,6 +16,7 @@ export const HABIT_ERROR_MESSAGES = {
   DELETE_FAILED: 'Habit 삭제에 실패했습니다.',
   FETCH_FAILED: 'Habit을 가져오는데 실패했습니다.',
   POINT_ADD_FAILED: '포인트 추가에 실패했습니다.',
+  POINT_FETCH_FAILED: '포인트를 가져오는데 실패했습니다.',
 } as const;
 
 export const TEAMS_MESSAGES = {
