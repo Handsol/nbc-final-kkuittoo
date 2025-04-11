@@ -18,7 +18,7 @@ const SidebarAvatar = () => {
   if (isPending) return <Text>로딩 중...</Text>;
 
   return (
-    <div className="mt-[100px] flex flex-col items-center gap-3">
+    <div className="mt-[14px] flex flex-col items-center gap-3">
       <Image
         src="/assets/images/user_lv1.png"
         alt="user"
