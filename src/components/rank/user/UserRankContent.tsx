@@ -4,6 +4,7 @@ import { fetchGetUsersWithTotalPoints } from '@/lib/services/user-actions.servic
 import LinkButton from '@/components/common/button/LinkButton';
 import { ACTIONBUTTON_MODE, LINKBUTTON_MODE } from '@/constants/mode.constants';
 import ActionButton from '@/components/common/button/ActionButton';
+import { PATH } from '@/constants/path.constants';
 // 유저 랭킹 UI
 export const UserRankContent = async () => {
   const users = await fetchGetUsersWithTotalPoints();
@@ -20,7 +21,7 @@ export const UserRankContent = async () => {
           </ActionButton>
         </article>
         <article>
-          <LinkButton mode={LINKBUTTON_MODE.COMMON} href="/rank/teams">
+          <LinkButton mode={LINKBUTTON_MODE.COMMON} href={PATH.RANK.TEAMS}>
             Team
           </LinkButton>
         </article>

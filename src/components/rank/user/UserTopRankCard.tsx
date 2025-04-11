@@ -3,6 +3,7 @@ import { UserData } from '@/types/rank.type';
 import Title from '@/components/common/Title';
 import Image from 'next/image';
 import UserTitle from '@/components/common/UserTitle';
+import { RankLabel } from '../RankLabel';
 
 type Props = {
   user: UserData;
@@ -17,8 +18,7 @@ export const TopRankCard = ({ user, rank }: Props) => {
         mode={TITLE_MODE.SECTION_TITLE}
         className="text-xl font-bold text-gray-700 mb-2"
       >
-        {rank}
-        {rank === 1 ? 'st' : rank === 2 ? 'nd' : rank === 3 ? 'rd' : 'th'}
+        <RankLabel rank={rank} />
       </Title>
       {/* 사용자 이미지 */}
       <figure className="w-28 h-28 bg-gray-300 rounded-lg flex items-center justify-center">

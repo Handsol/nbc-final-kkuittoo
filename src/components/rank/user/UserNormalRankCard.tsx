@@ -2,6 +2,7 @@ import UserTitle from '@/components/common/UserTitle';
 import { USER_TITLE_MODE } from '@/constants/mode.constants';
 import { UserData } from '@/types/rank.type';
 import Image from 'next/image';
+import { RankLabel } from '../RankLabel';
 
 interface Props {
   user: UserData;
@@ -13,8 +14,7 @@ export const NormalRankCard = ({ user, rank }: Props) => {
     <article className="border rounded-3xl p-4 shadow-md bg-gray-100 w-full h-24 flex flex-row items-center">
       {/* 랭킹 표시 */}
       <UserTitle mode={USER_TITLE_MODE.CARD_RANK}>
-        {rank}
-        {rank === 1 ? 'st' : rank === 2 ? 'nd' : rank === 3 ? 'rd' : 'th'}
+        <RankLabel rank={rank} />
       </UserTitle>
 
       {/** 사용자 이미지 */}
