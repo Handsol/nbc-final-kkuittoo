@@ -11,7 +11,7 @@ const HabitsFilter = () => {
 
   return (
     <>
-      <div className="flex">
+      <article className="flex">
         {DAYS_OF_WEEK.map((day) => (
           <button
             key={day}
@@ -28,9 +28,9 @@ const HabitsFilter = () => {
             {day.charAt(0).toUpperCase() + day.slice(1)}
           </button>
         ))}
-      </div>
+      </article>
 
-      <div className="flex flex-wrap gap-3">
+      <article className="flex flex-wrap gap-3">
         <button
           onClick={() => setSelectedCategory(null)}
           className={`min-w-[80px] px-2 py-1 rounded-full border text-xs text-center cursor-pointer transition font-pretendard
@@ -60,7 +60,7 @@ const HabitsFilter = () => {
             {HABIT_CATEGORY_LABELS[category]}
           </button>
         ))}
-      </div>
+      </article>
     </>
   );
 };
