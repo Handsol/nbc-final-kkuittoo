@@ -20,7 +20,7 @@ const MyPage = async () => {
   const userId = session.user.id;
 
   return (
-    <div className="flex flex-col items-center px-[30px] py-6 min-h-[calc(100vh-3rem)] gap-10 ">
+    <div className="flex flex-col items-center px-[30px] py-6  min-h-full gap-10 ">
       <div className="w-full max-w-[680px]">
         <MyPageTeam userId={userId} />
       </div>

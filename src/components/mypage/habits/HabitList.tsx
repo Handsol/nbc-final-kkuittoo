@@ -31,7 +31,7 @@ const HabitList = ({
   };
 
   return (
-    <article className="flex-1 overflow-y-auto">
+    <article className="h-[460px] overflow-y-auto">
       {isCreating ? (
         <HabitForm onCancel={onToggleCreate} onSuccess={handleCreateSuccess} />
       ) : habits.length > 0 ? (
