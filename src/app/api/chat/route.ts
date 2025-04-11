@@ -1,13 +1,12 @@
 import { prisma } from '@/lib/prisma';
 import { pusher } from '@/lib/pusher';
-import { authOptions } from '@/lib/utils/auth';
-import { getServerSession } from 'next-auth';
+import { getUserSession } from '@/lib/services/getUserSession.services';
 import { NextResponse } from 'next/server';
 
 export const GET = async (req: Request) => {
   try {
     // 로그인된 사용자인지 확인
-    const session = await getServerSession(authOptions);
+    const session = await getUserSession();
     // 안 됐으면 요청 거부
     if (!session?.user) {
       return new NextResponse('Unauthorized', { status: 401 });
@@ -48,7 +47,7 @@ export const GET = async (req: Request) => {
 export const POST = async (req: Request) => {
   try {
     // 로그인된 사용자인지 확인
-    const session = await getServerSession(authOptions);
+    const session = await getUserSession();
     // 안 됐으면 요청 거부
     if (!session?.user) {
       return new NextResponse('Unauthorized', { status: 401 });

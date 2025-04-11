@@ -3,8 +3,6 @@ import {
   fetchGetTeamData,
   fetchGetTeamTotalPoints,
 } from '@/lib/services/team-actions.services';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/utils/auth';
 import TeamBioNotEditMode from './team-edit/TeamBioNotEditMode';
 import TeamTitle from './TeamTitle';
 import TeamOpenToggleButton from './team-edit/TeamOpenToggleButton';
@@ -13,6 +11,7 @@ import TeamProgress from './TeamProgress';
 import TeamBioEditMode from './team-edit/TeamBioEditMode';
 import Text from '../common/Text';
 import Image from 'next/image';
+import { getUserSession } from '@/lib/services/getUserSession.services';
 
 type TeamQuestProps = {
   id: string;
@@ -25,7 +24,7 @@ const TeamInfo = async ({ id }: TeamQuestProps) => {
   const { teamTotalPoints } = await fetchGetTeamTotalPoints(id);
   const teamCurrentQuest = await fetchGetCurrentTeamQuest(teamTotalPoints);
   // 현재 로그인한 유저 정보
-  const session = await getServerSession(authOptions);
+  const session = await getUserSession();
 
   // teamData & session 로딩 실패시 early return 로직
   // 이 부분은 오류 처리 로직에 대해 논의 후 수정 예정입니다.
