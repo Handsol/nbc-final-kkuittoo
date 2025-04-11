@@ -1,6 +1,21 @@
 import { API_PATH } from '@/constants/path.constants';
 import { CreateHabit, UpdateHabit } from '@/types/habits.type';
-import { Habit } from '@prisma/client';
+import { Habit, UserPoint } from '@prisma/client';
+
+/**
+ * 사용자의 모든 Habit 목록을 조회하는 API 요청 함수
+ * @returns {Promise<Array<Habit & { userPoints: UserPoint[] }>>} Habit 목록 (UserPoint 포함)
+ */
+export const fetchGetAllHabits = async (): Promise<
+  Array<Habit & { userPoints: UserPoint[] }>
+> => {
+  const res = await fetch(API_PATH.HABITS, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+  });
+  if (!res.ok) throw new Error('habit 목록 조회에 실패하였습니다.');
+  return res.json();
+};
 
 /**
  * 새로운 Habit을 생성하는 API 요청 함수

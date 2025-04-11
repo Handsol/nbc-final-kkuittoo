@@ -56,9 +56,9 @@ export const useHabitFormHandler = ({
       });
     } finally {
       setIsSubmitting(false);
-      onCancel();
     }
   };
+
   return {
     register,
     control,

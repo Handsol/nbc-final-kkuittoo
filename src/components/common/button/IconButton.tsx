@@ -30,26 +30,21 @@ const IconButton = ({
 
   switch (mode) {
     case ICONBUTTON_MODE.EDIT:
-      icon = <Pencil className="w-4 h-4" />;
-      variantClasses = 'bg-gray-100 hover:bg-gray-200 text-gray-800';
+      icon = <Pencil className="w-4 h-4 text-medium-gray hover:text-main" />;
       break;
     case ICONBUTTON_MODE.DELETE:
-      icon = <X className="w-4 h-4" />;
-      variantClasses = 'bg-gray-100 hover:bg-gray-200 text-gray-800';
+      icon = <X className="w-4 h-4 text-medium-gray hover:text-main" />;
       break;
     case ICONBUTTON_MODE.ADD:
-      icon = <Plus className="w-5 h-5" />;
-      variantClasses = 'bg-gray-200 text-gray-800 hover:bg-gray-300';
+      icon = <Plus className="w-5 h-5 text-dark-gray" />;
+      variantClasses = 'bg-light-gray border';
       break;
     default:
-      icon = <Pencil className="w-4 h-4" />;
-      variantClasses = 'bg-gray-100 hover:bg-gray-200 text-gray-800';
+      icon = <Pencil className="w-4 h-4 text-medium-gray hover:text-main" />;
       break;
   }
 
-  const disabledClasses = disabled
-    ? 'bg-gray-300 text-gray-400 cursor-not-allowed'
-    : '';
+  const disabledClasses = disabled ? 'bg-medium-gray cursor-not-allowed' : '';
 
   return (
     <button

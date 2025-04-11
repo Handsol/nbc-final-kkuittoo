@@ -25,7 +25,7 @@ const ActionButton = ({
   disabled = false,
   ...props
 }: ActionButtonProps) => {
-  const baseStyle = 'py-2 rounded-full font-semibold transition-colors';
+  const baseStyle = 'py-2 font-semibold transition-colors font-dohyeon';
 
   let sizeStyle: string;
   let variantStyle: string;
@@ -33,32 +33,36 @@ const ActionButton = ({
   switch (mode) {
     case ACTIONBUTTON_MODE.PRIMARY:
       sizeStyle = 'px-6 text-sm';
-      variantStyle = 'bg-gray-700 text-white hover:bg-gray-800';
+      variantStyle = 'bg-medium-gray text-white rounded-full ';
       break;
     case ACTIONBUTTON_MODE.SECONDARY:
       sizeStyle = 'px-6 text-sm';
-      variantStyle = 'bg-gray-300 text-black hover:bg-gray-400';
-      break;
-    case ACTIONBUTTON_MODE.FULL:
-      sizeStyle = 'w-full text-sm';
-      variantStyle = 'bg-gray-700 text-white hover:bg-gray-800';
+      variantStyle = 'bg-light-gray text-black rounded-full';
       break;
     case ACTIONBUTTON_MODE.PRIMARY_SMALL:
       sizeStyle = 'px-4 text-xs';
-      variantStyle = 'bg-gray-700 text-white hover:bg-gray-800';
+      variantStyle = 'bg-medium-gray text-white rounded-full';
       break;
     case ACTIONBUTTON_MODE.SECONDARY_SMALL:
       sizeStyle = 'px-4 text-xs';
-      variantStyle = 'bg-gray-300 text-black hover:bg-gray-400';
+      variantStyle = 'bg-light-gray text-black ';
+      break;
+    case ACTIONBUTTON_MODE.ROUNDED_MD:
+      sizeStyle = 'w-[180px] h-[40px] text-sm ';
+      variantStyle = 'bg-main text-white rounded-md';
+      break;
+    case ACTIONBUTTON_MODE.LOGOUT:
+      sizeStyle = 'px-4 text-sm';
+      variantStyle = 'text-black';
       break;
     default:
       sizeStyle = 'px-6 text-sm';
-      variantStyle = 'bg-gray-500 text-white hover:bg-gray-600';
+      variantStyle = 'bg-medium-gray text-white rounded-full';
       break;
   }
 
   const disabledStyle = disabled
-    ? 'bg-gray-300 text-gray-400 cursor-not-allowed'
+    ? 'bg-light-gray text-medium-gray cursor-not-allowed '
     : variantStyle;
 
   return (
