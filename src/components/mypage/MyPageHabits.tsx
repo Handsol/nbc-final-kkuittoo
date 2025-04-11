@@ -4,9 +4,9 @@ import { useHabitsQuery } from '@/lib/queries/useHabitsQuery';
 import Text from '../common/Text';
 import { useState } from 'react';
 import HabitHeader from './habits/HabitHeader';
-import HabitLevelProgress from './habits/HabitLevelProgress';
 import HabitList from './habits/HabitList';
 import HabitsFilter from './habits/HabitsFilter';
+import UserLevelProgress from './habits/UserLevelProgress';
 
 type MyPageHabitsProps = {
   userId: string;
@@ -30,7 +30,7 @@ const MyPageHabits = ({ userId }: MyPageHabitsProps) => {
         isCreating={isCreating}
       />
 
-      <HabitLevelProgress habits={habits} userPoints={userPoints} />
+      <UserLevelProgress habits={habits} userPoints={userPoints} />
 
       <HabitsFilter />
 

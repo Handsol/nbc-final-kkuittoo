@@ -4,15 +4,12 @@ import { HabitWithPoints } from '@/types/habits.type';
 import { Progress } from '@/components/ui/progress';
 import { UserPoint } from '@prisma/client';
 
-type HabitLevelProgressProps = {
+type UserLevelProgressProps = {
   habits: HabitWithPoints[];
   userPoints?: UserPoint[];
 };
 
-const HabitLevelProgress = ({
-  habits,
-  userPoints,
-}: HabitLevelProgressProps) => {
+const UserLevelProgress = ({ habits, userPoints }: UserLevelProgressProps) => {
   // habits에 연결된 포인트 + 연결되지 않은 포인트 모두 합산
   const habitsPoints = habits.reduce((sum, habit) => {
     return sum + (habit.userPoints?.reduce((acc, p) => acc + p.points, 0) || 0);
@@ -36,4 +33,4 @@ const HabitLevelProgress = ({
   );
 };
 
-export default HabitLevelProgress;
+export default UserLevelProgress;
