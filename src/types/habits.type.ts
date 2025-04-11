@@ -3,7 +3,7 @@ import { Categories, Habit } from '@prisma/client';
 export type UserPoint = {
   id: string;
   userId: string;
-  habitId: string;
+  habitId: string | null;
   getTime: Date;
   points: number;
 };
@@ -24,7 +24,7 @@ export type CreateUserPoint = {
 export type HabitFormData = Omit<Habit, 'userId' | 'createdAt' | 'userPoints'>;
 
 export type HabitWithPoints = Habit & {
-  userPoints: (Omit<UserPoint, 'habitId'> & { habitId: string })[];
+  userPoints: UserPoint[];
 };
 
 export type HabitFormValues = {

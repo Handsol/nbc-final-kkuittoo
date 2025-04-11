@@ -7,11 +7,9 @@ import Title from '../common/Title';
 
 const NoTeam = () => {
   return (
-    <section className="h-full w-[680px] bg-gray-300 p-6 rounded-3xl flex flex-col">
+    <section className="h-full w-[680px] bg-light-gray p-6 rounded-3xl flex flex-col">
       {/* 제목 */}
-      <Title mode={TITLE_MODE.SECTION_TITLE} className="text-xl font-bold mb-4">
-        FIND OR MAKE MY TEAM
-      </Title>
+      <Title mode={TITLE_MODE.SECTION_TITLE}>FIND OR MAKE MY TEAM</Title>
       {/* 메인 영역 */}
       <article className="flex-1 flex items-center justify-center">
         {/* 기본 이미지 */}
@@ -27,7 +25,7 @@ const NoTeam = () => {
 
           {/* 팀을 찾거나 팀을 생성하는 영역 */}
           <div className="w-3/5 flex flex-col justify-between text-sm gap-4">
-            <Text className="text-gray-600">
+            <Text className="text-medium-gray">
               <span className="font-bold">
                 새로운 팀을 찾거나 직접 팀을 만들어 보세요!
               </span>

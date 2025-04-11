@@ -13,7 +13,7 @@ const HabitFormInput = forwardRef<HTMLInputElement, InputFieldProps>(
     <div className="flex items-start gap-4">
       <label
         htmlFor={id}
-        className="w-20 text-xs font-semibold text-gray-700 font-dohyeon"
+        className="w-20 text-xs font-semibold text-dark-gray font-dohyeon"
       >
         {label}
       </label>
