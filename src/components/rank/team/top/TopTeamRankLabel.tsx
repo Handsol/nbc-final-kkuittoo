@@ -6,10 +6,7 @@ type Props = { rank: number };
 
 export const TeamRankLabel = ({ rank }: Props) => {
   return (
-    <Title
-      mode={TITLE_MODE.SECTION_TITLE}
-      className="text-xl font-bold text-gray-700 mb-2"
-    >
+    <Title mode={TITLE_MODE.SECTION_TITLE}>
       <RankLabel rank={rank} />
     </Title>
   );

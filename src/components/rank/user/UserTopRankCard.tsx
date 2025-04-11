@@ -14,10 +14,7 @@ export const TopRankCard = ({ user, rank }: Props) => {
   return (
     <article className="border rounded-3xl p-4 shadow-md bg-gray-100 w-54 h-64 flex flex-col items-center justify-center">
       {/* 랭킹 표시 */}
-      <Title
-        mode={TITLE_MODE.SECTION_TITLE}
-        className="text-xl font-bold text-gray-700 mb-2"
-      >
+      <Title mode={TITLE_MODE.SECTION_TITLE}>
         <RankLabel rank={rank} />
       </Title>
       {/* 사용자 이미지 */}
