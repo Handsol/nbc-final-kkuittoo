@@ -1,10 +1,7 @@
 import { useState } from 'react';
 import { Habit, UserPoint } from '@prisma/client';
 import HabitForm from './HabitForm';
-import {
-  getCooldownStatus,
-  getCurrentDayStatus,
-} from '@/lib/utils/habit.utils';
+import { isHabitDisabled } from '@/lib/utils/habit.utils';
 import { ICONBUTTON_MODE } from '@/constants/mode.constants';
 import IconButton from '@/components/common/button/IconButton';
 import { useHabitItemHandlers } from '@/lib/hooks/useHabitItemHandlers';
@@ -30,16 +27,14 @@ const HabitItem = ({ habit, userId }: HabitItemProps) => {
     habitId: habit.id,
     onEditToggle: setIsEditing,
   });
-
-  const isValidDay = getCurrentDayStatus(habit);
-  const isCooldownActive = getCooldownStatus(habit.userPoints);
-  const isDisabled = !isValidDay || isCooldownActive || isAddPending;
+  const isDisabled = isHabitDisabled(habit, isAddPending);
+  const isPending = isAddPending || isUpdatePending || isDeletePending;
 
   return (
     <div className="flex flex-col gap-2 relative">
       <li
         className={`flex items-center gap-4 p-4 border-b ${
-          isAddPending || isUpdatePending || isDeletePending ? 'opacity-50' : ''
+          isPending ? 'opacity-50' : ''
         }`}
       >
         <IconButton
