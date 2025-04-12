@@ -33,12 +33,12 @@ const HabitList = ({
   return (
     <ul className="h-[460px] overflow-y-auto">
       {isCreating ? (
-        <div className="h-full flex items-center justify-center">
+        <li className="h-full flex items-center justify-center">
           <HabitForm
             onCancel={onToggleCreate}
             onSuccess={handleCreateSuccess}
           />
-        </div>
+        </li>
       ) : habits.length > 0 ? (
         <div className="space-y-4">
           {habits.map((habit) => (
@@ -46,7 +46,9 @@ const HabitList = ({
           ))}
         </div>
       ) : (
-        <Text>등록된 habit이 없습니다.</Text>
+        <li>
+          <Text>등록된 habit이 없습니다.</Text>
+        </li>
       )}
     </ul>
   );

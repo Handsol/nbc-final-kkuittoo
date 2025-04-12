@@ -5,11 +5,11 @@ import {
   getCooldownStatus,
   getCurrentDayStatus,
 } from '@/lib/utils/habit.utils';
-import { ICONBUTTON_MODE, TITLE_MODE } from '@/constants/mode.constants';
+import { ICONBUTTON_MODE } from '@/constants/mode.constants';
 import IconButton from '@/components/common/button/IconButton';
 import { useHabitItemHandlers } from '@/lib/hooks/useHabitItemHandlers';
-import Title from '@/components/common/Title';
-import Text from '@/components/common/Text';
+import HabitItemInfo from './habit-item/habitItemInfo';
+import HabitItemActions from './habit-item/HabitItemActions';
 
 type HabitItemProps = {
   habit: Habit & { userPoints: UserPoint[] };
@@ -48,25 +48,13 @@ const HabitItem = ({ habit, userId }: HabitItemProps) => {
           disabled={isDisabled}
         />
 
-        <div className="flex-1 min-w-0">
-          <Title mode={TITLE_MODE.LINK}>{habit.title}</Title>
-          <Text className="text-sm text-medium-gray truncate">
-            {habit.notes}
-          </Text>
-        </div>
-
-        <div className="flex gap-2">
-          <IconButton
-            mode={ICONBUTTON_MODE.EDIT}
-            onClick={() => setIsEditing(true)}
-            disabled={isUpdatePending || isDeletePending}
-          />
-          <IconButton
-            mode={ICONBUTTON_MODE.DELETE}
-            onClick={handleDeleteHabit}
-            disabled={isUpdatePending || isDeletePending}
-          />
-        </div>
+        <HabitItemInfo habit={habit} />
+        <HabitItemActions
+          onEdit={() => setIsEditing(true)}
+          onDelete={handleDeleteHabit}
+          isEditDisabled={isUpdatePending || isDeletePending}
+          isDeleteDisabled={isUpdatePending || isDeletePending}
+        />
       </li>
 
       {isEditing && (

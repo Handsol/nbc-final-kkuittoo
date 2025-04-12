@@ -1,14 +1,7 @@
-import { useEffect, useState } from 'react';
-import {
-  HABIT_CATEGORIES,
-  HABIT_CATEGORY_LABELS,
-} from '@/constants/habits.constants';
-import { Categories } from '@prisma/client';
 import { HabitWithPoints } from '@/types/habits.type';
 import DayFilter from './habit-filter/DayFilter';
-import { filterHabits } from '@/lib/utils/habit.utils';
-import { SELECTBUTTON_MODE } from '@/constants/mode.constants';
-import HabitSelectButton from './habit-filter/HabitSelectButton';
+import CategoryFilter from './habit-filter/CetegoryFilter';
+import useHabitsFilter from '@/lib/hooks/useHabitsFilter';
 
 type HabitsFilterProps = {
   habits: HabitWithPoints[];
@@ -16,15 +9,8 @@ type HabitsFilterProps = {
 };
 
 const HabitsFilter = ({ habits, onFilterChange }: HabitsFilterProps) => {
-  const [selectedDay, setSelectedDay] = useState<string | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState<Categories | null>(
-    null,
-  );
-
-  useEffect(() => {
-    const filtered = filterHabits(habits, selectedDay, selectedCategory);
-    onFilterChange(filtered);
-  }, [habits, selectedDay, selectedCategory, onFilterChange]);
+  const { selectedDay, setSelectedDay, selectedCategory, setSelectedCategory } =
+    useHabitsFilter(habits, onFilterChange);
 
   return (
     <div className="space-y-4">
@@ -32,25 +18,10 @@ const HabitsFilter = ({ habits, onFilterChange }: HabitsFilterProps) => {
       <DayFilter selectedDay={selectedDay} setSelectedDay={setSelectedDay} />
 
       {/* 카테고리 필터 */}
-      <fieldset className="flex flex-wrap gap-3">
-        <HabitSelectButton
-          mode={SELECTBUTTON_MODE.CATEGORY}
-          isSelected={selectedCategory === null}
-          onClick={() => setSelectedCategory(null)}
-        >
-          ALL
-        </HabitSelectButton>
-        {HABIT_CATEGORIES.map((c) => (
-          <HabitSelectButton
-            key={c}
-            mode={SELECTBUTTON_MODE.CATEGORY}
-            isSelected={selectedCategory === c}
-            onClick={() => setSelectedCategory(c)}
-          >
-            {HABIT_CATEGORY_LABELS[c]}
-          </HabitSelectButton>
-        ))}
-      </fieldset>
+      <CategoryFilter
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+      />
     </div>
   );
 };
