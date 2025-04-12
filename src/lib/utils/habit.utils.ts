@@ -3,7 +3,7 @@ import {
   HABIT_CATEGORIES,
   ONE_HOUR_COOLDOWN_MS,
 } from '@/constants/habits.constants';
-import { HabitFormData } from '@/types/habits.type';
+import { HabitFormData, HabitWithPoints } from '@/types/habits.type';
 import { Categories, Habit, UserPoint } from '@prisma/client';
 import { HabitFormSchema } from '../schema/habit.schema';
 
@@ -116,3 +116,20 @@ export const getDefaultValues = (habit?: HabitFormData): HabitFormSchema => ({
   categories: habit?.categories || HABIT_CATEGORIES[0],
   selectedDays: habit ? DAYS_OF_WEEK.filter((day) => habit[day]) : [],
 });
+
+export const filterHabits = (
+  habits: HabitWithPoints[],
+  selectedDay: string | null,
+  selectedCategory: Categories | null,
+): HabitWithPoints[] => {
+  let filtered = [...habits];
+  if (selectedDay) {
+    filtered = filtered.filter((habit) => habit[selectedDay as keyof Habit]);
+  }
+  if (selectedCategory) {
+    filtered = filtered.filter(
+      (habit) => habit.categories === selectedCategory,
+    );
+  }
+  return filtered;
+};
