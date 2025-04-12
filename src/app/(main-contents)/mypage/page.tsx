@@ -1,5 +1,6 @@
 import Text from '@/components/common/Text';
 import MyPageHabits from '@/components/mypage/MyPageHabits';
+import MyPageSection from '@/components/mypage/MyPageSection';
 import MyPageTeam from '@/components/mypage/MyPageTeam';
 import { myPageMetadata } from '@/lib/seo/mypage.metadata';
 import { getUserSession } from '@/lib/services/getUserSession.services';
@@ -12,7 +13,7 @@ const MyPage = async () => {
 
   if (!session) {
     return (
-      <div className="flex flex-col items-center px-[30px] py-6 min-h-[calc(100vh-3rem)]">
+      <div className="flex flex-col items-center px-[30px] py-6 min-h-full">
         <Text>로그인이 필요합니다.</Text>
       </div>
     );
@@ -21,13 +22,13 @@ const MyPage = async () => {
 
   return (
     <div className="flex flex-col items-center px-[30px] py-6  min-h-full gap-10 ">
-      <div className="w-full max-w-[680px]">
+      <MyPageSection>
         <MyPageTeam userId={userId} />
-      </div>
+      </MyPageSection>
 
-      <div className="w-full max-w-[680px]">
+      <MyPageSection>
         <MyPageHabits userId={userId} />
-      </div>
+      </MyPageSection>
     </div>
   );
 };
