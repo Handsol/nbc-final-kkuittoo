@@ -3,6 +3,8 @@ import {
   HABIT_CATEGORY_LABELS,
 } from '@/constants/habits.constants';
 import { Categories } from '@prisma/client';
+import SelectButton from '../SelectButton';
+import { SELECTBUTTON_MODE } from '@/constants/mode.constants';
 
 type HabitFormTagsProps = {
   category: Categories;
@@ -16,23 +18,15 @@ const HabitFormTags = ({ category, setCategory }: HabitFormTagsProps) => (
     </label>
     <div className="flex flex-wrap gap-3">
       {HABIT_CATEGORIES.map((c) => (
-        <label
+        <SelectButton
           key={c}
-          className={`min-w-[80px] px-2 py-1 rounded-full border text-xs text-center cursor-pointer transition font-dohyeon ${
-            category === c
-              ? 'bg-sub text-white'
-              : 'bg-white text-dark-gray border-gray-300'
-          }`}
+          mode={SELECTBUTTON_MODE.CATEGORY}
+          isSelected={category === c}
+          onClick={() => setCategory(c)}
+          name="category"
         >
-          <input
-            type="radio"
-            name="category"
-            className="hidden"
-            checked={category === c}
-            onChange={() => setCategory(c)}
-          />
           {HABIT_CATEGORY_LABELS[c]}
-        </label>
+        </SelectButton>
       ))}
     </div>
   </>
