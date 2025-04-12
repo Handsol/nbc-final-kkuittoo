@@ -3,6 +3,11 @@ import HabitForm from './HabitForm';
 import HabitItem from './HabitItem';
 import { HabitFormData, HabitWithPoints } from '@/types/habits.type';
 import { useCreateHabitMutation } from '@/lib/mutations/useHabitMutation';
+import { useMemo } from 'react';
+import {
+  getCooldownStatus,
+  getCurrentDayStatus,
+} from '@/lib/utils/habit.utils';
 
 type HabitListProps = {
   userId: string;
@@ -30,6 +35,17 @@ const HabitList = ({
     });
   };
 
+  // 쿨다운 없음, 오늘 수행 가능 -> 위쪽에 정렬
+  const sortedHabits = useMemo(() => {
+    const isEnabled = (habit: HabitWithPoints) =>
+      !getCooldownStatus(habit.userPoints) && getCurrentDayStatus(habit);
+    return [...habits].sort((a, b) => {
+      const aEnabled = isEnabled(a);
+      const bEnabled = isEnabled(b);
+      return aEnabled === bEnabled ? 0 : aEnabled ? -1 : 1;
+    });
+  }, [habits]);
+
   return (
     <ul className="h-[460px] overflow-y-auto">
       {isCreating ? (
@@ -39,9 +55,9 @@ const HabitList = ({
             onSuccess={handleCreateSuccess}
           />
         </li>
-      ) : habits.length > 0 ? (
+      ) : sortedHabits.length > 0 ? (
         <div className="space-y-4">
-          {habits.map((habit) => (
+          {sortedHabits.map((habit) => (
             <HabitItem key={habit.id} habit={habit} userId={userId} />
           ))}
         </div>
