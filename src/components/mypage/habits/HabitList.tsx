@@ -33,7 +33,7 @@ const HabitList = ({
   return (
     <ul className="h-[460px] overflow-y-auto">
       {isCreating ? (
-        <li className="h-full flex items-center justify-center">
+        <li className="my-4 flex items-center justify-center ">
           <HabitForm
             onCancel={onToggleCreate}
             onSuccess={handleCreateSuccess}
