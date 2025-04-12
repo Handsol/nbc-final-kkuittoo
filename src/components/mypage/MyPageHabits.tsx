@@ -2,7 +2,7 @@
 
 import { useHabitsQuery } from '@/lib/queries/useHabitsQuery';
 import Text from '../common/Text';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import HabitHeader from './habits/HabitHeader';
 import HabitList from './habits/HabitList';
 import HabitsFilter from './habits/HabitsFilter';
@@ -26,7 +26,7 @@ const MyPageHabits = ({ userId }: MyPageHabitsProps) => {
   if (isPending) return <Text>로딩중</Text>;
 
   return (
-    <div className="flex flex-col h-full p-6 gap-4">
+    <div className="flex flex-col h-full p-6 gap-8">
       <HabitHeader
         habitsCount={habits.length}
         onToggleCreate={handleToggleCreate}
