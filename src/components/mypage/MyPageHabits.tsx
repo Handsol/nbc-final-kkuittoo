@@ -16,15 +16,10 @@ type MyPageHabitsProps = {
 const MyPageHabits = ({ userId }: MyPageHabitsProps) => {
   const [isCreating, setIsCreating] = useState(false);
   const { data, isPending } = useHabitsQuery(userId);
-  const [filteredHabits, setFilteredHabits] = useState<HabitWithPoints[]>([]);
-
   const habits = data?.habits || [];
 
-  useEffect(() => {
-    if (filteredHabits.length === 0 && habits.length > 0) {
-      setFilteredHabits(habits);
-    }
-  }, [habits]);
+  const [filteredHabits, setFilteredHabits] =
+    useState<HabitWithPoints[]>(habits);
 
   const handleToggleCreate = () => setIsCreating((prev) => !prev);
 
