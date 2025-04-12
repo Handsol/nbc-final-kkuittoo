@@ -8,8 +8,8 @@ import {
 import { ICONBUTTON_MODE } from '@/constants/mode.constants';
 import IconButton from '@/components/common/button/IconButton';
 import { useHabitItemHandlers } from '@/lib/hooks/useHabitItemHandlers';
-import HabitItemInfo from './habit-item/habitItemInfo';
 import HabitItemActions from './habit-item/HabitItemActions';
+import HabitItemInfo from './habit-item/HabitItemInfo';
 
 type HabitItemProps = {
   habit: Habit & { userPoints: UserPoint[] };

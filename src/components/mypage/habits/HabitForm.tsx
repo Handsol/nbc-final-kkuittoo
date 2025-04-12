@@ -1,7 +1,7 @@
 import { HabitFormData } from '@/types/habits.type';
 import { useHabitFormHandler } from '@/lib/hooks/useHabitFormHandler';
 import HabitFormActions from './habit-form/HabitFormActions';
-import HabitFormFields from './habit-form/HabitFormFIelds';
+import HabitFormFields from './habit-form/HabitFormFields';
 
 type HabitFormProps = {
   onCancel: () => void;
