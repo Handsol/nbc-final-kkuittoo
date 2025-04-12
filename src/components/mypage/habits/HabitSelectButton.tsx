@@ -1,7 +1,7 @@
 import { InputHTMLAttributes, ReactNode } from 'react';
 import { SELECTBUTTON_MODE } from '@/constants/mode.constants';
 
-type SelectButtonProps = InputHTMLAttributes<HTMLInputElement> & {
+type HabitSelectButtonProps = InputHTMLAttributes<HTMLInputElement> & {
   mode: string;
   isSelected: boolean;
   children: ReactNode;
@@ -11,7 +11,7 @@ type SelectButtonProps = InputHTMLAttributes<HTMLInputElement> & {
   name?: string;
 };
 
-const SelectButton = ({
+const HabitSelectButton = ({
   mode,
   isSelected,
   children,
@@ -21,7 +21,7 @@ const SelectButton = ({
   name,
   onClick,
   ...props
-}: SelectButtonProps) => {
+}: HabitSelectButtonProps) => {
   const baseStyle =
     'px-2 py-1 rounded-full border text-xs text-center cursor-pointer transition font-pretendard';
 
@@ -79,4 +79,4 @@ const SelectButton = ({
   );
 };
 
-export default SelectButton;
+export default HabitSelectButton;

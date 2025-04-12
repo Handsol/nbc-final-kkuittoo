@@ -7,8 +7,8 @@ import { Categories } from '@prisma/client';
 import { HabitWithPoints } from '@/types/habits.type';
 import DayFilter from './DayFilter';
 import { filterHabits } from '@/lib/utils/habit.utils';
-import SelectButton from './SelectButton';
 import { SELECTBUTTON_MODE } from '@/constants/mode.constants';
+import HabitSelectButton from './HabitSelectButton';
 
 type HabitsFilterProps = {
   habits: HabitWithPoints[];
@@ -33,22 +33,22 @@ const HabitsFilter = ({ habits, onFilterChange }: HabitsFilterProps) => {
 
       {/* 카테고리 필터 */}
       <article className="flex flex-wrap gap-3">
-        <SelectButton
+        <HabitSelectButton
           mode={SELECTBUTTON_MODE.CATEGORY}
           isSelected={selectedCategory === null}
           onClick={() => setSelectedCategory(null)}
         >
           ALL
-        </SelectButton>
+        </HabitSelectButton>
         {HABIT_CATEGORIES.map((c) => (
-          <SelectButton
+          <HabitSelectButton
             key={c}
             mode={SELECTBUTTON_MODE.CATEGORY}
             isSelected={selectedCategory === c}
             onClick={() => setSelectedCategory(c)}
           >
             {HABIT_CATEGORY_LABELS[c]}
-          </SelectButton>
+          </HabitSelectButton>
         ))}
       </article>
     </div>
