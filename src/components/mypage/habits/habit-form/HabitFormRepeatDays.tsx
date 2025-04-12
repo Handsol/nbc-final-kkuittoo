@@ -18,7 +18,7 @@ const HabitFormReapeatDays = ({
       {DAYS_OF_WEEK.map((day, i) => (
         <label
           key={day}
-          className={`w-8 h-8 flex items-center justify-center rounded-full cursor-pointer text-xs font-medium border transition font-dohyeon ${
+          className={`w-[42px] h-[42px] flex items-center justify-center rounded-full cursor-pointer text-xs font-medium border transition font-dohyeon ${
             selectedDays.includes(day)
               ? 'bg-sub text-white'
               : 'bg-white text-dark-gray border-light-gray'

@@ -33,7 +33,9 @@ const HabitForm: React.FC<HabitFormProps> = ({
   });
 
   return (
-    <div className={`p-4 bg-white rounded-xl shadow flex flex-col gap-6`}>
+    <div
+      className={`p-4 bg-white rounded-xl shadow flex flex-col gap-6 w-[380px]`}
+    >
       <HabitFormInput
         id="title"
         label="TITLE"

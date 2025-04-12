@@ -33,7 +33,12 @@ const HabitList = ({
   return (
     <article className="h-[460px] overflow-y-auto">
       {isCreating ? (
-        <HabitForm onCancel={onToggleCreate} onSuccess={handleCreateSuccess} />
+        <div className="h-full flex items-center justify-center">
+          <HabitForm
+            onCancel={onToggleCreate}
+            onSuccess={handleCreateSuccess}
+          />
+        </div>
       ) : habits.length > 0 ? (
         <div className="space-y-4">
           {habits.map((habit) => (

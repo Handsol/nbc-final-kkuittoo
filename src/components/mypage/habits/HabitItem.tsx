@@ -70,11 +70,13 @@ const HabitItem = ({ habit, userId }: HabitItemProps) => {
       </article>
 
       {isEditing && (
-        <HabitForm
-          initialHabit={habit}
-          onCancel={() => setIsEditing(false)}
-          onSuccess={handleUpdateHabit}
-        />
+        <div className="h-full flex items-center justify-center">
+          <HabitForm
+            initialHabit={habit}
+            onCancel={() => setIsEditing(false)}
+            onSuccess={handleUpdateHabit}
+          />
+        </div>
       )}
     </div>
   );
