@@ -19,10 +19,10 @@ const UserLevelProgress = ({ userId }: UserLevelProgressProps) => {
   const expPercent = getExpPercent(totalPoints);
 
   return (
-    <article className="flex items-center gap-2">
+    <div className="flex items-center gap-2">
       <UserLevel level={level} />
       <Progress value={expPercent} className="w-full h-5" />
-    </article>
+    </div>
   );
 };
 

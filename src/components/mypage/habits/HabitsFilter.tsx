@@ -5,10 +5,10 @@ import {
 } from '@/constants/habits.constants';
 import { Categories } from '@prisma/client';
 import { HabitWithPoints } from '@/types/habits.type';
-import DayFilter from './DayFilter';
+import DayFilter from './habit-filter/DayFilter';
 import { filterHabits } from '@/lib/utils/habit.utils';
 import { SELECTBUTTON_MODE } from '@/constants/mode.constants';
-import HabitSelectButton from './HabitSelectButton';
+import HabitSelectButton from './habit-filter/HabitSelectButton';
 
 type HabitsFilterProps = {
   habits: HabitWithPoints[];
@@ -32,7 +32,7 @@ const HabitsFilter = ({ habits, onFilterChange }: HabitsFilterProps) => {
       <DayFilter selectedDay={selectedDay} setSelectedDay={setSelectedDay} />
 
       {/* 카테고리 필터 */}
-      <article className="flex flex-wrap gap-3">
+      <fieldset className="flex flex-wrap gap-3">
         <HabitSelectButton
           mode={SELECTBUTTON_MODE.CATEGORY}
           isSelected={selectedCategory === null}
@@ -50,7 +50,7 @@ const HabitsFilter = ({ habits, onFilterChange }: HabitsFilterProps) => {
             {HABIT_CATEGORY_LABELS[c]}
           </HabitSelectButton>
         ))}
-      </article>
+      </fieldset>
     </div>
   );
 };

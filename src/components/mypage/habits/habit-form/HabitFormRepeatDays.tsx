@@ -1,6 +1,6 @@
 import { DAYS_OF_WEEK } from '@/constants/habits.constants';
 import { SELECTBUTTON_MODE } from '@/constants/mode.constants';
-import HabitSelectButton from '../HabitSelectButton';
+import HabitSelectButton from '../habit-filter/HabitSelectButton';
 
 type HabitFormRepeatDaysProps = {
   selectedDays: string[];

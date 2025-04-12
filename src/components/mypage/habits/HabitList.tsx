@@ -31,7 +31,7 @@ const HabitList = ({
   };
 
   return (
-    <article className="h-[460px] overflow-y-auto">
+    <ul className="h-[460px] overflow-y-auto">
       {isCreating ? (
         <div className="h-full flex items-center justify-center">
           <HabitForm
@@ -48,7 +48,7 @@ const HabitList = ({
       ) : (
         <Text>등록된 habit이 없습니다.</Text>
       )}
-    </article>
+    </ul>
   );
 };
 export default HabitList;

@@ -1,9 +1,12 @@
 type MyPageSectionProps = {
   children: React.ReactNode;
+  label: string;
 };
 
-const MyPageSection = ({ children }: MyPageSectionProps) => {
-  return <section className="w-full max-w-[680px]">{children}</section>;
-};
+const MyPageSection = ({ children, label }: MyPageSectionProps) => (
+  <section className="w-full" aria-label={label}>
+    {children}
+  </section>
+);
 
 export default MyPageSection;

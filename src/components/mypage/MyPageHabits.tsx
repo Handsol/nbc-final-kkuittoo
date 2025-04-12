@@ -26,7 +26,7 @@ const MyPageHabits = ({ userId }: MyPageHabitsProps) => {
   if (isPending) return <Text>로딩중</Text>;
 
   return (
-    <section className="flex flex-col h-full p-6 gap-4">
+    <div className="flex flex-col h-full p-6 gap-4">
       <HabitHeader
         habitsCount={habits.length}
         onToggleCreate={handleToggleCreate}
@@ -45,7 +45,7 @@ const MyPageHabits = ({ userId }: MyPageHabitsProps) => {
           onToggleCreate={handleToggleCreate}
         />
       </div>
-    </section>
+    </div>
   );
 };
 

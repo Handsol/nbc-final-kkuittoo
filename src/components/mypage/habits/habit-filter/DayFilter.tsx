@@ -6,7 +6,7 @@ type DayFilterProps = {
 };
 
 const DayFilter = ({ selectedDay, setSelectedDay }: DayFilterProps) => (
-  <article className="flex">
+  <fieldset className="flex">
     {DAYS_OF_WEEK.map((day) => (
       <button
         key={day}
@@ -23,7 +23,7 @@ const DayFilter = ({ selectedDay, setSelectedDay }: DayFilterProps) => (
         {day.charAt(0).toUpperCase() + day.slice(1)}
       </button>
     ))}
-  </article>
+  </fieldset>
 );
 
 export default DayFilter;

@@ -37,7 +37,7 @@ const HabitItem = ({ habit, userId }: HabitItemProps) => {
 
   return (
     <div className="flex flex-col gap-2 relative">
-      <article
+      <li
         className={`flex items-center gap-4 p-4 border-b ${
           isAddPending || isUpdatePending || isDeletePending ? 'opacity-50' : ''
         }`}
@@ -67,7 +67,7 @@ const HabitItem = ({ habit, userId }: HabitItemProps) => {
             disabled={isUpdatePending || isDeletePending}
           />
         </div>
-      </article>
+      </li>
 
       {isEditing && (
         <div className="h-full flex items-center justify-center">

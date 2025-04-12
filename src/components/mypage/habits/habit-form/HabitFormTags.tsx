@@ -4,7 +4,7 @@ import {
 } from '@/constants/habits.constants';
 import { Categories } from '@prisma/client';
 import { SELECTBUTTON_MODE } from '@/constants/mode.constants';
-import HabitSelectButton from '../HabitSelectButton';
+import HabitSelectButton from '../habit-filter/HabitSelectButton';
 
 type HabitFormTagsProps = {
   category: Categories;
