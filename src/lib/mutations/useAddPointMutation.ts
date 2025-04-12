@@ -40,5 +40,11 @@ export const useAddPointMutation = (userId: string) => {
         userPoints: [...previousData.userPoints, tempPoint],
       };
     },
+
+    onSuccess: (data, habitId, queryClient) => {
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.SINGLE_USER(userId),
+      });
+    },
   });
 };
