@@ -2,7 +2,7 @@
 
 import { useHabitsQuery } from '@/lib/queries/useHabitsQuery';
 import Text from '../common/Text';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import HabitHeader from './habits/HabitHeader';
 import HabitList from './habits/HabitList';
 import HabitsFilter from './habits/HabitsFilter';
@@ -15,27 +15,32 @@ type MyPageHabitsProps = {
 
 const MyPageHabits = ({ userId }: MyPageHabitsProps) => {
   const [isCreating, setIsCreating] = useState(false);
-  const { data, isPending } = useHabitsQuery(userId);
-  const habits = data?.habits || [];
+  const { data: habits, isPending } = useHabitsQuery(userId);
+  const [filteredHabits, setFilteredHabits] = useState<HabitWithPoints[]>([]);
 
-  const [filteredHabits, setFilteredHabits] =
-    useState<HabitWithPoints[]>(habits);
+  useEffect(() => {
+    if (habits && habits.length > 0) {
+      setFilteredHabits(habits);
+    }
+  }, [habits]);
 
   const handleToggleCreate = () => setIsCreating((prev) => !prev);
 
   if (isPending) return <Text>로딩중</Text>;
 
+  const habitList = habits || [];
+
   return (
     <div className="flex flex-col h-full p-6 gap-8">
       <HabitHeader
-        habitsCount={habits.length}
+        habitsCount={habitList.length}
         onToggleCreate={handleToggleCreate}
         isCreating={isCreating}
       />
 
       <UserLevelProgress userId={userId} />
 
-      <HabitsFilter habits={habits} onFilterChange={setFilteredHabits} />
+      <HabitsFilter habits={habitList} onFilterChange={setFilteredHabits} />
 
       <div className="flex-1 overflow-hidden">
         <HabitList

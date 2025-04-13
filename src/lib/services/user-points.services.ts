@@ -15,14 +15,3 @@ export const fetchAddUserPoint = async (habitId: string) => {
   if (!res.ok) throw new Error('포인트 추가 실패');
   return res.json();
 };
-
-export const fetchGetAllUserPoints = async (
-  userId: string,
-): Promise<UserPoint[]> => {
-  const res = await fetch(`${API_PATH.USERS_POINTS}?userId=${userId}`, {
-    method: 'GET',
-    headers: { 'Content-Type': 'application/json' },
-  });
-  if (!res.ok) throw new Error('포인트 조회에 실패하였습니다.');
-  return res.json();
-};
