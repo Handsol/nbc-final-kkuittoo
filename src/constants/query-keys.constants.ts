@@ -4,4 +4,5 @@ export const QUERY_KEYS = {
   HABITS: (userId: string) => ['habits', userId] as const,
   TEAMS: ['teams'] as const,
   SINGLE_TEAM: (teamId: string) => ['team', teamId] as const,
+  USER_POINTS: (userId: string) => ['userPoints', userId] as const,
 };
