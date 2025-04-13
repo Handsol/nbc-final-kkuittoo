@@ -4,12 +4,10 @@ import { useSession } from 'next-auth/react';
 import { useUserQuery } from '@/lib/queries/useUserQuery';
 import Image from 'next/image';
 import UserProfileEdit from '../mypage/profile/UserProfileEdit';
-import UserTitle from '../common/UserTitle';
 import Text from '../common/Text';
-import { USER_TITLE_MODE } from '@/constants/mode.constants';
-import { ID_SLICE } from '@/constants/magic-numbers.constants';
+import { getUserImageByLevel } from '@/lib/utils/user.utils';
 
-const SidebarAvatar = () => {
+const SidebarProfile = () => {
   const { data: session } = useSession();
   const userId = session?.user.id;
 
@@ -17,14 +15,14 @@ const SidebarAvatar = () => {
 
   if (isPending) return <Text>로딩 중...</Text>;
 
+  const totalPoints =
+    profileData?.userPoints?.reduce((sum, p) => sum + p.points, 0) || 0;
+  const level = Math.floor(totalPoints / 20) + 1;
+  const userImageSrc = getUserImageByLevel(level);
+
   return (
     <div className="mt-[14px] flex flex-col items-center gap-3">
-      <Image
-        src="/assets/images/user_lv1.png"
-        alt="user"
-        width={150}
-        height={150}
-      />
+      <Image src={userImageSrc} alt="user" width={150} height={150} />
 
       <UserProfileEdit
         name={profileData?.name || ''}
@@ -35,4 +33,4 @@ const SidebarAvatar = () => {
   );
 };
 
-export default SidebarAvatar;
+export default SidebarProfile;
