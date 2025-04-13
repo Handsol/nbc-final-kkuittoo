@@ -5,23 +5,17 @@ import { getServerSession } from 'next-auth';
 import { fetchGetMyTeamData } from '@/lib/services/team-actions.services';
 import { authOptions } from '@/lib/utils/auth';
 
-const NAV_ITEMS = [
-  { name: 'DASHBOARD', href: PATH.MYPAGE },
-  { name: 'MY TEAM', href: PATH.TEAM },
-  { name: 'RANK', href: PATH.RANK.USERS },
-];
-
 const SidebarNav = async () => {
   const session = await getServerSession(authOptions);
+  const team = session ? await fetchGetMyTeamData(session.user.id) : null;
 
-  let teamId = '';
+  const teamHref = team ? `${PATH.TEAM}/${team.teamId}` : PATH.TEAM;
 
-  if (session) {
-    const myTeam = await fetchGetMyTeamData(session.user.id);
-    if (myTeam) {
-      teamId = myTeam.teamId;
-    }
-  }
+  const NAV_ITEMS = [
+    { name: 'DASHBOARD', href: PATH.MYPAGE },
+    { name: 'MY TEAM', href: teamHref },
+    { name: 'RANK', href: PATH.RANK.USERS },
+  ];
 
   return (
     <div className="w-full flex flex-col gap-2">
