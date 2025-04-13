@@ -14,7 +14,7 @@ export const myPageMetadata: Metadata = {
     url: `${PROJECT_URL}/mypage`,
     images: [
       {
-        url: '/images/test01.png',
+        url: 'assets/images/test01.png',
         width: 1200,
         height: 630,
         alt: 'DASHBOARD 미리보기',

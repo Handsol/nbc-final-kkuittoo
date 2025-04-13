@@ -5,7 +5,6 @@ type HabitSelectButtonProps = InputHTMLAttributes<HTMLInputElement> & {
   mode: string;
   isSelected: boolean;
   children: ReactNode;
-  className?: string;
   disabled?: boolean;
   inputType?: 'checkbox' | 'radio';
   name?: string;
@@ -15,7 +14,6 @@ const HabitSelectButton = ({
   mode,
   isSelected,
   children,
-  className = '',
   disabled = false,
   inputType = 'radio',
   name,
@@ -56,7 +54,7 @@ const HabitSelectButton = ({
   return (
     <label
       className={`
-          ${baseStyle} ${sizeStyle} ${disabledStyle} ${className}
+          ${baseStyle} ${sizeStyle} ${disabledStyle} 
           ${disabled ? 'pointer-events-none' : ''}
         `}
     >
