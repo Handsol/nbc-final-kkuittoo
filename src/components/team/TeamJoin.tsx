@@ -4,13 +4,13 @@ import ConfirmDialog from '@/components/common/ConfirmDialog';
 import { PATH } from '@/constants/path.constants';
 import { useToast } from '@/lib/hooks/use-toast';
 import { fetchCreateTeamMember } from '@/lib/services/team-client.services';
-import { TeamData } from '@/types/teams.type';
 import { useRouter } from 'next/navigation';
 import TeamJoinPrivateModal from './team-join/TeamJoinPrivateModal';
 import { TEAM_TOAST_MESSAGES } from '@/constants/toast-messages.contants';
+import { TeamWithPoints } from '@/types/rank.type';
 
 type TeamJoinProps = {
-  team: TeamData;
+  team: TeamWithPoints;
   hasTeam: boolean;
   currentMembers: number;
 };
