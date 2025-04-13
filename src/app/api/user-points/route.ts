@@ -8,7 +8,10 @@ import {
   checkCooldown,
   checkHabitPermission,
 } from '@/lib/utils/habit-validation.utils';
-import { HABIT_ERROR_MESSAGES } from '@/constants/error-messages.constants';
+import {
+  COMMON_ERROR_MESSAGES,
+  HABIT_ERROR_MESSAGES,
+} from '@/constants/error-messages.constants';
 import { getCurrentDayStatus } from '@/lib/utils/habit.utils';
 
 /**
@@ -64,6 +67,32 @@ export const POST = async (request: NextRequest) => {
     console.error('UserPoint 생성 에러:', error);
     return NextResponse.json(
       { error: HABIT_ERROR_MESSAGES.POINT_ADD_FAILED },
+      { status: HTTP_STATUS.INTERNAL_SERVER_ERROR },
+    );
+  }
+};
+
+/**
+ * 사용자 포인트 목록 조회
+ * @returns {Promise<NextResponse>} - 포인트 목록 또는 에러 응답
+ * @description
+ * - 인증된 사용자의 포인트 목록 조회
+ */
+export const GET = async () => {
+  const { session, response } = await checkAuth();
+  if (response) return response;
+
+  try {
+    const userId = session.user.id;
+    const userPoints = await prisma.userPoint.findMany({
+      where: { userId },
+    });
+
+    return NextResponse.json(userPoints);
+  } catch (error) {
+    console.error('UserPoint 조회 에러:', error);
+    return NextResponse.json(
+      { error: HABIT_ERROR_MESSAGES.FETCH_FAILED },
       { status: HTTP_STATUS.INTERNAL_SERVER_ERROR },
     );
   }
