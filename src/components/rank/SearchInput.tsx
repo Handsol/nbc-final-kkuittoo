@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useMemo, useState, useTransition } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import CommonInputBar from '@/components/common/CommonInputBar';
 import { debounce } from 'lodash';
@@ -21,20 +21,22 @@ export const SearchInput = ({ placeholder }: SearchInputProps) => {
   }
   // 디바운싱? 쓰로틀링?
   // lodash? use-debounce?
-  const handleSearch = debounce((value: string) => {
-    console.log('검색 트리거:', value);
-
-    const params = new URLSearchParams(searchParams);
-    if (value) {
-      params.set('q', value); // 검색어 저장
-    } else {
-      params.delete('q'); // 검색어 없으면 q 제거 후 기본 목록
-    }
-    setIsPending(() => {
-      // 새 URL 페이지 갱신
-      router.push(`?${params.toString()}`);
-    });
-  }, 300); //debounce 300ms 지연
+  const handleSearch = useMemo(
+    () =>
+      debounce((value: string) => {
+        const params = new URLSearchParams(searchParams);
+        if (value) {
+          params.set('q', value); // 검색어 저장
+        } else {
+          params.delete('q'); // 검색어 없으면 q 제거 후 기본 목록
+        }
+        setIsPending(() => {
+          // 새 URL 페이지 갱신
+          router.push(`?${params.toString()}`);
+        });
+      }, 300),
+    [searchParams, router],
+  ); //debounce 300ms 지연
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
