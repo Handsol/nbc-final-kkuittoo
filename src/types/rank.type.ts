@@ -18,6 +18,7 @@ export type TeamWithPoints = {
   totalPoints: number;
   memberCount: number;
   maxTeamSize: number;
+  isOpened: boolean;
 };
 
 export type TeamCardProps = {

@@ -31,3 +31,13 @@ export const ACTIONBUTTON_MODE = {
   SECONDARY_SMALL: 'secondary-small',
   LOGOUT: 'logout',
 } as const;
+
+export const MODAL_MODE = {
+  COMMON: 'common',
+  PARALLEL: 'parallel',
+} as const;
+
+export const SELECTBUTTON_MODE = {
+  CATEGORY: 'category',
+  DAY: 'day',
+} as const;

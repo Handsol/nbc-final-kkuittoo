@@ -130,13 +130,6 @@ model TeamMember {
   team            Team      @relation(fields: [teamId], references: [id], onDelete: Cascade)
 }
 
-model TeamQuest {
-  id             Int       @id
-  questName      String       
-  questImage     String
-  requiredPoints Int
-}
-
 model TeamMessage {
   id         String    @id @default(cuid())
   userId     String    // senderId 

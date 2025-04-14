@@ -8,7 +8,7 @@ import { useMutation, useQueryClient, QueryKey } from '@tanstack/react-query';
  */
 export const useOptimisticMutation = <
   ApiResponse, //실제 API 요청이 성공했을 때 서버가 반환하는 데이터의 타입
-  Input, //	API 요청을 보낼 때 사용하는 입력값의 타입
+  Input, //API 요청을 보낼 때 사용하는 입력값의 타입
   CacheData = ApiResponse, //캐시에 저장된 데이터의 타입 (기본값: ApiResponse)
 >(options: {
   queryKey: QueryKey;
@@ -17,6 +17,11 @@ export const useOptimisticMutation = <
     input: Input,
     previousData: CacheData | undefined,
   ) => CacheData;
+  onSuccess?: (
+    data: ApiResponse,
+    variables: Input,
+    queryClient: ReturnType<typeof useQueryClient>,
+  ) => void;
 }) => {
   const queryClient = useQueryClient();
 
@@ -53,6 +58,11 @@ export const useOptimisticMutation = <
     //요청 실패하든 성공하든 실행
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: options.queryKey });
+    },
+
+    // API 요청 성공 시 실행
+    onSuccess: (data, variables) => {
+      options.onSuccess?.(data, variables, queryClient);
     },
   });
 };

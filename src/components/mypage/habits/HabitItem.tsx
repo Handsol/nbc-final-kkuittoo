@@ -1,15 +1,12 @@
 import { useState } from 'react';
 import { Habit, UserPoint } from '@prisma/client';
 import HabitForm from './HabitForm';
-import {
-  getCooldownStatus,
-  getCurrentDayStatus,
-} from '@/lib/utils/habit.utils';
-import { ICONBUTTON_MODE, TITLE_MODE } from '@/constants/mode.constants';
+import { isHabitDisabled } from '@/lib/utils/habit.utils';
+import { ICONBUTTON_MODE } from '@/constants/mode.constants';
 import IconButton from '@/components/common/button/IconButton';
 import { useHabitItemHandlers } from '@/lib/hooks/useHabitItemHandlers';
-import Title from '@/components/common/Title';
-import Text from '@/components/common/Text';
+import HabitItemActions from './habit-item/HabitItemActions';
+import HabitItemInfo from './habit-item/HabitItemInfo';
 
 type HabitItemProps = {
   habit: Habit & { userPoints: UserPoint[] };
@@ -30,16 +27,14 @@ const HabitItem = ({ habit, userId }: HabitItemProps) => {
     habitId: habit.id,
     onEditToggle: setIsEditing,
   });
-
-  const isValidDay = getCurrentDayStatus(habit);
-  const isCooldownActive = getCooldownStatus(habit.userPoints);
-  const isDisabled = !isValidDay || isCooldownActive || isAddPending;
+  const isDisabled = isHabitDisabled(habit, isAddPending);
+  const isPending = isAddPending || isUpdatePending || isDeletePending;
 
   return (
     <div className="flex flex-col gap-2 relative">
-      <article
+      <li
         className={`flex items-center gap-4 p-4 border-b ${
-          isAddPending || isUpdatePending || isDeletePending ? 'opacity-50' : ''
+          isPending ? 'opacity-50' : ''
         }`}
       >
         <IconButton
@@ -48,33 +43,23 @@ const HabitItem = ({ habit, userId }: HabitItemProps) => {
           disabled={isDisabled}
         />
 
-        <div className="flex-1 min-w-0">
-          <Title mode={TITLE_MODE.LINK}>{habit.title}</Title>
-          <Text className="text-sm text-medium-gray truncate">
-            {habit.notes}
-          </Text>
-        </div>
-
-        <div className="flex gap-2">
-          <IconButton
-            mode={ICONBUTTON_MODE.EDIT}
-            onClick={() => setIsEditing(true)}
-            disabled={isUpdatePending || isDeletePending}
-          />
-          <IconButton
-            mode={ICONBUTTON_MODE.DELETE}
-            onClick={handleDeleteHabit}
-            disabled={isUpdatePending || isDeletePending}
-          />
-        </div>
-      </article>
+        <HabitItemInfo habit={habit} />
+        <HabitItemActions
+          onEdit={() => setIsEditing(true)}
+          onDelete={handleDeleteHabit}
+          isEditDisabled={isUpdatePending || isDeletePending}
+          isDeleteDisabled={isUpdatePending || isDeletePending}
+        />
+      </li>
 
       {isEditing && (
-        <HabitForm
-          initialHabit={habit}
-          onCancel={() => setIsEditing(false)}
-          onSuccess={handleUpdateHabit}
-        />
+        <div className="h-full flex items-center justify-center">
+          <HabitForm
+            initialHabit={habit}
+            onCancel={() => setIsEditing(false)}
+            onSuccess={handleUpdateHabit}
+          />
+        </div>
       )}
     </div>
   );

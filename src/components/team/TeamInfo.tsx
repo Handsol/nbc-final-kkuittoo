@@ -1,10 +1,7 @@
 import {
-  fetchGetCurrentTeamQuest,
+  fetchGetTeamData,
   fetchGetTeamTotalPoints,
-  fetchTeamData,
 } from '@/lib/services/team-actions.services';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/utils/auth';
 import TeamBioNotEditMode from './team-edit/TeamBioNotEditMode';
 import TeamTitle from './TeamTitle';
 import TeamOpenToggleButton from './team-edit/TeamOpenToggleButton';
@@ -13,6 +10,8 @@ import TeamProgress from './TeamProgress';
 import TeamBioEditMode from './team-edit/TeamBioEditMode';
 import Text from '../common/Text';
 import Image from 'next/image';
+import { getUserSession } from '@/lib/services/getUserSession.services';
+import { getCurrentTeamQuest } from '@/lib/utils/team.utils';
 
 type TeamQuestProps = {
   id: string;
@@ -20,12 +19,12 @@ type TeamQuestProps = {
 
 const TeamInfo = async ({ id }: TeamQuestProps) => {
   // 팀 기본 데이터
-  const teamData = await fetchTeamData(id);
+  const teamData = await fetchGetTeamData(id);
   // 팀의 전체 포인트와 현재 퀘스트를 가져오는 로직
   const { teamTotalPoints } = await fetchGetTeamTotalPoints(id);
-  const teamCurrentQuest = await fetchGetCurrentTeamQuest(teamTotalPoints);
+  const teamCurrentQuest = getCurrentTeamQuest(teamTotalPoints);
   // 현재 로그인한 유저 정보
-  const session = await getServerSession(authOptions);
+  const session = await getUserSession();
 
   // teamData & session 로딩 실패시 early return 로직
   // 이 부분은 오류 처리 로직에 대해 논의 후 수정 예정입니다.

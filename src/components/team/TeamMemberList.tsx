@@ -1,15 +1,15 @@
-import { fetchTeamMembers } from '@/lib/services/team-actions.services';
 import TeamMemberCard from './TeamMemberCard';
 import Title from '../common/Title';
 import { TITLE_MODE } from '@/constants/mode.constants';
 import { getUserLevel } from '@/lib/utils/user-level.utils';
+import { fetchGetTeamMembers } from '@/lib/services/team-actions.services';
 
 type TeamMemberListProps = {
   id: string;
 };
 
 const TeamMemberList = async ({ id }: TeamMemberListProps) => {
-  const teamMemberList = await fetchTeamMembers(id);
+  const teamMemberList = await fetchGetTeamMembers(id);
 
   // 이부분 수정예정
   if (!teamMemberList) {
