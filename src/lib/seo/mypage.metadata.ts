@@ -1,22 +1,23 @@
+import { PROJECT_URL } from '@/constants/path.constants';
 import { Metadata } from 'next';
 
 export const myPageMetadata: Metadata = {
-  title: '마이페이지 | KKUITTOO',
+  title: 'DASHBOARD | KKUITTOO',
   description:
-    '사용자의 습관, 프로필 및 팀 정보를 확인할 수 있는 마이페이지입니다.',
-  keywords: ['KKUITTOO', '마이페이지', '습관', '팀'],
+    '사용자의 습관, 레벨 및 팀 정보를 확인할 수 있는 DASHBOARD입니다.',
+  keywords: ['KKUITTOO', 'DASHBOARD', '습관', '팀', '레벨'],
   openGraph: {
-    title: '마이페이지 | KKUITTOO',
+    title: 'DASHBOARD | KKUITTOO',
     description:
-      '사용자의 습관, 프로필 및 팀 정보를 확인할 수 있는 마이페이지입니다.',
+      '사용자의 습관, 레벨 및 팀 정보를 확인할 수 있는 DASHBOARD입니다.',
     type: 'website',
-    url: 'http://localhost:3000/mypage', // 임시
+    url: `${PROJECT_URL}/mypage`,
     images: [
       {
-        url: '/images/test01.png', // 임시
+        url: 'assets/images/test01.png',
         width: 1200,
         height: 630,
-        alt: '마이페이지 미리보기',
+        alt: 'DASHBOARD 미리보기',
       },
     ],
   },
