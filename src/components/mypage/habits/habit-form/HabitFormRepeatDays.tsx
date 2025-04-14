@@ -1,4 +1,6 @@
-import { DAYS_OF_WEEK, DAY_LABELS } from '@/constants/habits.constants';
+import { DAYS_OF_WEEK } from '@/constants/habits.constants';
+import { SELECTBUTTON_MODE } from '@/constants/mode.constants';
+import HabitSelectButton from '../habit-filter/HabitSelectButton';
 
 type HabitFormRepeatDaysProps = {
   selectedDays: string[];
@@ -15,23 +17,16 @@ const HabitFormReapeatDays = ({
       Repeats
     </label>
     <div className="flex gap-2">
-      {DAYS_OF_WEEK.map((day, i) => (
-        <label
+      {DAYS_OF_WEEK.map((day) => (
+        <HabitSelectButton
           key={day}
-          className={`w-8 h-8 flex items-center justify-center rounded-full cursor-pointer text-xs font-medium border transition font-dohyeon ${
-            selectedDays.includes(day)
-              ? 'bg-sub text-white'
-              : 'bg-white text-dark-gray border-light-gray'
-          }`}
+          mode={SELECTBUTTON_MODE.DAY}
+          isSelected={selectedDays.includes(day)}
+          onClick={() => setSelectedDays(toggleDay(selectedDays, day))}
+          inputType="checkbox"
         >
-          <input
-            type="checkbox"
-            className="hidden"
-            checked={selectedDays.includes(day)}
-            onChange={() => setSelectedDays(toggleDay(selectedDays, day))}
-          />
-          {DAY_LABELS[i]}
-        </label>
+          {day.charAt(0).toUpperCase() + day.slice(1)}
+        </HabitSelectButton>
       ))}
     </div>
   </>

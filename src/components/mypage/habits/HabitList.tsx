@@ -3,6 +3,8 @@ import HabitForm from './HabitForm';
 import HabitItem from './HabitItem';
 import { HabitFormData, HabitWithPoints } from '@/types/habits.type';
 import { useCreateHabitMutation } from '@/lib/mutations/useHabitMutation';
+import { useMemo } from 'react';
+import { sortHabitsByEnabled } from '@/lib/utils/habit.utils';
 
 type HabitListProps = {
   userId: string;
@@ -30,20 +32,30 @@ const HabitList = ({
     });
   };
 
+  // 쿨다운 없음, 오늘 수행 가능 -> 위쪽에 정렬
+  const sortedHabits = useMemo(() => sortHabitsByEnabled(habits), [habits]);
+
   return (
-    <article className="flex-1 overflow-y-auto">
+    <ul className="h-[460px] overflow-y-auto">
       {isCreating ? (
-        <HabitForm onCancel={onToggleCreate} onSuccess={handleCreateSuccess} />
-      ) : habits.length > 0 ? (
+        <li className="my-4 flex items-center justify-center ">
+          <HabitForm
+            onCancel={onToggleCreate}
+            onSuccess={handleCreateSuccess}
+          />
+        </li>
+      ) : sortedHabits.length > 0 ? (
         <div className="space-y-4">
-          {habits.map((habit) => (
+          {sortedHabits.map((habit) => (
             <HabitItem key={habit.id} habit={habit} userId={userId} />
           ))}
         </div>
       ) : (
-        <Text>등록된 habit이 없습니다.</Text>
+        <li>
+          <Text>등록된 habit이 없습니다.</Text>
+        </li>
       )}
-    </article>
+    </ul>
   );
 };
 export default HabitList;

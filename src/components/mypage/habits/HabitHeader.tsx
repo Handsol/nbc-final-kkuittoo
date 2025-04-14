@@ -15,7 +15,10 @@ const HabitHeader = ({
   onToggleCreate,
 }: HabitHeaderProps) => {
   return (
-    <header className="flex items-center justify-between">
+    <header
+      className="flex items-center justify-between "
+      aria-label="Habit section header"
+    >
       <div className="flex items-center gap-2">
         <Title mode={TITLE_MODE.SECTION_TITLE}>MY HABITS</Title>
         <Text>({habitsCount})</Text>
