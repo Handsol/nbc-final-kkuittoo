@@ -53,6 +53,12 @@ const ActionButton = ({
       variantStyle = 'bg-sub text-black hover:bg-sub-light hover:tracking-wide';
       roundedStyle = 'rounded-full';
       break;
+    case ACTIONBUTTON_MODE.PRIMARY_BORDER:
+      sizeStyle = 'w-[160px] h-[36px] text-body-md';
+      variantStyle =
+        'bg-white text-main border border-main hover:bg-sub-light hover:tracking-wide';
+      roundedStyle = 'rounded-full';
+      break;
     case ACTIONBUTTON_MODE.ROUNDED_MD:
       sizeStyle = 'w-[180px] h-[40px] text-body-md';
       variantStyle = 'bg-main text-white hover:bg-sub hover:tracking-wide';
