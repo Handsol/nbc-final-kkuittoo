@@ -1,4 +1,5 @@
 import Text from '@/components/common/Text';
+import UnauthorizedPage from '@/components/common/UnauthorizedPage';
 import MyPageHabits from '@/components/mypage/MyPageHabits';
 import MyPageTeam from '@/components/mypage/MyPageTeam';
 import { myPageMetadata } from '@/lib/seo/mypage.metadata';
@@ -11,11 +12,7 @@ const MyPage = async () => {
   const session = await getUserSession();
 
   if (!session) {
-    return (
-      <div className="flex flex-col items-center px-[30px] py-6 min-h-[calc(100vh-3rem)]">
-        <Text>로그인이 필요합니다.</Text>
-      </div>
-    );
+    return <UnauthorizedPage />;
   }
   const userId = session.user.id;
 

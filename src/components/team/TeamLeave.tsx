@@ -6,6 +6,8 @@ import TeamLeaveButton from './team-delete/TeamLeaveButton';
 import TeamDisbandButton from './team-delete/TeamDisbandButton';
 import Text from '../common/Text';
 import { getUserSession } from '@/lib/services/getUserSession.services';
+import { notFound } from 'next/navigation';
+import UnauthorizedPage from '../common/UnauthorizedPage';
 
 type TeamLeaveProps = {
   id: string;
@@ -15,18 +17,18 @@ const TeamLeave = async ({ id }: TeamLeaveProps) => {
   // 현재 로그인한 유저 정보
   const session = await getUserSession();
   if (!session || !session.user) {
-    return <Text>로그인이 필요합니다.</Text>;
+    return <UnauthorizedPage />;
   }
   const userId = session.user.id;
 
   // 팀 기본 데이터
   const myTeamData = await fetchGetMyTeamData(userId);
   if (!myTeamData) {
-    return <Text>데이터를 가져오는데 실패했습니다</Text>;
+    notFound();
   }
   const myTeamMembers = await fetchGetMyTeamMemberData(id);
   if (!myTeamMembers) {
-    return <Text>데이터를 가져오는데 실패했습니다</Text>;
+    notFound();
   }
 
   // 팀 생성자 여부 판단

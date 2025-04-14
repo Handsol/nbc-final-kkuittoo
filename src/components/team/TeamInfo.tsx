@@ -12,6 +12,7 @@ import Text from '../common/Text';
 import Image from 'next/image';
 import { getUserSession } from '@/lib/services/getUserSession.services';
 import { getCurrentTeamQuest } from '@/lib/utils/team.utils';
+import UnauthorizedPage from '../common/UnauthorizedPage';
 
 type TeamQuestProps = {
   id: string;
@@ -31,12 +32,10 @@ const TeamInfo = async ({ id }: TeamQuestProps) => {
   if (!teamData || !teamCurrentQuest) {
     return <Text>데이터를 가져오는데 실패했습니다</Text>;
   }
-  if (!session?.user) {
-    return (
-      <div className="flex items-center justify-center min-h-[calc(100vh-3rem)]">
-        <Text className="text-lg">로그인이 필요합니다.</Text>
-      </div>
-    );
+
+  //세션이 없을 경우 로그인 필요페이지로 return
+  if (!session) {
+    return <UnauthorizedPage />;
   }
 
   // 팀 생성자 여부 판단
