@@ -1,4 +1,3 @@
-import Text from '@/components/common/Text';
 import UnauthorizedPage from '@/components/common/UnauthorizedPage';
 import MyPageHabits from '@/components/mypage/MyPageHabits';
 import MyPageSection from '@/components/mypage/MyPageSection';
