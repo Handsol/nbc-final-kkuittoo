@@ -60,6 +60,9 @@ export const TeamChat = ({ teamId }: TeamChatProps) => {
         console.error('Error fetching messages:', error);
       }
     };
+    // 컴포넌트가 처음 랜더링되었을 때 메시지 불러옴.
+    fetchMessages();
+
     // Pusher 설정
     // Pusher에 연결 후 .env에 저장된 키와 정보를 사용
     const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY!, {
