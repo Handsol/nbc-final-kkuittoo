@@ -1,4 +1,4 @@
-import UnauthorizedPage from '@/components/common/UnauthorizedPage';
+import UnauthorizedPage from '@/components/loading-error-page/UnauthorizedPage';
 import MyPageHabits from '@/components/mypage/MyPageHabits';
 import MyPageSection from '@/components/mypage/MyPageSection';
 import MyPageTeam from '@/components/mypage/MyPageTeam';

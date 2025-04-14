@@ -2,10 +2,10 @@ import Text from '@/components/common/Text';
 import Title from '@/components/common/Title';
 import { LINKBUTTON_MODE, TITLE_MODE } from '@/constants/mode.constants';
 import React from 'react';
-import LinkButton from './button/LinkButton';
 import { PATH } from '@/constants/path.constants';
 import Image from 'next/image';
 import { IMAGE_ASSETS } from '@/constants/assets.contants';
+import LinkButton from '../common/button/LinkButton';
 
 const UnauthorizedPage = () => {
   return (

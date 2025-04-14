@@ -12,7 +12,7 @@ import Text from '../common/Text';
 import Image from 'next/image';
 import { getUserSession } from '@/lib/services/getUserSession.services';
 import { getCurrentTeamQuest } from '@/lib/utils/team.utils';
-import UnauthorizedPage from '../common/UnauthorizedPage';
+import UnauthorizedPage from '../loading-error-page/UnauthorizedPage';
 
 type TeamQuestProps = {
   id: string;
