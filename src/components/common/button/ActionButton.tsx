@@ -4,7 +4,6 @@ import { ButtonHTMLAttributes } from 'react';
 type ActionButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   mode: string;
   children: React.ReactNode;
-  className?: string;
   disabled?: boolean;
 };
 
@@ -21,60 +20,65 @@ type ActionButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 const ActionButton = ({
   mode,
   children,
-  className = '',
   disabled = false,
   ...props
 }: ActionButtonProps) => {
-  const baseStyle = 'py-2 font-semibold transition-colors font-dohyeon';
+  const baseStyle =
+    'py-2 font-semibold transition-all duration-200 ease-in-out font-dohyeon';
 
-  let sizeStyle: string;
-  let variantStyle: string;
+  let sizeStyle = '';
+  let variantStyle = '';
+  let roundedStyle = '';
 
   switch (mode) {
     case ACTIONBUTTON_MODE.PRIMARY:
-      sizeStyle = 'px-6 text-sm';
-      variantStyle = 'bg-medium-gray text-white rounded-full ';
+      sizeStyle = 'w-[250px] h-[45px] text-body-md';
+      variantStyle =
+        'bg-main text-white hover:bg-sub-light hover:tracking-wide';
+      roundedStyle = 'rounded-full';
       break;
     case ACTIONBUTTON_MODE.SECONDARY:
-      sizeStyle = 'px-6 text-sm';
-      variantStyle = 'bg-light-gray text-black rounded-full';
+      sizeStyle = 'w-[250px] h-[45px] text-body-md';
+      variantStyle = 'bg-sub text-black hover:bg-sub-light hover:tracking-wide';
+      roundedStyle = 'rounded-full';
       break;
     case ACTIONBUTTON_MODE.PRIMARY_SMALL:
-      sizeStyle = 'px-4 text-xs';
-      variantStyle = 'bg-medium-gray text-white rounded-full';
+      sizeStyle = 'w-[80px] h-[36px] text-body-md';
+      variantStyle =
+        'bg-main text-white hover:bg-sub-light hover:tracking-wide';
+      roundedStyle = 'rounded-full';
       break;
     case ACTIONBUTTON_MODE.SECONDARY_SMALL:
-      sizeStyle = 'px-4 text-xs';
-      variantStyle = 'bg-light-gray text-black ';
+      sizeStyle = 'w-[80px] h-[36px] text-body-md';
+      variantStyle = 'bg-sub text-black hover:bg-sub-light hover:tracking-wide';
+      roundedStyle = 'rounded-full';
       break;
     case ACTIONBUTTON_MODE.ROUNDED_MD:
-      sizeStyle = 'w-[180px] h-[40px] text-sm ';
-      variantStyle = 'bg-main text-white rounded-md';
+      sizeStyle = 'w-[180px] h-[40px] text-body-md';
+      variantStyle = 'bg-main text-white hover:bg-sub hover:tracking-wide';
+      roundedStyle = 'rounded-md';
       break;
     case ACTIONBUTTON_MODE.LOGOUT:
-      sizeStyle = 'px-4 text-sm';
-      variantStyle = 'text-black';
-      break;
-    case ACTIONBUTTON_MODE.LOGOUT:
-      sizeStyle = 'px-5 text-lg';
+      sizeStyle = 'px-5 text-body-lg';
       variantStyle =
         'text-black border border-transparent hover:text-main hover:border-main hover:bg-white';
+      roundedStyle = '';
       break;
     default:
-      sizeStyle = 'px-6 text-sm';
-      variantStyle = 'bg-medium-gray text-white rounded-full';
+      sizeStyle = 'w-[250px] h-[45px] text-body-md';
+      variantStyle = 'bg-main text-white hover:bg-sub hover:tracking-wide';
+      roundedStyle = 'rounded-full';
       break;
   }
 
   const disabledStyle = disabled
-    ? 'bg-light-gray text-medium-gray cursor-not-allowed '
-    : variantStyle;
-
+    ? `bg-light-gray text-medium-gray cursor-not-allowed ${roundedStyle}`
+    : `${variantStyle} ${roundedStyle}`;
   return (
     <button
       type={props.type || 'button'}
       disabled={disabled}
-      className={`${baseStyle} ${sizeStyle} ${disabledStyle} ${className}`}
+      className={`${baseStyle} ${sizeStyle} ${disabledStyle}`}
       {...props}
     >
       {children}
