@@ -1,12 +1,11 @@
 import { LINKBUTTON_MODE } from '@/constants/mode.constants';
 import { PATH } from '@/constants/path.constants';
 import LinkButton from '../common/button/LinkButton';
-import { getServerSession } from 'next-auth';
 import { fetchGetMyTeamData } from '@/lib/services/team-actions.services';
-import { authOptions } from '@/lib/utils/auth';
+import { getUserSession } from '@/lib/services/getUserSession.services';
 
 const SidebarNav = async () => {
-  const session = await getServerSession(authOptions);
+  const session = await getUserSession();
   const team = session ? await fetchGetMyTeamData(session.user.id) : null;
 
   const teamHref = team ? `${PATH.TEAM}/${team.teamId}` : PATH.TEAM;
