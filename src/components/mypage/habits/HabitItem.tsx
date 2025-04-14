@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Habit, UserPoint } from '@prisma/client';
 import HabitForm from './HabitForm';
 import { isHabitDisabled } from '@/lib/utils/habit.utils';
@@ -27,6 +27,18 @@ const HabitItem = ({ habit, userId }: HabitItemProps) => {
     habitId: habit.id,
     onEditToggle: setIsEditing,
   });
+
+  // 오늘의 포인트 계산
+  const todayPoints = useMemo(() => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return habit.userPoints.reduce((sum, point) => {
+      const pointDate = new Date(point.getTime);
+      pointDate.setHours(0, 0, 0, 0);
+      return pointDate.getTime() === today.getTime() ? sum + point.points : sum;
+    }, 0);
+  }, [habit.userPoints]);
+
   const isDisabled = isHabitDisabled(habit, isAddPending);
   const isPending = isAddPending || isUpdatePending || isDeletePending;
 
@@ -39,7 +51,7 @@ const HabitItem = ({ habit, userId }: HabitItemProps) => {
       >
         <IconButton
           mode={ICONBUTTON_MODE.ADD}
-          onClick={handleAddPoint}
+          onClick={() => handleAddPoint(todayPoints)}
           disabled={isDisabled}
         />
 
