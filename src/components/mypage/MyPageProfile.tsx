@@ -30,6 +30,7 @@ const MyPageProfile = ({ userId }: MyPageHabitsProps) => {
     (sum, p) => sum + p.points,
     0,
   );
+
   const level = getUserLevel(totalPoints);
   const currentExp = getCurrentExp(totalPoints);
   const expPercent = getExpPercent(totalPoints);

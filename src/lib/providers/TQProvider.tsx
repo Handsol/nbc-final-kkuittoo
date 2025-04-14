@@ -1,5 +1,6 @@
 'use client';
 
+import { STALE_TIME } from '@/constants/time.constants';
 import {
   isServer,
   QueryClient,
@@ -11,7 +12,7 @@ const makeQueryClient = () =>
   new QueryClient({
     defaultOptions: {
       queries: {
-        staleTime: 60 * 1000,
+        staleTime: STALE_TIME.ONE_MINUTE,
       },
     },
   });

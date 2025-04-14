@@ -10,16 +10,12 @@ import { HabitWithPoints } from '@/types/habits.type';
  * @param {string} userId - 포인트를 추가할 사용자의 ID
  * @returns
  */
-
 export const useAddPointMutation = (userId: string) => {
-  return useOptimisticMutation<
-    { habits: HabitWithPoints[]; userPoints: UserPoint[] },
-    string
-  >({
+  return useOptimisticMutation<HabitWithPoints[], string>({
     queryKey: QUERY_KEYS.HABITS(userId),
     mutationFn: (habitId) => fetchAddUserPoint(habitId),
     onMutateOptimistic: (habitId, previousData) => {
-      if (!previousData) return { habits: [], userPoints: [] };
+      if (!previousData) return [];
 
       const tempPoint: UserPoint = {
         id: Date.now().toString(),
@@ -29,16 +25,21 @@ export const useAddPointMutation = (userId: string) => {
         points: POINTS_TO_ADD,
       };
 
-      const updatedHabits = previousData.habits.map((habit) =>
+      const updatedHabits = previousData.map((habit) =>
         habit.id === habitId
           ? { ...habit, userPoints: [...habit.userPoints, tempPoint] }
           : habit,
       );
 
-      return {
-        habits: updatedHabits,
-        userPoints: [...previousData.userPoints, tempPoint],
-      };
+      return updatedHabits;
+    },
+    onSuccess: (data, habitId, queryClient) => {
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.HABITS(userId),
+      });
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.USER_POINTS(userId),
+      });
     },
   });
 };

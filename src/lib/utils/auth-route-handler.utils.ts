@@ -1,11 +1,10 @@
-import { getServerSession } from 'next-auth';
-import { authOptions } from './auth';
 import { NextResponse } from 'next/server';
 import { HTTP_STATUS } from '@/constants/http-status.constants';
 import { COMMON_ERROR_MESSAGES } from '@/constants/error-messages.constants';
+import { getUserSession } from '../services/getUserSession.services';
 
 export const checkAuth = async () => {
-  const session = await getServerSession(authOptions);
+  const session = await getUserSession();
   if (!session || !session.user) {
     return {
       session: null,
