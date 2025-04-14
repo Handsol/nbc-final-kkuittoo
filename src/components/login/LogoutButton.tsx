@@ -6,11 +6,12 @@ import ActionButton from '../common/button/ActionButton';
 import { ACTIONBUTTON_MODE } from '@/constants/mode.constants';
 
 const LogoutButton = () => {
+  const handleLogout = () => {
+    localStorage.removeItem('hasVisitedMypageBefore');
+    signOut({ callbackUrl: PATH.HOME });
+  };
   return (
-    <ActionButton
-      mode={ACTIONBUTTON_MODE.LOGOUT}
-      onClick={() => signOut({ callbackUrl: PATH.HOME })}
-    >
+    <ActionButton mode={ACTIONBUTTON_MODE.LOGOUT} onClick={handleLogout}>
       Logout
     </ActionButton>
   );
