@@ -55,6 +55,11 @@ const ActionButton = ({
       sizeStyle = 'px-4 text-sm';
       variantStyle = 'text-black';
       break;
+    case ACTIONBUTTON_MODE.LOGOUT:
+      sizeStyle = 'px-5 text-lg';
+      variantStyle =
+        'text-black border border-transparent hover:text-main hover:border-main hover:bg-white';
+      break;
     default:
       sizeStyle = 'px-6 text-sm';
       variantStyle = 'bg-medium-gray text-white rounded-full';

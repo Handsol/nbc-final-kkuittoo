@@ -8,10 +8,10 @@ import { ACTIONBUTTON_MODE } from '@/constants/mode.constants';
 const LogoutButton = () => {
   return (
     <ActionButton
-      mode={ACTIONBUTTON_MODE.PRIMARY}
+      mode={ACTIONBUTTON_MODE.LOGOUT}
       onClick={() => signOut({ callbackUrl: PATH.HOME })}
     >
-      로그아웃
+      Logout
     </ActionButton>
   );
 };
