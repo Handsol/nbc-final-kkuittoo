@@ -17,6 +17,7 @@ export const HABIT_ERROR_MESSAGES = {
   FETCH_FAILED: 'Habit을 가져오는데 실패했습니다.',
   POINT_ADD_FAILED: '포인트 추가에 실패했습니다.',
   POINT_FETCH_FAILED: '포인트를 가져오는데 실패했습니다.',
+  DAILY_POINT_LIMIT_EXCEEDED: '하루 최대 10포인트까지 획득 가능합니다.',
 } as const;
 
 export const TEAMS_MESSAGES = {
