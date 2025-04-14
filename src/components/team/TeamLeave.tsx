@@ -7,7 +7,7 @@ import TeamDisbandButton from './team-delete/TeamDisbandButton';
 import Text from '../common/Text';
 import { getUserSession } from '@/lib/services/getUserSession.services';
 import { notFound } from 'next/navigation';
-import UnauthorizedPage from '../common/UnauthorizedPage';
+import UnauthorizedPage from '../loading-error-page/UnauthorizedPage';
 
 type TeamLeaveProps = {
   id: string;
