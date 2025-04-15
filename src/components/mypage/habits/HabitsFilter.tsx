@@ -38,7 +38,7 @@ const HabitsFilter = ({
           onClick={onToggleCreate}
           disabled={isCreating}
         >
-          Add Habit
+          habit 추가하기
         </ActionButton>
       </div>
     </div>
