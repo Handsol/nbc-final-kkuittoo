@@ -56,6 +56,7 @@ const HabitItem = ({ habit, userId }: HabitItemProps) => {
           onDelete={handleDeleteHabit}
           isEditDisabled={isUpdatePending || isDeletePending}
           isDeleteDisabled={isUpdatePending || isDeletePending}
+          isEditingDisabled={isEditing}
         />
       </li>
 
