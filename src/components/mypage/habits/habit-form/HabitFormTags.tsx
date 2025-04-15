@@ -13,10 +13,10 @@ type HabitFormTagsProps = {
 
 const HabitFormTags = ({ category, setCategory }: HabitFormTagsProps) => (
   <>
-    <label className="block mb-2 text-xs font-semibold text-dark-gray font-dohyeon">
-      Tags
+    <label className="block mb-2 text-body-md font-semibold text-dark-gray font-dohyeon">
+      태그
     </label>
-    <div className="flex flex-wrap gap-3">
+    <div className="flex flex-wrap gap-2">
       {HABIT_CATEGORIES.map((c) => (
         <HabitSelectButton
           key={c}

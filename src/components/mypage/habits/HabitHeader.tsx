@@ -19,9 +19,9 @@ const HabitHeader = ({
       className="flex items-center justify-between "
       aria-label="Habit section header"
     >
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-[24px]">
         <Title mode={TITLE_MODE.SECTION_TITLE}>MY HABITS</Title>
-        <Text>({habitsCount})</Text>
+        <Text className="font-bold">({habitsCount})</Text>
       </div>
       <ActionButton
         mode={ACTIONBUTTON_MODE.ROUNDED_MD}
