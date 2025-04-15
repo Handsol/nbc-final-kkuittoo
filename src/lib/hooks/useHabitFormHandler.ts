@@ -4,7 +4,11 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { habitFormSchema, HabitFormSchema } from '../schema/habit.schema';
-import { createHabitData, getDefaultValues } from '../utils/habit-form.utils';
+import {
+  createHabitData,
+  getDefaultValues,
+  isHabitDataUnchanged,
+} from '../utils/habit-form.utils';
 
 type UseHabitFormHandlerProps = {
   initialHabit?: HabitFormData;
@@ -15,7 +19,6 @@ type UseHabitFormHandlerProps = {
 export const useHabitFormHandler = ({
   initialHabit,
   onSuccess,
-  onCancel,
 }: UseHabitFormHandlerProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -39,6 +42,16 @@ export const useHabitFormHandler = ({
         data.categories,
         initialHabit?.id,
       );
+
+      // 변경 사항이 없는지 확인
+      if (isHabitDataUnchanged(habitData, initialHabit)) {
+        toast({
+          title: '알림',
+          description: '변경된 내용이 없습니다.',
+        });
+        setIsSubmitting(false);
+        return;
+      }
 
       if (onSuccess) {
         await onSuccess(habitData);
