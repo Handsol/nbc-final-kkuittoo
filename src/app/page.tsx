@@ -1,5 +1,5 @@
+import HomePaginationController from '@/components/home/HomePaginationController';
 import GoogleLogin from '@/components/login/GoogleLogin';
-import HomePageBio from '@/components/home/HomePageBio';
 import Image from 'next/image';
 
 export default function Home() {
@@ -11,7 +11,7 @@ export default function Home() {
         width={301}
         height={40}
       />
-      <HomePageBio />
+      <HomePaginationController />
       <GoogleLogin />
     </div>
   );
