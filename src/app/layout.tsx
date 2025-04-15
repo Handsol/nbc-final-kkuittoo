@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import Provider from '@/lib/providers/Provider';
+import GlobalLoadingBar from '@/components/loading-error-page/GlobalLoadingBar';
 
 export const metadata: Metadata = {
   title: 'KKUITTOO',
@@ -17,6 +18,7 @@ export default function RootLayout({
     <html lang="ko">
       <body>
         <Provider>
+          <GlobalLoadingBar />
           {children}
           <Toaster />
         </Provider>
