@@ -1,5 +1,3 @@
-import { EMBLEM } from './team-contents.constants';
-
 export const IMAGE_ASSETS = {
   LOGO: {
     DESKTOP: '/assets/images/logo_desktop_kkuitddo.png',
@@ -18,12 +16,17 @@ export const IMAGE_ASSETS = {
     LV4: '/assets/images/user_lv4.png',
     LV5: '/assets/images/user_lv5.png',
   },
-  // 수정예정
   TEAM_QUEST: {
     LV1: '/assets/images/quest_lv1.png',
     LV2: '/assets/images/quest_lv2.png',
     LV3: '/assets/images/quest_lv3.png',
     LV4: '/assets/images/quest_lv4.png',
     LV5: '/assets/images/quest_lv5.png',
+  },
+  SPRITE: {
+    PINK: '/assets/images/pink.png',
+    BLUE: '/assets/images/blue.png',
+    GREEN: '/assets/images/green.png',
+    YELLOW: '/assets/images/yellow.png',
   },
 };
