@@ -1,11 +1,13 @@
 import Link from 'next/link';
 import Title from '../Title';
-import { TITLE_MODE } from '@/constants/mode.constants';
+import { LINKBUTTON_MODE, TITLE_MODE } from '@/constants/mode.constants';
+import clsx from 'clsx';
 
 type LinkButtonProps = {
   href: string;
   mode: string;
   children: string;
+  disabled?: boolean;
 };
 
 /**
@@ -31,24 +33,41 @@ type LinkButtonProps = {
  * @example
  * <LinkButton mode={LINKBUTTON_MODE.COMMON} href={PATH}> 내 팀으로 이동하기 </Link>
  */
-const LinkButton = ({ href, mode, children }: LinkButtonProps) => {
+const LinkButton = ({
+  href,
+  mode,
+  children,
+  disabled = false,
+}: LinkButtonProps) => {
+  const isCommon = mode === LINKBUTTON_MODE.COMMON;
+  const isNav = mode === LINKBUTTON_MODE.NAV;
+  const isRank = mode === LINKBUTTON_MODE.RANK;
+
+  const linkBtnClass = clsx(
+    'flex items-center justify-center px-2 py-2 rounded-full duration-300',
+    isCommon && 'border border-main bg-white  text-main',
+    isNav && (disabled ? 'text-main' : 'text-black hover:text-main'),
+    isRank &&
+      (disabled
+        ? 'border border-main text-heading-lg text-main'
+        : 'text-heading-lg border border-transparent hover:border hover:border-main hover:text-main'),
+  );
+
+  const linkBtnTextSize = clsx(
+    isCommon && 'text-body-md',
+    isNav && 'text-heading-lg',
+    isRank && 'text-heading-lg',
+  );
+
   return (
     <>
-      {mode === 'nav' ? (
-        // nav 모드
-        <Link href={href}>
-          <button className="flex items-center justify-center px-5 py-2 rounded-full border border-transparent duration-300 hover:border hover:border-main hover:text-main">
-            <Title mode={TITLE_MODE.LINK}>{children}</Title>
-          </button>
-        </Link>
-      ) : (
-        // common 모드
-        <Link href={href}>
-          <button className="flex items-center justify-center px-5 py-2 rounded-full text-main border border-main bg-white duration-300 hover:bg-main hover:text-white">
-            <Title mode={TITLE_MODE.LINK}>{children}</Title>
-          </button>
-        </Link>
-      )}
+      <Link href={href}>
+        <button className={linkBtnClass}>
+          <Title mode={TITLE_MODE.LINK} className={linkBtnTextSize}>
+            {children}
+          </Title>
+        </button>
+      </Link>
     </>
   );
 };
