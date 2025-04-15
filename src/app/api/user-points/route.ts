@@ -8,10 +8,7 @@ import {
   checkCooldown,
   checkHabitPermission,
 } from '@/lib/utils/habit-validation.utils';
-import {
-  COMMON_ERROR_MESSAGES,
-  HABIT_ERROR_MESSAGES,
-} from '@/constants/error-messages.constants';
+import { HABIT_ERROR_MESSAGES } from '@/constants/error-messages.constants';
 import { getCurrentDayStatus } from '@/lib/utils/habit.utils';
 
 /**

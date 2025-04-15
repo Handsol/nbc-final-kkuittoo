@@ -12,7 +12,7 @@ const DayFilter = ({ selectedDay, setSelectedDay }: DayFilterProps) => (
         key={day}
         onClick={() => setSelectedDay(selectedDay === day ? null : day)}
         className={`
-            flex-1 pb-2 text-sm transition border-b-4 font-dohyeon
+            flex-1 pb-2 text-sm border-b-4 font-dohyeon transition-all duration-200 ease-in-out cursor-pointer  hover:text-sub hover:border-sub
             ${
               selectedDay === day
                 ? 'border-main text-main font-semibold'
