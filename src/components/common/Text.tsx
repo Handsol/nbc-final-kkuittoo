@@ -8,7 +8,9 @@ type TextProps = {
 
 const Text = ({ children, className = '' }: TextProps) => {
   return (
-    <p className={clsx('font-pretendard text-sm', className)}>{children}</p>
+    <p className={clsx('font-pretendard text-body-sm', className)}>
+      {children}
+    </p>
   );
 };
 
