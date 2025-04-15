@@ -66,7 +66,10 @@ const TeamPasswordForm = ({ teamId }: TeamPasswordFormProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="w-full flex flex-col items-center gap-8"
+    >
       <CommonInputBar
         id="teamPassword"
         type="type"
@@ -86,7 +89,7 @@ const TeamPasswordForm = ({ teamId }: TeamPasswordFormProps) => {
       {errors.teamPassword && (
         <ErrorMessage>{errors.teamPassword.message}</ErrorMessage>
       )}
-      <ActionButton mode={ACTIONBUTTON_MODE.PRIMARY} type="submit">
+      <ActionButton mode={ACTIONBUTTON_MODE.ROUNDED_MD} type="submit">
         JOIN
       </ActionButton>
     </form>
