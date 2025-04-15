@@ -6,7 +6,11 @@ type TeamBioNotEditModeProps = {
 };
 
 const TeamBioNotEditMode = ({ teamBio }: TeamBioNotEditModeProps) => {
-  return <Text>{teamBio}</Text>;
+  return (
+    <div className="w-full h-50">
+      <Text>{teamBio}</Text>
+    </div>
+  );
 };
 
 export default TeamBioNotEditMode;

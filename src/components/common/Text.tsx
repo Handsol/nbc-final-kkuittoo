@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { ReactNode } from 'react';
 
 type TextProps = {
@@ -6,7 +7,9 @@ type TextProps = {
 };
 
 const Text = ({ children, className = '' }: TextProps) => {
-  return <p className={className}>{children}</p>;
+  return (
+    <p className={clsx('font-pretendard text-sm', className)}>{children}</p>
+  );
 };
 
 export default Text;
