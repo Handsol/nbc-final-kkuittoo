@@ -1,12 +1,13 @@
 import { useMemo, useState } from 'react';
 import { Habit, UserPoint } from '@prisma/client';
 import HabitForm from './HabitForm';
-import { isHabitDisabled } from '@/lib/utils/habit.utils';
+import { isHabitDisabled } from '@/lib/utils/habit-filter.utils';
 import { ICONBUTTON_MODE } from '@/constants/mode.constants';
 import IconButton from '@/components/common/button/IconButton';
 import { useHabitItemHandlers } from '@/lib/hooks/useHabitItemHandlers';
 import HabitItemActions from './habit-item/HabitItemActions';
 import HabitItemInfo from './habit-item/HabitItemInfo';
+import { calculateTodayPoints } from '@/lib/utils/habit-points.utils';
 
 type HabitItemProps = {
   habit: Habit & { userPoints: UserPoint[] };
@@ -15,6 +16,11 @@ type HabitItemProps = {
 
 const HabitItem = ({ habit, userId }: HabitItemProps) => {
   const [isEditing, setIsEditing] = useState(false);
+  const todayPoints = useMemo(
+    () => calculateTodayPoints(habit.userPoints),
+    [habit.userPoints],
+  );
+
   const {
     handleAddPoint,
     handleUpdateHabit,
@@ -27,17 +33,6 @@ const HabitItem = ({ habit, userId }: HabitItemProps) => {
     habitId: habit.id,
     onEditToggle: setIsEditing,
   });
-
-  // 오늘의 포인트 계산
-  const todayPoints = useMemo(() => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    return habit.userPoints.reduce((sum, point) => {
-      const pointDate = new Date(point.getTime);
-      pointDate.setHours(0, 0, 0, 0);
-      return pointDate.getTime() === today.getTime() ? sum + point.points : sum;
-    }, 0);
-  }, [habit.userPoints]);
 
   const isDisabled = isHabitDisabled(habit, isAddPending);
   const isPending = isAddPending || isUpdatePending || isDeletePending;

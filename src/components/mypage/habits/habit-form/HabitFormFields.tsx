@@ -8,7 +8,7 @@ import {
 import HabitFormInput from './HabitFormInput';
 import HabitFormTags from './HabitFormTags';
 import HabitFormRepeatDays from './HabitFormRepeatDays';
-import { toggleDay } from '@/lib/utils/habit.utils';
+import { toggleDay } from '@/lib/utils/habit-form.utils';
 
 type HabitFormFieldsProps = {
   register: UseFormRegister<HabitFormSchema>;

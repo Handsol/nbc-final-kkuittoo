@@ -12,7 +12,7 @@ import {
   checkHabitPermission,
 } from '@/lib/utils/habit-validation.utils';
 import { HABIT_ERROR_MESSAGES } from '@/constants/error-messages.constants';
-import { getCurrentDayStatus } from '@/lib/utils/habit.utils';
+import { getCurrentDayStatus } from '@/lib/utils/habit-date.utils';
 
 /**
  * 사용자가 Habit의 '+'버튼을 눌렀을 때 포인트 추가
