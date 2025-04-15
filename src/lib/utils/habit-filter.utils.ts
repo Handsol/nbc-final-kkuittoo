@@ -5,12 +5,14 @@ import { getCooldownStatus } from './habit-points.utils';
 
 export const filterHabits = (
   habits: HabitWithPoints[],
-  selectedDay: string | null,
+  selectedDay: string[],
   selectedCategory: Categories | null,
 ): HabitWithPoints[] => {
   let filtered = [...habits];
-  if (selectedDay) {
-    filtered = filtered.filter((habit) => habit[selectedDay as keyof Habit]);
+  if (selectedDay.length > 0) {
+    filtered = filtered.filter((habit) =>
+      selectedDay.some((day) => habit[day as keyof HabitWithPoints]),
+    );
   }
   if (selectedCategory) {
     filtered = filtered.filter(
