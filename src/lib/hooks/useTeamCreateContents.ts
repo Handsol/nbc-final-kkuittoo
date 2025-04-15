@@ -27,7 +27,7 @@ export const useTeamCreateContents = (errors: FieldErrors<TeamFormInputs>) => {
   // input으로 사용자 입력값 받는 요소들 : teamName, teamBio
   const teamFormContents: TeamFormContents = [
     {
-      title: 'TEAM NAME',
+      title: '팀 이름',
       id: 'teamName',
       name: 'teamName',
       type: 'text',
@@ -44,7 +44,7 @@ export const useTeamCreateContents = (errors: FieldErrors<TeamFormInputs>) => {
       error: errors.teamName,
     },
     {
-      title: 'TEAM BIO',
+      title: '팀 소개',
       id: 'teamBio',
       name: 'teamBio',
       type: 'text',

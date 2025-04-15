@@ -1,7 +1,11 @@
 'use client';
 
 import Title from '@/components/common/Title';
-import { ACTIONBUTTON_MODE, TITLE_MODE } from '@/constants/mode.constants';
+import {
+  ACTIONBUTTON_MODE,
+  ICONBUTTON_MODE,
+  TITLE_MODE,
+} from '@/constants/mode.constants';
 import {
   TeamFormInputs,
   useTeamCreateForm,
@@ -17,6 +21,7 @@ import TeamEmblemSelector from './team-create/TeamEmblemSelector';
 import TeamOpenToggle from './team-create/TeamOpenToggle';
 import ActionButton from '../common/button/ActionButton';
 import { TEAM_TOAST_MESSAGES } from '@/constants/toast-messages.contants';
+import IconButton from '../common/button/IconButton';
 
 const TeamForm = () => {
   //router
@@ -28,6 +33,8 @@ const TeamForm = () => {
     useTeamCreateForm();
   // input 콘텐츠 : name, bio, emblem
   const { teamFormContents, emblemOptions } = useTeamCreateContents(errors);
+
+  const handleCloseButtonClick = () => handleCloseModalWithSuccess(router);
 
   // submit 로직
   const onSubmit = async (data: TeamFormInputs) => {
@@ -61,10 +68,18 @@ const TeamForm = () => {
 
   return (
     <div>
-      <Title mode={TITLE_MODE.SECTION_TITLE}>MAKE MY TEAM</Title>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <div className="absolute top-3 right-3">
+        <IconButton
+          mode={ICONBUTTON_MODE.DELETE}
+          onClick={handleCloseButtonClick}
+        />
+      </div>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col gap-[14px] items-center"
+      >
         <TeamInputs teamFormContents={teamFormContents} register={register} />
-        <TeamSizeSelector register={register} />
+        <TeamSizeSelector control={control} errors={errors} />
         <TeamEmblemSelector
           emblemOptions={emblemOptions}
           register={register}
@@ -73,8 +88,8 @@ const TeamForm = () => {
         />
         <TeamOpenToggle watch={watch} control={control} />
 
-        <ActionButton mode={ACTIONBUTTON_MODE.PRIMARY} type="submit">
-          확인
+        <ActionButton mode={ACTIONBUTTON_MODE.ROUNDED_MD} type="submit">
+          팀 생성하기
         </ActionButton>
       </form>
     </div>
