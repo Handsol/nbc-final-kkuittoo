@@ -70,12 +70,10 @@ export const PaginationNumberButton = ({
     <button
       onClick={() => onClickPage(page)}
       aria-pressed={isActive}
-      className={`px-3 py-1 border rounded-full transition font-medium 
-        ${isActive ? 'bg-white text-main' : 'border-white text-white hover:bg-white hover:text-main'} 
-        ${className}`}
+      className={`w-3 h-3 rounded-full border transition
+      ${isActive ? 'bg-white border-white' : 'border-white'} 
+      ${className}`}
       {...props}
-    >
-      {page}
-    </button>
+    />
   );
 };
