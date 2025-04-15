@@ -12,11 +12,12 @@ import { revalidateMyPage } from '../services/revalidate-mypage.services';
  * @returns
  */
 export const useAddPointMutation = (userId: string) => {
-  return useOptimisticMutation<HabitWithPoints[], string>({
+  return useOptimisticMutation<UserPoint, string, HabitWithPoints[]>({
     queryKey: QUERY_KEYS.HABITS(userId),
     mutationFn: (habitId) => fetchAddUserPoint(habitId),
     onMutateOptimistic: (habitId, previousData) => {
       if (!previousData) return [];
+
       const tempPoint: UserPoint = {
         id: Date.now().toString(),
         userId,
@@ -24,13 +25,14 @@ export const useAddPointMutation = (userId: string) => {
         getTime: new Date(),
         points: POINTS_TO_ADD,
       };
+
       return previousData.map((habit) =>
         habit.id === habitId
           ? { ...habit, userPoints: [...habit.userPoints, tempPoint] }
           : habit,
       );
     },
-    onSuccess: async (data, habitId, queryClient) => {
+    onSuccess: async (_data, _habitId, queryClient) => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.HABITS(userId) });
       queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.USER_POINTS(userId),
