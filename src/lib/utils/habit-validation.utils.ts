@@ -2,7 +2,7 @@ import { HABIT_ERROR_MESSAGES } from '@/constants/error-messages.constants';
 import { HTTP_STATUS } from '@/constants/http-status.constants';
 import { Habit, UserPoint } from '@prisma/client';
 import { NextResponse } from 'next/server';
-import { isCooldownActive } from './habit.utils';
+import { isCooldownActive } from './habit-points.utils';
 
 /**
  * 습관에 대한 사용자 권한을 확인

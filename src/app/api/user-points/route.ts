@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { CreateUserPoint } from '@/types/habits.type';
-import { POINTS_TO_ADD } from '@/constants/habits.constants';
+import {
+  MAX_POINTS_PER_DAY,
+  POINTS_TO_ADD,
+} from '@/constants/habits.constants';
 import { HTTP_STATUS } from '@/constants/http-status.constants';
 import { checkAuth } from '@/lib/utils/auth-route-handler.utils';
 import {
@@ -9,7 +12,7 @@ import {
   checkHabitPermission,
 } from '@/lib/utils/habit-validation.utils';
 import { HABIT_ERROR_MESSAGES } from '@/constants/error-messages.constants';
-import { getCurrentDayStatus } from '@/lib/utils/habit.utils';
+import { getCurrentDayStatus } from '@/lib/utils/habit-date.utils';
 
 /**
  * 사용자가 Habit의 '+'버튼을 눌렀을 때 포인트 추가
@@ -49,13 +52,46 @@ export const POST = async (request: NextRequest) => {
     const cooldownError = checkCooldown(habit!.userPoints, now);
     if (cooldownError) return cooldownError;
 
-    // 포인트 추가
+    // 오늘 날짜 (시간 제외)
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // 오늘 획득한 총 포인트 계산 (모든 습관에 대한 총합)
+    const todayPoints = await prisma.userPoint.aggregate({
+      where: {
+        userId: session.user.id,
+        getTime: {
+          gte: today.toISOString(),
+        },
+      },
+      _sum: {
+        points: true,
+      },
+    });
+
+    const totalTodayPoints = todayPoints._sum.points || 0;
+
+    // 하루 최대 포인트 검증 (10점 제한)
+    if (totalTodayPoints >= MAX_POINTS_PER_DAY) {
+      return NextResponse.json(
+        { error: HABIT_ERROR_MESSAGES.DAILY_POINT_LIMIT_EXCEEDED },
+        { status: HTTP_STATUS.BAD_REQUEST },
+      );
+    }
+
+    // 추가할 포인트 계산 (남은 양이 1점 미만이면 남은 양만 추가)
+    const pointsToAdd = Math.min(
+      POINTS_TO_ADD,
+      MAX_POINTS_PER_DAY - totalTodayPoints,
+    );
+
+    // 포인트 추가 (계산된 pointsToAdd 사용)
     const userPoint = await prisma.userPoint.create({
       data: {
         userId: session.user.id,
         habitId,
         getTime: now.toISOString(),
-        points: POINTS_TO_ADD,
+        points: pointsToAdd,
       },
     });
 

@@ -5,6 +5,9 @@ import {
 } from '@/lib/mutations/useHabitMutation';
 import { toast } from '@/lib/hooks/use-toast';
 import { Habit } from '@prisma/client';
+import { HABIT_ERROR_MESSAGES } from '@/constants/error-messages.constants';
+import { MAX_POINTS_PER_DAY } from '@/constants/habits.constants';
+import { isDailyPointsLimitExceeded } from '../utils/habit-points.utils';
 
 type useHabitItemHandlersProps = {
   userId: string;
@@ -21,15 +24,25 @@ export const useHabitItemHandlers = ({
   const updateMutation = useUpdateHabitMutation(userId, habitId);
   const deleteMutation = useDeleteHabitMutation(userId, habitId);
 
-  const handleAddPoint = () => {
+  const handleAddPoint = (todayPoints: number) => {
+    if (isDailyPointsLimitExceeded(todayPoints)) {
+      toast({
+        title: '알림',
+        description: `하루 최대 ${MAX_POINTS_PER_DAY}포인트까지 획득 가능합니다.`,
+      });
+      return;
+    }
+
     addPointMutation.mutate(habitId, {
       onSuccess: () =>
         toast({ title: '성공', description: '포인트가 추가되었습니다.' }),
-      onError: (err) =>
-        toast({
-          title: '실패',
-          description: `포인트 추가 실패: ${err.message}`,
-        }),
+      onError: (err) => {
+        const errorMessage =
+          err.message === HABIT_ERROR_MESSAGES.DAILY_POINT_LIMIT_EXCEEDED
+            ? `하루 최대 ${MAX_POINTS_PER_DAY}포인트까지 획득 가능합니다.`
+            : `포인트 추가 실패: ${err.message}`;
+        toast({ title: '실패', description: errorMessage });
+      },
     });
   };
 
