@@ -54,9 +54,9 @@ const LinkButton = ({
   );
 
   const linkBtnTextSize = clsx(
-    isCommon && 'text-body-md',
-    isNav && 'text-heading-lg',
-    isRank && 'text-heading-lg',
+    isCommon && 'text-body-sm',
+    isNav && 'text-body-xl',
+    isRank && 'text-body-lg',
   );
 
   return (

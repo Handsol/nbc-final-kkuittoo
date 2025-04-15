@@ -15,7 +15,7 @@ type TeamInputsProps = {
 
 const TeamInputs = ({ teamFormContents, register }: TeamInputsProps) => {
   return (
-    <section>
+    <>
       {teamFormContents.map((item) => {
         const {
           title,
@@ -29,25 +29,30 @@ const TeamInputs = ({ teamFormContents, register }: TeamInputsProps) => {
           error,
         } = item;
         return (
-          <section key={id}>
-            <label htmlFor={name}>
+          <section key={id} className="w-full">
+            <label
+              htmlFor={name}
+              className="flex gap-6 justify-between items-center"
+            >
               <Title mode={TITLE_MODE.SECTION_SUBTITLE}>{title}</Title>
-              <CommonInputBar
-                id={id}
-                type={type}
-                placeholder={placeholder}
-                {...register(name as 'teamName' | 'teamBio', {
-                  required,
-                  minLength,
-                  maxLength,
-                })}
-              />
+              <div className="flex-1">
+                <CommonInputBar
+                  id={id}
+                  type={type}
+                  placeholder={placeholder}
+                  {...register(name as 'teamName' | 'teamBio', {
+                    required,
+                    minLength,
+                    maxLength,
+                  })}
+                />
+              </div>
             </label>
             <ErrorMessage>{error?.message && error.message}</ErrorMessage>
           </section>
         );
       })}
-    </section>
+    </>
   );
 };
 

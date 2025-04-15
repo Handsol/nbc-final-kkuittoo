@@ -7,10 +7,10 @@ import { SearchInput } from '../SearchInput';
 export const UserRankHeader = () => {
   return (
     <section className="flex items-center space-x-2 mb-8">
-      <ActionButton mode={ACTIONBUTTON_MODE.SECONDARY} disabled>
+      <LinkButton mode={LINKBUTTON_MODE.RANK} href={PATH.RANK.USERS} disabled>
         Character
-      </ActionButton>
-      <LinkButton mode={LINKBUTTON_MODE.COMMON} href={PATH.RANK.TEAMS}>
+      </LinkButton>
+      <LinkButton mode={LINKBUTTON_MODE.RANK} href={PATH.RANK.TEAMS}>
         Team
       </LinkButton>
       <SearchInput placeholder="캐릭터 이름을 검색해보세요." />

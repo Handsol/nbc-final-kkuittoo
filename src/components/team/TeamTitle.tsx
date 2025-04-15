@@ -8,7 +8,7 @@ type TeamTitleProps = {
 
 const TeamTitle = ({ teamName, currentQuestName }: TeamTitleProps) => {
   return (
-    <div>
+    <div className="pl-4">
       <UserTitle mode={USER_TITLE_MODE.CARD_NAME}>{teamName}</UserTitle>
       <UserTitle mode={USER_TITLE_MODE.CARD_LEVEL}>
         {currentQuestName}
