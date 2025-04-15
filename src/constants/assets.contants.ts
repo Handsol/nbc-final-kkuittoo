@@ -20,10 +20,10 @@ export const IMAGE_ASSETS = {
   },
   // 수정예정
   TEAM_QUEST: {
-    LV1: '/assets/images/user_lv1.png',
-    LV2: '/assets/images/user_lv2.png',
-    LV3: '/assets/images/user_lv3.png',
-    LV4: '/assets/images/user_lv4.png',
-    LV5: '/assets/images/user_lv5.png',
+    LV1: '/assets/images/quest_lv1.png',
+    LV2: '/assets/images/quest_lv2.png',
+    LV3: '/assets/images/quest_lv3.png',
+    LV4: '/assets/images/quest_lv4.png',
+    LV5: '/assets/images/quest_lv5.png',
   },
 };
