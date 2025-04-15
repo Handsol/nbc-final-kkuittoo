@@ -8,7 +8,7 @@ type Props = {
   totalPages: number;
 };
 
-const HomePage = ({ currentPage, setPage, totalPages }: Props) => {
+const HomePagination = ({ currentPage, setPage, totalPages }: Props) => {
   const handlePrev = () => currentPage > 1 && setPage(currentPage - 1);
   const handleNext = () => currentPage < totalPages && setPage(currentPage + 1);
 
@@ -29,8 +29,7 @@ const HomePage = ({ currentPage, setPage, totalPages }: Props) => {
                 key={pageNum}
                 page={pageNum}
                 currentPage={currentPage}
-                onClick={handleNext}
-                aria-label={`${pageNum} 페이지`}
+                onClickPage={setPage}
               />
             );
           })}
@@ -45,4 +44,4 @@ const HomePage = ({ currentPage, setPage, totalPages }: Props) => {
   );
 };
 
-export default HomePage;
+export default HomePagination;
