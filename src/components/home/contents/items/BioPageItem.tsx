@@ -95,3 +95,18 @@ export const BioPage2Info = () => {
     </div>
   );
 };
+
+// 3페이지 팀 관련 설명
+export const BioPage3Info = () => {
+  return (
+    <div className="flex flex-col items-center justify-center gap-5 mb-2">
+      <HomeTitleLg>당신은 혼자가 아닙니다.</HomeTitleLg>
+      <HomeTitleSm>
+        혼자라면 지치던 습관도 함께라면 더 멀리 갈 수 있습니다. <br />
+        각각 팀원이 매일 습관을 달성하면 팀도 함께 성장합니다. <br />
+        팀원들과 채팅으로 응원하고, 서로의 실천을 함께 나눌 수 있어요. <br />
+        팀을 만들어 동료들과 몬스터를 무찌르며 협동의 즐거움을 느껴보세요!
+      </HomeTitleSm>
+    </div>
+  );
+};
