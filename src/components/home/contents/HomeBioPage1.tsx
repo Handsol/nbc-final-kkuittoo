@@ -1,7 +1,7 @@
 import { PiPlant } from 'react-icons/pi';
 import { RiGamepadLine } from 'react-icons/ri';
 import { LuHandshake } from 'react-icons/lu';
-import { HomeTitleLg, HomeTitleSm } from './HomePageItems';
+import { HomeTitleLg, HomeTitleSm } from '../HomePageItems';
 
 const HomeBioPage1 = () => {
   return (
