@@ -13,6 +13,8 @@ import Image from 'next/image';
 import { getUserSession } from '@/lib/services/getUserSession.services';
 import { getCurrentTeamQuest } from '@/lib/utils/team.utils';
 import UnauthorizedPage from '../loading-error-page/UnauthorizedPage';
+import UserTitle from '../common/UserTitle';
+import { USER_TITLE_MODE } from '@/constants/mode.constants';
 
 type TeamQuestProps = {
   id: string;
@@ -27,12 +29,6 @@ const TeamInfo = async ({ id }: TeamQuestProps) => {
   // 현재 로그인한 유저 정보
   const session = await getUserSession();
 
-  // teamData & session 로딩 실패시 early return 로직
-  // 이 부분은 오류 처리 로직에 대해 논의 후 수정 예정입니다.
-  if (!teamData || !teamCurrentQuest) {
-    return <Text>데이터를 가져오는데 실패했습니다</Text>;
-  }
-
   //세션이 없을 경우 로그인 필요페이지로 return
   if (!session) {
     return <UnauthorizedPage />;
@@ -45,16 +41,15 @@ const TeamInfo = async ({ id }: TeamQuestProps) => {
   const { teamName, teamBio, emblem, isOpened, id: teamId } = teamData;
 
   return (
-    <article className="w-full h-[250px] flex bg-sub rounded-3xl p-9 gap-5 items-center">
+    <article className="relative w-full p-6 flex items-center gap-6 bg-sub-light">
       {/* 퀘스트 이미지 */}
       <Image
         src={teamCurrentQuest.questImage}
-        alt="teamQuest"
+        alt={`${teamName} teamQuest`}
         width={120}
         height={120}
-        className="bg-neutral-500 rounded-3xl"
       />
-      <section className="flex-1 flex flex-col gap-3 justify-center relative">
+      <section className="w-[380px] flex flex-col gap-3 justify-center relative">
         <div className="w-full flex justify-between items-start gap-10">
           {/* 팀 타이틀 : 팀 이름 + 팀 현재 퀘스트이름 */}
           <TeamTitle
@@ -81,14 +76,11 @@ const TeamInfo = async ({ id }: TeamQuestProps) => {
         )}
       </section>
       {/* 엠블럼 이미지 */}
-      <section className="relative w-20 flex items-center justify-center">
-        <Image
-          src={emblem}
-          alt="emblem"
-          width={60}
-          height={60}
-          className="rounded-full bg-neutral-700 absolute"
-        />
+      <section className="absolute w-20 flex flex-col items-center justify-center right-6">
+        <Image src={emblem} alt="emblem" width={80} height={80} />
+        <UserTitle mode={USER_TITLE_MODE.CARD_LEVEL}>
+          Level {teamCurrentQuest.id}
+        </UserTitle>
       </section>
     </article>
   );

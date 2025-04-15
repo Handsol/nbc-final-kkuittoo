@@ -16,6 +16,8 @@ export const fetchGetTeamData = async (id: string) => {
       where: { id },
     });
 
+    if (!teamData) throw new Error(TEAMS_MESSAGES.FETCH_FAILED);
+
     return teamData;
   } catch (error) {
     console.error('fetchGetTeamData 에러:', error);
@@ -51,6 +53,8 @@ export const fetchGetTeamMembers = async (teamId: string) => {
         },
       },
     });
+
+    if (!members) throw new Error(TEAMS_MESSAGES.FETCH_FAILED);
 
     return members
       .map((member) => {

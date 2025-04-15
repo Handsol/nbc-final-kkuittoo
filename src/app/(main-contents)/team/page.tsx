@@ -10,7 +10,7 @@ export const generateMetadata = async () => {
 
 const NoTeamPage = () => {
   return (
-    <div className="w-full my-60 flex justify-center items-center">
+    <div className="w-full h-screen flex justify-center items-center bg-sub-light">
       <NoTeam />
     </div>
   );

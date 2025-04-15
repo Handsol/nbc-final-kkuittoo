@@ -12,8 +12,10 @@ const Layout = ({ children, modal }: LayoutProps) => {
       {/* 반응형을 위해서 div를 추가 */}
       <div className="max-w-[1024px] flex flex-row justify-center">
         <Sidebar />
-        {children}
-        {modal}
+        <article className="w-[784px]">
+          {children}
+          {modal}
+        </article>
       </div>
     </main>
   );
