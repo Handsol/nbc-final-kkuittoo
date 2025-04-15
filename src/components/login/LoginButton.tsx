@@ -2,6 +2,9 @@
 
 import { PATH } from '@/constants/path.constants';
 import { signIn } from 'next-auth/react';
+import { FcGoogle } from 'react-icons/fc';
+import Title from '../common/Title';
+import { TITLE_MODE } from '@/constants/mode.constants';
 
 const LoginButton = () => {
   const handleLogin = () => {
@@ -11,9 +14,12 @@ const LoginButton = () => {
   return (
     <button
       onClick={handleLogin}
-      className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
+      className="flex flex-row justify-center items-center text-center w-[250px] h-[55px] rounded-full bg-white gap-[10px]"
     >
-      구글 로그인
+      <FcGoogle className="w-8 h-8" />
+      <div className="pt-1">
+        <Title mode={TITLE_MODE.SECTION_SUBTITLE}>구글로 시작하기</Title>
+      </div>
     </button>
   );
 };
