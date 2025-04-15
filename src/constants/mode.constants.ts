@@ -1,5 +1,6 @@
 export const LINKBUTTON_MODE = {
   NAV: 'nav',
+  RANK: 'rank',
   COMMON: 'common',
 };
 

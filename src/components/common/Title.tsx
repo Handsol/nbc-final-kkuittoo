@@ -1,9 +1,11 @@
 import { TITLE_MODE } from '@/constants/mode.constants';
+import clsx from 'clsx';
 import { ReactNode } from 'react';
 
 type TitleProps = {
   mode: string;
   children: string | ReactNode;
+  className?: string;
 };
 
 /**
@@ -22,6 +24,7 @@ type TitleProps = {
  *
  * @param mode {string}
  * @param children {string | ReactNode}
+ * @param className {string} : ⚠️size관련 클래스만 넣어주세요!
  * @returns
  *
  * @example
@@ -33,12 +36,12 @@ type TitleProps = {
  *    HABITS
  * </Title>
  */
-const Title = ({ mode, children }: TitleProps) => {
+const Title = ({ mode, children, className }: TitleProps) => {
   switch (mode) {
     case TITLE_MODE.LOGO:
       return <h1>{children}</h1>;
     case TITLE_MODE.LINK:
-      return <h2 className="font-dohyeon text-lg">{children}</h2>;
+      return <h2 className={clsx('font-dohyeon', className)}>{children}</h2>;
     case TITLE_MODE.SECTION_TITLE:
       return <h3 className="font-dohyeon text-2xl text-black">{children}</h3>;
     case TITLE_MODE.SECTION_SUBTITLE:
