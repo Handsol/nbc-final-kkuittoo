@@ -9,6 +9,7 @@ import {
   getDefaultValues,
   isHabitDataUnchanged,
 } from '../utils/habit-form.utils';
+import { HABIT_TOAST_MESSAGES } from '@/constants/toast-messages.contants';
 
 type UseHabitFormHandlerProps = {
   initialHabit?: HabitFormData;
@@ -45,28 +46,21 @@ export const useHabitFormHandler = ({
 
       // 변경 사항이 없는지 확인
       if (isHabitDataUnchanged(habitData, initialHabit)) {
-        toast({
-          title: '알림',
-          description: '변경된 내용이 없습니다.',
-        });
+        toast(HABIT_TOAST_MESSAGES.INFO.NO_CHANGES);
         setIsSubmitting(false);
         return;
       }
 
       if (onSuccess) {
         await onSuccess(habitData);
-        toast({
-          title: '성공',
-          description: initialHabit
-            ? '습관이 수정되었습니다.'
-            : '습관이 생성되었습니다.',
-        });
+        toast(
+          initialHabit
+            ? HABIT_TOAST_MESSAGES.SUCCESS.HABIT_UPDATE
+            : HABIT_TOAST_MESSAGES.SUCCESS.HABIT_CREATE,
+        );
       }
     } catch (error) {
-      toast({
-        title: '오류',
-        description: '처리 중 오류가 발생했습니다.',
-      });
+      toast(HABIT_TOAST_MESSAGES.FAIL.HABIT_CREATE);
     } finally {
       setIsSubmitting(false);
     }
