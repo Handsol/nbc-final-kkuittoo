@@ -9,7 +9,15 @@ export const DAYS_OF_WEEK = [
   'sat',
   'sun',
 ] as const;
-export const DAY_LABELS = ['월', '화', '수', '목', '금', '토', '일'] as const;
+export const DAY_LABELS = [
+  'Mon',
+  'Tue',
+  'Wed',
+  'Thu',
+  'Fri',
+  'Sat',
+  'Sun',
+] as const;
 export const HABIT_CATEGORIES = [
   'HEALTH', //건강
   'EXERCISE', //운동

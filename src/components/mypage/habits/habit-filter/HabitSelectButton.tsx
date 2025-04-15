@@ -35,7 +35,7 @@ const HabitSelectButton = ({
       break;
     case SELECTBUTTON_MODE.DAY:
       sizeStyle =
-        'w-[42px] h-[42px] flex items-center justify-center text-body-md rounded-full';
+        'w-[42px] h-[42px] flex items-center justify-center text-body-md rounded-full font-dohyeon';
       variantStyle = isSelected
         ? 'bg-sub text-main border-main text-main'
         : 'bg-white text-medium-gray border-medium-gray hover:bg-sub hover:border-main hover:bg-sub hover:text-white';

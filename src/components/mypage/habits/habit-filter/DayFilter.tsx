@@ -1,4 +1,4 @@
-import { DAYS_OF_WEEK } from '@/constants/habits.constants';
+import { DAY_LABELS, DAYS_OF_WEEK } from '@/constants/habits.constants';
 
 type DayFilterProps = {
   selectedDay: string[];
@@ -17,12 +17,11 @@ const DayFilter = ({ selectedDay, setSelectedDay }: DayFilterProps) => {
   };
   return (
     <fieldset className="flex" aria-label="Day filter">
-      {DAYS_OF_WEEK.map((day) => (
-        <button
+      {DAYS_OF_WEEK.map((day, i) => (
+        <label
           key={day}
-          onClick={() => toggleDay(day)}
           className={`
-            flex-1 pb-2 text-body-sm border-b-4 font-dohyeon transition-all duration-200 ease-in-out cursor-pointer hover:text-sub hover:border-sub
+           flex-1 pb-[8px] text-body-sm border-b-4 font-dohyeon transition-all duration-200 ease-in-out cursor-pointer hover:text-sub hover:border-sub text-center
             ${
               selectedDay.includes(day)
                 ? 'border-main text-main font-semibold'
@@ -30,8 +29,15 @@ const DayFilter = ({ selectedDay, setSelectedDay }: DayFilterProps) => {
             }
           `}
         >
-          {day.charAt(0).toUpperCase() + day.slice(1)}
-        </button>
+          <input
+            type="checkbox"
+            checked={selectedDay.includes(day)}
+            onChange={() => toggleDay(day)}
+            className="hidden"
+            aria-label={`Filter by ${day}`}
+          />
+          {DAY_LABELS[i]}
+        </label>
       ))}
     </fieldset>
   );
