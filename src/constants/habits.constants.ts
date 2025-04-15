@@ -25,4 +25,5 @@ export const HABIT_CATEGORY_LABELS: Record<Categories, string> = {
   ETC: '기타',
 };
 export const POINTS_TO_ADD = 1;
+export const MAX_POINTS_PER_DAY = 10;
 export const ONE_HOUR_COOLDOWN_MS = 60 * 60 * 1000;

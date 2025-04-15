@@ -4,6 +4,7 @@ import { UserPoint } from '@prisma/client';
 import { POINTS_TO_ADD } from '@/constants/habits.constants';
 import { useOptimisticMutation } from './useOptimisticMutation';
 import { HabitWithPoints } from '@/types/habits.type';
+import { revalidateMyPage } from '../services/revalidate-mypage.services';
 
 /**
  * 사용자 포인트 추가를 위한 React Query Mutation 훅
@@ -11,7 +12,7 @@ import { HabitWithPoints } from '@/types/habits.type';
  * @returns
  */
 export const useAddPointMutation = (userId: string) => {
-  return useOptimisticMutation<HabitWithPoints[], string>({
+  return useOptimisticMutation<UserPoint, string, HabitWithPoints[]>({
     queryKey: QUERY_KEYS.HABITS(userId),
     mutationFn: (habitId) => fetchAddUserPoint(habitId),
     onMutateOptimistic: (habitId, previousData) => {
@@ -25,21 +26,18 @@ export const useAddPointMutation = (userId: string) => {
         points: POINTS_TO_ADD,
       };
 
-      const updatedHabits = previousData.map((habit) =>
+      return previousData.map((habit) =>
         habit.id === habitId
           ? { ...habit, userPoints: [...habit.userPoints, tempPoint] }
           : habit,
       );
-
-      return updatedHabits;
     },
-    onSuccess: (data, habitId, queryClient) => {
-      queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS.HABITS(userId),
-      });
+    onSuccess: async (_data, _habitId, queryClient) => {
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.HABITS(userId) });
       queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.USER_POINTS(userId),
       });
+      await revalidateMyPage();
     },
   });
 };
