@@ -79,3 +79,19 @@ export const BioPage2Image = () => {
     </div>
   );
 };
+
+// 2페이지 캐릭터 성장 관련 설명
+export const BioPage2Info = () => {
+  return (
+    <div className="flex flex-col items-center justify-center gap-5 mb-2">
+      <HomeTitleLg>나만의 캐릭터를 성장시켜보세요!</HomeTitleLg>
+      <HomeTitleSm>
+        매일 습관을 달성하면 포인트가 쌓입니다. <br />
+        습관 하나당 1포인트, 하루 최대 10포인트까지 얻을 수 있고, <br />
+        쌓인 포인트는 곧 캐릭터의 레벨업으로 이어집니다. <br />
+        당신이 성장하는 만큼 당신의 캐릭터도 성장할거예요! <br />
+        요일별로 나만의 습관을 설정하고, 꾸준히 도전해보세요.
+      </HomeTitleSm>
+    </div>
+  );
+};
