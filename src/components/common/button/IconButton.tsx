@@ -23,10 +23,10 @@ const IconButton = ({ mode, disabled = false, ...props }: IconButtonProps) => {
 
   switch (mode) {
     case ICONBUTTON_MODE.EDIT:
-      icon = <Pencil />;
+      icon = <Pencil className="w-[14px] h-[14px]" />;
       break;
     case ICONBUTTON_MODE.DELETE:
-      icon = <X />;
+      icon = <X className="w-[14px] h-[14px]" />;
       break;
     case ICONBUTTON_MODE.ADD:
       icon = <Plus />;

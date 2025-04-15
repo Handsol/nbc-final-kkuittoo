@@ -28,10 +28,10 @@ const HabitSelectButton = ({
 
   switch (mode) {
     case SELECTBUTTON_MODE.CATEGORY:
-      sizeStyle = 'p-[8px] text-body-sm rounded-md truncate';
+      sizeStyle = 'p-[8px] text-body-sm rounded-lg truncate';
       variantStyle = isSelected
-        ? 'bg-main text-white'
-        : 'bg-white text-dark-gray border-light-gray hover:text-main hover:bg-sub hover:text-white';
+        ? 'bg-sub-light text-main border-main'
+        : 'bg-white text-dark-gray border-medium-gray hover:text-main hover:bg-sub hover:text-white';
       break;
     case SELECTBUTTON_MODE.DAY:
       sizeStyle =

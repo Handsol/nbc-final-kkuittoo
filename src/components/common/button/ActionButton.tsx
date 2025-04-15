@@ -33,42 +33,38 @@ const ActionButton = ({
   switch (mode) {
     case ACTIONBUTTON_MODE.PRIMARY:
       sizeStyle = 'w-[250px] h-[45px] text-body-md';
-      variantStyle =
-        'bg-main text-white hover:bg-sub-light hover:tracking-wide';
+      variantStyle = 'bg-main text-white hover:bg-sub-light';
       roundedStyle = 'rounded-full';
       break;
     case ACTIONBUTTON_MODE.SECONDARY:
       sizeStyle = 'w-[250px] h-[45px] text-body-md';
-      variantStyle = 'bg-sub text-black hover:bg-sub-light hover:tracking-wide';
+      variantStyle = 'bg-sub text-black hover:bg-sub-light';
       roundedStyle = 'rounded-full';
       break;
     case ACTIONBUTTON_MODE.PRIMARY_SMALL:
       sizeStyle = 'w-[80px] h-[36px] text-body-md';
-      variantStyle =
-        'bg-main text-white hover:bg-sub-light hover:tracking-wide';
+      variantStyle = 'bg-main text-white hover:bg-sub-light';
       roundedStyle = 'rounded-full';
       break;
     case ACTIONBUTTON_MODE.SECONDARY_SMALL:
       sizeStyle = 'w-[80px] h-[36px] text-body-md';
-      variantStyle = 'bg-sub text-black hover:bg-sub-light hover:tracking-wide';
+      variantStyle = 'bg-sub text-black hover:bg-sub-light';
       roundedStyle = 'rounded-full';
       break;
     case ACTIONBUTTON_MODE.DARK_GRAY_SMALL:
       sizeStyle = 'w-[80px] h-[36px] text-body-md';
-      variantStyle =
-        'bg-dark-gray text-white border hover:bg-medium-gray hover:tracking-wide';
+      variantStyle = 'bg-dark-gray text-white border hover:bg-medium-gray';
       roundedStyle = 'rounded-full';
       break;
     case ACTIONBUTTON_MODE.ROUNDED_MD:
       sizeStyle = 'w-[180px] h-[40px] text-body-md';
-      variantStyle =
-        'bg-main text-white hover:bg-sub hover:tracking-wide hover:text-black';
+      variantStyle = 'bg-main text-white hover:bg-sub';
       roundedStyle = 'rounded-md';
       break;
     case ACTIONBUTTON_MODE.ROUNDED_MD_LIGHT_GRAY:
       sizeStyle = 'w-[180px] h-[40px] text-body-md';
       variantStyle =
-        'bg-light-gray text-black hover:bg-medium-gray hover:tracking-wide hover:text-white';
+        'bg-light-gray text-black hover:bg-medium-gray hover:text-white';
       roundedStyle = 'rounded-md';
       break;
     case ACTIONBUTTON_MODE.LOGOUT:
@@ -79,7 +75,7 @@ const ActionButton = ({
       break;
     default:
       sizeStyle = 'w-[250px] h-[45px] text-body-md';
-      variantStyle = 'bg-main text-white hover:bg-sub hover:tracking-wide';
+      variantStyle = 'bg-main text-white hover:bg-sub';
       roundedStyle = 'rounded-full';
       break;
   }
