@@ -3,7 +3,7 @@
 import { useMemo, useState, useTransition } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import CommonInputBar from '@/components/common/CommonInputBar';
-import { debounce } from 'lodash';
+import debounce from 'lodash-es/debounce';
 
 type SearchInputProps = {
   placeholder: string;
