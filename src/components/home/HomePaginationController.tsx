@@ -1,12 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import HomeBioPage from './HomeBioPage';
-import HomeBioPageItem from './HomeBioPageItem';
+import HomeBioPage from './HomePage';
+import HomeBioPageItem from './HomeBioContent';
 
 const TOTAL_PAGES = 3;
 
-const HomePagination = () => {
+const HomePaginationController = () => {
   const [page, setPage] = useState(1);
 
   return (
@@ -27,4 +27,4 @@ const HomePagination = () => {
   );
 };
 
-export default HomePagination;
+export default HomePaginationController;

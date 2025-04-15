@@ -2,7 +2,7 @@ type HomeBioPageItemProps = {
   page: number;
 };
 
-const HomeBioPageItem = ({ page }: HomeBioPageItemProps) => {
+const HomeBioPageContent = ({ page }: HomeBioPageItemProps) => {
   switch (page) {
     case 1:
       return <p className="text-white text-lg">1페이지 콘텐츠</p>;
@@ -15,4 +15,4 @@ const HomeBioPageItem = ({ page }: HomeBioPageItemProps) => {
   }
 };
 
-export default HomeBioPageItem;
+export default HomeBioPageContent;
