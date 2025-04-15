@@ -32,12 +32,15 @@ export const TeamChat = ({ teamId }: TeamChatProps) => {
   const [newMessage, setNewMessage] = useState('');
   const { data: session } = useSession();
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   {
     /* 마지막 메시지로 스크롤이 부드럽게 이동 */
   }
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (containerRef.current) {
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    }
   };
 
   {
@@ -57,10 +60,8 @@ export const TeamChat = ({ teamId }: TeamChatProps) => {
         console.error('Error fetching messages:', error);
       }
     };
-    // 컴포넌트가 처음 랜더링되었을 때 메시지 불러오기.
+    // 컴포넌트가 처음 랜더링되었을 때 메시지 불러옴.
     fetchMessages();
-    // 스크롤 아래로 내리기
-    scrollToBottom();
 
     // Pusher 설정
     // Pusher에 연결 후 .env에 저장된 키와 정보를 사용
@@ -84,6 +85,10 @@ export const TeamChat = ({ teamId }: TeamChatProps) => {
       channel.unsubscribe();
     };
   }, [teamId]);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -114,7 +119,10 @@ export const TeamChat = ({ teamId }: TeamChatProps) => {
     <section className="flex-1 bg-neutral-400 rounded-3xl p-4">
       <p className="text-xl font-bold mb-4">Team Chat</p>
       <div className="flex flex-col h-96 bg-neutral-300 rounded-3xl">
-        <div className="flex-1 overflow-y-auto p-4 space-y-4">
+        <div
+          ref={containerRef}
+          className="flex-1 overflow-y-auto p-4 space-y-4"
+        >
           {messages.map((message) => (
             <div
               key={message.id}
