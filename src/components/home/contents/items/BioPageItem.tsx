@@ -57,7 +57,7 @@ export const ServiceInfo3 = () => {
 };
 
 // 2페이지 캐릭터 성장 관련 이미지
-export const CHARACTER_IMAGES = [
+const CHARACTER_IMAGES = [
   '/assets/images/user_lv1.png',
   '/assets/images/user_lv2.png',
   '/assets/images/user_lv3.png',
@@ -65,7 +65,7 @@ export const CHARACTER_IMAGES = [
   '/assets/images/user_lv5.png',
 ];
 
-const BioPage2Item = () => {
+export const BioPage2Image = () => {
   return (
     <div className="flex flex-row justify-center items-center h-[200px]">
       {CHARACTER_IMAGES.map((src, idx) => (
