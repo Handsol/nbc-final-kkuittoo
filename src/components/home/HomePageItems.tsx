@@ -34,13 +34,14 @@ export const PaginationArrowButton = ({
   direction,
   onClick,
   icon,
+  className = '',
   ...props
 }: ArrowProps) => {
   return (
     <button
       aria-label={direction === 'prev' ? '이전 페이지' : '다음 페이지'}
       onClick={onClick}
-      className=" text-white hover:text-sub transition"
+      className={`text-white hover:text-sub transition disabled:opacity-40 disabled:cursor-not-allowed ${className}`}
       {...props}
     >
       {icon}
@@ -60,6 +61,7 @@ export const PaginationNumberButton = ({
   page,
   currentPage,
   onClick,
+  className = '',
   ...props
 }: NumberProps) => {
   const isActive = page === currentPage;
@@ -67,8 +69,10 @@ export const PaginationNumberButton = ({
   return (
     <button
       onClick={() => onClick(page)}
-      className={`px-2 py-2 border rounded-xl transition font-medium
-        ${isActive ? 'bg-white text-main' : 'border-white text-white hover:bg-white hover:text-main'}`}
+      aria-pressed={isActive}
+      className={`px-3 py-1 border rounded-full transition font-medium 
+        ${isActive ? 'bg-white text-main' : 'border-white text-white hover:bg-white hover:text-main'} 
+        ${className}`}
       {...props}
     >
       {page}
