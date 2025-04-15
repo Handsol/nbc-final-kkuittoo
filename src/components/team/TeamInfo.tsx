@@ -45,7 +45,7 @@ const TeamInfo = async ({ id }: TeamQuestProps) => {
       {/* 퀘스트 이미지 */}
       <Image
         src={teamCurrentQuest.questImage}
-        alt="teamQuest"
+        alt={`${teamName} teamQuest`}
         width={120}
         height={120}
       />
@@ -78,7 +78,9 @@ const TeamInfo = async ({ id }: TeamQuestProps) => {
       {/* 엠블럼 이미지 */}
       <section className="absolute w-20 flex flex-col items-center justify-center right-6">
         <Image src={emblem} alt="emblem" width={80} height={80} />
-        <UserTitle mode={USER_TITLE_MODE.CARD_LEVEL}>Level {3}</UserTitle>
+        <UserTitle mode={USER_TITLE_MODE.CARD_LEVEL}>
+          Level {teamCurrentQuest.id}
+        </UserTitle>
       </section>
     </article>
   );
