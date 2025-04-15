@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import HomeBioPage from './HomePage';
-import HomeBioPageItem from './HomeBioContent';
+import HomePagination from './HomePagination';
+import HomeBioContent from './HomeBioContent';
 
 const TOTAL_PAGES = 3;
 
@@ -15,10 +15,10 @@ const HomePaginationController = () => {
         aria-label={`홈페이지 소개 ${page}페이지`}
         className="w-[700px] h-[500px] border-2 border-white rounded-2xl flex items-center justify-center"
       >
-        <HomeBioPageItem page={page} />
+        <HomeBioContent page={page} />
       </section>
 
-      <HomeBioPage
+      <HomePagination
         currentPage={page}
         setPage={setPage}
         totalPages={TOTAL_PAGES}
