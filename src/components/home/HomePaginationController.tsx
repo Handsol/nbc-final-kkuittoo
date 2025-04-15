@@ -13,7 +13,7 @@ const HomePaginationController = () => {
     <article className="flex flex-col items-center gap-4">
       <section
         aria-label={`홈페이지 소개 ${page}페이지`}
-        className="w-[700px] h-[500px] border-2 border-white rounded-2xl flex items-center justify-center"
+        className="w-[700px] h-[450px] border-2 border-white rounded-2xl flex items-center justify-center"
       >
         <HomeBioContent page={page} />
       </section>
