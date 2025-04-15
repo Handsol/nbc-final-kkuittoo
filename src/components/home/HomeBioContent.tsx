@@ -1,4 +1,6 @@
 import HomeBioPage1 from './contents/HomeBioPage1';
+import HomeBioPage2 from './contents/HomeBioPage2';
+import HomeBioPage3 from './contents/HomeBioPage3';
 
 type HomeBioPageItemProps = {
   page: number;
@@ -9,9 +11,9 @@ const HomeBioPageContent = ({ page }: HomeBioPageItemProps) => {
     case 1:
       return <HomeBioPage1 />;
     case 2:
-      return <p className="text-white text-lg">2페이지 콘텐츠</p>;
+      return <HomeBioPage2 />;
     case 3:
-      return <p className="text-white text-lg">3페이지 콘텐츠</p>;
+      return <HomeBioPage3 />;
     default:
       return null;
   }
