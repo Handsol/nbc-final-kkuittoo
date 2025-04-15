@@ -4,7 +4,7 @@ type Props = { teamName?: string };
 
 export const TeamEmblem = ({ teamName }: Props) => {
   return (
-    <figure className="w-28 h-28 bg-gray-300 rounded-lg flex items-center justify-center mb-2">
+    <figure className="w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center mb-2 overflow-hidden">
       <Image
         src="/images/default-emblem.png"
         alt={teamName ?? 'Team'}
