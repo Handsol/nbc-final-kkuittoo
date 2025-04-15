@@ -16,29 +16,32 @@ type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
  */
 const IconButton = ({ mode, disabled = false, ...props }: IconButtonProps) => {
   const baseClasses =
-    'w-9 h-9 flex items-center justify-center rounded-full transition-colors shrink-0';
+    'w-9 h-9 flex items-center justify-center rounded-full transition-colors w-4 h-4 text-medium-gray hover:text-main';
 
   let icon;
   let variantClasses;
 
   switch (mode) {
     case ICONBUTTON_MODE.EDIT:
-      icon = <Pencil className="w-4 h-4 text-medium-gray hover:text-main" />;
+      icon = <Pencil />;
       break;
     case ICONBUTTON_MODE.DELETE:
-      icon = <X className="w-4 h-4 text-medium-gray hover:text-main" />;
+      icon = <X />;
       break;
     case ICONBUTTON_MODE.ADD:
-      icon = <Plus className="w-5 h-5 text-white" />;
-      variantClasses = 'bg-main border hover:bg-sub';
+      icon = <Plus />;
+      break;
+    case ICONBUTTON_MODE.POINT:
+      icon = <span className="text-body-md font-bold">+P</span>;
+      variantClasses = 'w-[40px] h-[40px] bg-light-gray';
       break;
     default:
-      icon = <Pencil className="w-4 h-4 text-medium-gray hover:text-main" />;
+      icon = <Pencil />;
       break;
   }
 
   const disabledClasses = disabled
-    ? 'bg-medium-gray cursor-not-allowed hover:bg-dark-gray'
+    ? 'bg-medium-gray text-white cursor-not-allowed hover:bg-dark-gray hover:text-white'
     : '';
 
   return (
