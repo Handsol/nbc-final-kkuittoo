@@ -1,10 +1,6 @@
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-} from '@/components/ui/pagination';
+import { Pagination, PaginationContent } from '@/components/ui/pagination';
+import { PaginationArrowButton, PaginationNumberButton } from './HomePageItems';
 
 type Props = {
   currentPage: number;
@@ -20,40 +16,29 @@ const HomePage = ({ currentPage, setPage, totalPages }: Props) => {
     <nav aria-label="홈페이지 소개 페이지네이션">
       <Pagination>
         <PaginationContent className="gap-2">
-          <PaginationItem>
-            <button
-              onClick={handlePrev}
-              className=" text-white hover:text-sub transition"
-            >
-              <FaAngleLeft />
-            </button>
-          </PaginationItem>
+          <PaginationArrowButton
+            direction="prev"
+            icon={<FaAngleLeft />}
+            onClick={handlePrev}
+          />
+          {[...Array(totalPages)].map((_, idx) => {
+            const pageNum = idx + 1;
 
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map((num) => (
-            <PaginationItem key={num}>
-              <PaginationLink
-                isActive={num === currentPage}
-                onClick={() => setPage(num)}
-                className={`px-3 py-2 border rounded-md transition font-medium
-                  ${
-                    num === currentPage
-                      ? 'bg-white text-main'
-                      : 'border-white text-white hover:bg-white hover:text-main'
-                  }`}
-              >
-                {num}
-              </PaginationLink>
-            </PaginationItem>
-          ))}
-
-          <PaginationItem>
-            <button
-              onClick={handleNext}
-              className=" text-white hover:text-sub transition"
-            >
-              <FaAngleRight />
-            </button>
-          </PaginationItem>
+            return (
+              <PaginationNumberButton
+                key={pageNum}
+                page={pageNum}
+                currentPage={currentPage}
+                onClick={handleNext}
+                aria-label={`${pageNum} 페이지`}
+              />
+            );
+          })}
+          <PaginationArrowButton
+            direction="next"
+            icon={<FaAngleRight />}
+            onClick={handleNext}
+          />
         </PaginationContent>
       </Pagination>
     </nav>
