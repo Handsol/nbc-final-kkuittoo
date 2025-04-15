@@ -28,7 +28,7 @@ const MyPage = async () => {
     : 0;
 
   return (
-    <div className="flex flex-col items-center px-[30px] py-6 min-h-full gap-10">
+    <div className="w-full">
       <MyPageSection label="User teams">
         <MyPageTeam userId={userId} />
       </MyPageSection>

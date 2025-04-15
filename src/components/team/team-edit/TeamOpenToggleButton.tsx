@@ -23,11 +23,11 @@ const TeamOpenToggleButton = ({ teamId }: TeamOpenToggleButtonProps) => {
 
   return (
     <div className="flex items-center gap-2">
-      <label>{teamData.isOpened ? <FaLockOpen /> : <FaLock />}</label>
       <Switch
         checked={teamData.isOpened}
         onCheckedChange={(checked) => mutate(checked)}
       />
+      <label>{teamData.isOpened ? <FaLockOpen /> : <FaLock />}</label>
     </div>
   );
 };

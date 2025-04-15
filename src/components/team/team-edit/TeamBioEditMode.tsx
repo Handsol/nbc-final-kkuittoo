@@ -44,8 +44,12 @@ const TeamBioEditMode = ({ teamBio, teamId }: TeamBioProps) => {
     setIsEditMode(true);
   };
 
+  const handleCancelBtnClick = () => {
+    setIsEditMode(false);
+  };
+
   return (
-    <div>
+    <div className="w-full h-[50px] flex items-center justify-between">
       {isTeamDataPending ? (
         <Text>로딩 중...</Text>
       ) : isTeamDataError || !teamData ? (
@@ -64,16 +68,26 @@ const TeamBioEditMode = ({ teamBio, teamId }: TeamBioProps) => {
               {errors.teamBio && errors.teamBio.message}
             </ErrorMessage>
           </div>
-          <ActionButton
-            mode={ACTIONBUTTON_MODE.PRIMARY}
-            type="submit"
-            disabled={isTeamBioPending}
-          >
-            확인
-          </ActionButton>
+          <div className="flex gap-1">
+            <ActionButton
+              mode={ACTIONBUTTON_MODE.SECONDARY_SMALL}
+              type="button"
+              onClick={handleCancelBtnClick}
+              disabled={isTeamBioPending}
+            >
+              취소
+            </ActionButton>
+            <ActionButton
+              mode={ACTIONBUTTON_MODE.PRIMARY_SMALL}
+              type="submit"
+              disabled={isTeamBioPending}
+            >
+              확인
+            </ActionButton>
+          </div>
         </form>
       ) : (
-        <div className="flex justify-between items-center gap-5">
+        <div className="w-full flex justify-between items-start gap-5 pl-4">
           <Text>{teamData.teamBio}</Text>
           <IconButton
             mode={ICONBUTTON_MODE.EDIT}

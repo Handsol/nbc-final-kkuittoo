@@ -25,7 +25,7 @@ const CommonInputBar = forwardRef<HTMLInputElement, InputBarProps>(
   ({ id, placeholder, ...rest }, ref) => {
     return (
       <input
-        className="w-full rounded-full px-3 border"
+        className="w-full h-7 rounded-full px-4 py-1 bg-light-gray font-pretendard text-body-sm"
         id={id}
         placeholder={placeholder}
         ref={ref}
