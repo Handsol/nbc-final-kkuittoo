@@ -22,7 +22,7 @@ const DayFilter = ({ selectedDay, setSelectedDay }: DayFilterProps) => {
           key={day}
           onClick={() => toggleDay(day)}
           className={`
-            flex-1 pb-2 text-sm border-b-4 font-dohyeon transition-all duration-200 ease-in-out cursor-pointer hover:text-sub hover:border-sub
+            flex-1 pb-2 text-body-sm border-b-4 font-dohyeon transition-all duration-200 ease-in-out cursor-pointer hover:text-sub hover:border-sub
             ${
               selectedDay.includes(day)
                 ? 'border-main text-main font-semibold'

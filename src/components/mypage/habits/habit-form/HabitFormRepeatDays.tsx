@@ -16,7 +16,7 @@ const HabitFormReapeatDays = ({
     <label className="block text-body-md font-semibold text-dark-gray font-dohyeon">
       주기
     </label>
-    <div className="flex gap-[2px] mb-5">
+    <div className="flex gap-[2px] mb-[20px]">
       {DAYS_OF_WEEK.map((day) => (
         <HabitSelectButton
           key={day}

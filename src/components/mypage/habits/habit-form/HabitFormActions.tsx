@@ -12,7 +12,10 @@ const HabitFormActions = ({
   onSubmit,
   isSubmitting,
 }: HabitFormActionsProps) => (
-  <footer className="flex justify-center gap-4 mt-4" aria-label="Form actions">
+  <footer
+    className="flex justify-center gap-[16px] mt-[16px]"
+    aria-label="Form actions"
+  >
     <ActionButton
       mode={ACTIONBUTTON_MODE.ROUNDED_MD_LIGHT_GRAY}
       onClick={onCancel}

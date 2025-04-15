@@ -21,7 +21,7 @@ const HabitFormFields = ({
   control,
   errors,
 }: HabitFormFieldsProps) => (
-  <section className="flex flex-col gap-3" aria-label="Habit form fields">
+  <section className="flex flex-col gap-[12px]" aria-label="Habit form fields">
     <HabitFormInput
       id="title"
       label="제목"

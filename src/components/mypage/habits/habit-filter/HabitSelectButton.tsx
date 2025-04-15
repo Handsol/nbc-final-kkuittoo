@@ -31,7 +31,7 @@ const HabitSelectButton = ({
       sizeStyle = 'p-[8px] text-body-sm rounded-md truncate';
       variantStyle = isSelected
         ? 'bg-main text-white'
-        : 'bg-white text-dark-gray border-gray-300 hover:text-main hover:bg-sub hover:text-white';
+        : 'bg-white text-dark-gray border-light-gray hover:text-main hover:bg-sub hover:text-white';
       break;
     case SELECTBUTTON_MODE.DAY:
       sizeStyle =
@@ -44,12 +44,12 @@ const HabitSelectButton = ({
       sizeStyle = 'min-w-[80px] text-xs';
       variantStyle = isSelected
         ? 'bg-main text-white'
-        : 'bg-white text-dark-gray border-gray-300';
+        : 'bg-white text-dark-gray border-light-gray';
       break;
   }
 
   const disabledStyle = disabled
-    ? 'bg-light-gray text-medium-gray cursor-not-allowed border-gray-300'
+    ? 'bg-light-gray text-medium-gray cursor-not-allowed border-light-gray'
     : variantStyle;
 
   return (
