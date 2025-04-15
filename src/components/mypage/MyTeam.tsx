@@ -18,7 +18,7 @@ const MyTeam = ({ team, teamTotalPoints, teamCurrentQuest }: MyTeamProps) => {
   const { id, questImage } = teamCurrentQuest;
 
   return (
-    <article className="relative w-full p-6 flex items-center gap-6 bg-sub-light mb-10">
+    <article className="relative w-full p-6 flex items-center gap-6 bg-sub-light">
       {/* 퀘스트 이미지 */}
       <Image
         src={questImage}

@@ -18,7 +18,12 @@ const HabitFormInput = forwardRef<HTMLInputElement, InputFieldProps>(
         {label}
       </label>
       <div className="flex flex-col gap-[4px]">
-        <CommonInputBar id={id} ref={ref} {...rest} />
+        <CommonInputBar
+          className="w-[236px] h-[28px] text-body-sm font-dohyeon border bg-light-gray rounded-full px-[14px] py-[4px] focus:outline-none focus:ring-1 focus:ring-main"
+          id={id}
+          ref={ref}
+          {...rest}
+        />
         <ErrorMessage>{error && error}</ErrorMessage>
       </div>
     </div>

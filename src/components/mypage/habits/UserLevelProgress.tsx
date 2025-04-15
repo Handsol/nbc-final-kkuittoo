@@ -10,7 +10,7 @@ const UserLevelProgress = ({ level, expPercent }: UserLevelProgressProps) => {
   return (
     <div className="flex items-center gap-[8px]">
       <UserLevel level={level} />
-      <Progress value={expPercent} className="w-full h-[20px]" />
+      <Progress value={expPercent} className="w-[264px] h-[20px]" />
     </div>
   );
 };
