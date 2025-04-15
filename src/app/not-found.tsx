@@ -1,9 +1,5 @@
-import LinkButton from '@/components/common/button/LinkButton';
-import Text from '@/components/common/Text';
-import Title from '@/components/common/Title';
 import ErrorPageText from '@/components/loading-error-page/ErrorPageText';
 import { IMAGE_ASSETS } from '@/constants/assets.contants';
-import { LINKBUTTON_MODE, TITLE_MODE } from '@/constants/mode.constants';
 import { PATH } from '@/constants/path.constants';
 import Image from 'next/image';
 
