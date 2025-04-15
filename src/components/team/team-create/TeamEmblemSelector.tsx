@@ -30,7 +30,7 @@ const TeamEmblemSelector = ({
 
   return (
     <section>
-      <Title mode={TITLE_MODE.SECTION_SUBTITLE}>TEAM EMBLEM</Title>
+      <Title mode={TITLE_MODE.SECTION_SUBTITLE}>엠블럼</Title>
       <div className="flex gap-4">
         {emblemOptions.map((emblem) => (
           <label key={emblem.id}>
