@@ -1,4 +1,4 @@
-import HomeBioPage1 from './HomeBioPage1';
+import HomeBioPage1 from './contents/HomeBioPage1';
 
 type HomeBioPageItemProps = {
   page: number;
