@@ -1,10 +1,10 @@
 import { HabitFormData } from '@/types/habits.type';
-import { createHabitData, getDefaultValues } from '@/lib/utils/habit.utils';
 import { toast } from '@/lib/hooks/use-toast';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { habitFormSchema, HabitFormSchema } from '../schema/habit.schema';
+import { createHabitData, getDefaultValues } from '../utils/habit-form.utils';
 
 type UseHabitFormHandlerProps = {
   initialHabit?: HabitFormData;

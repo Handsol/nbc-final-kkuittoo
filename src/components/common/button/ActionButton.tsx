@@ -53,15 +53,22 @@ const ActionButton = ({
       variantStyle = 'bg-sub text-black hover:bg-sub-light hover:tracking-wide';
       roundedStyle = 'rounded-full';
       break;
-    case ACTIONBUTTON_MODE.PRIMARY_BORDER:
-      sizeStyle = 'w-[160px] h-[36px] text-body-md';
+    case ACTIONBUTTON_MODE.DARK_GRAY_SMALL:
+      sizeStyle = 'w-[80px] h-[36px] text-body-md';
       variantStyle =
-        'bg-white text-main border border-main hover:bg-sub-light hover:tracking-wide';
+        'bg-dark-gray text-white border hover:bg-medium-gray hover:tracking-wide';
       roundedStyle = 'rounded-full';
       break;
     case ACTIONBUTTON_MODE.ROUNDED_MD:
       sizeStyle = 'w-[180px] h-[40px] text-body-md';
-      variantStyle = 'bg-main text-white hover:bg-sub hover:tracking-wide';
+      variantStyle =
+        'bg-main text-white hover:bg-sub hover:tracking-wide hover:text-black';
+      roundedStyle = 'rounded-md';
+      break;
+    case ACTIONBUTTON_MODE.ROUNDED_MD_LIGHT_GRAY:
+      sizeStyle = 'w-[180px] h-[40px] text-body-md';
+      variantStyle =
+        'bg-light-gray text-black hover:bg-medium-gray hover:tracking-wide hover:text-white';
       roundedStyle = 'rounded-md';
       break;
     case ACTIONBUTTON_MODE.LOGOUT:

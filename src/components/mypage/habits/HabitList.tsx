@@ -4,7 +4,7 @@ import HabitItem from './HabitItem';
 import { HabitFormData, HabitWithPoints } from '@/types/habits.type';
 import { useCreateHabitMutation } from '@/lib/mutations/useHabitMutation';
 import { useMemo } from 'react';
-import { sortHabitsByEnabled } from '@/lib/utils/habit.utils';
+import { sortHabitsByEnabled } from '@/lib/utils/habit-filter.utils';
 
 type HabitListProps = {
   userId: string;
