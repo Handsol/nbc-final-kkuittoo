@@ -15,7 +15,7 @@ const CategoryFilter = ({
   selectedCategory,
   setSelectedCategory,
 }: CategoryFilterProps) => (
-  <fieldset className="flex flex-wrap gap-3" aria-label="Category filter">
+  <fieldset className="flex gap-[6px]" aria-label="Category filter">
     <HabitSelectButton
       mode={SELECTBUTTON_MODE.CATEGORY}
       isSelected={selectedCategory === null}

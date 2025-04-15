@@ -33,13 +33,14 @@ const MyPageHabits = ({
   }
   return (
     <div className="flex flex-col h-full p-6 gap-8">
-      <HabitHeader
-        habitsCount={habits.length}
+      <HabitHeader habitsCount={habits.length} />
+      <UserLevelProgress level={level} expPercent={expPercent} />
+      <HabitsFilter
+        habits={habits}
+        onFilterChange={setFilteredHabits}
         onToggleCreate={handleToggleCreate}
         isCreating={isCreating}
       />
-      <UserLevelProgress level={level} expPercent={expPercent} />
-      <HabitsFilter habits={habits} onFilterChange={setFilteredHabits} />
       <div className="flex-1 overflow-hidden">
         <HabitList
           userId={userId}

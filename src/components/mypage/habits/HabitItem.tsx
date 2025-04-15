@@ -45,7 +45,7 @@ const HabitItem = ({ habit, userId }: HabitItemProps) => {
         }`}
       >
         <IconButton
-          mode={ICONBUTTON_MODE.ADD}
+          mode={ICONBUTTON_MODE.POINT}
           onClick={() => handleAddPoint(todayPoints)}
           disabled={isDisabled}
         />
