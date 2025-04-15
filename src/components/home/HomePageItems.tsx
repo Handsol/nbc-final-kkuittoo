@@ -54,13 +54,13 @@ export const PaginationArrowButton = ({
 type NumberProps = {
   page: number;
   currentPage: number;
-  onClick: (page: number) => void;
+  onClickPage: (page: number) => void;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const PaginationNumberButton = ({
   page,
   currentPage,
-  onClick,
+  onClickPage,
   className = '',
   ...props
 }: NumberProps) => {
@@ -68,7 +68,7 @@ export const PaginationNumberButton = ({
 
   return (
     <button
-      onClick={() => onClick(page)}
+      onClick={() => onClickPage(page)}
       aria-pressed={isActive}
       className={`px-3 py-1 border rounded-full transition font-medium 
         ${isActive ? 'bg-white text-main' : 'border-white text-white hover:bg-white hover:text-main'} 
