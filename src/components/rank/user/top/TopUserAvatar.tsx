@@ -1,12 +1,13 @@
+import { getUserImageByLevel } from '@/lib/utils/user.utils';
 import Image from 'next/image';
 
-type Props = { userName?: string | null; image?: string | null };
-
-export const TopUserAvatar = ({ userName, image }: Props) => {
+type Props = { userName?: string | null; level: number };
+export const TopUserAvatar = ({ userName, level }: Props) => {
+  const imageUrl = getUserImageByLevel(level);
   return (
-    <figure className="w-28 h-28 bg-gray-300 rounded-lg flex items-center justify-center">
+    <figure className="w-28 h-28  bg-white rounded-full flex items-center justify-center overflow-hidden">
       <Image
-        src={image ?? '/images/default.png'}
+        src={imageUrl}
         alt={userName ?? '유저 아바타'}
         width={112}
         height={112}
