@@ -6,7 +6,10 @@ type UserLevelProgressProps = {
   expPercent: number;
 };
 
-const UserLevelProgress = ({ level, expPercent }: UserLevelProgressProps) => {
+export const UserLevelProgress = ({
+  level,
+  expPercent,
+}: UserLevelProgressProps) => {
   return (
     <div className="flex items-center gap-[8px]">
       <UserLevel level={level} />
