@@ -22,6 +22,7 @@ export const ICONBUTTON_MODE = {
   EDIT: 'edit',
   DELETE: 'delete',
   ADD: 'add',
+  POINT: 'point',
 } as const;
 
 export const ACTIONBUTTON_MODE = {
@@ -29,8 +30,9 @@ export const ACTIONBUTTON_MODE = {
   SECONDARY: 'secondary',
   PRIMARY_SMALL: 'primary-small',
   SECONDARY_SMALL: 'secondary-small',
-  PRIMARY_BORDER: 'primary-border',
-  ROUNDED_MD: 'rounded-mb',
+  DARK_GRAY_SMALL: 'dark-gray-small',
+  ROUNDED_MD: 'rounded-md',
+  ROUNDED_MD_LIGHT_GRAY: 'rounded-md-light-gray',
   LOGOUT: 'logout',
 } as const;
 

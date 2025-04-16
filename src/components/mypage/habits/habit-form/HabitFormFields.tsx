@@ -8,7 +8,7 @@ import {
 import HabitFormInput from './HabitFormInput';
 import HabitFormTags from './HabitFormTags';
 import HabitFormRepeatDays from './HabitFormRepeatDays';
-import { toggleDay } from '@/lib/utils/habit.utils';
+import { toggleDay } from '@/lib/utils/habit-form.utils';
 
 type HabitFormFieldsProps = {
   register: UseFormRegister<HabitFormSchema>;
@@ -21,10 +21,10 @@ const HabitFormFields = ({
   control,
   errors,
 }: HabitFormFieldsProps) => (
-  <section className="flex flex-col gap-6" aria-label="Habit form fields">
+  <section className="flex flex-col gap-[12px]" aria-label="Habit form fields">
     <HabitFormInput
       id="title"
-      label="TITLE"
+      label="제목"
       placeholder="습관 제목"
       {...register('title')}
       error={errors.title?.message}
@@ -32,7 +32,7 @@ const HabitFormFields = ({
     />
     <HabitFormInput
       id="description"
-      label="DESCRIPTION"
+      label="설명"
       placeholder="설명"
       {...register('notes')}
       error={errors.notes?.message}

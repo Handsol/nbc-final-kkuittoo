@@ -1,10 +1,15 @@
 import { HabitFormData } from '@/types/habits.type';
-import { createHabitData, getDefaultValues } from '@/lib/utils/habit.utils';
 import { toast } from '@/lib/hooks/use-toast';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { habitFormSchema, HabitFormSchema } from '../schema/habit.schema';
+import {
+  createHabitData,
+  getDefaultValues,
+  isHabitDataUnchanged,
+} from '../utils/habit-form.utils';
+import { HABIT_TOAST_MESSAGES } from '@/constants/toast-messages.contants';
 
 type UseHabitFormHandlerProps = {
   initialHabit?: HabitFormData;
@@ -15,7 +20,6 @@ type UseHabitFormHandlerProps = {
 export const useHabitFormHandler = ({
   initialHabit,
   onSuccess,
-  onCancel,
 }: UseHabitFormHandlerProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -40,20 +44,23 @@ export const useHabitFormHandler = ({
         initialHabit?.id,
       );
 
+      // 변경 사항이 없는지 확인
+      if (isHabitDataUnchanged(habitData, initialHabit)) {
+        toast(HABIT_TOAST_MESSAGES.INFO.NO_CHANGES);
+        setIsSubmitting(false);
+        return;
+      }
+
       if (onSuccess) {
         await onSuccess(habitData);
-        toast({
-          title: '성공',
-          description: initialHabit
-            ? '습관이 수정되었습니다.'
-            : '습관이 생성되었습니다.',
-        });
+        toast(
+          initialHabit
+            ? HABIT_TOAST_MESSAGES.SUCCESS.HABIT_UPDATE
+            : HABIT_TOAST_MESSAGES.SUCCESS.HABIT_CREATE,
+        );
       }
     } catch (error) {
-      toast({
-        title: '오류',
-        description: '처리 중 오류가 발생했습니다.',
-      });
+      toast(HABIT_TOAST_MESSAGES.FAIL.HABIT_CREATE);
     } finally {
       setIsSubmitting(false);
     }

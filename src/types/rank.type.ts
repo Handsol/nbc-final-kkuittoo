@@ -1,12 +1,9 @@
-import { TeamData } from './teams.type';
-
 // 유저 랭킹에 필요한 타입
 export type UserData = {
   id: string;
   name: string | null;
   bio: string | null;
   email: string;
-  image: string | null;
   totalPoints: number;
   userPoints: { points: number }[]; // 포인트 배열 (합산해서 랭킹 계산)
 };
@@ -19,6 +16,7 @@ export type TeamWithPoints = {
   memberCount: number;
   maxTeamSize: number;
   isOpened: boolean;
+  emblem: string;
 };
 
 export type TeamCardProps = {

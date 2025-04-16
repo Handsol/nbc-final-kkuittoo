@@ -19,6 +19,11 @@ export const useTeamCreateForm = () => {
     control,
   } = useForm<TeamFormInputs>({
     resolver: zodResolver(teamTeamSchema),
+    defaultValues: {
+      maxTeamSize: '2',
+      teamName: '',
+      teamBio: '',
+    },
   });
 
   return { register, handleSubmit, errors, watch, control };

@@ -8,12 +8,12 @@ import { SearchInput } from '../SearchInput';
 export const TeamRankHeader = () => {
   return (
     <section className="flex items-center space-x-2 mb-8">
-      <LinkButton mode={LINKBUTTON_MODE.COMMON} href={PATH.RANK.USERS}>
+      <LinkButton mode={LINKBUTTON_MODE.RANK} href={PATH.RANK.USERS}>
         Character
       </LinkButton>
-      <ActionButton mode={ACTIONBUTTON_MODE.SECONDARY} disabled>
+      <LinkButton mode={LINKBUTTON_MODE.RANK} href={PATH.RANK.TEAMS} disabled>
         Team
-      </ActionButton>
+      </LinkButton>
       <SearchInput placeholder="팀 이름을 검색해보세요." />
     </section>
   );

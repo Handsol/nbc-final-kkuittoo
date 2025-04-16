@@ -116,6 +116,9 @@ const config: Config = {
           '100%': { transform: 'translateX(100%)' },
         },
       },
+      dropShadow: {
+        'sidebar-purple': '4px 0 8px rgba(104, 20, 255, 0.15)',
+      },
     },
   },
   plugins: [require('tailwindcss-animate')],

@@ -5,6 +5,9 @@ import {
 } from '@/lib/mutations/useHabitMutation';
 import { toast } from '@/lib/hooks/use-toast';
 import { Habit } from '@prisma/client';
+import { HABIT_ERROR_MESSAGES } from '@/constants/error-messages.constants';
+import { isDailyPointsLimitExceeded } from '../utils/habit-points.utils';
+import { HABIT_TOAST_MESSAGES } from '@/constants/toast-messages.contants';
 
 type useHabitItemHandlersProps = {
   userId: string;
@@ -21,15 +24,24 @@ export const useHabitItemHandlers = ({
   const updateMutation = useUpdateHabitMutation(userId, habitId);
   const deleteMutation = useDeleteHabitMutation(userId, habitId);
 
-  const handleAddPoint = () => {
+  const handleAddPoint = (todayPoints: number) => {
+    if (isDailyPointsLimitExceeded(todayPoints)) {
+      toast(HABIT_TOAST_MESSAGES.FAIL.POINT_LIMIT_EXCEEDED);
+      return;
+    }
+
     addPointMutation.mutate(habitId, {
-      onSuccess: () =>
-        toast({ title: '성공', description: '포인트가 추가되었습니다.' }),
-      onError: (err) =>
+      onSuccess: () => toast(HABIT_TOAST_MESSAGES.SUCCESS.POINT_ADD),
+      onError: (err) => {
+        const errorMessage =
+          err.message === HABIT_ERROR_MESSAGES.DAILY_POINT_LIMIT_EXCEEDED
+            ? HABIT_TOAST_MESSAGES.FAIL.POINT_LIMIT_EXCEEDED.description
+            : HABIT_TOAST_MESSAGES.FAIL.POINT_ADD.description;
         toast({
-          title: '실패',
-          description: `포인트 추가 실패: ${err.message}`,
-        }),
+          title: HABIT_TOAST_MESSAGES.FAIL.POINT_ADD.title,
+          description: errorMessage,
+        });
+      },
     });
   };
 
@@ -38,22 +50,24 @@ export const useHabitItemHandlers = ({
   ) => {
     updateMutation.mutate(updatedHabit, {
       onSuccess: () => {
-        toast({ title: '성공', description: '습관이 수정되었습니다.' });
+        toast(HABIT_TOAST_MESSAGES.SUCCESS.HABIT_UPDATE);
         onEditToggle(false);
       },
       onError: (err) =>
-        toast({ title: '실패', description: `습관 수정 실패: ${err.message}` }),
+        toast({
+          title: HABIT_TOAST_MESSAGES.FAIL.HABIT_UPDATE.title,
+          description: `${HABIT_TOAST_MESSAGES.FAIL.HABIT_UPDATE.description}: ${err.message}`,
+        }),
     });
   };
 
   const handleDeleteHabit = () => {
     deleteMutation.mutate(undefined, {
-      onSuccess: () =>
-        toast({ title: '성공', description: 'Habit이 삭제되었습니다.' }),
+      onSuccess: () => toast(HABIT_TOAST_MESSAGES.SUCCESS.HABIT_DELETE),
       onError: (err) =>
         toast({
-          title: '실패',
-          description: `Habit 삭제 실패: ${err.message}`,
+          title: HABIT_TOAST_MESSAGES.FAIL.HABIT_DELETE.title,
+          description: `${HABIT_TOAST_MESSAGES.FAIL.HABIT_DELETE.description}: ${err.message}`,
         }),
     });
   };

@@ -21,7 +21,7 @@ const SidebarProfile = () => {
   const userImageSrc = getUserImageByLevel(level);
 
   return (
-    <div className="mt-[14px] flex flex-col items-center gap-3">
+    <div className="mt-[40px] flex flex-col items-center gap-3">
       <Image src={userImageSrc} alt="user" width={150} height={150} />
 
       <UserProfileEdit

@@ -27,7 +27,7 @@ const TeamMemberCard = ({
   totalContribution,
 }: TeamMemberCardProps) => {
   return (
-    <li className="w-full flex items-center justify-between bg-sub rounded-3xl px-16 py-3 gap-4">
+    <li className="w-full flex items-center justify-between bg-sub-light rounded-lg px-9 py-2 gap-4">
       {/* ----- 등수 + 이미지 + 레벨 ----- */}
       <div className="flex items-center gap-10">
         {/* 등수 */}
@@ -35,7 +35,7 @@ const TeamMemberCard = ({
           <UserTitle mode={USER_TITLE_MODE.CARD_RANK}>{rank}</UserTitle>
         </div>
         {/* 이미지 : 일단 임시로 프로필 이미지로 넣었습니다 */}
-        <div className="w-14 h-14 rounded-full bg-neutral-300 relative overflow-hidden">
+        <div className="w-9 h-9 rounded-full bg-neutral-300 relative overflow-hidden">
           {member.image && <Image src={member.image} alt="user_image" fill />}
         </div>
         {/* 레벨 */}

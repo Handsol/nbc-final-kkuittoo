@@ -24,7 +24,7 @@ const ActionButton = ({
   ...props
 }: ActionButtonProps) => {
   const baseStyle =
-    'py-2 font-semibold transition-all duration-200 ease-in-out font-dohyeon';
+    'py-2 font-semibold transition-all duration-200 ease-in-out font-dohyeon text-body-sm';
 
   let sizeStyle = '';
   let variantStyle = '';
@@ -32,47 +32,50 @@ const ActionButton = ({
 
   switch (mode) {
     case ACTIONBUTTON_MODE.PRIMARY:
-      sizeStyle = 'w-[250px] h-[45px] text-body-md';
-      variantStyle =
-        'bg-main text-white hover:bg-sub-light hover:tracking-wide';
+      sizeStyle = 'w-[250px] h-[45px]';
+      variantStyle = 'bg-main text-white hover:bg-sub-light';
       roundedStyle = 'rounded-full';
       break;
     case ACTIONBUTTON_MODE.SECONDARY:
-      sizeStyle = 'w-[250px] h-[45px] text-body-md';
-      variantStyle = 'bg-sub text-black hover:bg-sub-light hover:tracking-wide';
+      sizeStyle = 'w-[250px] h-[45px]';
+      variantStyle = 'bg-sub text-black hover:bg-sub-light';
       roundedStyle = 'rounded-full';
       break;
     case ACTIONBUTTON_MODE.PRIMARY_SMALL:
-      sizeStyle = 'w-[80px] h-[36px] text-body-md';
-      variantStyle =
-        'bg-main text-white hover:bg-sub-light hover:tracking-wide';
+      sizeStyle = 'w-[80px] h-[36px]';
+      variantStyle = 'bg-main text-white hover:opacity-85';
       roundedStyle = 'rounded-full';
       break;
     case ACTIONBUTTON_MODE.SECONDARY_SMALL:
-      sizeStyle = 'w-[80px] h-[36px] text-body-md';
-      variantStyle = 'bg-sub text-black hover:bg-sub-light hover:tracking-wide';
+      sizeStyle = 'w-[80px] h-[36px]';
+      variantStyle = 'bg-sub text-black hover:opacity-85';
       roundedStyle = 'rounded-full';
       break;
-    case ACTIONBUTTON_MODE.PRIMARY_BORDER:
-      sizeStyle = 'w-[160px] h-[36px] text-body-md';
-      variantStyle =
-        'bg-white text-main border border-main hover:bg-sub-light hover:tracking-wide';
+    case ACTIONBUTTON_MODE.DARK_GRAY_SMALL:
+      sizeStyle = 'w-[80px] h-[36px]';
+      variantStyle = 'bg-dark-gray text-white border hover:bg-medium-gray';
       roundedStyle = 'rounded-full';
       break;
     case ACTIONBUTTON_MODE.ROUNDED_MD:
-      sizeStyle = 'w-[180px] h-[40px] text-body-md';
-      variantStyle = 'bg-main text-white hover:bg-sub hover:tracking-wide';
+      sizeStyle = 'w-[180px] h-[40px]';
+      variantStyle = 'bg-main text-white hover:bg-sub';
+      roundedStyle = 'rounded-md';
+      break;
+    case ACTIONBUTTON_MODE.ROUNDED_MD_LIGHT_GRAY:
+      sizeStyle = 'w-[180px] h-[40px]';
+      variantStyle =
+        'bg-light-gray text-black hover:bg-medium-gray hover:text-white';
       roundedStyle = 'rounded-md';
       break;
     case ACTIONBUTTON_MODE.LOGOUT:
-      sizeStyle = 'px-5 text-body-lg';
+      sizeStyle = 'px-5 text-body-lg w-full';
       variantStyle =
-        'text-black border border-transparent hover:text-main hover:border-main hover:bg-white';
-      roundedStyle = '';
+        'text-black border border-transparent hover:text-white hover:bg-medium-gray bg-light-gray';
+      roundedStyle = 'rounded-md';
       break;
     default:
       sizeStyle = 'w-[250px] h-[45px] text-body-md';
-      variantStyle = 'bg-main text-white hover:bg-sub hover:tracking-wide';
+      variantStyle = 'bg-main text-white hover:bg-sub';
       roundedStyle = 'rounded-full';
       break;
   }

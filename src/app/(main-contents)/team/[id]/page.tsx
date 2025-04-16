@@ -1,6 +1,5 @@
 import { TeamChat } from '@/components/team/TeamChat';
 import TeamInfo from '@/components/team/TeamInfo';
-import TeamLeave from '@/components/team/TeamLeave';
 import TeamMemberList from '@/components/team/TeamMemberList';
 import {
   generateTeamMetadata,
@@ -21,12 +20,9 @@ const TeamPage = async ({ params }: RouteParams) => {
   const id = params.id;
 
   return (
-    <section className="w-full pt-5 px-10">
-      <article className="w-full flex justify-end items-center mb-5">
-        <TeamLeave id={id} />
-      </article>
-      <article className="w-full flex flex-col gap-10">
-        <TeamInfo id={id} />
+    <section className="w-full">
+      <TeamInfo id={id} />
+      <article className="w-full px-10">
         <TeamMemberList id={id} />
         <TeamChat teamId={id} />
       </article>

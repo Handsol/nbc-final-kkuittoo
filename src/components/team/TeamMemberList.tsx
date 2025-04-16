@@ -3,6 +3,7 @@ import Title from '../common/Title';
 import { TITLE_MODE } from '@/constants/mode.constants';
 import { getUserLevel } from '@/lib/utils/user-level.utils';
 import { fetchGetTeamMembers } from '@/lib/services/team-actions.services';
+import TeamLeave from './TeamLeave';
 
 type TeamMemberListProps = {
   id: string;
@@ -11,14 +12,12 @@ type TeamMemberListProps = {
 const TeamMemberList = async ({ id }: TeamMemberListProps) => {
   const teamMemberList = await fetchGetTeamMembers(id);
 
-  // 이부분 수정예정
-  if (!teamMemberList) {
-    return <div>ERROR</div>;
-  }
-
   return (
-    <div className="w-full flex flex-col gap-5">
-      <Title mode={TITLE_MODE.SECTION_TITLE}>Members</Title>
+    <div className="w-full flex flex-col gap-5 mt-11 mb-11">
+      <div className="w-full flex justify-between items-center">
+        <Title mode={TITLE_MODE.SECTION_TITLE}>Members</Title>
+        <TeamLeave id={id} />
+      </div>
       <ul className="w-full flex flex-col gap-2">
         {teamMemberList.map((member, index) => {
           const { user, totalPoints, totalContribution } = member;

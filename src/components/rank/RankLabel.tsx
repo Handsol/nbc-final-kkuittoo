@@ -12,7 +12,7 @@ const getRankSuffix = (rank: number) => {
     case 3:
       return 'rd';
     default:
-      return 'th';
+      return '';
   }
 };
 

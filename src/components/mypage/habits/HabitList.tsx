@@ -4,7 +4,7 @@ import HabitItem from './HabitItem';
 import { HabitFormData, HabitWithPoints } from '@/types/habits.type';
 import { useCreateHabitMutation } from '@/lib/mutations/useHabitMutation';
 import { useMemo } from 'react';
-import { sortHabitsByEnabled } from '@/lib/utils/habit.utils';
+import { sortHabitsByEnabled } from '@/lib/utils/habit-filter.utils';
 
 type HabitListProps = {
   userId: string;
@@ -38,14 +38,14 @@ const HabitList = ({
   return (
     <ul className="h-[460px] overflow-y-auto">
       {isCreating ? (
-        <li className="my-4 flex items-center justify-center ">
+        <li className="my-[8px] flex items-center justify-center">
           <HabitForm
             onCancel={onToggleCreate}
             onSuccess={handleCreateSuccess}
           />
         </li>
       ) : sortedHabits.length > 0 ? (
-        <div className="space-y-4">
+        <div className="flex flex-col gap-[8px]">
           {sortedHabits.map((habit) => (
             <HabitItem key={habit.id} habit={habit} userId={userId} />
           ))}
