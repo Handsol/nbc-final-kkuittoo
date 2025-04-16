@@ -1,4 +1,4 @@
-import { DAYS_OF_WEEK } from '@/constants/habits.constants';
+import { DAY_LABELS, DAYS_OF_WEEK } from '@/constants/habits.constants';
 import { SELECTBUTTON_MODE } from '@/constants/mode.constants';
 import HabitSelectButton from '../habit-filter/HabitSelectButton';
 
@@ -13,11 +13,11 @@ const HabitFormReapeatDays = ({
   toggleDay,
 }: HabitFormRepeatDaysProps) => (
   <>
-    <label className="block mb-2 text-xs font-semibold text-dark-gray font-dohyeon">
-      Repeats
+    <label className="block text-body-md font-semibold text-dark-gray font-dohyeon">
+      주기
     </label>
-    <div className="flex gap-2">
-      {DAYS_OF_WEEK.map((day) => (
+    <div className="flex gap-[2px] mb-[20px]">
+      {DAYS_OF_WEEK.map((day, i) => (
         <HabitSelectButton
           key={day}
           mode={SELECTBUTTON_MODE.DAY}
@@ -25,7 +25,7 @@ const HabitFormReapeatDays = ({
           onClick={() => setSelectedDays(toggleDay(selectedDays, day))}
           inputType="checkbox"
         >
-          {day.charAt(0).toUpperCase() + day.slice(1)}
+          {DAY_LABELS[i]}
         </HabitSelectButton>
       ))}
     </div>

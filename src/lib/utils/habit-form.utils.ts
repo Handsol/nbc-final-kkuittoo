@@ -58,3 +58,28 @@ export const getDefaultValues = (habit?: HabitFormData): HabitFormSchema => ({
   categories: habit?.categories || HABIT_CATEGORIES[0],
   selectedDays: habit ? DAYS_OF_WEEK.filter((day) => habit[day]) : [],
 });
+
+/**
+ * 새로운 습관 데이터와 초기 습관 데이터가 동일한지 확인하는 유틸리티 함수
+ * @param newData - 비교할 새로운 습관 데이터
+ * @param initialHabit - 초기 습관 데이터 (선택적)
+ * @returns 데이터가 동일하면 true, 그렇지 않으면 false
+ */
+export const isHabitDataUnchanged = (
+  newData: HabitFormData,
+  initialHabit?: HabitFormData,
+): boolean => {
+  if (!initialHabit) return false; // 초기 데이터가 없으면 생성이라 false로 얼리리턴
+  return (
+    newData.title === initialHabit.title &&
+    newData.notes === initialHabit.notes &&
+    newData.categories === initialHabit.categories &&
+    newData.mon === initialHabit.mon &&
+    newData.tue === initialHabit.tue &&
+    newData.wed === initialHabit.wed &&
+    newData.thu === initialHabit.thu &&
+    newData.fri === initialHabit.fri &&
+    newData.sat === initialHabit.sat &&
+    newData.sun === initialHabit.sun
+  );
+};

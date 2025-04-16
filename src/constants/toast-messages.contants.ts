@@ -1,3 +1,5 @@
+import { MAX_POINTS_PER_DAY } from './habits.constants';
+
 export const TEAM_TOAST_MESSAGES = {
   SUCCESS: {
     TEAM_CREATE: {
@@ -55,3 +57,52 @@ export const LOGIN_TOAST_MESSAGES = {
     DESCRIPTION: '오늘도 함께 성장해요!',
   },
 };
+
+export const HABIT_TOAST_MESSAGES = {
+  SUCCESS: {
+    HABIT_CREATE: {
+      title: '성공',
+      description: '습관이 생성되었습니다.',
+    },
+    HABIT_UPDATE: {
+      title: '성공',
+      description: '습관이 수정되었습니다.',
+    },
+    HABIT_DELETE: {
+      title: '성공',
+      description: '습관이 삭제되었습니다.',
+    },
+    POINT_ADD: {
+      title: '성공',
+      description: '포인트가 추가되었습니다.',
+    },
+  },
+  FAIL: {
+    HABIT_CREATE: {
+      title: '오류',
+      description: '습관 생성 중 오류가 발생했습니다.',
+    },
+    HABIT_UPDATE: {
+      title: '실패',
+      description: '습관 수정에 실패했습니다.',
+    },
+    HABIT_DELETE: {
+      title: '실패',
+      description: '습관 삭제에 실패했습니다.',
+    },
+    POINT_LIMIT_EXCEEDED: {
+      title: '알림',
+      description: `하루 최대 ${MAX_POINTS_PER_DAY}포인트까지 획득 가능합니다.`,
+    },
+    POINT_ADD: {
+      title: '실패',
+      description: '포인트 추가에 실패했습니다.',
+    },
+  },
+  INFO: {
+    NO_CHANGES: {
+      title: '알림',
+      description: '변경된 내용이 없습니다.',
+    },
+  },
+} as const;

@@ -22,6 +22,7 @@ export const ICONBUTTON_MODE = {
   EDIT: 'edit',
   DELETE: 'delete',
   ADD: 'add',
+  POINT: 'point',
 } as const;
 
 export const ACTIONBUTTON_MODE = {

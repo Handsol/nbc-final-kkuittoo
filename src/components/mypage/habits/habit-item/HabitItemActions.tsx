@@ -6,6 +6,7 @@ type HabitItemActionsProps = {
   onDelete: () => void;
   isEditDisabled: boolean;
   isDeleteDisabled: boolean;
+  isEditingDisabled: boolean;
 };
 
 const HabitItemActions = ({
@@ -13,18 +14,19 @@ const HabitItemActions = ({
   onDelete,
   isEditDisabled,
   isDeleteDisabled,
+  isEditingDisabled,
 }: HabitItemActionsProps) => (
   <nav className="flex gap-2" aria-label="Habit actions">
     <IconButton
       mode={ICONBUTTON_MODE.EDIT}
       onClick={onEdit}
-      disabled={isEditDisabled}
+      disabled={isEditDisabled || isEditingDisabled}
       aria-label="Edit habit"
     />
     <IconButton
       mode={ICONBUTTON_MODE.DELETE}
       onClick={onDelete}
-      disabled={isDeleteDisabled}
+      disabled={isDeleteDisabled || isEditingDisabled}
       aria-label="Delete habit"
     />
   </nav>
