@@ -4,6 +4,10 @@ import { useState, useEffect, useRef } from 'react';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Pusher from 'pusher-js';
+import Text from '../common/Text';
+import Title from '../common/Title';
+import { TITLE_MODE } from '@/constants/mode.constants';
+import { SlArrowRight } from 'react-icons/sl';
 
 type TeamMessage = {
   id: string;
@@ -116,64 +120,97 @@ export const TeamChat = ({ teamId }: TeamChatProps) => {
   };
 
   return (
-    <section className="flex-1 bg-neutral-400 rounded-3xl p-4">
-      <p className="text-xl font-bold mb-4">Team Chat</p>
-      <div className="flex flex-col h-96 bg-neutral-300 rounded-3xl">
+    <section className="flex-1 w-full bg-white rounded-lg">
+      <Title mode={TITLE_MODE.SECTION_TITLE}>Team Chat</Title>
+      <div className="flex flex-col mt-6 h-96 border border-gray-200 rounded-lg">
         <div
           ref={containerRef}
           className="flex-1 overflow-y-auto p-4 space-y-4"
         >
-          {messages.map((message) => (
-            <div
-              key={message.id}
-              className={`flex ${
-                message.users.name === session?.user?.name
-                  ? 'justify-end'
-                  : 'justify-start'
-              }`}
-            >
+          {/* 스크롤바 숨기기 */}
+          <style jsx>{`
+            div::-webkit-scrollbar {
+              display: none;
+            }
+          `}</style>
+          {messages.map((message) => {
+            const isMine = message.users.name === session?.user?.name;
+
+            return (
               <div
-                className={`max-w-[70%] rounded-lg p-3 ${
-                  message.users.name === session?.user?.name
-                    ? 'bg-black text-white'
-                    : 'bg-white'
-                }`}
+                key={message.id}
+                className={`flex ${isMine ? 'justify-end' : 'justify-start'}`}
               >
-                <div className="flex items-center space-x-2 mb-1">
-                  {message.users.image && (
-                    <Image
-                      src={message.users.image}
-                      alt={message.users.name || 'User'}
-                      width={24}
-                      height={24}
-                      className="rounded-full"
-                    />
+                <div className="flex flex-col items-start gap-1 max-w-[75%]">
+                  {/* 상대방인 경우만 이미지+이름 표시 */}
+                  {!isMine && (
+                    <div className="flex items-center gap-2">
+                      {message.users.image && (
+                        <Image
+                          src={message.users.image}
+                          alt={message.users.name || 'User'}
+                          width={28}
+                          height={28}
+                          className="rounded-full"
+                        />
+                      )}
+                      <Text className="text-body-lg font-medium text-gray-800">
+                        {message.users.name}
+                      </Text>
+                    </div>
                   )}
-                  <span className="font-semibold">{message.users.name}</span>
+
+                  {/* 말풍선 */}
+                  <Text
+                    className={`px-4 py-2 text-body-lg rounded-2xl break-words ${
+                      isMine
+                        ? 'bg-main text-white rounded-tr-none self-end'
+                        : 'bg-light-gray text-dark-gray rounded-tl-none self-start'
+                    }`}
+                  >
+                    {message.messages}
+                  </Text>
+
+                  {/* 시간 */}
+                  <span
+                    className={`text-xs text-gray-500 ${
+                      isMine ? 'text-right self-end' : 'text-left self-start'
+                    }`}
+                  >
+                    {new Date(message.createdAt).toLocaleTimeString()}
+                  </span>
                 </div>
-                <p>{message.messages}</p>
-                <span className="text-xs opacity-70">
-                  {new Date(message.createdAt).toLocaleTimeString()}
-                </span>
               </div>
-            </div>
-          ))}
+            );
+          })}
           <div ref={messagesEndRef} />
         </div>
-        <form onSubmit={handleSubmit} className="p-4 border-t">
+
+        <form
+          onSubmit={handleSubmit}
+          className="p-2 border-t bg-light-gray  rounded-b-lg"
+        >
           <div className="flex space-x-2">
             <input
               type="text"
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
-              placeholder="메시지를 입력하세요..."
-              className="flex-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Reply"
+              className="flex-1 bg-light-gray focus:outline-none"
             />
             <button
               type="submit"
-              className="px-4 py-2 bg-neutral-400 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              disabled={!newMessage.trim()}
+              className={`px-4 py-4 text-white rounded-full focus:outline-none transition-all duration-200
+                
+                ${
+                  newMessage.trim()
+                    ? 'bg-main cursor-pointer'
+                    : 'bg-medium-gray cursor-default'
+                }`}
             >
-              전송
+              {/* 메시지가 비어있으면 버튼 색 유지, 입력 중이면 색 변경 */}
+              <SlArrowRight />
             </button>
           </div>
         </form>
