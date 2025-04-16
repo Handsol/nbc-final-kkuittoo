@@ -1,29 +1,46 @@
-import { DAYS_OF_WEEK } from '@/constants/habits.constants';
+import { DAY_LABELS, DAYS_OF_WEEK } from '@/constants/habits.constants';
 
 type DayFilterProps = {
-  selectedDay: string | null;
-  setSelectedDay: (day: string | null) => void;
+  selectedDay: string[];
+  setSelectedDay: (day: string[]) => void;
 };
 
-const DayFilter = ({ selectedDay, setSelectedDay }: DayFilterProps) => (
-  <fieldset className="flex" aria-label="Day filter">
-    {DAYS_OF_WEEK.map((day) => (
-      <button
-        key={day}
-        onClick={() => setSelectedDay(selectedDay === day ? null : day)}
-        className={`
-            flex-1 pb-2 text-sm border-b-4 font-dohyeon transition-all duration-200 ease-in-out cursor-pointer  hover:text-sub hover:border-sub
+const DayFilter = ({ selectedDay, setSelectedDay }: DayFilterProps) => {
+  const toggleDay = (day: string) => {
+    if (selectedDay.includes(day)) {
+      // 이미 선택된 요일이면 제거
+      setSelectedDay(selectedDay.filter((d) => d !== day));
+    } else {
+      // 선택되지 않은 요일이면 추가
+      setSelectedDay([...selectedDay, day]);
+    }
+  };
+  return (
+    <fieldset className="flex" aria-label="Day filter">
+      {DAYS_OF_WEEK.map((day, i) => (
+        <label
+          key={day}
+          className={`
+           flex-1 pb-[8px] text-body-sm border-b-4 font-dohyeon transition-all duration-200 ease-in-out cursor-pointer hover:text-sub hover:border-sub text-center
             ${
-              selectedDay === day
+              selectedDay.includes(day)
                 ? 'border-main text-main font-semibold'
                 : 'border-light-gray text-dark-gray'
             }
           `}
-      >
-        {day.charAt(0).toUpperCase() + day.slice(1)}
-      </button>
-    ))}
-  </fieldset>
-);
+        >
+          <input
+            type="checkbox"
+            checked={selectedDay.includes(day)}
+            onChange={() => toggleDay(day)}
+            className="hidden"
+            aria-label={`Filter by ${day}`}
+          />
+          {DAY_LABELS[i]}
+        </label>
+      ))}
+    </fieldset>
+  );
+};
 
 export default DayFilter;

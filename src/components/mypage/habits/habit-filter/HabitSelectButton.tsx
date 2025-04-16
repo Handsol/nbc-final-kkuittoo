@@ -21,34 +21,35 @@ const HabitSelectButton = ({
   ...props
 }: HabitSelectButtonProps) => {
   const baseStyle =
-    'px-2 py-1 rounded-full border text-xs text-center cursor-pointer transition font-pretendard';
+    'border text-center cursor-pointer transition font-pretendard';
 
   let sizeStyle: string;
   let variantStyle: string;
 
   switch (mode) {
     case SELECTBUTTON_MODE.CATEGORY:
-      sizeStyle = 'min-w-[80px] text-xs';
+      sizeStyle = 'p-[8px] text-body-sm rounded-lg truncate';
       variantStyle = isSelected
-        ? 'bg-main text-white'
-        : 'bg-white text-dark-gray border-gray-300 hover:text-main hover:bg-sub hover:text-white';
+        ? 'bg-sub-light text-main border-main'
+        : 'bg-white text-dark-gray border-medium-gray hover:text-main hover:bg-sub hover:text-white';
       break;
     case SELECTBUTTON_MODE.DAY:
-      sizeStyle = 'w-[42px] h-[42px] flex items-center justify-center text-xs';
+      sizeStyle =
+        'w-[42px] h-[42px] flex items-center justify-center text-body-md rounded-full font-dohyeon';
       variantStyle = isSelected
-        ? 'bg-sub text-white border-none'
-        : 'bg-white text-dark-gray border-light-gray hover:bg-sub-light';
+        ? 'bg-sub text-main border-main text-main'
+        : 'bg-white text-medium-gray border-medium-gray hover:bg-sub hover:border-main hover:bg-sub hover:text-white';
       break;
     default:
       sizeStyle = 'min-w-[80px] text-xs';
       variantStyle = isSelected
         ? 'bg-main text-white'
-        : 'bg-white text-dark-gray border-gray-300';
+        : 'bg-white text-dark-gray border-light-gray';
       break;
   }
 
   const disabledStyle = disabled
-    ? 'bg-light-gray text-medium-gray cursor-not-allowed border-gray-300'
+    ? 'bg-light-gray text-medium-gray cursor-not-allowed border-light-gray'
     : variantStyle;
 
   return (

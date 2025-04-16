@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 import { filterHabits } from '../utils/habit-filter.utils';
 
 type UseHabitsFilterReturn = {
-  selectedDay: string | null;
-  setSelectedDay: (day: string | null) => void;
+  selectedDay: string[];
+  setSelectedDay: (day: string[]) => void;
   selectedCategory: Categories | null;
   setSelectedCategory: (category: Categories | null) => void;
 };
@@ -14,7 +14,7 @@ const useHabitsFilter = (
   habits: HabitWithPoints[],
   onFilterChange: (filteredHabits: HabitWithPoints[]) => void,
 ): UseHabitsFilterReturn => {
-  const [selectedDay, setSelectedDay] = useState<string | null>(null);
+  const [selectedDay, setSelectedDay] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<Categories | null>(
     null,
   );
