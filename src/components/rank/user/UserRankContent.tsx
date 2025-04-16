@@ -15,7 +15,6 @@ export const UserRankContent = async ({
   const searchTerm = searchParams?.q || '';
 
   const usersList = await fetchGetUsersWithTotalPoints();
-  console.log('Total users fetched:', usersList.length);
 
   const filteredUsers = await searchUsers(searchTerm);
 
