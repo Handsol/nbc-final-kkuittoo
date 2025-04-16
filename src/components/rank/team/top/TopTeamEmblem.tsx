@@ -1,12 +1,12 @@
 import Image from 'next/image';
 
-type Props = { teamName?: string };
+type Props = { teamName?: string; emblem?: string };
 
-export const TeamEmblem = ({ teamName }: Props) => {
+export const TeamEmblem = ({ teamName, emblem }: Props) => {
   return (
-    <figure className="w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center mb-2 overflow-hidden">
+    <figure className="w-28 h-28 bg-white flex items-center justify-center overflow-hidden">
       <Image
-        src="/images/default-emblem.png"
+        src={emblem ?? '/images/default-emblem.png'}
         alt={teamName ?? 'Team'}
         width={112}
         height={112}
