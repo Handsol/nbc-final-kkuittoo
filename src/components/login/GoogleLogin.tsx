@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import LoginButton from './LoginButton';
 import { useToast } from '@/lib/hooks/use-toast';
 import ToDashboardButton from './ToDashboardButton';
+import { LOGIN_TOAST_MESSAGES } from '@/constants/toast-messages.contants';
 
 const GoogleLogin = () => {
   const { data: session, status } = useSession();
@@ -13,8 +14,8 @@ const GoogleLogin = () => {
   useEffect(() => {
     if (status === 'authenticated') {
       toast({
-        title: '로그인되었습니다',
-        description: `${session.user.name}님 환영합니다!`,
+        title: LOGIN_TOAST_MESSAGES.SUCCESS.TITLE,
+        description: LOGIN_TOAST_MESSAGES.SUCCESS.DESCRIPTION,
       });
     }
   }, [status]);
