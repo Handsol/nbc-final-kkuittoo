@@ -1,9 +1,6 @@
 'use client';
 
 import { TeamWithPoints } from '@/types/rank.type';
-import { useState } from 'react';
-import { CommonModal } from '@/components/common/CommonModal';
-import { TeamDetailModal } from '../TeamDetailModalContents';
 import { NormalTeamRankLabel } from './NormalTeamRankLabel';
 import { NormalTeamEmblem } from './NormalTeamEmblem';
 import { NormalTeamInfo } from './NormalTeamInfo';
@@ -16,20 +13,15 @@ type Props = {
 };
 
 export const NormalRankTeamCard = ({ team, rank, hasTeam }: Props) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
   const currentMembers = team.memberCount;
   return (
     <>
-      <article className="border rounded-3xl p-4 shadow-md bg-gray-100 w-full h-24 flex items-center">
-        {/* 클릭시 모달이 열리는 영역 */}
-        <div
-          onClick={() => {
-            setIsModalOpen(true);
-          }}
-        >
-          <NormalTeamRankLabel rank={rank} />
-          <NormalTeamEmblem teamName={team.teamName} />
+      <article className="border rounded-3xl p-4 shadow-md bg-sub-light w-full h-24 flex items-center justify-between">
+        <div className="flex items-center gap-4 cursor-pointer">
+          <div className="flex items-center gap-3">
+            <NormalTeamRankLabel rank={rank} />
+            <NormalTeamEmblem teamName={team.teamName} embluem={team.emblem} />
+          </div>
           <NormalTeamInfo team={team} />
         </div>
         {/* 팀 가입 버튼 */}
@@ -39,10 +31,6 @@ export const NormalRankTeamCard = ({ team, rank, hasTeam }: Props) => {
           currentMembers={currentMembers}
         />
       </article>
-
-      <CommonModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <TeamDetailModal team={team} onClose={() => setIsModalOpen(false)} />
-      </CommonModal>
     </>
   );
 };
