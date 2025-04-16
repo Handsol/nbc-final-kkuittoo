@@ -43,12 +43,12 @@ const ActionButton = ({
       break;
     case ACTIONBUTTON_MODE.PRIMARY_SMALL:
       sizeStyle = 'w-[80px] h-[36px]';
-      variantStyle = 'bg-main text-white hover:bg-sub-light';
+      variantStyle = 'bg-main text-white hover:opacity-85';
       roundedStyle = 'rounded-full';
       break;
     case ACTIONBUTTON_MODE.SECONDARY_SMALL:
       sizeStyle = 'w-[80px] h-[36px]';
-      variantStyle = 'bg-sub text-black hover:bg-sub-light';
+      variantStyle = 'bg-sub text-black hover:opacity-85';
       roundedStyle = 'rounded-full';
       break;
     case ACTIONBUTTON_MODE.DARK_GRAY_SMALL:
