@@ -8,6 +8,8 @@ import Text from '../common/Text';
 import Title from '../common/Title';
 import { TITLE_MODE } from '@/constants/mode.constants';
 import { SlArrowRight } from 'react-icons/sl';
+import { getUserImageByLevel } from '@/lib/utils/user.utils';
+import { getUserLevel } from '@/lib/utils/user-level.utils';
 
 type TeamMessage = {
   id: string;
@@ -16,6 +18,7 @@ type TeamMessage = {
   users: {
     name: string | null;
     image: string | null;
+    totalPoints: number;
   };
 };
 
@@ -133,50 +136,43 @@ export const TeamChat = ({ teamId }: TeamChatProps) => {
               display: none;
             }
           `}</style>
+
           {messages.map((message) => {
             const isMine = message.users.name === session?.user?.name;
+            const level = getUserLevel(message.users.totalPoints ?? 0);
 
-            return (
-              <div
-                key={message.id}
-                className={`flex ${isMine ? 'justify-end' : 'justify-start'}`}
-              >
-                <div className="flex flex-col items-start gap-1 max-w-[75%]">
-                  {/* 상대방인 경우만 이미지+이름 표시 */}
-                  {!isMine && (
-                    <div className="flex items-center gap-2">
-                      {message.users.image && (
-                        <Image
-                          src={message.users.image}
-                          alt={message.users.name || 'User'}
-                          width={28}
-                          height={28}
-                          className="rounded-full"
-                        />
-                      )}
-                      <Text className="text-body-lg font-medium text-gray-800">
-                        {message.users.name}
-                      </Text>
-                    </div>
-                  )}
+            return !isMine ? (
+              <div key={message.id} className="flex items-start gap-2">
+                {/* 아바타 */}
+                <div className="w-10 h-10 bg-light-gray rounded-full overflow-hidden flex items-center justify-center border border-light-gray relative">
+                  <Image
+                    src={getUserImageByLevel(level)}
+                    alt={message.users.name || '아바타'}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
 
-                  {/* 말풍선 */}
-                  <Text
-                    className={`px-4 py-2 text-body-lg rounded-2xl break-words ${
-                      isMine
-                        ? 'bg-main text-white rounded-tr-none self-end'
-                        : 'bg-light-gray text-dark-gray rounded-tl-none self-start'
-                    }`}
-                  >
+                {/* 이름 + 말풍선 + 시간 */}
+                <div className="flex flex-col gap-1 max-w-[75%]">
+                  <Text className="text-body-lg font-medium text-gray-800">
+                    {message.users.name}
+                  </Text>
+                  <Text className="px-4 py-2 text-body-lg rounded-2xl break-words bg-light-gray text-dark-gray rounded-tl-none self-start">
                     {message.messages}
                   </Text>
-
-                  {/* 시간 */}
-                  <span
-                    className={`text-xs text-gray-500 ${
-                      isMine ? 'text-right self-end' : 'text-left self-start'
-                    }`}
-                  >
+                  <span className="text-xs text-gray-500 self-start">
+                    {new Date(message.createdAt).toLocaleTimeString()}
+                  </span>
+                </div>
+              </div>
+            ) : (
+              <div key={message.id} className="flex justify-end">
+                <div className="flex flex-col gap-1 max-w-[75%] items-end">
+                  <Text className="px-4 py-2 text-body-lg rounded-2xl break-words bg-main text-white rounded-tr-none self-end">
+                    {message.messages}
+                  </Text>
+                  <span className="text-xs text-gray-500 self-end">
                     {new Date(message.createdAt).toLocaleTimeString()}
                   </span>
                 </div>
@@ -188,7 +184,7 @@ export const TeamChat = ({ teamId }: TeamChatProps) => {
 
         <form
           onSubmit={handleSubmit}
-          className="p-2 border-t bg-light-gray  rounded-b-lg"
+          className="p-2 border-t bg-light-gray rounded-b-lg"
         >
           <div className="flex space-x-2">
             <input
@@ -201,13 +197,11 @@ export const TeamChat = ({ teamId }: TeamChatProps) => {
             <button
               type="submit"
               disabled={!newMessage.trim()}
-              className={`px-4 py-4 text-white rounded-full focus:outline-none transition-all duration-200
-                
-                ${
-                  newMessage.trim()
-                    ? 'bg-main cursor-pointer'
-                    : 'bg-medium-gray cursor-default'
-                }`}
+              className={`px-4 py-4 text-white rounded-full focus:outline-none transition-all duration-200 ${
+                newMessage.trim()
+                  ? 'bg-main cursor-pointer'
+                  : 'bg-medium-gray cursor-default'
+              }`}
             >
               {/* 메시지가 비어있으면 버튼 색 유지, 입력 중이면 색 변경 */}
               <SlArrowRight />
