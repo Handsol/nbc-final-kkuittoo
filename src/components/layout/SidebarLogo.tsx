@@ -1,9 +1,10 @@
+import { IMAGE_ASSETS } from '@/constants/assets.contants';
 import Image from 'next/image';
 
 const SidebarLogo = () => {
   return (
     <Image
-      src="/assets/images/logo_desktop_kkuitddo.png"
+      src={IMAGE_ASSETS.LOGO.DESKTOP}
       alt="logo"
       width={153}
       height={20}
