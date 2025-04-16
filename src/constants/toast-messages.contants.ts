@@ -48,3 +48,10 @@ export const TEAM_TOAST_MESSAGES = {
     },
   },
 };
+
+export const LOGIN_TOAST_MESSAGES = {
+  SUCCESS: {
+    TITLE: '로그인 되었습니다!',
+    DESCRIPTION: '오늘도 함께 성장해요!',
+  },
+};
