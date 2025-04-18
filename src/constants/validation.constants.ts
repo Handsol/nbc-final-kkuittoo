@@ -18,7 +18,7 @@ export const USER_VALIDATION = {
   },
   BIO: {
     MIN: 5,
-    MAX: 20,
+    MAX: 50,
   },
 };
 
