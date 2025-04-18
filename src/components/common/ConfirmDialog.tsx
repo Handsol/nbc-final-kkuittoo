@@ -52,7 +52,13 @@ const ConfirmDialog = ({ contents, onClick }: ConfirmDialogProps) => {
     <AlertDialog>
       <AlertDialogTrigger asChild>
         {/* 화면에서 보여지는 팀 탈퇴 버튼 */}
-        <ActionButton mode={ACTIONBUTTON_MODE.ROUNDED_MD}>
+        <ActionButton
+          mode={
+            uiButtonText === 'JOIN'
+              ? ACTIONBUTTON_MODE.DARK_GRAY_SMALL
+              : ACTIONBUTTON_MODE.ROUNDED_MD
+          }
+        >
           {uiButtonText}
         </ActionButton>
       </AlertDialogTrigger>
