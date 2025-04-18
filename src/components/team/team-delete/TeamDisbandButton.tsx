@@ -56,7 +56,7 @@ const TeamDisbandButton = ({
         });
         // 캐시 갱신 및 리다이렉트
         router.push(PATH.RANK.TEAMS);
-        router.refresh(); // 클라이언트 캐시 갱신
+        router.refresh(); //캐시 갱신
       }
     } catch (error) {
       toast({
