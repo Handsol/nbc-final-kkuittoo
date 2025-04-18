@@ -55,14 +55,6 @@ const HabitSelectButton = ({
     ? 'bg-light-gray text-medium-gray cursor-not-allowed border-light-gray'
     : variantStyle;
 
-  const handleInputClick = (e: React.MouseEvent<HTMLInputElement>) => {
-    if (disabled) return;
-    // onClick이 있을 경우에만
-    if (onClick) {
-      onClick();
-    }
-  };
-
   return (
     <label
       className={`
@@ -76,7 +68,7 @@ const HabitSelectButton = ({
         checked={isSelected}
         disabled={disabled}
         onChange={onChange || (() => {})}
-        onClick={handleInputClick}
+        onClick={onClick}
         className="hidden"
         {...props}
       />
