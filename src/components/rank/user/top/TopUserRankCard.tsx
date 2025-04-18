@@ -12,9 +12,10 @@ import UserDetailModal from '../UserDetailModal';
 type Props = {
   user: UserData;
   rank: number;
+  animationDelay?: number;
 };
 
-export const TopUserRankCard = ({ user, rank }: Props) => {
+export const TopUserRankCard = ({ user, rank, animationDelay = 0 }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const podiumSize =
     rank === 1
@@ -29,8 +30,9 @@ export const TopUserRankCard = ({ user, rank }: Props) => {
   return (
     <>
       <article
-        className="flex flex-col items-center"
+        className="flex flex-col items-center animate-fade-up"
         onClick={() => setIsModalOpen(true)}
+        style={{ animationDelay: `${animationDelay}ms` }}
       >
         {/* 유저 정보 영역 */}
         <div className="flex flex-col items-center mb-2 ">
@@ -43,7 +45,12 @@ export const TopUserRankCard = ({ user, rank }: Props) => {
 
         {/* 포디움 영역 */}
         <div
-          className={`relative ${podiumSize.width} ${podiumSize.height} rounded-t-md bg-gradient-to-b from-main to-white flex items-center justify-center animate-fade-up`}
+          className={`relative ${podiumSize.width} ${podiumSize.height}
+          rounded-t-md bg-gradient-to-b from-main to-white 
+          flex items-center justify-center  
+          animate-fade-up
+          `}
+          style={{ animationDelay: `${animationDelay}ms` }}
         >
           {/* 기울어진 상단면 컨테이너 */}
           <div

@@ -28,7 +28,7 @@ export const TopRankTeamCard = ({ team, rank, hasTeam }: Props) => {
 
   return (
     <>
-      <article className="flex flex-col items-center">
+      <article className="flex flex-col items-center animate-fade-up">
         {/* 유저 정보 영역 */}
         <div className="flex flex-col items-center mb-2">
           <UserTitle mode={USER_TITLE_MODE.CARD_NAME}>

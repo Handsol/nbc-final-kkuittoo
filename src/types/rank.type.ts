@@ -29,4 +29,5 @@ export type UserCardProps = {
   user: UserData;
   rank: number;
   isTopRank: boolean;
+  animationDelay?: number;
 };
