@@ -64,25 +64,3 @@ export const fetchJoinTeam = async (teamId: string, userId: string) => {
     };
   }
 };
-
-/**
- * 사용자가 이미 가입한 팀이 있는지 확인하는 서버 함수
- *
- * Prisma를 사용하는 이유:
- * - 타입 안전성: TypeScript와 완벽하게 통합되어 런타임 오류 방지
- * - 쿼리 최적화: 필요한 필드만 선택적으로 가져와 성능 최적화 (select 옵션)
- * - 보안: SQL 인젝션 방지 및 매개변수화된 쿼리 자동 생성
- *
- * 서버 액션으로 구현해 클라이언트 컴포넌트에서 안전하게 호출 가능
- *
- * @param userId 조회할 사용자 ID
- * @returns 사용자가 가입한 팀 ID 정보 (없으면 null)
- */
-export const fetchGetTeamMember = async (userId: string) => {
-  // Prisma의 findFirst로 첫 번째 일치 레코드만 가져와 불필요한 데이터 전송 방지
-  // select로 필요한 필드(teamId)만 가져와 네트워크 트래픽 최소화
-  return await prisma.teamMember.findFirst({
-    where: { userId },
-    select: { teamId: true },
-  });
-};

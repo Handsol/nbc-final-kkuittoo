@@ -7,7 +7,6 @@ import { useRouter } from 'next/navigation';
 import TeamJoinPrivateModal from './team-join/TeamJoinPrivateModal';
 import { TeamWithPoints } from '@/types/rank.type';
 import { useSession } from 'next-auth/react';
-import { useTransition } from 'react';
 import { fetchJoinTeam } from '@/lib/services/team-join-actions.services';
 
 type TeamJoinProps = {
@@ -42,7 +41,6 @@ const TeamJoin = ({ team, hasTeam, currentMembers }: TeamJoinProps) => {
   const { toast } = useToast();
   const router = useRouter();
   const { data: session } = useSession();
-  const [isPending, startTransition] = useTransition();
 
   // team 정보
   const { id: teamId, teamName, isOpened, maxTeamSize } = team;
@@ -59,15 +57,14 @@ const TeamJoin = ({ team, hasTeam, currentMembers }: TeamJoinProps) => {
   const handleJoinOpenTeam = async () => {
     if (!session?.user?.id) return;
 
-    startTransition(async () => {
+    try {
       const result = await fetchJoinTeam(teamId, session.user.id);
-
       if (result.success) {
         toast({
           title: '팀 가입 성공',
           description: `${teamName} 팀에 가입되었습니다!`,
         });
-        router.refresh();
+        router.refresh(); // 캐시 갱신
         router.push(`${PATH.TEAM}/${teamId}`);
       } else {
         toast({
@@ -76,7 +73,13 @@ const TeamJoin = ({ team, hasTeam, currentMembers }: TeamJoinProps) => {
           variant: 'destructive',
         });
       }
-    });
+    } catch (error) {
+      toast({
+        title: '팀 가입 실패',
+        description: '오류가 발생했습니다.',
+        variant: 'destructive',
+      });
+    }
   };
 
   // 해당 유저가 소속 팀이 있는 경우 아무것도 렌더링하지 않음
