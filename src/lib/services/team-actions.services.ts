@@ -3,6 +3,7 @@
 import { prisma } from '../prisma';
 import { TeamWithPoints } from '@/types/rank.type';
 import { TEAMS_MESSAGES } from '@/constants/error-messages.constants';
+import { notFound } from 'next/navigation';
 
 /**
  * 팀 데이터 가져오는 로직
@@ -152,7 +153,9 @@ export const fetchGetMyTeamData = async (userId: string) => {
       include: { team: true },
     });
 
-    if (!myTeamData) return null;
+    if (!myTeamData) {
+      notFound(); // 원래 데이터 없으면 null을 리턴했는데, 이제 팀 데이터 없으면 404 페이지로 이동
+    }
 
     return myTeamData;
   } catch (error) {
@@ -172,6 +175,10 @@ export const fetchGetMyTeamMemberData = async (teamId: string) => {
     const myTeamMemberList = await prisma.teamMember.findMany({
       where: { teamId },
     });
+
+    if (!myTeamMemberList || myTeamMemberList.length === 0) {
+      notFound(); // 멤버 데이터 없으면 404 페이지로 이동 추가했습니다.
+    }
 
     return myTeamMemberList;
   } catch (error) {
