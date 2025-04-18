@@ -9,6 +9,7 @@ type HabitSelectButtonProps = InputHTMLAttributes<HTMLInputElement> & {
   inputType?: 'checkbox' | 'radio';
   name?: string;
   onClick?: () => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const HabitSelectButton = ({
@@ -19,6 +20,7 @@ const HabitSelectButton = ({
   inputType = 'radio',
   name,
   onClick,
+  onChange,
   ...props
 }: HabitSelectButtonProps) => {
   const baseStyle =
@@ -53,6 +55,14 @@ const HabitSelectButton = ({
     ? 'bg-light-gray text-medium-gray cursor-not-allowed border-light-gray'
     : variantStyle;
 
+  const handleInputClick = (e: React.MouseEvent<HTMLInputElement>) => {
+    if (disabled) return;
+    // onClick이 있을 경우에만
+    if (onClick) {
+      onClick();
+    }
+  };
+
   return (
     <label
       className={`
@@ -65,14 +75,12 @@ const HabitSelectButton = ({
         name={name}
         checked={isSelected}
         disabled={disabled}
-        onChange={onClick}
+        onChange={onChange || (() => {})}
+        onClick={handleInputClick}
         className="hidden"
         {...props}
       />
-      <span
-        onClick={onClick}
-        className="flex items-center justify-center w-full h-full"
-      >
+      <span className="flex items-center justify-center w-full h-full">
         {children}
       </span>
     </label>
