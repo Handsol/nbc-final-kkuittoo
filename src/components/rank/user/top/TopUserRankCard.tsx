@@ -33,7 +33,7 @@ export const TopUserRankCard = ({ user, rank }: Props) => {
         onClick={() => setIsModalOpen(true)}
       >
         {/* 유저 정보 영역 */}
-        <div className="flex flex-col items-center mb-2">
+        <div className="flex flex-col items-center mb-2 ">
           <UserTitle mode={USER_TITLE_MODE.CARD_NAME}>{user.name}</UserTitle>
           <UserTitle mode={USER_TITLE_MODE.CARD_LEVEL}>
             Lv.{userLevel}
@@ -43,7 +43,7 @@ export const TopUserRankCard = ({ user, rank }: Props) => {
 
         {/* 포디움 영역 */}
         <div
-          className={`relative ${podiumSize.width} ${podiumSize.height} rounded-t-md bg-gradient-to-b from-main to-white flex items-center justify-center`}
+          className={`relative ${podiumSize.width} ${podiumSize.height} rounded-t-md bg-gradient-to-b from-main to-white flex items-center justify-center animate-fade-up`}
         >
           {/* 기울어진 상단면 컨테이너 */}
           <div
@@ -51,7 +51,7 @@ export const TopUserRankCard = ({ user, rank }: Props) => {
             style={{ perspective: '600px' }}
           >
             <div
-              className={`p-6 w-full ${topFaceHeight} ${topFaceOffset} bg-sub rounded-t-md`}
+              className={`p-6 w-full ${topFaceHeight} ${topFaceOffset} bg-sub rounded-t-md `}
               style={{
                 transform: 'rotateX(70deg) translateZ(4px)',
                 transformOrigin: 'bottom',
