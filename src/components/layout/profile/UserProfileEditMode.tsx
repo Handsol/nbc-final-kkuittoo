@@ -9,6 +9,7 @@ import { toast } from '@/lib/hooks/use-toast';
 import { validateUserProfile } from '@/lib/utils/client/user-validation.client';
 import IconButton from '@/components/common/button/IconButton';
 import { ICONBUTTON_MODE } from '@/constants/mode.constants';
+import BioInputBar from './items/BioInputBar';
 
 type Props = UserFormData & {
   userId: string;
@@ -51,7 +52,7 @@ const UserProfileEditMode = ({
   return (
     <div className="flex flex-col gap-2 items-center">
       <CommonInputBar id="name" placeholder="이름" {...register('name')} />
-      <CommonInputBar id="bio" placeholder="소개" {...register('bio')} />
+      <BioInputBar id="bio" placeholder="자기소개" {...register('bio')} />
       <div className="flex gap-2 mt-2">
         <IconButton
           mode={ICONBUTTON_MODE.CONFIRM}
