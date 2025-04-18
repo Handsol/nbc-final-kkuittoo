@@ -3,7 +3,6 @@
 import { prisma } from '../prisma';
 import { TeamWithPoints } from '@/types/rank.type';
 import { TEAMS_MESSAGES } from '@/constants/error-messages.constants';
-import { notFound } from 'next/navigation';
 
 /**
  * 팀 데이터 가져오는 로직

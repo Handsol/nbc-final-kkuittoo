@@ -3,11 +3,12 @@
 import ConfirmDialog from '@/components/common/ConfirmDialog';
 import { PATH } from '@/constants/path.constants';
 import { useToast } from '@/lib/hooks/use-toast';
-import { fetchCreateTeamMember } from '@/lib/services/team-client.services';
 import { useRouter } from 'next/navigation';
 import TeamJoinPrivateModal from './team-join/TeamJoinPrivateModal';
-import { TEAM_TOAST_MESSAGES } from '@/constants/toast-messages.contants';
 import { TeamWithPoints } from '@/types/rank.type';
+import { useSession } from 'next-auth/react';
+import { useTransition } from 'react';
+import { fetchJoinTeam } from '@/lib/services/team-join-actions.services';
 
 type TeamJoinProps = {
   team: TeamWithPoints;
@@ -40,6 +41,8 @@ const TeamJoin = ({ team, hasTeam, currentMembers }: TeamJoinProps) => {
   // toast + router
   const { toast } = useToast();
   const router = useRouter();
+  const { data: session } = useSession();
+  const [isPending, startTransition] = useTransition();
 
   // team 정보
   const { id: teamId, teamName, isOpened, maxTeamSize } = team;
@@ -54,17 +57,26 @@ const TeamJoin = ({ team, hasTeam, currentMembers }: TeamJoinProps) => {
   };
 
   const handleJoinOpenTeam = async () => {
-    const data = await fetchCreateTeamMember(teamId);
+    if (!session?.user?.id) return;
 
-    if (data) {
-      toast({
-        title: TEAM_TOAST_MESSAGES.SUCCESS.TEAM_JOIN.TITLE,
-        description: TEAM_TOAST_MESSAGES.SUCCESS.TEAM_JOIN.DESCRIPTION,
-      });
+    startTransition(async () => {
+      const result = await fetchJoinTeam(teamId, session.user.id);
 
-      // 팀 페이지로 이동
-      router.push(`${PATH.TEAM}/${teamId}`);
-    }
+      if (result.success) {
+        toast({
+          title: '팀 가입 성공',
+          description: `${teamName} 팀에 가입되었습니다!`,
+        });
+        router.refresh();
+        router.push(`${PATH.TEAM}/${teamId}`);
+      } else {
+        toast({
+          title: '팀 가입 실패',
+          description: result.error,
+          variant: 'destructive',
+        });
+      }
+    });
   };
 
   // 해당 유저가 소속 팀이 있는 경우 아무것도 렌더링하지 않음
