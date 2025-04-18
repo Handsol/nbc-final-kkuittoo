@@ -48,7 +48,6 @@ const ConfirmDialog = ({ contents, onClick, children }: ConfirmDialogProps) => {
     cancelButtonText,
     confirmButtonText,
   } = contents;
-
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -75,15 +74,14 @@ const ConfirmDialog = ({ contents, onClick, children }: ConfirmDialogProps) => {
           <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>
-            <ActionButton mode={ACTIONBUTTON_MODE.SECONDARY_SMALL}>
-              {cancelButtonText}
-            </ActionButton>
+          <AlertDialogCancel mode={ACTIONBUTTON_MODE.SECONDARY_SMALL}>
+            {cancelButtonText}
           </AlertDialogCancel>
-          <AlertDialogAction onClick={onClick}>
-            <ActionButton mode={ACTIONBUTTON_MODE.PRIMARY_SMALL}>
-              {confirmButtonText}
-            </ActionButton>
+          <AlertDialogAction
+            mode={ACTIONBUTTON_MODE.PRIMARY_SMALL}
+            onClick={onClick}
+          >
+            {confirmButtonText}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

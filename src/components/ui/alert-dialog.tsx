@@ -2,9 +2,8 @@
 
 import * as React from 'react';
 import * as AlertDialogPrimitive from '@radix-ui/react-alert-dialog';
-
 import { cn } from '@/lib/utils';
-import { buttonVariants } from '@/components/ui/button';
+import { ACTIONBUTTON_MODE } from '@/constants/mode.constants';
 
 const AlertDialog = AlertDialogPrimitive.Root;
 
@@ -18,7 +17,7 @@ const AlertDialogOverlay = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <AlertDialogPrimitive.Overlay
     className={cn(
-      'fixed inset-0 z-50 bg-black/80  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
+      'fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
       className,
     )}
     {...props}
@@ -98,20 +97,79 @@ const AlertDialogDescription = React.forwardRef<
 AlertDialogDescription.displayName =
   AlertDialogPrimitive.Description.displayName;
 
+// ActionButton 스타일 로직
+const getButtonStyles = (mode: string, disabled = false) => {
+  const baseStyle =
+    'py-2 font-semibold transition-all duration-200 ease-in-out font-dohyeon text-body-sm inline-block text-center';
+  let sizeStyle = '';
+  let variantStyle = '';
+  let roundedStyle = '';
+
+  switch (mode) {
+    case ACTIONBUTTON_MODE.PRIMARY_SMALL:
+      sizeStyle = 'w-[80px] h-[36px]';
+      variantStyle = 'bg-main text-white hover:opacity-85';
+      roundedStyle = 'rounded-full';
+      break;
+    case ACTIONBUTTON_MODE.SECONDARY_SMALL:
+      sizeStyle = 'w-[80px] h-[36px]';
+      variantStyle = 'bg-sub text-black hover:opacity-85';
+      roundedStyle = 'rounded-full';
+      break;
+    default:
+      sizeStyle = 'w-[80px] h-[36px]';
+      variantStyle = 'bg-main text-white hover:opacity-85';
+      roundedStyle = 'rounded-full';
+      break;
+  }
+
+  const disabledStyle = disabled
+    ? `bg-light-gray text-medium-gray cursor-not-allowed ${roundedStyle}`
+    : `${variantStyle} ${roundedStyle}`;
+
+  return cn(baseStyle, sizeStyle, disabledStyle);
+};
+
 const AlertDialogAction = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Action>,
-  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Action>
->(({ className, ...props }, ref) => (
-  <AlertDialogPrimitive.Action ref={ref} {...props} />
-));
+  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Action> & {
+    mode?: string; // ActionButton의 스타일 모드
+    disabled?: boolean;
+  }
+>(
+  (
+    { className, mode = ACTIONBUTTON_MODE.PRIMARY_SMALL, disabled, ...props },
+    ref,
+  ) => (
+    <AlertDialogPrimitive.Action
+      ref={ref}
+      className={cn(getButtonStyles(mode, disabled), className)}
+      disabled={disabled}
+      {...props}
+    />
+  ),
+);
 AlertDialogAction.displayName = AlertDialogPrimitive.Action.displayName;
 
 const AlertDialogCancel = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Cancel>,
-  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Cancel>
->(({ className, ...props }, ref) => (
-  <AlertDialogPrimitive.Cancel ref={ref} {...props} />
-));
+  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Cancel> & {
+    mode?: string; // ActionButton의 스타일 모드
+    disabled?: boolean;
+  }
+>(
+  (
+    { className, mode = ACTIONBUTTON_MODE.SECONDARY_SMALL, disabled, ...props },
+    ref,
+  ) => (
+    <AlertDialogPrimitive.Cancel
+      ref={ref}
+      className={cn(getButtonStyles(mode, disabled), className)}
+      disabled={disabled}
+      {...props}
+    />
+  ),
+);
 AlertDialogCancel.displayName = AlertDialogPrimitive.Cancel.displayName;
 
 export {
