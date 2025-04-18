@@ -8,8 +8,6 @@ type HabitSelectButtonProps = InputHTMLAttributes<HTMLInputElement> & {
   disabled?: boolean;
   inputType?: 'checkbox' | 'radio';
   name?: string;
-  onClick?: () => void;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const HabitSelectButton = ({
