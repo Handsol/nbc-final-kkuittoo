@@ -1,5 +1,5 @@
 import { HABIT_ERROR_MESSAGES } from '@/constants/error-messages.constants';
-import { HABIT_CATEGORIES } from '@/constants/habits.constants';
+import { DAYS_OF_WEEK, HABIT_CATEGORIES } from '@/constants/habits.constants';
 import { HABIT_VALIDATION } from '@/constants/validation.constants';
 import { z } from 'zod';
 
@@ -9,7 +9,7 @@ const baseHabitSchema = z.object({
     .string()
     .min(HABIT_VALIDATION.TITLE.MIN_LENGTH, HABIT_ERROR_MESSAGES.TITLE_LENGTH)
     .max(HABIT_VALIDATION.TITLE.MAX_LENGTH, HABIT_ERROR_MESSAGES.TITLE_LENGTH)
-    .transform((val) => val.trim()), // 앞뒤 공백제거
+    .transform((val) => val.trim()),
   notes: z
     .string()
     .min(HABIT_VALIDATION.NOTES.MIN_LENGTH, HABIT_ERROR_MESSAGES.NOTES_LENGTH)
@@ -30,15 +30,31 @@ const daysSchema = z.object({
   sun: z.boolean().optional(),
 });
 
-//새로운 습관 생성 시 사용되는 스키마. 기본 습관 필드와 요일 필드를 모두 포함하며, 기본 필드는 필수
-export const createHabitSchema = baseHabitSchema.merge(daysSchema);
+// 새로운 습관 생성 시 사용되는 스키마
+export const createHabitSchema = baseHabitSchema.merge(daysSchema).refine(
+  (data) => {
+    return DAYS_OF_WEEK.some((day) => data[day] === true);
+  },
+  { message: HABIT_ERROR_MESSAGES.DAY_REQUIRED, path: ['days'] },
+);
 
-// 기존 습관 수정 시 사용되는 스키마. 기본 습관 필드는 모두 선택적(optional)이며 요일 필드를 포함
-export const updateHabitSchema = baseHabitSchema.partial().merge(daysSchema);
+// 기존 습관 수정 시 사용되는 스키마
+export const updateHabitSchema = baseHabitSchema
+  .partial()
+  .merge(daysSchema)
+  .refine(
+    (data) => {
+      // 요일 필드가 하나라도 들어왔을 때만 검사하도록
+      const hasDayField = DAYS_OF_WEEK.some((day) => day in data);
+      if (!hasDayField) return true; // 요일 수정 안 하면 패스
+      return DAYS_OF_WEEK.some((day) => data[day] === true); // 수정했다면 최소 하나는 true
+    },
+    { message: HABIT_ERROR_MESSAGES.DAY_REQUIRED },
+  );
 
 // 폼 입력용 습관 스키마
 export const habitFormSchema = baseHabitSchema.extend({
-  selectedDays: z.array(z.string()),
+  selectedDays: z.array(z.string()).min(1, HABIT_ERROR_MESSAGES.DAY_REQUIRED),
 });
 
 export type HabitFormSchema = z.infer<typeof habitFormSchema>;
