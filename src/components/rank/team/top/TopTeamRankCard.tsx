@@ -43,7 +43,7 @@ export const TopRankTeamCard = ({ team, rank, hasTeam }: Props) => {
           <TeamEmblem teamName={team.teamName} emblem={team.emblem} />
         </div>
 
-        <div className="relative">
+        <div className="relative flex flex-col items-center justify-center">
           {/* 포디움 영역 */}
           <div
             className={`relative ${podiumSize.width} ${podiumSize.height} rounded-t-md bg-gradient-to-b from-main to-white flex items-center justify-center`}
@@ -68,13 +68,11 @@ export const TopRankTeamCard = ({ team, rank, hasTeam }: Props) => {
           </div>
 
           {/* 참여하기 버튼 */}
-          <div className="absolute left-1/2 top-full -mt-4 transform -translate-x-1/2">
-            <TeamJoin
-              team={team}
-              hasTeam={hasTeam}
-              currentMembers={currentMembers}
-            />
-          </div>
+          <TeamJoin
+            team={team}
+            hasTeam={hasTeam}
+            currentMembers={currentMembers}
+          />
         </div>
       </article>
     </>
