@@ -51,13 +51,14 @@ const HabitItem = ({ habit, userId }: HabitItemProps) => {
         />
 
         <HabitItemInfo habit={habit} />
-        <HabitItemActions
-          onEdit={() => setIsEditing(true)}
-          onDelete={handleDeleteHabit}
-          isEditDisabled={isUpdatePending || isDeletePending}
-          isDeleteDisabled={isUpdatePending || isDeletePending}
-          isEditingDisabled={isEditing}
-        />
+        {!isEditing && (
+          <HabitItemActions
+            onEdit={() => setIsEditing(true)}
+            onDelete={handleDeleteHabit}
+            isEditDisabled={isUpdatePending || isDeletePending}
+            isDeleteDisabled={isUpdatePending || isDeletePending}
+          />
+        )}
       </li>
 
       {isEditing && (
