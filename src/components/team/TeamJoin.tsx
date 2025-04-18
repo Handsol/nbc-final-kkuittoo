@@ -55,10 +55,11 @@ const TeamJoin = ({ team, hasTeam, currentMembers }: TeamJoinProps) => {
   };
 
   const handleJoinOpenTeam = async () => {
-    if (!session?.user?.id) return;
+    const userId = session?.user.id;
+    if (!userId) return;
 
     try {
-      const result = await fetchJoinTeam(teamId, session.user.id);
+      const result = await fetchJoinTeam(teamId, userId);
       if (result.success) {
         toast({
           title: '팀 가입 성공',
