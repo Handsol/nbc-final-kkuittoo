@@ -51,7 +51,7 @@ const ConfirmDialog = ({ contents, onClick }: ConfirmDialogProps) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        {/* 화면에서 보여지는 팀 탈퇴 버튼 */}
+        {/* 화면에서 보여지는 팀 탈퇴 버튼 / 팀 조인 버튼*/}
         <ActionButton
           mode={
             uiButtonText === 'JOIN'
