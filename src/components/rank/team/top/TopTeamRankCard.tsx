@@ -7,14 +7,28 @@ import UserTitle from '@/components/common/UserTitle';
 import { USER_TITLE_MODE } from '@/constants/mode.constants';
 import { getCurrentTeamQuest } from '@/lib/utils/team.utils';
 import Text from '@/components/common/Text';
+import { motion } from 'framer-motion';
+import {
+  floatAnimation,
+  podiumBaseStyle,
+  podiumTopFaceBaseStyle,
+  rankCardContainer,
+  rankCardInfoWrapper,
+} from '@/styles/rankCardStyles';
 
 type Props = {
   team: TeamWithPoints;
   rank: number;
   hasTeam: boolean;
+  animationDelay?: number;
 };
 
-export const TopRankTeamCard = ({ team, rank, hasTeam }: Props) => {
+export const TopRankTeamCard = ({
+  team,
+  rank,
+  hasTeam,
+  animationDelay,
+}: Props) => {
   const currentMembers = team.memberCount;
   // 랭킹에 따라 포디움 크기와 상단면 크기 동적 설정
   const podiumSize =
@@ -28,9 +42,9 @@ export const TopRankTeamCard = ({ team, rank, hasTeam }: Props) => {
 
   return (
     <>
-      <article className="flex flex-col items-center animate-fade-up">
+      <article className={rankCardContainer}>
         {/* 유저 정보 영역 */}
-        <div className="flex flex-col items-center mb-2">
+        <div className={rankCardInfoWrapper}>
           <UserTitle mode={USER_TITLE_MODE.CARD_NAME}>
             {team.teamName}
           </UserTitle>
@@ -40,17 +54,20 @@ export const TopRankTeamCard = ({ team, rank, hasTeam }: Props) => {
           <Text>
             {team.memberCount}/{team.maxTeamSize}
           </Text>
-          <TeamEmblem teamName={team.teamName} emblem={team.emblem} />
+          <motion.div {...floatAnimation}>
+            <TeamEmblem teamName={team.teamName} emblem={team.emblem} />
+          </motion.div>
         </div>
 
         <div className="relative flex flex-col items-center justify-center">
           {/* 포디움 영역 */}
           <div
-            className={`relative ${podiumSize.width} ${podiumSize.height} rounded-t-md bg-gradient-to-b from-main to-white flex items-center justify-center`}
+            className={`${podiumBaseStyle} ${podiumSize.width} ${podiumSize.height}`}
+            style={{ animationDelay: `${animationDelay}ms` }}
           >
             {/* 기울어진 상단면 컨테이너 */}
             <div
-              className="absolute top-0 left-0 w-full"
+              className={podiumTopFaceBaseStyle}
               style={{ perspective: '600px' }} // 상단면에만 원근법 적용
             >
               <div
@@ -66,14 +83,13 @@ export const TopRankTeamCard = ({ team, rank, hasTeam }: Props) => {
               {rank}
             </span>
           </div>
-
-          {/* 참여하기 버튼 */}
-          <TeamJoin
-            team={team}
-            hasTeam={hasTeam}
-            currentMembers={currentMembers}
-          />
         </div>
+        {/* 참여하기 버튼 */}
+        <TeamJoin
+          team={team}
+          hasTeam={hasTeam}
+          currentMembers={currentMembers}
+        />
       </article>
     </>
   );

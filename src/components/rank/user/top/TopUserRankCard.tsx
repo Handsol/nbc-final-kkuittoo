@@ -1,13 +1,19 @@
 import { UserData } from '@/types/rank.type';
-import { TopUserRankLabel } from './TopUserRankLabel';
 import { TopUserAvatar } from './TopUserAvatar';
-import { TopUserInfo } from './TopUserInfo';
 import UserTitle from '@/components/common/UserTitle';
 import { USER_TITLE_MODE } from '@/constants/mode.constants';
 import { getUserLevel } from '@/lib/utils/user-level.utils';
 import { CommonModal } from '@/components/common/CommonModal';
 import { useState } from 'react';
 import UserDetailModal from '../UserDetailModal';
+import { motion } from 'framer-motion';
+import {
+  floatAnimation,
+  podiumBaseStyle,
+  podiumTopFaceBaseStyle,
+  rankCardContainer,
+  rankCardInfoWrapper,
+} from '@/styles/rankCardStyles';
 
 type Props = {
   user: UserData;
@@ -30,31 +36,30 @@ export const TopUserRankCard = ({ user, rank, animationDelay = 0 }: Props) => {
   return (
     <>
       <article
-        className="flex flex-col items-center animate-fade-up"
+        className={`${rankCardContainer} animate-fade-up`}
         onClick={() => setIsModalOpen(true)}
         style={{ animationDelay: `${animationDelay}ms` }}
       >
         {/* 유저 정보 영역 */}
-        <div className="flex flex-col items-center mb-2 ">
+        <div className={rankCardInfoWrapper}>
           <UserTitle mode={USER_TITLE_MODE.CARD_NAME}>{user.name}</UserTitle>
           <UserTitle mode={USER_TITLE_MODE.CARD_LEVEL}>
             Lv.{userLevel}
           </UserTitle>
-          <TopUserAvatar userName={user.name} level={userLevel} />
+          <motion.div {...floatAnimation}>
+            <TopUserAvatar userName={user.name} level={userLevel} />
+          </motion.div>
         </div>
 
         {/* 포디움 영역 */}
         <div
-          className={`relative ${podiumSize.width} ${podiumSize.height}
-          rounded-t-md bg-gradient-to-b from-main to-white 
-          flex items-center justify-center  
-          animate-fade-up
+          className={`${podiumBaseStyle} ${podiumSize.width} ${podiumSize.height}
           `}
           style={{ animationDelay: `${animationDelay}ms` }}
         >
           {/* 기울어진 상단면 컨테이너 */}
           <div
-            className="absolute top-0 left-0 w-full"
+            className={podiumTopFaceBaseStyle}
             style={{ perspective: '600px' }}
           >
             <div
