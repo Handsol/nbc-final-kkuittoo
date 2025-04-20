@@ -2,6 +2,7 @@ import Image from 'next/image';
 import UserTitle from '../common/UserTitle';
 import { USER_TITLE_MODE } from '@/constants/mode.constants';
 import Text from '../common/Text';
+import { NormalUserAvatar } from '../rank/user/nomal/NormalUserAvatar';
 
 type TeamMemberCardProps = {
   rank: number;
@@ -35,10 +36,9 @@ const TeamMemberCard = ({
           <UserTitle mode={USER_TITLE_MODE.CARD_RANK}>{rank}</UserTitle>
         </div>
 
-        {/* 이미지 : 일단 임시로 프로필 이미지로 넣었습니다 */}
-        <div className="w-9 h-9 rounded-full bg-neutral-300 relative overflow-hidden">
-          {member.image && <Image src={member.image} alt="user_image" fill />}
-        </div>
+        {/* 이미지 : 일단 본승님의 NormalUserAvatar를 사용했습니다.*/}
+        <NormalUserAvatar userName={member.name} level={memberLevel} />
+
         {/* 레벨 */}
         <div className="min-w-[60px] text-sm">
           <UserTitle mode={USER_TITLE_MODE.CARD_LEVEL}>
