@@ -46,6 +46,7 @@ const HabitFormFields = ({
           selectedDays={field.value}
           setSelectedDays={field.onChange}
           toggleDay={toggleDay}
+          error={errors.selectedDays?.message}
         />
       )}
     />

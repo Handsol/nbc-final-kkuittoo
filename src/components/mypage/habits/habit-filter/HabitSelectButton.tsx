@@ -18,6 +18,7 @@ const HabitSelectButton = ({
   inputType = 'radio',
   name,
   onClick,
+  onChange,
   ...props
 }: HabitSelectButtonProps) => {
   const baseStyle =
@@ -64,14 +65,12 @@ const HabitSelectButton = ({
         name={name}
         checked={isSelected}
         disabled={disabled}
-        onChange={() => {}}
+        onChange={onChange || (() => {})}
+        onClick={onClick}
         className="hidden"
         {...props}
       />
-      <span
-        onClick={onClick}
-        className="flex items-center justify-center w-full h-full"
-      >
+      <span className="flex items-center justify-center w-full h-full">
         {children}
       </span>
     </label>
