@@ -1,10 +1,12 @@
 import { ACTIONBUTTON_MODE } from '@/constants/mode.constants';
+import { Slot } from '@radix-ui/react-slot';
 import { ButtonHTMLAttributes, forwardRef } from 'react';
 
 type ActionButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   mode: string;
   children: React.ReactNode;
   disabled?: boolean;
+  asChild?: boolean;
 };
 
 /**
@@ -18,7 +20,7 @@ type ActionButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
  * </ActionButton>
  */
 const ActionButton = forwardRef<HTMLButtonElement, ActionButtonProps>(
-  ({ mode, children, disabled = false, ...props }, ref) => {
+  ({ mode, children, disabled = false, asChild = false, ...props }, ref) => {
     const baseStyle =
       'py-2 font-semibold transition-all duration-200 ease-in-out font-dohyeon text-body-sm';
 
@@ -79,18 +81,24 @@ const ActionButton = forwardRef<HTMLButtonElement, ActionButtonProps>(
     const disabledStyle = disabled
       ? `bg-light-gray text-medium-gray cursor-not-allowed ${roundedStyle}`
       : `${variantStyle} ${roundedStyle}`;
+
+    // asChild가 true일 경우, Slot을 사용하면 부모 컴포넌트(AlertDialogTrigger, AlertDialogAction....)의 역할을 그대로 수행하면서
+    // 내부 버튼 스타일만!!! 입혀줌(ActionButton이 button이 아님 그냥 스타일만 입혀줌). 그래서 button 중첩(hydration 오류) 없이 스타일을 재사용할 수 있음.
+    const Component = asChild ? Slot : 'button';
+
     return (
-      <button
-        type={props.type || 'button'}
-        disabled={disabled}
-        className={`${baseStyle} ${sizeStyle} ${disabledStyle}`}
+      <Component
         ref={ref}
+        className={`${baseStyle} ${sizeStyle} ${disabledStyle}`}
+        disabled={disabled}
         {...props}
       >
         {children}
-      </button>
+      </Component>
     );
   },
 );
+
+ActionButton.displayName = 'ActionButton';
 
 export default ActionButton;
