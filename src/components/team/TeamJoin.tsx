@@ -54,6 +54,7 @@ const TeamJoin = ({ team, hasTeam, currentMembers }: TeamJoinProps) => {
     confirmButtonText: 'YES',
   };
 
+  // 이 로직들은 바뀔 가능성이 높을 거 같아서 상수처리는 이 로직을 사용하기로 확정되면 하겠습니다.
   const handleJoinOpenTeam = async () => {
     const userId = session?.user.id;
     if (!userId) return;
