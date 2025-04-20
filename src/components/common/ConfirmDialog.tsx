@@ -48,7 +48,6 @@ const ConfirmDialog = ({ contents, onClick, children }: ConfirmDialogProps) => {
     cancelButtonText,
     confirmButtonText,
   } = contents;
-
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
