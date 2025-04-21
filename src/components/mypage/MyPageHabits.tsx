@@ -32,7 +32,7 @@ const MyPageHabits = ({
     return <Text>데이터를 불러오는 데 실패했습니다.</Text>;
   }
   return (
-    <div className="flex flex-col h-full px-[40px] gap-[32px]">
+    <div className="flex flex-col h-full px-4 md:px-[40px] gap-[32px]">
       <HabitHeader habitsCount={habits.length} />
       <UserLevelProgress level={level} expPercent={expPercent} />
       <HabitsFilter
