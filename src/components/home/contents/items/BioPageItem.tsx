@@ -62,7 +62,14 @@ export const BioPage2Image = () => {
     <div className="flex flex-row justify-center items-center h-[200px]">
       {Object.values(IMAGE_ASSETS.USER).map((src, idx) => (
         <div key={idx} className="flex items-center">
-          <Image alt={`캐릭터${idx + 1}`} src={src} width={100} height={100} />
+          <Image
+            alt={`캐릭터${idx + 1}`}
+            src={src}
+            width={100}
+            height={100}
+            className="animate-fade-up"
+            style={{ animationDelay: `${idx * 0.5}s` }}
+          />
           {idx < Object.values(IMAGE_ASSETS.USER).length - 1 && (
             <FaArrowRight className="text-white" />
           )}

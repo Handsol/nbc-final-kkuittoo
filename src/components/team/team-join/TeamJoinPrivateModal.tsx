@@ -21,7 +21,7 @@ const TeamJoinPrivateModal = ({ teamId }: TeamJoinPrivateModalProps) => {
   return (
     <div>
       <ActionButton
-        mode={ACTIONBUTTON_MODE.ROUNDED_MD}
+        mode={ACTIONBUTTON_MODE.DARK_GRAY_SMALL}
         type="button"
         onClick={() => setIsModalOpen(true)}
       >

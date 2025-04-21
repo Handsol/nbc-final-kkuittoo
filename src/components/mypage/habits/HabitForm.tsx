@@ -29,7 +29,9 @@ const HabitForm: React.FC<HabitFormProps> = ({
 
   return (
     <form
-      className="px-[36px] py-[48px] bg-white rounded-xl shadow flex flex-col gap-[24px] w-[380px]"
+      className="px-[36px] py-[48px] bg-white rounded-xl shadow flex flex-col gap-[24px] w-[380px]
+      animate-fade-down
+      "
       onSubmit={handleSubmit(handleFormSubmit)}
       aria-label="Habit form"
     >

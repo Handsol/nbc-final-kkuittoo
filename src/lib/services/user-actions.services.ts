@@ -35,7 +35,7 @@ export const fetchGetUsersWithTotalPoints = async () => {
       id: true,
       name: true,
       bio: true,
-      image: true,
+      characterImage: true,
       email: true,
       userPoints: {
         select: {

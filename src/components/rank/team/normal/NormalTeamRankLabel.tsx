@@ -7,7 +7,7 @@ type Props = { rank: number };
 export const NormalTeamRankLabel = ({ rank }: Props) => {
   return (
     <UserTitle mode={USER_TITLE_MODE.CARD_RANK}>
-      <RankLabel rank={rank} />
+      <RankLabel className="text-dark-gray" rank={rank} />
     </UserTitle>
   );
 };
