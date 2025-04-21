@@ -207,8 +207,6 @@ export const fetchGetTeamsWithPoints = async (): Promise<TeamWithPoints[]> => {
   }
 };
 
-('use server');
-
 /**
  * 클라이언트 컴포넌트에서 호출 가능한 서버 액션
  * 사용자를 특정 팀에 가입시키는 서버 측 함수
