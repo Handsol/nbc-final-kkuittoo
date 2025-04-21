@@ -3,14 +3,15 @@
 import { useForm } from 'react-hook-form';
 import { useUserProfileMutation } from '@/lib/mutations/useUserProfileMutation';
 import CommonInputBar from '@/components/common/CommonInputBar';
+import ActionButton from '@/components/common/button/ActionButton';
 import { UserFormData } from '@/lib/services/user-client.services';
 import { toast } from '@/lib/hooks/use-toast';
 import { validateUserProfile } from '@/lib/utils/client/user-validation.client';
 import IconButton from '@/components/common/button/IconButton';
-import { ICONBUTTON_MODE, USER_TITLE_MODE } from '@/constants/mode.constants';
+import { ICONBUTTON_MODE } from '@/constants/mode.constants';
 import BioInputBar from './items/BioInputBar';
+import Text from '@/components/common/Text';
 import { USER_VALIDATION } from '@/constants/validation.constants';
-import UserTitle from '@/components/common/UserTitle';
 
 type Props = UserFormData & {
   userId: string;
@@ -25,12 +26,11 @@ const UserProfileEditMode = ({
   onCancel,
   onSuccess,
 }: Props) => {
-  const { handleSubmit, reset, watch } = useForm<UserFormData>({
+  const { register, handleSubmit, reset } = useForm<UserFormData>({
     defaultValues: { name, bio },
   });
-  const { mutate: updateUser, isPending } = useUserProfileMutation(userId);
 
-  const [nameValue, bioValue] = watch(['name', 'bio']);
+  const { mutate: updateUser, isPending } = useUserProfileMutation(userId);
 
   const onSubmit = (data: UserFormData) => {
     const validation = validateUserProfile(data.name, data.bio);
@@ -53,15 +53,16 @@ const UserProfileEditMode = ({
   };
 
   return (
-    <div className="flex flex-col gap-2 items-center">
-      <CommonInputBar id="name" placeholder="이름" />
-      <UserTitle mode={USER_TITLE_MODE.CARD_ID}>
-        {nameValue?.length || 0} / {USER_VALIDATION.NAME.MAX}
-      </UserTitle>
-      <BioInputBar id="bio" placeholder="자기소개" />
-      <UserTitle mode={USER_TITLE_MODE.CARD_ID}>
-        {bioValue?.length || 0} / {USER_VALIDATION.BIO.MAX}
-      </UserTitle>
+    <div className="flex flex-col gap-1 items-center min-h-[160px] justify-between">
+      <CommonInputBar id="name" {...register('name')} />
+      <Text className="w-full text-left pl-2 text-body-md text-medium-gray">
+        MAX : {USER_VALIDATION.NAME.MAX} 글자
+      </Text>
+      <CommonInputBar id="bio" {...register('bio')} />
+      <Text className="w-full text-left pl-2 text-body-md text-medium-gray">
+        {' '}
+        MAX : {USER_VALIDATION.BIO.MAX} 글자
+      </Text>
 
       <div className="flex gap-2 mt-2">
         <IconButton
