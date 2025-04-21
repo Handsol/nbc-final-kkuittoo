@@ -3,13 +3,14 @@
 import { useForm } from 'react-hook-form';
 import { useUserProfileMutation } from '@/lib/mutations/useUserProfileMutation';
 import CommonInputBar from '@/components/common/CommonInputBar';
-import ActionButton from '@/components/common/button/ActionButton';
 import { UserFormData } from '@/lib/services/user-client.services';
 import { toast } from '@/lib/hooks/use-toast';
 import { validateUserProfile } from '@/lib/utils/client/user-validation.client';
 import IconButton from '@/components/common/button/IconButton';
-import { ICONBUTTON_MODE } from '@/constants/mode.constants';
+import { ICONBUTTON_MODE, USER_TITLE_MODE } from '@/constants/mode.constants';
 import BioInputBar from './items/BioInputBar';
+import { USER_VALIDATION } from '@/constants/validation.constants';
+import UserTitle from '@/components/common/UserTitle';
 
 type Props = UserFormData & {
   userId: string;
@@ -24,10 +25,12 @@ const UserProfileEditMode = ({
   onCancel,
   onSuccess,
 }: Props) => {
-  const { register, handleSubmit, reset } = useForm<UserFormData>({
+  const { handleSubmit, reset, watch } = useForm<UserFormData>({
     defaultValues: { name, bio },
   });
   const { mutate: updateUser, isPending } = useUserProfileMutation(userId);
+
+  const [nameValue, bioValue] = watch(['name', 'bio']);
 
   const onSubmit = (data: UserFormData) => {
     const validation = validateUserProfile(data.name, data.bio);
@@ -51,8 +54,15 @@ const UserProfileEditMode = ({
 
   return (
     <div className="flex flex-col gap-2 items-center">
-      <CommonInputBar id="name" placeholder="이름" {...register('name')} />
-      <BioInputBar id="bio" placeholder="자기소개" {...register('bio')} />
+      <CommonInputBar id="name" placeholder="이름" />
+      <UserTitle mode={USER_TITLE_MODE.CARD_ID}>
+        {nameValue?.length || 0} / {USER_VALIDATION.NAME.MAX}
+      </UserTitle>
+      <BioInputBar id="bio" placeholder="자기소개" />
+      <UserTitle mode={USER_TITLE_MODE.CARD_ID}>
+        {bioValue?.length || 0} / {USER_VALIDATION.BIO.MAX}
+      </UserTitle>
+
       <div className="flex gap-2 mt-2">
         <IconButton
           mode={ICONBUTTON_MODE.CONFIRM}
