@@ -14,7 +14,7 @@ const TeamProgress = ({
 
   return (
     <section className="w-full">
-      <Progress value={progressPercent} className="w-full h-5" />
+      <Progress value={progressPercent} className="w-[200px] h-5" />
     </section>
   );
 };

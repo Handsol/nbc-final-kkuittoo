@@ -4,7 +4,6 @@ import {
 } from '@/lib/services/team-actions.services';
 import NoTeam from './NoTeam';
 import MyTeam from './MyTeam';
-import Text from '../common/Text';
 import { getCurrentTeamQuest } from '@/lib/utils/team.utils';
 
 type MyPageTeamProps = {
