@@ -12,9 +12,9 @@ export const OtherTeamsSection = ({ otherTeams }: Props) => {
         <p className="text-center text-gray-500">검색 결과가 없습니다.</p>
       ) : (
         <ul className="space-y-4">
-          {otherTeams.map((team, index) => (
+          {otherTeams.map((team) => (
             <li key={team.id}>
-              <TeamCard team={team} rank={index + 4} isTopRank={false} />
+              <TeamCard team={team} rank={team.rank} isTopRank={false} />
             </li>
           ))}
         </ul>

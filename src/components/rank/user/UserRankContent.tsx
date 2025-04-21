@@ -19,7 +19,9 @@ export const UserRankContent = async ({
   const filteredUsers = await searchUsers(searchTerm);
 
   const topUsers = usersList.slice(0, 3); // 1~3위
-  const otherUsers = searchTerm ? filteredUsers : usersList.slice(3);
+  const otherUsers = searchTerm
+    ? await searchUsers(searchTerm)
+    : usersList.slice(3);
   return (
     <div className="flex flex-col gap-4">
       <UserRankHeader />

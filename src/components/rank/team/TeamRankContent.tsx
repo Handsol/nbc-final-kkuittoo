@@ -16,10 +16,10 @@ export const TeamRankContent = async ({
 
   const teamsList = await fetchGetTeamsWithPoints();
 
-  const filteredTeams = await searchTeams(searchTerm);
-
   const topTeams = teamsList.slice(0, 3); // 1~3위
-  const otherTeams = searchTerm ? filteredTeams : teamsList.slice(3);
+  const otherTeams = searchTerm
+    ? await searchTeams(searchTerm)
+    : teamsList.slice(3);
   return (
     <div className="flex flex-col gap-4">
       <TeamRankHeader />
