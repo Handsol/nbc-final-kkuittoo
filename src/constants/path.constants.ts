@@ -7,6 +7,11 @@ export const PATH = {
     USERS: '/rank/users',
     TEAMS: '/rank/teams',
   },
+  SHOP: '/shop',
+  PAYMENTS: {
+    SUCCESS: '/shop/payments/success',
+    FAIL: '/shop/payments/fail',
+  },
 };
 
 export const API_PATH = {
