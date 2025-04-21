@@ -154,7 +154,7 @@ export const TeamChat = ({ teamId }: TeamChatProps) => {
                 </div>
 
                 {/* 이름 + 말풍선 + 시간 */}
-                <div className="flex flex-col gap-1 max-w-[75%]">
+                <div className="flex flex-col gap-1 max-w-[75%] animate-fade-up">
                   <Text className="text-body-lg font-medium text-gray-800">
                     {message.users.name}
                   </Text>
@@ -167,7 +167,10 @@ export const TeamChat = ({ teamId }: TeamChatProps) => {
                 </div>
               </div>
             ) : (
-              <div key={message.id} className="flex justify-end">
+              <div
+                key={message.id}
+                className="flex justify-end animate-fade-up"
+              >
                 <div className="flex flex-col gap-1 max-w-[75%] items-end">
                   <Text className="px-4 py-2 text-body-lg rounded-2xl break-words bg-main text-white rounded-tr-none self-end">
                     {message.messages}

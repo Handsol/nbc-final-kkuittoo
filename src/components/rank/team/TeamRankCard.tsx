@@ -8,7 +8,12 @@ import UnauthorizedPage from '@/components/loading-error-page/UnauthorizedPage';
 // 한 팀의 정보를 카드 형태로 보여주는 컴포넌트임당
 // isTopRank로 상단 3위와 나머지 스타일 구별
 
-export const TeamCard = async ({ team, rank, isTopRank }: TeamCardProps) => {
+export const TeamCard = async ({
+  team,
+  rank,
+  isTopRank,
+  animationDelay,
+}: TeamCardProps) => {
   //유저 정보
   const session = await getUserSession();
   if (!session) {
@@ -20,7 +25,12 @@ export const TeamCard = async ({ team, rank, isTopRank }: TeamCardProps) => {
   const hasTeam = userTeamData ? true : false;
 
   return isTopRank ? (
-    <TopRankTeamCard team={team} rank={rank} hasTeam={hasTeam} />
+    <TopRankTeamCard
+      team={team}
+      rank={rank}
+      hasTeam={hasTeam}
+      animationDelay={animationDelay}
+    />
   ) : (
     <NormalRankTeamCard team={team} rank={rank} hasTeam={hasTeam} />
   );
