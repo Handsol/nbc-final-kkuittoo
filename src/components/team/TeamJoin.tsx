@@ -3,11 +3,11 @@
 import ConfirmDialog from '@/components/common/ConfirmDialog';
 import { PATH } from '@/constants/path.constants';
 import { useToast } from '@/lib/hooks/use-toast';
-import { fetchCreateTeamMember } from '@/lib/services/team-client.services';
 import { useRouter } from 'next/navigation';
 import TeamJoinPrivateModal from './team-join/TeamJoinPrivateModal';
-import { TEAM_TOAST_MESSAGES } from '@/constants/toast-messages.contants';
 import { TeamWithPoints } from '@/types/rank.type';
+import { useSession } from 'next-auth/react';
+import { fetchJoinTeam } from '@/lib/services/team-actions.services';
 
 type TeamJoinProps = {
   team: TeamWithPoints;
@@ -40,6 +40,7 @@ const TeamJoin = ({ team, hasTeam, currentMembers }: TeamJoinProps) => {
   // toast + router
   const { toast } = useToast();
   const router = useRouter();
+  const { data: session } = useSession();
 
   // team 정보
   const { id: teamId, teamName, isOpened, maxTeamSize } = team;
@@ -53,17 +54,33 @@ const TeamJoin = ({ team, hasTeam, currentMembers }: TeamJoinProps) => {
     confirmButtonText: 'YES',
   };
 
+  // 이 로직들은 바뀔 가능성이 높을 거 같아서 상수처리는 이 로직을 사용하기로 확정되면 하겠습니다.
   const handleJoinOpenTeam = async () => {
-    const data = await fetchCreateTeamMember(teamId);
+    const userId = session?.user.id;
+    if (!userId) return;
 
-    if (data) {
+    try {
+      const result = await fetchJoinTeam(teamId, userId);
+      if (result.success) {
+        toast({
+          title: '팀 가입 성공',
+          description: `${teamName} 팀에 가입되었습니다!`,
+        });
+        router.refresh(); // 캐시 갱신
+        router.push(`${PATH.TEAM}/${teamId}`);
+      } else {
+        toast({
+          title: '팀 가입 실패',
+          description: result.error,
+          variant: 'destructive',
+        });
+      }
+    } catch (error) {
       toast({
-        title: TEAM_TOAST_MESSAGES.SUCCESS.TEAM_JOIN.TITLE,
-        description: TEAM_TOAST_MESSAGES.SUCCESS.TEAM_JOIN.DESCRIPTION,
+        title: '팀 가입 실패',
+        description: '오류가 발생했습니다.',
+        variant: 'destructive',
       });
-
-      // 팀 페이지로 이동
-      router.push(`${PATH.TEAM}/${teamId}`);
     }
   };
 

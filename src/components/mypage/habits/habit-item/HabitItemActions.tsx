@@ -8,7 +8,6 @@ type HabitItemActionsProps = {
   onDelete: () => void;
   isEditDisabled: boolean;
   isDeleteDisabled: boolean;
-  isEditingDisabled: boolean;
 };
 
 const HabitItemActions = ({
@@ -16,7 +15,6 @@ const HabitItemActions = ({
   onDelete,
   isEditDisabled,
   isDeleteDisabled,
-  isEditingDisabled,
 }: HabitItemActionsProps) => {
   const handleDelete = async () => {
     try {
@@ -31,13 +29,13 @@ const HabitItemActions = ({
       <IconButton
         mode={ICONBUTTON_MODE.EDIT}
         onClick={onEdit}
-        disabled={isEditDisabled || isEditingDisabled}
+        disabled={isEditDisabled}
         aria-label="Edit habit"
       />
       <ConfirmDialog contents={DELETE_DIALOG_CONTENTS} onClick={handleDelete}>
         <IconButton
           mode={ICONBUTTON_MODE.DELETE}
-          disabled={isDeleteDisabled || isEditingDisabled}
+          disabled={isDeleteDisabled}
           aria-label="Delete habit"
         />
       </ConfirmDialog>

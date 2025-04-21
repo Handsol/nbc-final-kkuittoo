@@ -27,16 +27,23 @@ const TeamLeaveButton = ({ id }: TeamLeaveButtonProps) => {
   };
 
   const handleLeaveBtnClick = async () => {
-    const data = await fetchDeleteMyTeamMember(id);
-
-    if (data) {
+    try {
+      const data = await fetchDeleteMyTeamMember(id);
+      if (data) {
+        toast({
+          title: TEAM_TOAST_MESSAGES.SUCCESS.TEAM_LEAVE.TITLE,
+          description: TEAM_TOAST_MESSAGES.SUCCESS.TEAM_LEAVE.DESCRIPTION,
+        });
+        // 캐시 갱신 및 리다이렉트
+        router.push(PATH.RANK.TEAMS);
+        router.refresh(); //캐시 갱신
+      }
+    } catch (error) {
       toast({
-        title: TEAM_TOAST_MESSAGES.SUCCESS.TEAM_LEAVE.TITLE,
-        description: TEAM_TOAST_MESSAGES.SUCCESS.TEAM_LEAVE.DESCRIPTION,
+        title: '팀 탈퇴 실패',
+        description: '팀 탈퇴 중 오류가 발생했습니다. 다시 시도해주세요.',
+        variant: 'destructive',
       });
-
-      // 팀 랭킹 페이지로 이동
-      router.push(PATH.RANK.TEAMS);
     }
   };
 
