@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import TeamJoinPrivateModal from './team-join/TeamJoinPrivateModal';
 import { TeamWithPoints } from '@/types/rank.type';
 import { useSession } from 'next-auth/react';
-import { fetchJoinTeam } from '@/lib/services/team-join-actions.services';
+import { fetchJoinTeam } from '@/lib/services/team-actions.services';
 
 type TeamJoinProps = {
   team: TeamWithPoints;
