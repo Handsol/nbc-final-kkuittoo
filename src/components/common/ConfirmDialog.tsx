@@ -48,7 +48,6 @@ const ConfirmDialog = ({ contents, onClick, children }: ConfirmDialogProps) => {
     cancelButtonText,
     confirmButtonText,
   } = contents;
-
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -75,12 +74,13 @@ const ConfirmDialog = ({ contents, onClick, children }: ConfirmDialogProps) => {
           <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>
+          {/* button안에 button이 또 들어가서 hydration 오류가 발생했는데, asChild를 넣어서 자식요소만 button이 되도록 해결*/}
+          <AlertDialogCancel asChild>
             <ActionButton mode={ACTIONBUTTON_MODE.SECONDARY_SMALL}>
               {cancelButtonText}
             </ActionButton>
           </AlertDialogCancel>
-          <AlertDialogAction onClick={onClick}>
+          <AlertDialogAction onClick={onClick} asChild>
             <ActionButton mode={ACTIONBUTTON_MODE.PRIMARY_SMALL}>
               {confirmButtonText}
             </ActionButton>

@@ -35,15 +35,10 @@ const HabitItem = ({ habit, userId }: HabitItemProps) => {
   });
 
   const isDisabled = isHabitDisabled(habit, isAddPending);
-  const isPending = isAddPending || isUpdatePending || isDeletePending;
 
   return (
     <div className="flex flex-col gap-[8px] relative">
-      <li
-        className={`flex items-center gap-[16px] p-[16px] border-b ${
-          isPending ? 'opacity-50' : ''
-        }`}
-      >
+      <li className="flex items-center gap-[16px] p-[16px] border-b">
         <IconButton
           mode={ICONBUTTON_MODE.POINT}
           onClick={() => handleAddPoint(todayPoints)}
@@ -51,13 +46,14 @@ const HabitItem = ({ habit, userId }: HabitItemProps) => {
         />
 
         <HabitItemInfo habit={habit} />
-        <HabitItemActions
-          onEdit={() => setIsEditing(true)}
-          onDelete={handleDeleteHabit}
-          isEditDisabled={isUpdatePending || isDeletePending}
-          isDeleteDisabled={isUpdatePending || isDeletePending}
-          isEditingDisabled={isEditing}
-        />
+        {!isEditing && (
+          <HabitItemActions
+            onEdit={() => setIsEditing(true)}
+            onDelete={handleDeleteHabit}
+            isEditDisabled={isUpdatePending || isDeletePending}
+            isDeleteDisabled={isUpdatePending || isDeletePending}
+          />
+        )}
       </li>
 
       {isEditing && (

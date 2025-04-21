@@ -4,7 +4,6 @@ import {
 } from '@/lib/services/team-actions.services';
 import TeamLeaveButton from './team-delete/TeamLeaveButton';
 import TeamDisbandButton from './team-delete/TeamDisbandButton';
-import Text from '../common/Text';
 import { getUserSession } from '@/lib/services/getUserSession.services';
 import { notFound } from 'next/navigation';
 import UnauthorizedPage from '../loading-error-page/UnauthorizedPage';
