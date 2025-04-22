@@ -5,6 +5,8 @@ import { IMAGE_ASSETS } from '@/constants/assets.contants';
 import { Menu } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { PATH } from '@/constants/path.constants';
+import Title from '../common/Title';
+import { TITLE_MODE } from '@/constants/mode.constants';
 
 const MobileHeader = ({ onOpen }: { onOpen: () => void }) => {
   const pathname = usePathname();
@@ -32,8 +34,8 @@ const MobileHeader = ({ onOpen }: { onOpen: () => void }) => {
         />
       </div>
       {currentPage && (
-        <div className="w-full py-[22px] px-[16px] text-body-lg font-bold">
-          {currentPage}
+        <div className="py-[22px] px-[16px]">
+          <Title mode={TITLE_MODE.SECTION_SUBTITLE}>{currentPage}</Title>
         </div>
       )}
     </div>
