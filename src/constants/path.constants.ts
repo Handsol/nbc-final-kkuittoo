@@ -2,7 +2,8 @@ export const PATH = {
   HOME: '/',
   DASHBOARD: '/dashboard',
   TEAM: '/team',
-  MAEK_TEAM: '/make-team',
+  MAKE_TEAM: '/make-team',
+  SHOP: '/shop',
   RANK: {
     USERS: '/rank/users',
     TEAMS: '/rank/teams',
@@ -15,6 +16,7 @@ export const API_PATH = {
   HABITS: '/api/habits',
   TEAMS: '/api/teams',
   MEMBERS: '/api/teams/member',
+  SHOP: 'api/shop',
 };
 
 export const PROJECT_URL = 'http://localhost:3000';
