@@ -14,6 +14,7 @@ const SidebarNav = async () => {
     { name: 'DASHBOARD', href: PATH.DASHBOARD },
     { name: 'MY TEAM', href: teamHref },
     { name: 'RANK', href: PATH.RANK.USERS },
+    { name: 'SHOP', href: PATH.SHOP },
   ];
 
   return (
