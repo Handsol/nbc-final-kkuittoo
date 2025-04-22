@@ -122,8 +122,8 @@ const config: Config = {
           '100%': { opacity: '0' },
         },
       },
-      dropShadow: {
-        'sidebar-purple': '4px 0 8px rgba(104, 20, 255, 0.15)',
+      boxShadow: {
+        'sidebar-purple-right': '3px 0 8px rgba(104, 20, 255, 0.15)',
       },
     },
   },

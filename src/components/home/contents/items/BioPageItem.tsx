@@ -9,9 +9,9 @@ import { IMAGE_ASSETS } from '@/constants/assets.contants';
 // 1페이지 서비스 관련 설명 1
 export const ServiceInfo1 = () => {
   return (
-    <section className="max-w-md">
-      <header className="flex items-center justify-center gap-3 mb-2">
-        <PiPlant className="w-[24px] h-[24px] text-white" />
+    <section className="w-full max-w-[90%] md:max-w-md mx-auto">
+      <header className="flex items-center justify-center gap-2 md:gap-3 mb-1 md:mb-2">
+        <PiPlant className="w-[18px] h-[18px] md:w-[24px] md:h-[24px] text-white" />
         <HomeTitleLg>작심삼일을 넘어 지속 가능한 성장</HomeTitleLg>
       </header>
       <HomeTitleSm>
@@ -26,9 +26,9 @@ export const ServiceInfo1 = () => {
 // 1페이지 서비스 관련 설명 2
 export const ServiceInfo2 = () => {
   return (
-    <section className="max-w-md">
-      <header className="flex items-center justify-center gap-3 mb-2">
-        <RiGamepadLine className="w-[24px] h-[24px] text-white" />
+    <section className="w-full mx-auto">
+      <header className="flex items-center justify-center gap-2 md:gap-3 mb-1 md:mb-2">
+        <RiGamepadLine className="w-[18px] h-[18px] md:w-[24px] md:h-[24px] text-white" />
         <HomeTitleLg>게임처럼 즐기는 습관 관리</HomeTitleLg>
       </header>
       <HomeTitleSm>
@@ -43,9 +43,9 @@ export const ServiceInfo2 = () => {
 // 1페이지 서비스 관련 설명 3
 export const ServiceInfo3 = () => {
   return (
-    <section className="max-w-md">
-      <header className="flex items-center justify-center gap-3 mb-2">
-        <LuHandshake className="w-[24px] h-[24px] text-white" />
+    <section className="w-full mx-auto">
+      <header className="flex items-center justify-center gap-2 md:gap-3 mb-1 md:mb-2">
+        <LuHandshake className="w-[18px] h-[18px] md:w-[24px] md:h-[24px] text-white" />
         <HomeTitleLg>혼자보단 함께 – 팀 기반 습관 트래커</HomeTitleLg>
       </header>
       <HomeTitleSm>
@@ -59,19 +59,19 @@ export const ServiceInfo3 = () => {
 
 export const BioPage2Image = () => {
   return (
-    <div className="flex flex-row justify-center items-center h-[200px]">
+    <div className="flex flex-row justify-center items-center h-[150px] md:h-[200px] w-full">
       {Object.values(IMAGE_ASSETS.USER).map((src, idx) => (
         <div key={idx} className="flex items-center">
           <Image
             alt={`캐릭터${idx + 1}`}
             src={src}
-            width={100}
-            height={100}
-            className="animate-fade-up"
+            width={80}
+            height={80}
+            className="animate-fade-up md:w-[100px] md:h-[100px]"
             style={{ animationDelay: `${idx * 0.5}s` }}
           />
           {idx < Object.values(IMAGE_ASSETS.USER).length - 1 && (
-            <FaArrowRight className="text-white" />
+            <FaArrowRight className="text-white w-[16px] h-[16px] md:w-[20px] md:h-[20px]" />
           )}
         </div>
       ))}
@@ -82,7 +82,7 @@ export const BioPage2Image = () => {
 // 2페이지 캐릭터 성장 관련 설명
 export const BioPage2Info = () => {
   return (
-    <div className="flex flex-col items-center justify-center gap-5 mb-2">
+    <div className="flex flex-col items-center justify-center gap-3 md:gap-5 mb-1 md:mb-2 w-full mx-auto">
       <HomeTitleLg>나만의 캐릭터를 성장시켜보세요!</HomeTitleLg>
       <HomeTitleSm>
         매일 습관을 달성하면 포인트가 쌓입니다. <br />
@@ -98,7 +98,7 @@ export const BioPage2Info = () => {
 // 3페이지 팀 관련 설명
 export const BioPage3Info = () => {
   return (
-    <div className="flex flex-col items-center justify-center gap-5 mb-2">
+    <div className="flex flex-col items-center justify-center gap-3 mb-1 md:mb-2 w-full mx-auto">
       <HomeTitleLg>당신은 혼자가 아닙니다.</HomeTitleLg>
       <HomeTitleSm>
         혼자라면 지치던 습관도 함께라면 더 멀리 갈 수 있습니다. <br />
