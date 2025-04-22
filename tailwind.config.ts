@@ -1,3 +1,4 @@
+// tailwind.config.ts
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
@@ -36,7 +37,7 @@ const config: Config = {
         main: '#8948FF',
         sub: '#CBADFF',
         'sub-light': '#EBE0FF',
-        'sub-dark': '1A0047',
+        'sub-dark': '#1A0047',
         card: {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
@@ -87,7 +88,7 @@ const config: Config = {
         main: '#8948FF',
         sub: '#CBADFF',
         'sub-light': '#EBE0FF',
-        'sub-dark': '1A0047',
+        'sub-dark': '#1A0047',
       },
       textColor: {
         background: 'hsl(var(--background))',
@@ -100,7 +101,7 @@ const config: Config = {
         main: '#8948FF',
         sub: '#CBADFF',
         'sub-light': '#EBE0FF',
-        'sub-dark': '1A0047',
+        'sub-dark': '#1A0047',
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -109,18 +110,24 @@ const config: Config = {
       },
       animation: {
         'loading-bar': 'loadingBar 1.5s infinite ease-in-out',
+        'fade-out': 'fadeOut 0.5s ease-out forwards',
       },
       keyframes: {
         loadingBar: {
           '0%': { transform: 'translateX(-100%)' },
           '100%': { transform: 'translateX(100%)' },
         },
+        fadeOut: {
+          '0%': { opacity: '1' },
+          '100%': { opacity: '0' },
+        },
       },
-      dropShadow: {
-        'sidebar-purple': '4px 0 8px rgba(104, 20, 255, 0.15)',
+      boxShadow: {
+        'sidebar-purple-right': '3px 0 8px rgba(104, 20, 255, 0.15)',
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [require('tailwindcss-animated')],
 };
+
 export default config;

@@ -38,27 +38,28 @@ const TeamDisbandButton = ({
   };
 
   const handleDisbandBtnClick = async () => {
-    // 팀장 외 다른 팀원이 있는 경우 예외처리
     if (membersExceptTeamOwner) {
       toast({
         title: TEAM_TOAST_MESSAGES.FAIL.TEAM_DISBAND.TITLE,
         description: TEAM_TOAST_MESSAGES.FAIL.TEAM_DISBAND.DESCRIPTION,
         variant: 'destructive',
       });
-
       return;
     }
 
-    const data = await fetchDeleteTeam(teamId);
-
-    if (data) {
-      toast({
-        title: TEAM_TOAST_MESSAGES.SUCCESS.TEAM_DISBAND.TITLE,
-        description: TEAM_TOAST_MESSAGES.SUCCESS.TEAM_DISBAND.DESCRIPTION,
-      });
-
-      // 팀 랭킹 페이지로 이동
-      router.push(PATH.RANK.TEAMS);
+    try {
+      const data = await fetchDeleteTeam(teamId);
+      if (data) {
+        toast({
+          title: TEAM_TOAST_MESSAGES.SUCCESS.TEAM_DISBAND.TITLE,
+          description: TEAM_TOAST_MESSAGES.SUCCESS.TEAM_DISBAND.DESCRIPTION,
+        });
+        // 캐시 갱신 및 리다이렉트
+        router.push(PATH.RANK.TEAMS);
+        router.refresh(); //캐시 갱신
+      }
+    } catch (error) {
+      console.error('팀 해체 중 오류 발생:', error);
     }
   };
 

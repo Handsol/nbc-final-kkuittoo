@@ -8,7 +8,7 @@ import { TITLE_MODE } from '@/constants/mode.constants';
 
 const LoginButton = () => {
   const handleLogin = () => {
-    signIn('google', { callbackUrl: PATH.HOME });
+    signIn('google', { callbackUrl: PATH.HOME, prompt: 'select_account' });
   };
 
   return (

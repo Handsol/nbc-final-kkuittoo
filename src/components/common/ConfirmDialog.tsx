@@ -23,6 +23,7 @@ type ConfirmDialogProps = {
     confirmButtonText: string;
   };
   onClick: () => Promise<void>;
+  children?: React.ReactNode;
 };
 
 /**
@@ -39,7 +40,7 @@ type ConfirmDialogProps = {
  * @param onClick {() => Promise<void>}
  * @returns
  */
-const ConfirmDialog = ({ contents, onClick }: ConfirmDialogProps) => {
+const ConfirmDialog = ({ contents, onClick, children }: ConfirmDialogProps) => {
   const {
     uiButtonText,
     title,
@@ -47,14 +48,24 @@ const ConfirmDialog = ({ contents, onClick }: ConfirmDialogProps) => {
     cancelButtonText,
     confirmButtonText,
   } = contents;
-
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        {/* 화면에서 보여지는 팀 탈퇴 버튼 */}
-        <ActionButton mode={ACTIONBUTTON_MODE.ROUNDED_MD}>
-          {uiButtonText}
-        </ActionButton>
+        {/* 
+        children이 있을 경우 - cildren에 해당하는 버튼이 화면에 보이고, 
+        children이 없을 경우 - 화면에서 팀 탈퇴 버튼 or 팀 조인 버튼이 보임
+        */}
+        {children || (
+          <ActionButton
+            mode={
+              uiButtonText === 'JOIN'
+                ? ACTIONBUTTON_MODE.DARK_GRAY_SMALL
+                : ACTIONBUTTON_MODE.ROUNDED_MD
+            }
+          >
+            {uiButtonText}
+          </ActionButton>
+        )}
       </AlertDialogTrigger>
       {/* 모달창 */}
       <AlertDialogContent>
@@ -63,12 +74,13 @@ const ConfirmDialog = ({ contents, onClick }: ConfirmDialogProps) => {
           <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>
+          {/* button안에 button이 또 들어가서 hydration 오류가 발생했는데, asChild를 넣어서 자식요소만 button이 되도록 해결*/}
+          <AlertDialogCancel asChild>
             <ActionButton mode={ACTIONBUTTON_MODE.SECONDARY_SMALL}>
               {cancelButtonText}
             </ActionButton>
           </AlertDialogCancel>
-          <AlertDialogAction onClick={onClick}>
+          <AlertDialogAction onClick={onClick} asChild>
             <ActionButton mode={ACTIONBUTTON_MODE.PRIMARY_SMALL}>
               {confirmButtonText}
             </ActionButton>

@@ -35,12 +35,14 @@ type UserTitleProps = {
  * </UserTitle>
  */
 
-const UserTitle = ({ mode, children }: UserTitleProps) => {
+const UserTitle = ({ mode, children, className = '' }: UserTitleProps) => {
   switch (mode) {
     case USER_TITLE_MODE.CARD_LEVEL:
-      return <h5 className="font-dohyeon">{children}</h5>;
+      return <h5 className={`font-dohyeon ${className}`}>{children}</h5>;
     case USER_TITLE_MODE.CARD_NAME:
-      return <h5 className="font-dohyeon truncate">{children}</h5>;
+      return (
+        <h5 className={`font-dohyeon truncate ${className}`}>{children}</h5>
+      );
     case USER_TITLE_MODE.CARD_RANK:
       return <h5 className="font-dohyeon text-dark-gray">{children}</h5>;
     case USER_TITLE_MODE.CARD_ID:

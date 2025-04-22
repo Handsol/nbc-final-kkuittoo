@@ -16,20 +16,22 @@ export const NormalRankTeamCard = ({ team, rank, hasTeam }: Props) => {
   const currentMembers = team.memberCount;
   return (
     <>
-      <article className="border rounded-3xl p-4 shadow-md bg-sub-light w-full h-24 flex items-center justify-between">
-        <div className="flex items-center gap-4 cursor-pointer">
-          <div className="flex items-center gap-3">
-            <NormalTeamRankLabel rank={rank} />
-            <NormalTeamEmblem teamName={team.teamName} embluem={team.emblem} />
-          </div>
+      <article className="border rounded-3xl p-4 shadow-md bg-sub-light w-full h-24 flex items-center justify-between overflow-hidden">
+        {/* 왼쪽 정보 그룹 */}
+        <div className="flex items-center gap-3 flex-1 min-w-0">
+          <NormalTeamRankLabel rank={rank} />
+          <NormalTeamEmblem teamName={team.teamName} embluem={team.emblem} />
           <NormalTeamInfo team={team} />
         </div>
-        {/* 팀 가입 버튼 */}
-        <TeamJoin
-          team={team}
-          hasTeam={hasTeam}
-          currentMembers={currentMembers}
-        />
+
+        {/* 오른쪽 버튼 영역 */}
+        <div className="shrink-0 ml-2">
+          <TeamJoin
+            team={team}
+            hasTeam={hasTeam}
+            currentMembers={currentMembers}
+          />
+        </div>
       </article>
     </>
   );

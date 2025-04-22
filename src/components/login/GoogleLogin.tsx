@@ -12,13 +12,17 @@ const GoogleLogin = () => {
   const { toast } = useToast();
 
   useEffect(() => {
-    if (status === 'authenticated') {
-      toast({
-        title: LOGIN_TOAST_MESSAGES.SUCCESS.TITLE,
-        description: LOGIN_TOAST_MESSAGES.SUCCESS.DESCRIPTION,
-      });
+    if (status === 'authenticated' && session?.user?.name) {
+      localStorage.setItem('islogined', 'true');
+
+      const { title, description } = LOGIN_TOAST_MESSAGES.SUCCESS(
+        session.user.name,
+      );
+      toast({ title, description });
+    } else if (status === 'unauthenticated') {
+      localStorage.removeItem('islogined');
     }
-  }, [status]);
+  }, [status, session]);
 
   return (
     <div>

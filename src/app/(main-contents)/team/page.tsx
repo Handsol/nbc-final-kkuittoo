@@ -1,4 +1,4 @@
-import NoTeam from '@/components/mypage/NoTeam';
+import NoTeam from '@/components/dashboard/NoTeam';
 import {
   generateTeamMetadata,
   TEAM_METADATA_MODE,

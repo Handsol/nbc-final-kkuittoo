@@ -3,7 +3,7 @@
 import { useSession } from 'next-auth/react';
 import { useUserQuery } from '@/lib/queries/useUserQuery';
 import Image from 'next/image';
-import UserProfileEdit from '../mypage/profile/UserProfileEdit';
+import UserProfileEdit from './profile/UserProfileEdit';
 import Text from '../common/Text';
 import { getUserImageByLevel } from '@/lib/utils/user.utils';
 
@@ -21,8 +21,14 @@ const SidebarProfile = () => {
   const userImageSrc = getUserImageByLevel(level);
 
   return (
-    <div className="mt-[40px] flex flex-col items-center gap-3">
-      <Image src={userImageSrc} alt="user" width={150} height={150} />
+    <div className="my-[10px] flex flex-col items-center gap-1 md:gap-3">
+      <Image
+        src={userImageSrc}
+        alt="user"
+        width={100}
+        height={100}
+        className="md:w-[150px] md:h-[150px] w-[100px] h-[100px]"
+      />
 
       <UserProfileEdit
         name={profileData?.name || ''}

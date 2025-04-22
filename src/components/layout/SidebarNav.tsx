@@ -1,25 +1,35 @@
+'use client';
+
 import { LINKBUTTON_MODE } from '@/constants/mode.constants';
 import { PATH } from '@/constants/path.constants';
 import LinkButton from '../common/button/LinkButton';
-import { fetchGetMyTeamData } from '@/lib/services/team-actions.services';
-import { getUserSession } from '@/lib/services/getUserSession.services';
+import { useSession } from 'next-auth/react';
+import { useMyTeamQuery } from '@/lib/queries/useMyTeamQuery';
+import { usePathname } from 'next/navigation';
 
-const SidebarNav = async () => {
-  const session = await getUserSession();
-  const team = session ? await fetchGetMyTeamData(session.user.id) : null;
+const SidebarNav = () => {
+  const { data: session } = useSession();
+  const userId = session?.user.id || '';
+  const { data: team } = useMyTeamQuery(userId);
+  const pathname = usePathname();
 
   const teamHref = team ? `${PATH.TEAM}/${team.teamId}` : PATH.TEAM;
 
   const NAV_ITEMS = [
-    { name: 'DASHBOARD', href: PATH.MYPAGE },
+    { name: 'DASHBOARD', href: PATH.DASHBOARD },
     { name: 'MY TEAM', href: teamHref },
     { name: 'RANK', href: PATH.RANK.USERS },
   ];
 
   return (
-    <div className="w-full flex flex-col gap-8 pt-10 pl-8">
+    <div className="w-full flex flex-col gap-4 pt-[40px] pl-8">
       {NAV_ITEMS.map((item) => (
-        <LinkButton key={item.name} mode={LINKBUTTON_MODE.NAV} href={item.href}>
+        <LinkButton
+          key={item.name}
+          mode={LINKBUTTON_MODE.NAV}
+          href={item.href}
+          disabled={pathname === item.href} //현재 경로와 href가 같으면
+        >
           {item.name}
         </LinkButton>
       ))}

@@ -1,0 +1,56 @@
+'use client';
+
+import Text from '../common/Text';
+import HabitHeader from './habits/HabitHeader';
+import HabitList from './habits/HabitList';
+import HabitsFilter from './habits/HabitsFilter';
+import UserLevelProgress from './habits/UserLevelProgress';
+import { HabitWithPoints } from '@/types/habits.type';
+import { useHabitsControls } from '@/lib/hooks/useHabitsControls';
+import { useHabitRecords } from '@/lib/hooks/useHabitRecords';
+
+type DashboardHabitsProps = {
+  userId: string;
+  initialHabits: HabitWithPoints[];
+  initialPoints: number;
+};
+
+const DashboardHabits = ({
+  userId,
+  initialHabits,
+  initialPoints,
+}: DashboardHabitsProps) => {
+  const { habits, isError, level, expPercent } = useHabitRecords(
+    userId,
+    initialHabits,
+    initialPoints,
+  );
+  const { isCreating, filteredHabits, setFilteredHabits, handleToggleCreate } =
+    useHabitsControls(initialHabits);
+
+  if (isError) {
+    return <Text>데이터를 불러오는 데 실패했습니다.</Text>;
+  }
+  return (
+    <div className="flex flex-col h-full px-4 md:px-[40px] gap-[32px]">
+      <HabitHeader habitsCount={habits.length} />
+      <UserLevelProgress level={level} expPercent={expPercent} />
+      <HabitsFilter
+        habits={habits}
+        onFilterChange={setFilteredHabits}
+        onToggleCreate={handleToggleCreate}
+        isCreating={isCreating}
+      />
+      <div className="flex-1 overflow-hidden">
+        <HabitList
+          userId={userId}
+          habits={filteredHabits}
+          isCreating={isCreating}
+          onToggleCreate={handleToggleCreate}
+        />
+      </div>
+    </div>
+  );
+};
+
+export default DashboardHabits;
