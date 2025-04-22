@@ -3,7 +3,7 @@
 import { useSession } from 'next-auth/react';
 import { useUserQuery } from '@/lib/queries/useUserQuery';
 import Image from 'next/image';
-import UserProfileEdit from '../mypage/profile/UserProfileEdit';
+import UserProfileEdit from '../dashboard/profile/UserProfileEdit';
 import Text from '../common/Text';
 import { getUserImageByLevel } from '@/lib/utils/user.utils';
 

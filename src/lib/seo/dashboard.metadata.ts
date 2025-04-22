@@ -1,7 +1,7 @@
 import { PROJECT_URL } from '@/constants/path.constants';
 import { Metadata } from 'next';
 
-export const myPageMetadata: Metadata = {
+export const dashboardMetadata: Metadata = {
   title: 'DASHBOARD | KKUITTOO',
   description:
     '사용자의 습관, 레벨 및 팀 정보를 확인할 수 있는 DASHBOARD입니다.',
@@ -11,7 +11,7 @@ export const myPageMetadata: Metadata = {
     description:
       '사용자의 습관, 레벨 및 팀 정보를 확인할 수 있는 DASHBOARD입니다.',
     type: 'website',
-    url: `${PROJECT_URL}/mypage`,
+    url: `${PROJECT_URL}/dashboard`,
     images: [
       {
         url: 'assets/images/test01.png',

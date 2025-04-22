@@ -1,6 +1,6 @@
 export const PATH = {
   HOME: '/',
-  MYPAGE: '/mypage',
+  DASHBOARD: '/dashboard',
   TEAM: '/team',
   MAEK_TEAM: '/make-team',
   RANK: {

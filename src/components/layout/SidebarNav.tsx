@@ -11,7 +11,7 @@ const SidebarNav = async () => {
   const teamHref = team ? `${PATH.TEAM}/${team.teamId}` : PATH.TEAM;
 
   const NAV_ITEMS = [
-    { name: 'DASHBOARD', href: PATH.MYPAGE },
+    { name: 'DASHBOARD', href: PATH.DASHBOARD },
     { name: 'MY TEAM', href: teamHref },
     { name: 'RANK', href: PATH.RANK.USERS },
   ];

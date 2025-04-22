@@ -9,17 +9,17 @@ import { HabitWithPoints } from '@/types/habits.type';
 import { useHabitsControls } from '@/lib/hooks/useHabitsControls';
 import { useHabitRecords } from '@/lib/hooks/useHabitRecords';
 
-type MyPageHabitsProps = {
+type DashboardHabitsProps = {
   userId: string;
   initialHabits: HabitWithPoints[];
   initialPoints: number;
 };
 
-const MyPageHabits = ({
+const DashboardHabits = ({
   userId,
   initialHabits,
   initialPoints,
-}: MyPageHabitsProps) => {
+}: DashboardHabitsProps) => {
   const { habits, isError, level, expPercent } = useHabitRecords(
     userId,
     initialHabits,
@@ -53,4 +53,4 @@ const MyPageHabits = ({
   );
 };
 
-export default MyPageHabits;
+export default DashboardHabits;
