@@ -1,4 +1,5 @@
 import Sidebar from '@/components/layout/Sidebar';
+import SidebarClientWrapper from '@/components/layout/SidebarClientWrapper';
 import { ReactNode } from 'react';
 
 type LayoutProps = {
@@ -9,12 +10,15 @@ type LayoutProps = {
 const Layout = ({ children, modal }: LayoutProps) => {
   return (
     <main className="w-full flex flex-col items-center">
-      {/* 모바일에서는 전체 너비, 데스크탑에서는 최대 1440px */}
       <div className="w-full max-w-[1440px] flex flex-col md:flex-row justify-center">
-        {/* 모바일에서는 사이드바 숨김 */}
+        {/* 데스크탑 사이드바 */}
         <div className="hidden md:block">
           <Sidebar />
         </div>
+
+        {/* 모바일 전용 슬라이드 사이드바 & 헤더 */}
+        <SidebarClientWrapper />
+
         <article className="w-full">
           {children}
           {modal}

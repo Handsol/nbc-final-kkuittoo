@@ -1,12 +1,15 @@
+'use client';
+
 import { LINKBUTTON_MODE } from '@/constants/mode.constants';
 import { PATH } from '@/constants/path.constants';
 import LinkButton from '../common/button/LinkButton';
-import { fetchGetMyTeamData } from '@/lib/services/team-actions.services';
-import { getUserSession } from '@/lib/services/getUserSession.services';
+import { useSession } from 'next-auth/react';
+import { useMyTeamQuery } from '@/lib/queries/useMyTeamQuery';
 
-const SidebarNav = async () => {
-  const session = await getUserSession();
-  const team = session ? await fetchGetMyTeamData(session.user.id) : null;
+const SidebarNav = () => {
+  const { data: session } = useSession();
+  const userId = session?.user.id || '';
+  const { data: team } = useMyTeamQuery(userId);
 
   const teamHref = team ? `${PATH.TEAM}/${team.teamId}` : PATH.TEAM;
 
