@@ -7,7 +7,7 @@ const NotFoundPage = () => {
   const NotFoundContents = {
     title: 'NOT FOUND',
     text: '어라? 여긴 아무것도 없네요!',
-    href: PATH.MYPAGE,
+    href: PATH.DASHBOARD,
     linkButtonText: 'DASHBOARD로 돌아가기',
   };
   return (

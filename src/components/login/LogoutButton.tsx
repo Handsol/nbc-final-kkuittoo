@@ -7,7 +7,7 @@ import { ACTIONBUTTON_MODE } from '@/constants/mode.constants';
 
 const LogoutButton = () => {
   const handleLogout = () => {
-    localStorage.removeItem('hasVisitedMypageBefore');
+    localStorage.removeItem('hasVisitedDashboardBefore');
     signOut({ callbackUrl: PATH.HOME });
   };
   return (

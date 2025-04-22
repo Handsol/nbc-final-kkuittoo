@@ -8,6 +8,7 @@ import TeamJoinPrivateModal from './team-join/TeamJoinPrivateModal';
 import { TeamWithPoints } from '@/types/rank.type';
 import { useSession } from 'next-auth/react';
 import { fetchJoinTeam } from '@/lib/services/team-actions.services';
+import { TEAM_TOAST_MESSAGES } from '@/constants/toast-messages.contants';
 
 type TeamJoinProps = {
   team: TeamWithPoints;
@@ -54,7 +55,6 @@ const TeamJoin = ({ team, hasTeam, currentMembers }: TeamJoinProps) => {
     confirmButtonText: 'YES',
   };
 
-  // 이 로직들은 바뀔 가능성이 높을 거 같아서 상수처리는 이 로직을 사용하기로 확정되면 하겠습니다.
   const handleJoinOpenTeam = async () => {
     const userId = session?.user.id;
     if (!userId) return;
@@ -63,22 +63,25 @@ const TeamJoin = ({ team, hasTeam, currentMembers }: TeamJoinProps) => {
       const result = await fetchJoinTeam(teamId, userId);
       if (result.success) {
         toast({
-          title: '팀 가입 성공',
-          description: `${teamName} 팀에 가입되었습니다!`,
+          title: TEAM_TOAST_MESSAGES.SUCCESS.TEAM_JOIN.TITLE,
+          description:
+            TEAM_TOAST_MESSAGES.SUCCESS.TEAM_JOIN.DESCRIPTION(teamName),
         });
         router.refresh(); // 캐시 갱신
         router.push(`${PATH.TEAM}/${teamId}`);
       } else {
         toast({
-          title: '팀 가입 실패',
-          description: result.error,
+          title: TEAM_TOAST_MESSAGES.FAIL.TEAM_JOIN.TITLE,
+          description: TEAM_TOAST_MESSAGES.FAIL.TEAM_JOIN.DESCRIPTION(
+            result.error,
+          ),
           variant: 'destructive',
         });
       }
     } catch (error) {
       toast({
-        title: '팀 가입 실패',
-        description: '오류가 발생했습니다.',
+        title: TEAM_TOAST_MESSAGES.FAIL.TEAM_JOIN.TITLE,
+        description: TEAM_TOAST_MESSAGES.FAIL.TEAM_JOIN.DESCRIPTION(),
         variant: 'destructive',
       });
     }

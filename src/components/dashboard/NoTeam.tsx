@@ -8,7 +8,7 @@ import { IMAGE_ASSETS } from '@/constants/assets.contants';
 
 const NoTeam = () => {
   return (
-    <section className="relative w-full p-6 flex items-center gap-6 bg-sub-light mb-10">
+    <section className="relative w-full p-6 flex flex-col md:flex-row items-center md:items-start gap-6 bg-sub-light mb-10">
       {/* 기본 이미지 */}
       <Image
         src={IMAGE_ASSETS.SPRITE.BLUE}
@@ -18,7 +18,7 @@ const NoTeam = () => {
         className="rounded-lg"
       />
       {/* 메인 영역 */}
-      <article className="flex flex-col items-start justify-center gap-3">
+      <article className="flex flex-col items-center md:items-start justify-center gap-3 text-left">
         {/* 제목 */}
         <Title mode={TITLE_MODE.SECTION_TITLE}>FIND OR MAKE MY TEAM</Title>
         {/* 팀을 찾거나 팀을 생성하는 영역 */}
@@ -32,7 +32,7 @@ const NoTeam = () => {
             합류해 몬스터를 격파하는 짜릿한 협동전의 주인공이 되어보세요!
           </Text>
           {/* 버튼 wrapper */}
-          <div className="flex gap-4 w-full mt-2">
+          <div className="flex flex-row gap-4 w-full mt-2 items-center justify-center md:items-start md:justify-normal">
             <LinkButton mode={LINKBUTTON_MODE.COMMON} href={PATH.RANK.TEAMS}>
               Find New Team
             </LinkButton>

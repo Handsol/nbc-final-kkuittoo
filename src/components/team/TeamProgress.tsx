@@ -13,7 +13,7 @@ const TeamProgress = ({
   const progressPercent = (teamTotalPoints / currentQuestRequired) * 100;
 
   return (
-    <section className="w-full">
+    <section className="w-[200px]">
       <Progress value={progressPercent} className="w-full h-5" />
     </section>
   );
