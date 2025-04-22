@@ -1,6 +1,7 @@
 import { ButtonHTMLAttributes, forwardRef } from 'react';
 import { Pencil, X, Plus } from 'lucide-react';
 import { ICONBUTTON_MODE } from '@/constants/mode.constants';
+import { FaCheck } from 'react-icons/fa6';
 
 type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   mode: string;
@@ -35,6 +36,9 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
       case ICONBUTTON_MODE.POINT:
         icon = <span className="text-body-md font-bold">+P</span>;
         variantClasses = 'w-[40px] h-[40px] bg-light-gray';
+        break;
+      case ICONBUTTON_MODE.CONFIRM:
+        icon = <FaCheck className="w-[12px] h-[12px]" />;
         break;
       default:
         icon = <Pencil />;
