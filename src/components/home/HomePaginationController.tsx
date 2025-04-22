@@ -15,9 +15,8 @@ const HomePaginationController = () => {
   const handleNext = () => page < TOTAL_PAGES && setPage(page + 1);
 
   return (
-    <article className="flex flex-col items-center gap-4">
-      {/* 콘텐츠와 화살표를 포함하는 컨테이너 */}
-      <div className="flex items-center gap-8">
+    <article className="flex flex-col items-center gap-4 w-full">
+      <div className="relative flex items-center justify-center w-full">
         {/* 왼쪽 화살표 버튼 */}
         <PaginationArrowButton
           direction="prev"
@@ -25,10 +24,11 @@ const HomePaginationController = () => {
           disabled={page === 1}
           icon={<FaAngleLeft size={24} />}
         />
+
         {/* 콘텐츠 영역 */}
         <section
           aria-label={`홈페이지 소개 ${page}페이지`}
-          className="w-[700px] h-[450px] border-2 border-white rounded-2xl flex items-center justify-center"
+          className="w-full max-w-[700px] h-[350px] md:h-[450px] md:border-2 md:border-white rounded-2xl flex items-center justify-center mx-2"
         >
           <HomeBioContent page={page} />
         </section>
@@ -42,6 +42,7 @@ const HomePaginationController = () => {
         />
       </div>
 
+      {/* 페이지네이션 */}
       <HomePagination
         currentPage={page}
         setPage={setPage}
