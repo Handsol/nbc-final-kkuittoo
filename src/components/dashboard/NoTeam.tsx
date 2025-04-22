@@ -15,7 +15,7 @@ const NoTeam = () => {
         alt="Guild Image"
         width={200}
         height={100}
-        className="rounded-lg"
+        className="rounded-lg hidden md:block"
       />
       {/* 메인 영역 */}
       <article className="flex flex-col items-center md:items-start justify-center gap-3 text-left">
