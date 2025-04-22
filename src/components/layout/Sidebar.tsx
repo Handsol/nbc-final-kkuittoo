@@ -5,11 +5,18 @@ import SidebarNav from './SidebarNav';
 
 const Sidebar = () => {
   return (
-    <aside className="sticky top-0 h-screen w-[240px] bg-white p-4 flex flex-col gap-4 shrink-0 items-center drop-shadow-sidebar-purple">
-      <SidebarLogo />
-      <SidebarNav />
-      <SidebarProfile />
-      <LogoutButton />
+    <aside className="sticky top-0 h-screen w-[240px] bg-white px-4 py-[40px] flex flex-col shrink-0 shadow-sidebar-purple-right">
+      <div className="flex flex-col items-center">
+        <SidebarLogo />
+        <SidebarNav />
+      </div>
+
+      <div className="flex-1" />
+
+      <div className="flex flex-col gap-3 items-center w-full">
+        <SidebarProfile />
+        <LogoutButton />
+      </div>
     </aside>
   );
 };

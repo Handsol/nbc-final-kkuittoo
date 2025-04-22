@@ -8,7 +8,7 @@ type TextProps = {
 
 export const HomeTitleLg = ({ children }: TextProps) => {
   return (
-    <p className="font-dohyeon text-xl text-white text-center pt-1">
+    <p className="font-dohyeon text-body-md md:text-body-xl text-white text-center pt-1">
       {children}
     </p>
   );
@@ -16,7 +16,7 @@ export const HomeTitleLg = ({ children }: TextProps) => {
 
 export const HomeTitleSm = ({ children }: TextProps) => {
   return (
-    <p className="font-pretendard text-md text-light-gray text-center">
+    <p className="font-pretendard text-body-xs md:text-body-md text-light-gray text-center">
       {children}
     </p>
   );

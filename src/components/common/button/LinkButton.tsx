@@ -46,7 +46,10 @@ const LinkButton = ({
   const linkBtnClass = clsx(
     'flex items-center justify-center px-2 py-2 rounded-full duration-300',
     isCommon && 'border border-main bg-white  text-main',
-    isNav && (disabled ? 'text-main' : 'text-black hover:text-main'),
+    isNav &&
+      (disabled
+        ? 'text-main cursor-not-allowed' //제대로 적용이 된 건지 확인하기 위해 cursor-not-allowed 추가
+        : 'text-black hover:text-main'),
     isRank &&
       (disabled
         ? 'border border-main text-heading-lg text-main'
