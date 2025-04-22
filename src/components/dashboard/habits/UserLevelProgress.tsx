@@ -1,4 +1,4 @@
-import UserLevel from '../profile/UserLevel';
+import UserLevel from '@/components/layout/profile/UserLevel';
 import { Progress } from '@/components/ui/progress';
 
 type UserLevelProgressProps = {
