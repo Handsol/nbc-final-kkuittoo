@@ -34,7 +34,7 @@ const MobileHeader = ({ onOpen }: { onOpen: () => void }) => {
         />
       </div>
       {currentPage && (
-        <div className="py-[22px] px-[16px]">
+        <div className="py-[6px] px-[16px] my-[6px]">
           <Title mode={TITLE_MODE.SECTION_SUBTITLE}>{currentPage}</Title>
         </div>
       )}
