@@ -8,7 +8,10 @@ export const TEAM_TOAST_MESSAGES = {
     },
     TEAM_JOIN: {
       TITLE: '팀 가입 완료!',
-      DESCRIPTION: (teamName: string) => `${teamName} 팀에 가입되었습니다!`,
+      DESCRIPTION: (teamName?: string) =>
+        teamName
+          ? `${teamName} 팀에 가입되었습니다!`
+          : '팀에 성공적으로 가입되었습니다!',
     },
     TEAM_DISBAND: {
       TITLE: '팀 해체 완료!',
