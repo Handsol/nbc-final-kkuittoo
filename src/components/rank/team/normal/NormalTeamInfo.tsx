@@ -11,15 +11,25 @@ export const NormalTeamInfo = ({ team }: Props) => {
   return (
     <section className="flex flex-col">
       <div className="flex items-center gap-2">
-        <UserTitle mode={USER_TITLE_MODE.CARD_NAME}>{team.teamName}</UserTitle>
-        <UserTitle mode={USER_TITLE_MODE.CARD_LEVEL}>
+        <UserTitle
+          mode={USER_TITLE_MODE.CARD_NAME}
+          className="truncate max-w-[100px] dm:max-w-[160px] text-body-xs md:text-base"
+        >
+          {team.teamName}
+        </UserTitle>
+        <UserTitle
+          mode={USER_TITLE_MODE.CARD_LEVEL}
+          className="truncate max-w-[100px] dm:max-w-[160px] text-body-xs md:text-base"
+        >
           Lv. {currentQuest.id}
         </UserTitle>
         <Text>
           {team.memberCount}/{team.maxTeamSize}
         </Text>
       </div>
-      <Text className="text-dark-gray truncate">{team.teamBio}</Text>
+      <Text className="text-dark-gray truncate  max-w-[100px] dm:max-w-[160px]">
+        {team.teamBio}
+      </Text>
     </section>
   );
 };
