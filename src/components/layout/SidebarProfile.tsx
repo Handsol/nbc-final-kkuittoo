@@ -21,7 +21,7 @@ const SidebarProfile = () => {
   const userImageSrc = getUserImageByLevel(level);
 
   return (
-    <div className="mt-[10px] flex flex-col items-center gap-1 md:gap-3">
+    <div className="my-[10px] flex flex-col items-center gap-1 md:gap-3">
       <Image
         src={userImageSrc}
         alt="user"
