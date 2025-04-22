@@ -9,7 +9,7 @@ const GlobalErrorPage = () => {
   const GlobalErrorContents = {
     title: 'ERROR',
     text: '문제가 발생했어요. 잠시 후에 다시 도전해볼까요?',
-    href: PATH.MYPAGE,
+    href: PATH.DASHBOARD,
     linkButtonText: 'DASHBOARD로 돌아가기',
   };
   return (

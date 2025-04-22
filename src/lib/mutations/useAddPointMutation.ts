@@ -4,7 +4,7 @@ import { UserPoint } from '@prisma/client';
 import { POINTS_TO_ADD } from '@/constants/habits.constants';
 import { useOptimisticMutation } from './useOptimisticMutation';
 import { HabitWithPoints } from '@/types/habits.type';
-import { revalidateMyPage } from '../services/revalidate-mypage.services';
+import { revalidateDashboard } from '../services/revalidate-dashboard.services';
 
 /**
  * 사용자 포인트 추가를 위한 React Query Mutation 훅
@@ -37,7 +37,7 @@ export const useAddPointMutation = (userId: string) => {
       queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.USER_POINTS(userId),
       });
-      await revalidateMyPage();
+      await revalidateDashboard();
     },
   });
 };

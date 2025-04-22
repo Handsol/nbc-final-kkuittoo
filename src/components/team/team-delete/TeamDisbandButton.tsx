@@ -59,11 +59,7 @@ const TeamDisbandButton = ({
         router.refresh(); //캐시 갱신
       }
     } catch (error) {
-      toast({
-        title: '팀 해체 실패',
-        description: '팀 해체 중 오류가 발생했습니다. 다시 시도해주세요.',
-        variant: 'destructive',
-      });
+      console.error('팀 해체 중 오류 발생:', error);
     }
   };
 

@@ -8,7 +8,10 @@ export const TEAM_TOAST_MESSAGES = {
     },
     TEAM_JOIN: {
       TITLE: '팀 가입 완료!',
-      DESCRIPTION: '이제 함께 모험을 떠나볼까요?',
+      DESCRIPTION: (teamName?: string) =>
+        teamName
+          ? `${teamName} 팀에 가입되었습니다!`
+          : '팀에 성공적으로 가입되었습니다!',
     },
     TEAM_DISBAND: {
       TITLE: '팀 해체 완료!',
@@ -31,6 +34,10 @@ export const TEAM_TOAST_MESSAGES = {
     TEAM_PASSWORD: {
       TITLE: '비밀번호가 다릅니다!',
       DESCRIPTION: '비밀번호를 다시 확인해주세요.',
+    },
+    TEAM_JOIN: {
+      TITLE: '팀 가입 실패',
+      DESCRIPTION: (error?: string) => error || '오류가 발생했습니다.',
     },
   },
   ERROR: {

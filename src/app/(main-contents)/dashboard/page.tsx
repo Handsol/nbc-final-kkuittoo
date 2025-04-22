@@ -1,16 +1,16 @@
+import DashboardHabits from '@/components/dashboard/DashboardHabits';
+import DashboardSection from '@/components/dashboard/DashboardSection';
+import DashboardTeam from '@/components/dashboard/DashboardTeam';
 import UnauthorizedPage from '@/components/loading-error-page/UnauthorizedPage';
-import MyPageHabits from '@/components/mypage/MyPageHabits';
-import MyPageSection from '@/components/mypage/MyPageSection';
-import MyPageTeam from '@/components/mypage/MyPageTeam';
-import { myPageMetadata } from '@/lib/seo/mypage.metadata';
+import { dashboardMetadata } from '@/lib/seo/dashboard.metadata';
 import { getUserSession } from '@/lib/services/getUserSession.services';
 import { fetchGetUserHabits } from '@/lib/services/habit-actions.services';
 import { fetchGetUserProfile } from '@/lib/services/user-actions.services';
 import { Metadata } from 'next';
 
-export const metadata: Metadata = myPageMetadata;
+export const metadata: Metadata = dashboardMetadata;
 
-const MyPage = async () => {
+const Dashboard = async () => {
   const session = await getUserSession();
 
   if (!session) {
@@ -29,18 +29,18 @@ const MyPage = async () => {
 
   return (
     <div className="flex flex-col items-center min-h-full gap-10">
-      <MyPageSection label="User teams">
-        <MyPageTeam userId={userId} />
-      </MyPageSection>
-      <MyPageSection label="User habits">
-        <MyPageHabits
+      <DashboardSection label="User teams">
+        <DashboardTeam userId={userId} />
+      </DashboardSection>
+      <DashboardSection label="User habits">
+        <DashboardHabits
           userId={userId}
           initialHabits={habits}
           initialPoints={totalPoints}
         />
-      </MyPageSection>
+      </DashboardSection>
     </div>
   );
 };
 
-export default MyPage;
+export default Dashboard;
