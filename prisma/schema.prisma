@@ -154,9 +154,9 @@ model Payment {
   itemId        String
   itemName      String
   orderId       String
-  amount        Int //가격
-  paymentKey    String //결제 진행 후 나오는 키 값
-  paymentType   String //결제 진행 후 나오는 결제 타입 ('NORMAL' | 'BRANDPAY')
+  amount        Int? //가격
+  paymentKey    String? //결제 진행 후 나오는 키 값
+  paymentType   String? //결제 진행 후 나오는 결제 타입 ('NORMAL' | 'BRANDPAY')
   status        PaymentStatus   @default(PENDING)
   user          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
