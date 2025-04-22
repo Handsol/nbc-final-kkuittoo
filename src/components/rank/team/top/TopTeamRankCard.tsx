@@ -33,8 +33,8 @@ export const TopRankTeamCard = ({
   // 랭킹에 따라 포디움 크기와 상단면 크기 동적 설정
   const podiumSize =
     rank === 1
-      ? { width: 'w-44', height: 'h-56' }
-      : { width: 'w-32', height: 'h-44' };
+      ? { width: 'w-28 md:w-52', height: 'h-32 md:h-64' }
+      : { width: 'w-20 md:w-44', height: 'h-24 md:h-52' };
   const topFaceOffset = rank === 1 ? '-mt-10' : '-mt-10';
   const topFaceHeight = rank === 1 ? 'h-8' : 'h-6';
 
@@ -44,7 +44,7 @@ export const TopRankTeamCard = ({
     <>
       <article className={rankCardContainer}>
         {/* 유저 정보 영역 */}
-        <div className={rankCardInfoWrapper}>
+        <div className={`${rankCardInfoWrapper} aniamte-fade-up`}>
           <UserTitle mode={USER_TITLE_MODE.CARD_NAME}>
             {team.teamName}
           </UserTitle>
@@ -59,37 +59,39 @@ export const TopRankTeamCard = ({
           </motion.div>
         </div>
 
-        <div className="relative flex flex-col items-center justify-center">
-          {/* 포디움 영역 */}
+        {/* 포디움 영역 */}
+        <div
+          className={`relative rounded-t-md bg-gradient-to-b from-main to-white flex items-center justify-center animate-fade-up ${podiumSize.width} ${podiumSize.height}
+          `}
+          style={{ animationDelay: `${animationDelay}ms` }}
+        >
+          {/* 기울어진 상단면 컨테이너 */}
           <div
-            className={`${podiumBaseStyle} ${podiumSize.width} ${podiumSize.height}`}
-            style={{ animationDelay: `${animationDelay}ms` }}
+            className={podiumTopFaceBaseStyle}
+            style={{ perspective: '600px' }}
           >
-            {/* 기울어진 상단면 컨테이너 */}
             <div
-              className={podiumTopFaceBaseStyle}
-              style={{ perspective: '600px' }} // 상단면에만 원근법 적용
-            >
-              <div
-                className={`p-6 w-full ${topFaceHeight} ${topFaceOffset} bg-sub rounded-t-md`}
-                style={{
-                  transform: 'rotateX(70deg) translateZ(4px)', // 3D 효과를 위한 회전
-                  transformOrigin: 'bottom',
-                  backfaceVisibility: 'hidden',
-                }}
-              />
-            </div>
-            <span className="text-heading-xl font-bold text-white z-10">
-              {rank}
-            </span>
+              className={`p-6 w-full ${topFaceHeight} ${topFaceOffset} bg-sub rounded-t-md `}
+              style={{
+                transform: 'rotateX(70deg) translateZ(4px)',
+                transformOrigin: 'bottom',
+                backfaceVisibility: 'hidden',
+              }}
+            />
           </div>
+          <span className="text-heading-xl font-bold text-white z-10">
+            {rank}
+          </span>
         </div>
+
         {/* 참여하기 버튼 */}
-        <TeamJoin
-          team={team}
-          hasTeam={hasTeam}
-          currentMembers={currentMembers}
-        />
+        <div className="z-50 min-h-[40px] flex justify-center items-center">
+          <TeamJoin
+            team={team}
+            hasTeam={hasTeam}
+            currentMembers={currentMembers}
+          />
+        </div>
       </article>
     </>
   );

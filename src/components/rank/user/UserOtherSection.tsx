@@ -12,9 +12,9 @@ export const UserOtherSection = ({ otherUsers }: Props) => {
         <p className="text-center text-gray-500">검색 결과가 없습니다.</p>
       ) : (
         <ul className="space-y-4">
-          {otherUsers.map((user, index) => (
+          {otherUsers.map((user) => (
             <li key={user.id}>
-              <UserRankCard user={user} rank={index + 4} isTopRank={false} />
+              <UserRankCard user={user} rank={user.rank} isTopRank={false} />
             </li>
           ))}
         </ul>

@@ -181,30 +181,37 @@ export const fetchGetMyTeamMemberData = async (teamId: string) => {
   }
 };
 
-export const fetchGetTeamsWithPoints = async (): Promise<TeamWithPoints[]> => {
-  try {
-    const teamList = await prisma.team.findMany({
-      include: {
-        teamMembers: true,
-      },
-    });
+// 팀 전체 랭킹 리스트 (rank 포함)
+export const fetchGetTeamsWithPoints = async () => {
+  const teamList = await prisma.team.findMany({
+    include: { teamMembers: true },
+  });
 
-    const teamsWithPoints = await Promise.all(
-      teamList.map(async (team) => {
-        const { teamTotalPoints } = await fetchGetTeamTotalPoints(team.id);
-        return {
-          ...team,
-          totalPoints: teamTotalPoints,
-          memberCount: team.teamMembers.length,
-        };
-      }),
-    );
+  const teamsWithPoints = await Promise.all(
+    teamList.map(async (team) => {
+      const { teamTotalPoints } = await fetchGetTeamTotalPoints(team.id);
+      return {
+        ...team,
+        totalPoints: teamTotalPoints,
+        memberCount: team.teamMembers.length,
+      };
+    }),
+  );
 
-    return teamsWithPoints.sort((a, b) => b.totalPoints - a.totalPoints);
-  } catch (error) {
-    console.error('fetchGetMyTeamMemberData 에러:', error);
-    throw new Error(`${TEAMS_MESSAGES.FETCH_FAILED}, teams with points`);
-  }
+  const sorted = teamsWithPoints.sort((a, b) => b.totalPoints - a.totalPoints);
+
+  let prevPoints: number | null = null;
+  let currentRank = 1;
+
+  return sorted.map((team, index) => {
+    if (team.totalPoints === prevPoints) {
+      return { ...team, rank: currentRank };
+    } else {
+      currentRank = index + 1;
+      prevPoints = team.totalPoints;
+      return { ...team, rank: currentRank };
+    }
+  });
 };
 
 /**

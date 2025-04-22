@@ -29,6 +29,7 @@ export const fetchGetUserProfile = async (
  *
  * @returns 유저 데이터 배열 (포인트 포함)
  */
+// 유저 전체 랭킹 리스트 (rank 포함)
 export const fetchGetUsersWithTotalPoints = async () => {
   const users = await prisma.user.findMany({
     select: {
@@ -38,18 +39,30 @@ export const fetchGetUsersWithTotalPoints = async () => {
       characterImage: true,
       email: true,
       userPoints: {
-        select: {
-          points: true,
-        },
+        select: { points: true },
       },
     },
   });
 
-  // 총 포인트 계산 및 정렬
   const usersWithTotalPoints = users.map((user) => ({
     ...user,
-    totalPoints: user.userPoints.reduce((sum, point) => sum + point.points, 0),
+    totalPoints: user.userPoints.reduce((sum, p) => sum + p.points, 0),
   }));
 
-  return usersWithTotalPoints.sort((a, b) => b.totalPoints - a.totalPoints);
+  const sorted = usersWithTotalPoints.sort(
+    (a, b) => b.totalPoints - a.totalPoints,
+  );
+
+  let prevPoints: number | null = null;
+  let currentRank = 1;
+
+  return sorted.map((user, index) => {
+    if (user.totalPoints === prevPoints) {
+      return { ...user, rank: currentRank };
+    } else {
+      currentRank = index + 1;
+      prevPoints = user.totalPoints;
+      return { ...user, rank: currentRank };
+    }
+  });
 };

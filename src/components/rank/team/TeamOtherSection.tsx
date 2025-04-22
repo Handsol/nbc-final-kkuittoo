@@ -14,7 +14,11 @@ export const OtherTeamsSection = ({ otherTeams }: Props) => {
         <ul className="space-y-4">
           {otherTeams.map((team, index) => (
             <li key={team.id}>
-              <TeamCard team={team} rank={index + 4} isTopRank={false} />
+              <TeamCard
+                team={team}
+                rank={team.rank ?? index + 4}
+                isTopRank={false}
+              />
             </li>
           ))}
         </ul>
