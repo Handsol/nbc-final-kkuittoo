@@ -23,7 +23,7 @@ export const TeamRankContent = async ({
   return (
     <div className="flex flex-col gap-4">
       <TeamRankHeader />
-      <section className="w-full max-w-[1024px] p-8 mx-auto bg-white rounded-2xl">
+      <section className="w-full max-w-[1440px] p-8 mx-auto bg-white rounded-2xl">
         <TeamTopSection topTeams={topTeams} />
         <OtherTeamsSection otherTeams={otherTeams} />
       </section>
