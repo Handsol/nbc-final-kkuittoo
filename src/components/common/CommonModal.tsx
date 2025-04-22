@@ -43,7 +43,7 @@ export const CommonModal = ({
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="bg-white rounded-2xl p-8 max-w-[30%] max-h-[70%] w-full h-auto overflow-auto shadow-xl"
+        className="bg-white rounded-2xl p-8 max-w-[40%] max-h-[70%] w-full h-auto overflow-auto shadow-xl"
       >
         {children}
       </div>
