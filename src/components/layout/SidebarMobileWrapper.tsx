@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import MobileHeader from './MobileHeader';
 import SlideSidebar from './SlideSidebar';
 
-const SidebarClientWrapper = () => {
+const SidebarMobileWrapper = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
@@ -26,4 +26,4 @@ const SidebarClientWrapper = () => {
   );
 };
 
-export default SidebarClientWrapper;
+export default SidebarMobileWrapper;

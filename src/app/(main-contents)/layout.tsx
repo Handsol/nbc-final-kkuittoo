@@ -1,5 +1,5 @@
 import Sidebar from '@/components/layout/Sidebar';
-import SidebarClientWrapper from '@/components/layout/SidebarClientWrapper';
+import SidebarMobileWrapper from '@/components/layout/SidebarMobileWrapper';
 import { ReactNode } from 'react';
 
 type LayoutProps = {
@@ -17,7 +17,7 @@ const Layout = ({ children, modal }: LayoutProps) => {
         </div>
 
         {/* 모바일 전용 슬라이드 사이드바 & 헤더 */}
-        <SidebarClientWrapper />
+        <SidebarMobileWrapper />
 
         <article className="w-full">
           {children}
