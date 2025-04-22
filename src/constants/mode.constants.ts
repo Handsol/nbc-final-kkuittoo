@@ -23,6 +23,7 @@ export const ICONBUTTON_MODE = {
   DELETE: 'delete',
   ADD: 'add',
   POINT: 'point',
+  CONFIRM: 'confirm',
 } as const;
 
 export const ACTIONBUTTON_MODE = {
