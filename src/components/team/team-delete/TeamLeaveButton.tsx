@@ -39,11 +39,7 @@ const TeamLeaveButton = ({ id }: TeamLeaveButtonProps) => {
         router.refresh(); //캐시 갱신
       }
     } catch (error) {
-      toast({
-        title: TEAM_TOAST_MESSAGES.ERROR.TEAM_LEAVE.TITLE,
-        description: TEAM_TOAST_MESSAGES.ERROR.TEAM_LEAVE.DESCRIPTION,
-        variant: 'destructive',
-      });
+      console.error('팀 탈퇴 중 오류 발생:', error);
     }
   };
 

@@ -45,14 +45,6 @@ export const TEAM_TOAST_MESSAGES = {
       TITLE: '서버 에러 발생!',
       DESCRIPTION: '서버 통신 중 문제가 생겼어요. 잠시 후 다시 시도해주세요.',
     },
-    TEAM_DISBAND: {
-      TITLE: '팀 해체 실패',
-      DESCRIPTION: '팀 해체 중 오류가 발생했습니다. 다시 시도해주세요.',
-    },
-    TEAM_LEAVE: {
-      TITLE: '팀 탈퇴 실패',
-      DESCRIPTION: '팀 탈퇴 중 오류가 발생했습니다. 다시 시도해주세요.',
-    },
   },
   CONFIRM: {
     TEAM_DISBAND: {

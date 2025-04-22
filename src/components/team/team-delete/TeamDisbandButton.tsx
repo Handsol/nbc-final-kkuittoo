@@ -59,11 +59,7 @@ const TeamDisbandButton = ({
         router.refresh(); //캐시 갱신
       }
     } catch (error) {
-      toast({
-        title: TEAM_TOAST_MESSAGES.ERROR.TEAM_DISBAND.TITLE,
-        description: TEAM_TOAST_MESSAGES.ERROR.TEAM_DISBAND.DESCRIPTION,
-        variant: 'destructive',
-      });
+      console.error('팀 해체 중 오류 발생:', error);
     }
   };
 
