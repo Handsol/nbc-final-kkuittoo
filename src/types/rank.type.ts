@@ -18,7 +18,7 @@ export type TeamWithPoints = {
   maxTeamSize: number;
   isOpened: boolean;
   emblem: string;
-  rank: number;
+  rank?: number;
 };
 
 export type TeamCardProps = {
