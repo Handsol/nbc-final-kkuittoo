@@ -16,7 +16,7 @@ const Layout = ({ children, modal }: LayoutProps) => {
           <Sidebar />
         </div>
 
-        {/* 모바일 전용 슬라이드 사이드바 & 헤더 */}
+        {/* 모바일용 슬라이드 사이드바 & 헤더 */}
         <SidebarMobileWrapper />
 
         <article className="w-full">
