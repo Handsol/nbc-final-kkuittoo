@@ -8,7 +8,7 @@ export const TEAM_TOAST_MESSAGES = {
     },
     TEAM_JOIN: {
       TITLE: '팀 가입 완료!',
-      DESCRIPTION: '이제 함께 모험을 떠나볼까요?',
+      DESCRIPTION: (teamName: string) => `${teamName} 팀에 가입되었습니다!`,
     },
     TEAM_DISBAND: {
       TITLE: '팀 해체 완료!',
@@ -32,11 +32,23 @@ export const TEAM_TOAST_MESSAGES = {
       TITLE: '비밀번호가 다릅니다!',
       DESCRIPTION: '비밀번호를 다시 확인해주세요.',
     },
+    TEAM_JOIN: {
+      TITLE: '팀 가입 실패',
+      DESCRIPTION: (error?: string) => error || '오류가 발생했습니다.',
+    },
   },
   ERROR: {
     SERVER: {
       TITLE: '서버 에러 발생!',
       DESCRIPTION: '서버 통신 중 문제가 생겼어요. 잠시 후 다시 시도해주세요.',
+    },
+    TEAM_DISBAND: {
+      TITLE: '팀 해체 실패',
+      DESCRIPTION: '팀 해체 중 오류가 발생했습니다. 다시 시도해주세요.',
+    },
+    TEAM_LEAVE: {
+      TITLE: '팀 탈퇴 실패',
+      DESCRIPTION: '팀 탈퇴 중 오류가 발생했습니다. 다시 시도해주세요.',
     },
   },
   CONFIRM: {
