@@ -7,7 +7,7 @@ import UserTitle from '@/components/common/UserTitle';
 import { TITLE_MODE, USER_TITLE_MODE } from '@/constants/mode.constants';
 import { getUserLevel, getExpPercent } from '@/lib/utils/user-level.utils';
 import { getUserImageByLevel } from '@/lib/utils/user.utils';
-import UserLevelProgress from '@/components/mypage/habits/UserLevelProgress';
+import UserLevelProgress from '@/components/dashboard/habits/UserLevelProgress';
 import Title from '@/components/common/Title';
 import Text from '@/components/common/Text';
 

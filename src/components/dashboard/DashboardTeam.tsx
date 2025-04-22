@@ -4,14 +4,13 @@ import {
 } from '@/lib/services/team-actions.services';
 import NoTeam from './NoTeam';
 import MyTeam from './MyTeam';
-import Text from '../common/Text';
 import { getCurrentTeamQuest } from '@/lib/utils/team.utils';
 
-type MyPageTeamProps = {
+type DashboardTeamProps = {
   userId: string;
 };
 
-const MyPageTeam = async ({ userId }: MyPageTeamProps) => {
+const DashboardTeam = async ({ userId }: DashboardTeamProps) => {
   // 해당 유저의 팀 정보 조회
   const myTeamWithMemberData = await fetchGetMyTeamData(userId);
 
@@ -33,4 +32,4 @@ const MyPageTeam = async ({ userId }: MyPageTeamProps) => {
   );
 };
 
-export default MyPageTeam;
+export default DashboardTeam;

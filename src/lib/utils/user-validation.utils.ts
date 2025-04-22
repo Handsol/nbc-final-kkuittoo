@@ -29,11 +29,11 @@ export const checkUpdateUserValidation = (body: UpdateProfile) => {
     );
   }
 
-  // 자기소개 유효성 검사 : 5~20자, 빈칸 X (소개는 undefined일 수 있음)
+  // 자기소개 유효성 검사 : 0~50자, 빈칸 가능 (소개는 undefined일 수 있음)
   if (
-    !bio?.trim() ||
-    bio.length < USER_VALIDATION.BIO.MIN ||
-    bio.length > USER_VALIDATION.BIO.MAX
+    bio !== undefined &&
+    (bio.length < USER_VALIDATION.BIO.MIN ||
+      bio.length > USER_VALIDATION.BIO.MAX)
   ) {
     return NextResponse.json(
       { error: USER_ERROR_MESSAGES.BIO_LENGTH },

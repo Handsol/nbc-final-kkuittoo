@@ -12,18 +12,18 @@ const GlobalLoadingBar = () => {
 
   useEffect(() => {
     // path가 없거나 마이페이지가 아닌 경우 아무것도 return 하지 않음
-    if (!pathname || !pathname.startsWith(PATH.MYPAGE)) return;
+    if (!pathname || !pathname.startsWith(PATH.DASHBOARD)) return;
 
     // localStorage에서 마이페이지 방문 여부 확인 => 없으면 로딩 페이지 실행
-    const hasVisitedMypageBefore = localStorage.getItem(
-      'hasVisitedMypageBefore',
+    const hasVisitedDashboardBefore = localStorage.getItem(
+      'hasVisitedDashboardBefore',
     );
-    if (!hasVisitedMypageBefore) {
+    if (!hasVisitedDashboardBefore) {
       setLoading(true);
 
       const timer = setTimeout(() => {
         setLoading(false);
-        localStorage.setItem('hasVisitedMypageBefore', 'true');
+        localStorage.setItem('hasVisitedDashboardBefore', 'true');
       }, 800);
 
       return () => clearTimeout(timer);

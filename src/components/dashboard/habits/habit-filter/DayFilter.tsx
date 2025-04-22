@@ -16,12 +16,14 @@ const DayFilter = ({ selectedDay, setSelectedDay }: DayFilterProps) => {
     }
   };
   return (
-    <fieldset className="flex" aria-label="Day filter">
+    <fieldset className="flex overflow-x-auto pb-2" aria-label="Day filter">
       {DAYS_OF_WEEK.map((day, i) => (
         <label
           key={day}
           className={`
-           flex-1 pb-[8px] text-body-sm border-b-4 font-dohyeon transition-all duration-200 ease-in-out cursor-pointer hover:text-sub hover:border-sub text-center
+            flex-shrink-0 w-[calc(100%/7)] pb-[8px] text-body-sm border-b-4 font-dohyeon 
+            transition-all duration-200 ease-in-out cursor-pointer hover:text-sub hover:border-sub 
+            text-center
             ${
               selectedDay.includes(day)
                 ? 'border-main text-main font-semibold'

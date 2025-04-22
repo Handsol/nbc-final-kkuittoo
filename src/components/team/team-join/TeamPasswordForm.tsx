@@ -57,7 +57,7 @@ const TeamPasswordForm = ({ teamId }: TeamPasswordFormProps) => {
     if (newMemberData) {
       toast({
         title: TEAM_TOAST_MESSAGES.SUCCESS.TEAM_JOIN.TITLE,
-        description: TEAM_TOAST_MESSAGES.SUCCESS.TEAM_JOIN.DESCRIPTION,
+        description: TEAM_TOAST_MESSAGES.SUCCESS.TEAM_JOIN.DESCRIPTION(),
       });
 
       // 팀 페이지로 이동
