@@ -11,7 +11,7 @@ export const TeamTopSection = ({ topTeams }: Props) => {
   const delays = [300, 600, 100];
   return (
     <section className="mb-8">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-[52px] items-end">
+      <div className="grid grid-cols-3 gap-[10px] md:grid-cols-3 md:gap-[52px] items-end">
         {ordered.map((team, idx) => {
           const rank = topTeams.indexOf(team) + 1; // 실제 순위 유지
           return (

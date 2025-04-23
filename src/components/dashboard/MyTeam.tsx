@@ -54,11 +54,9 @@ const MyTeam = ({ team, teamTotalPoints, teamCurrentQuest }: MyTeamProps) => {
         </section>
       </div>
 
-      {/* 모바일 버전*/}
-      <div className="md:hidden w-full min-w-[375px] px-4 py-4 flex flex-col box-border overflow-hidden">
-        {/* 상단 */}
+      {/* 모바일 버전 */}
+      <div className="md:hidden w-full min-w-[375px] px-4 py-4 flex flex-col">
         <div className="flex gap-4 items-start">
-          {/* 왼쪽 */}
           <div className="w-[120px] h-[120px] flex-shrink-0">
             <Image
               src={questImage}
@@ -69,29 +67,26 @@ const MyTeam = ({ team, teamTotalPoints, teamCurrentQuest }: MyTeamProps) => {
             />
           </div>
 
-          {/* 오른쪽  */}
-          <div className="flex-1 flex flex-col">
-            {/* 팀 타이틀 + 공개 여부 + 앰블럼 */}
-            <div className="flex justify-between items-start">
-              <div className="w-full flex items-baseline gap-[8px]">
-                <TeamTitle
-                  teamName={teamName}
-                  currentQuestName={teamCurrentQuest.questName}
+          <div className="flex-1 min-w-0 flex flex-col">
+            {/* 상단 영역 (토글 버튼 + 엠블럼) - 팀이름이 길어질 경우 레이아웃을 벗어나서 위쪽으로 이동시킴*/}
+            <div className="w-full flex justify-between items-center mb-2 ml-4">
+              <TeamOpenNotEditMode isOpened={isOpened} />
+              <div className="w-[60px] h-[60px] flex-shrink-0">
+                <Image
+                  src={emblem}
+                  alt="emblem"
+                  width={60}
+                  height={60}
+                  className="w-full h-full object-contain pr-4"
                 />
-                <TeamOpenNotEditMode isOpened={isOpened} />
-              </div>
-              <div className="flex items-center gap-[8px]">
-                <div className="w-[50px] h-[50px]">
-                  <Image
-                    src={emblem}
-                    alt="emblem"
-                    width={50}
-                    height={50}
-                    className="w-full h-full object-contain"
-                  />
-                </div>
               </div>
             </div>
+
+            {/* 팀 타이틀 */}
+            <TeamTitle
+              teamName={teamName}
+              currentQuestName={teamCurrentQuest.questName}
+            />
 
             {/* 프로그래스 바 */}
             <div className="mt-3">
@@ -103,7 +98,7 @@ const MyTeam = ({ team, teamTotalPoints, teamCurrentQuest }: MyTeamProps) => {
           </div>
         </div>
 
-        {/* 하단 (팀 소개) */}
+        {/* 팀 소개 */}
         <div className="mt-4">
           <TeamBioNotEditMode teamBio={teamBio} />
         </div>

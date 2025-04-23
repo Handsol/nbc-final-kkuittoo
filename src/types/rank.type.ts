@@ -6,6 +6,7 @@ export type UserData = {
   email: string;
   totalPoints: number;
   userPoints: { points: number }[]; // 포인트 배열 (합산해서 랭킹 계산)
+  rank: number;
 };
 
 export type TeamWithPoints = {
@@ -17,6 +18,7 @@ export type TeamWithPoints = {
   maxTeamSize: number;
   isOpened: boolean;
   emblem: string;
+  rank?: number;
 };
 
 export type TeamCardProps = {

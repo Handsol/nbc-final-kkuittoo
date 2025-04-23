@@ -13,7 +13,7 @@ export const UserTopSection = ({ topUsers }: Props) => {
 
   return (
     <section className="mb-8">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-[52px] items-end">
+      <div className="grid grid-cols-3 gap-[10px] sm:gap-[52px] items-end justify-center">
         {ordered.map((user, idx) => {
           const rank = topUsers.indexOf(user) + 1;
 
