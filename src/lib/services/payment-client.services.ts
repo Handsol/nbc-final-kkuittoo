@@ -25,7 +25,7 @@ export const fetchCreateInitPaymentLog = async (data: PaymentLogInitData) => {
       }),
     });
 
-    if (!response) {
+    if (!response.ok) {
       throw new Error(PAYMENT_MESSAGE.BEFORE.CREATE_FAIL);
     }
 
