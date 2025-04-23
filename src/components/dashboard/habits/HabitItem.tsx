@@ -8,6 +8,7 @@ import { useHabitItemHandlers } from '@/lib/hooks/useHabitItemHandlers';
 import HabitItemActions from './habit-item/HabitItemActions';
 import HabitItemInfo from './habit-item/HabitItemInfo';
 import { calculateTodayPoints } from '@/lib/utils/habit-points.utils';
+import HabitDaysBadge from './HabitDaysBadge';
 
 type HabitItemProps = {
   habit: Habit & { userPoints: UserPoint[] };
@@ -45,7 +46,10 @@ const HabitItem = ({ habit, userId }: HabitItemProps) => {
           disabled={isDisabled}
         />
 
-        <HabitItemInfo habit={habit} />
+        <div className="flex-1 min-w-0">
+          <HabitItemInfo habit={habit} />
+          <HabitDaysBadge habit={habit} />
+        </div>
         {!isEditing && (
           <HabitItemActions
             onEdit={() => setIsEditing(true)}
