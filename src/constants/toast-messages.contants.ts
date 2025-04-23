@@ -69,7 +69,8 @@ export const HABIT_TOAST_MESSAGES = {
   SUCCESS: {
     HABIT_CREATE: {
       title: '성공',
-      description: '습관이 생성되었습니다.',
+      description:
+        '습관이 생성되었습니다. [+P 버튼]을 눌러 포인트를 추가하세요.',
     },
     HABIT_UPDATE: {
       title: '성공',

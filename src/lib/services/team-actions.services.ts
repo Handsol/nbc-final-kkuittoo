@@ -246,9 +246,11 @@ export const fetchJoinTeam = async (teamId: string, userId: string) => {
     });
 
     // 캐시 갱신
-    // 이 기능은 서버 액션에서만 사용 가능! 관련 페이지를 즉시 갱신!
+    // 관련 페이지를 즉시 갱신!
     revalidatePath('/team');
     revalidatePath(`/team/${teamId}`);
+    revalidatePath('/dashboard'); // 대시보드도 갱신
+    revalidatePath('/rank'); // 랭크 페이지도 갱신
 
     return { success: true, teamName: team.teamName };
   } catch (error) {

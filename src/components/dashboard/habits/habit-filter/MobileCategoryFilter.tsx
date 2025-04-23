@@ -36,7 +36,7 @@ const MobileCategoryFilter = ({
         >
           <SelectValue placeholder="ALL" />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent position="item-aligned">
           <SelectItem value="ALL">ALL</SelectItem>
           {HABIT_CATEGORIES.map((c) => (
             <SelectItem key={c} value={c}>

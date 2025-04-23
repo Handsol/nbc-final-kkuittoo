@@ -9,6 +9,7 @@ export const DAYS_OF_WEEK = [
   'sat',
   'sun',
 ] as const;
+export const DAYS_OF_WEEK_ARRAY = [...DAYS_OF_WEEK] as string[];
 export const DAY_LABELS = [
   'Mon',
   'Tue',
