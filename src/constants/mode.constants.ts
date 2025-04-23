@@ -2,6 +2,7 @@ export const LINKBUTTON_MODE = {
   NAV: 'nav',
   RANK: 'rank',
   COMMON: 'common',
+  SHOP: 'shop',
 };
 
 export const TITLE_MODE = {
