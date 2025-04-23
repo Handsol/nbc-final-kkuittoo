@@ -88,3 +88,7 @@ export const PAYMENT_MESSAGE = {
     FAIL_FAIL: '결제 실패 처리 중 오류가 발생했습니다.',
   },
 };
+
+export const SHOP_MESSAGE = {
+  ITEM: { FETCH_FAIL: '아이템 목록을 불러오는데 실패했습니다.' },
+};
