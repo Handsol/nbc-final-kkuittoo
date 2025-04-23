@@ -25,7 +25,7 @@ const HabitDaysBadge = ({ habit }: { habit: Habit }) => {
             <span
               key={label}
               className={`px-[2px] py-[2px] rounded-full text-body-xs leading-none 
-                ${isToday ? 'bg-sub text-white' : 'bg-light-gray'}`}
+                ${isToday ? 'bg-main text-light-gray' : 'bg-light-gray text-medium-gray'}`}
             >
               {label}
             </span>
