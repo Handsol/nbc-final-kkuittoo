@@ -4,16 +4,16 @@ import ActionButton from '@/components/common/button/ActionButton';
 import { ACTIONBUTTON_MODE } from '@/constants/mode.constants';
 
 const HabitEmptyState = ({ onCreate }: { onCreate: () => void }) => (
-  <li className="flex flex-col items-center gap-[16px] py-[24px] bg-sub/20 rounded-xl shadow-inner animate-fade-up">
+  <li className="flex flex-col items-center gap-[16px] py-[24px] bg-sub/20 rounded-xl shadow-inner">
     <Sprout size={56} className="text-main/40" aria-hidden />
 
-    {/* 제목 & 서브타이틀 */}
+    {/* 제목 */}
     <div className="text-center">
       <Text className="mb-1 font-bold text-lg">아직 습관이 없어요</Text>
       <Text className="text-dark-gray mb-4">작은 목표부터 시작해 볼까요?</Text>
 
       {/* 포인트 추가 가이드 */}
-      <ul className="text-body-sm text-medium-gray space-y-3 text-left mb-[10px]">
+      <ul className="text-body-xs md:text-body-sm text-medium-gray space-y-3 text-left mb-[16px]">
         <li className="flex items-start gap-1">
           <Info size={16} className="mt-[2px]" aria-hidden />
           <span>
