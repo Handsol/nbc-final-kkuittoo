@@ -8,7 +8,7 @@ import { IMAGE_ASSETS } from '@/constants/assets.contants';
 
 const NoTeam = () => {
   return (
-    <section className="relative w-full p-4 md:p-6 flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-6 bg-sub-light">
+    <section className="relative w-full py-4 px-12 md:py-6 md:pl-12 flex flex-col md:flex-row items-center gap-4 md:gap-12 bg-sub-light">
       {/* 기본 이미지 */}
       <div className="flex-shrink-0">
         <Image
@@ -16,7 +16,7 @@ const NoTeam = () => {
           alt="Guild Image"
           width={120}
           height={60}
-          className="rounded-lg w-32 h-auto md:w-64"
+          className="rounded-lg w-32 h-auto md:w-40 lg:w-64" // 중간에 LinkButton 레이아웃이 깨지는 현상때문에 lg, md 이미지 사이즈 분리
         />
       </div>
       {/* 메인 영역 */}
