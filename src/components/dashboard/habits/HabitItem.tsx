@@ -8,7 +8,7 @@ import { useHabitItemHandlers } from '@/lib/hooks/useHabitItemHandlers';
 import HabitItemActions from './habit-item/HabitItemActions';
 import HabitItemInfo from './habit-item/HabitItemInfo';
 import { calculateTodayPoints } from '@/lib/utils/habit-points.utils';
-import HabitDaysBadge from './HabitDaysBadge';
+import HabitDaysBadge from './habit-item/HabitDaysBadge';
 import ConfirmDialog from '@/components/common/ConfirmDialog';
 import { POINT_DIALOG_CONTENTS } from '@/constants/dialog.constants';
 
