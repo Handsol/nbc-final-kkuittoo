@@ -12,8 +12,8 @@ const HabitHeader = ({ habitsCount }: HabitHeaderProps) => {
       className="flex items-center justify-between "
       aria-label="Habit section header"
     >
-      <div className="flex items-center gap-[24px]">
-        <Title mode={TITLE_MODE.SECTION_TITLE}>MY HABITS</Title>
+      <div className="flex items-center gap-[4px]">
+        <Title mode={TITLE_MODE.SECTION_TITLE}>My Habits</Title>
         <Text className="font-bold">({habitsCount})</Text>
       </div>
     </header>
