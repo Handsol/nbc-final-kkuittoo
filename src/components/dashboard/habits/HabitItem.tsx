@@ -73,8 +73,8 @@ const HabitItem = ({ habit, userId }: HabitItemProps) => {
         </ConfirmDialog>
 
         <div className="flex-1 min-w-0">
-          <HabitItemInfo habit={habit} />
           <HabitDaysBadge habit={habit} />
+          <HabitItemInfo habit={habit} />
         </div>
         {!isEditing && (
           <HabitItemActions
