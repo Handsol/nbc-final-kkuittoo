@@ -3,7 +3,7 @@ import Title from '../common/Title';
 import { TITLE_MODE } from '@/constants/mode.constants';
 import Image from 'next/image';
 import Text from '../common/Text';
-import PurchaseButton from './PurchaseButton';
+import PurchaseButton from './items/PurchaseButton';
 import NotPurchasedItemCard from './NotPurchasedItemCard';
 
 type NotPurchasedItemListProps = {

@@ -2,7 +2,7 @@ import { ShopItem } from '@/types/shop.type';
 import Image from 'next/image';
 import Title from '../common/Title';
 import Text from '../common/Text';
-import PurchaseButton from './PurchaseButton';
+import PurchaseButton from './items/PurchaseButton';
 import { TITLE_MODE } from '@/constants/mode.constants';
 
 type NotPurchasedItemCardProps = {
