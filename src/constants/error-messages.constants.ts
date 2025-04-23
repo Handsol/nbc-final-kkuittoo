@@ -74,3 +74,17 @@ export const USER_ERROR_MESSAGES = {
   BIO_LENGTH: '자기소개는 1~20자여야 하며, 앞뒤 공백을 허용하지 않습니다.',
   UPDATE_FAILED: 'Profile 수정에 실패했습니다.',
 } as const;
+
+export const PAYMENT_MESSAGE = {
+  NULL_DATA: '누락된 데이터가 있습니다.',
+  INVALID_USER: '본인인 경우만 결제가 가능합니다.',
+  BEFORE: {
+    CREATE_FAIL: 'Payment 데이터를 추가하는데 실패했습니다.',
+    CREATE_SUCCESS: 'Payment 데이터를 성공적으로 추가했습니다.',
+  },
+  AFTER: {
+    NO_ORDERID: 'orderId 누락되어있습니다.',
+    CONFIRM_FAIL: '결제 승인 중 오류가 발생했습니다.',
+    FAIL_FAIL: '결제 실패 처리 중 오류가 발생했습니다.',
+  },
+};
