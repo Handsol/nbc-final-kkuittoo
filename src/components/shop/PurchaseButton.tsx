@@ -21,10 +21,10 @@ const PurchaseButton = ({ paymentInfo }: purchaseButtonProps) => {
   return (
     <>
       <ActionButton
-        mode={ACTIONBUTTON_MODE.DARK_GRAY_SMALL}
+        mode={ACTIONBUTTON_MODE.ROUNDED_MD_SMALL}
         onClick={() => setIsModalOpen(true)}
       >
-        BUY
+        Purchase
       </ActionButton>
 
       <TossPaymentModal
