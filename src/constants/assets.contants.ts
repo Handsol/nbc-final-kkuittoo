@@ -29,6 +29,29 @@ export const IMAGE_ASSETS = {
     GREEN: '/assets/images/green.png',
     YELLOW: '/assets/images/yellow.png',
   },
+  ITEMS: {
+    GOLD: {
+      DIAMOND: '/assets/images/items/gold-diamond.png',
+      STAR: '/assets/images/items/gold-star.png',
+    },
+    SILVER: {
+      DIAMOND: '/assets/images/items/silver-diamond.png',
+      STAR: '/assets/images/items/silver-star.png',
+    },
+    BRONZE: {
+      DIAMOND: '/assets/images/items/bronze-diamond.png',
+      STAR: '/assets/images/items/bronze-star.png',
+    },
+    WING: {
+      DIAMOND: '/assets/images/items/diamond-wing.png',
+      STAR: '/assets/images/items/star-wing.png',
+      RUBY: '/assets/images/items/ruby-wing.png',
+    },
+  },
+  SHOP: {
+    SUCCESS: '/assets/images/success_big.png',
+    FAIL: '/assets/images/fail_big.png',
+  },
 };
 
 export const FAVICON = '/assets/images/kkuitddo-favicon.ico';
