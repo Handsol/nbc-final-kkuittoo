@@ -7,6 +7,11 @@ export const PATH = {
     USERS: '/rank/users',
     TEAMS: '/rank/teams',
   },
+  SHOP: '/shop',
+  PAYMENTS: {
+    SUCCESS: '/shop/payments/success',
+    FAIL: '/shop/payments/fail',
+  },
 };
 
 export const API_PATH = {
@@ -15,6 +20,13 @@ export const API_PATH = {
   HABITS: '/api/habits',
   TEAMS: '/api/teams',
   MEMBERS: '/api/teams/member',
+  PAYMENTS: {
+    PATH: '/api/payments',
+    SUCCESS: '/api/payments/success',
+    FAIL: '/api/payments/fail',
+  },
 };
 
 export const PROJECT_URL = 'http://localhost:3000';
+
+export const TOSS_API_URL = 'https://api.tosspayments.com/v1/payments/confirm';
