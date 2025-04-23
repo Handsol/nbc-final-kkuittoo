@@ -110,13 +110,13 @@ const TeamInfo = async ({ id }: TeamQuestProps) => {
                   <TeamOpenNotEditMode isOpened={isOpened} />
                 )}
               </div>
-              <div className="w-[50px] h-[50px] flex-shrink-0">
+              <div className="w-[60px] h-[60px] flex-shrink-0">
                 <Image
                   src={emblem}
                   alt="emblem"
-                  width={50}
-                  height={50}
-                  className="w-full h-full object-contain"
+                  width={60}
+                  height={60}
+                  className="w-full h-full object-contain pr-4"
                 />
               </div>
             </div>

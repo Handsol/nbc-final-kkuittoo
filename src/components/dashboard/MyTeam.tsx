@@ -68,16 +68,16 @@ const MyTeam = ({ team, teamTotalPoints, teamCurrentQuest }: MyTeamProps) => {
           </div>
 
           <div className="flex-1 min-w-0 flex flex-col">
-            {/* 상단 영역 (토글 버튼 + 엠블럼) - 팀이름이 길어질 경우 레이아웃을 벗어나 위쪽으로 이동*/}
+            {/* 상단 영역 (토글 버튼 + 엠블럼) - 팀이름이 길어질 경우 레이아웃을 벗어나서 위쪽으로 이동시킴*/}
             <div className="w-full flex justify-between items-center mb-2 ml-4">
               <TeamOpenNotEditMode isOpened={isOpened} />
-              <div className="w-[50px] h-[50px] flex-shrink-0">
+              <div className="w-[60px] h-[60px] flex-shrink-0">
                 <Image
                   src={emblem}
                   alt="emblem"
-                  width={50}
-                  height={50}
-                  className="w-full h-full object-contain"
+                  width={60}
+                  height={60}
+                  className="w-full h-full object-contain pr-4"
                 />
               </div>
             </div>
