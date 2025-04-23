@@ -17,15 +17,15 @@ const HabitDaysBadge = ({ habit }: { habit: Habit }) => {
   const activeDays = habitDays.filter(({ key }) => habit[key as keyof Habit]);
 
   return (
-    <div className="flex flex-wrap justify-start gap-1 max-w-full mt-1">
+    <div className="flex flex-wrap justify-start gap-[2px] max-w-full mt-1">
       {activeDays.length > 0 ? (
         activeDays.map(({ key, label }) => {
           const isToday = habitDays[today].key === key;
           return (
             <span
               key={label}
-              className={`px-2 py-[2px] rounded-full text-body-xs leading-none 
-                ${isToday ? 'bg-main text-white' : 'bg-gray-100'}`}
+              className={`px-[2px] py-[2px] rounded-full text-body-xs leading-none 
+                ${isToday ? 'bg-sub text-white' : 'bg-light-gray'}`}
             >
               {label}
             </span>
