@@ -11,31 +11,31 @@ const TEAM_QUEST_POINTS = {
 export const TEAM_QUEST = [
   {
     id: 1,
-    questName: '팀퀘1',
+    questName: 'TUAKKI',
     questImage: IMAGE_ASSETS.TEAM_QUEST.LV1,
     requiredPoints: TEAM_QUEST_POINTS.LV1,
   },
   {
     id: 2,
-    questName: '팀퀘2',
+    questName: 'BLINGO',
     questImage: IMAGE_ASSETS.TEAM_QUEST.LV2,
     requiredPoints: TEAM_QUEST_POINTS.LV2,
   },
   {
     id: 3,
-    questName: '팀퀘3',
+    questName: 'WOOANG',
     questImage: IMAGE_ASSETS.TEAM_QUEST.LV3,
     requiredPoints: TEAM_QUEST_POINTS.LV3,
   },
   {
     id: 4,
-    questName: '팀퀘4',
+    questName: 'FRIZZY',
     questImage: IMAGE_ASSETS.TEAM_QUEST.LV4,
     requiredPoints: TEAM_QUEST_POINTS.LV4,
   },
   {
     id: 5,
-    questName: '팀퀘5',
+    questName: 'YONGYONG',
     questImage: IMAGE_ASSETS.TEAM_QUEST.LV5,
     requiredPoints: TEAM_QUEST_POINTS.LV5,
   },

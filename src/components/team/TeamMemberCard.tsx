@@ -28,11 +28,11 @@ const TeamMemberCard = ({
   totalContribution,
 }: TeamMemberCardProps) => {
   return (
-    <li className="w-full flex items-center justify-between bg-sub-light rounded-lg px-9 py-2 gap-4">
+    <li className="w-full flex flex-col md:flex-row items-start md:items-center justify-between bg-sub-light rounded-lg px-4 py-3 gap-2 md:gap-4">
       {/* ----- 등수 + 이미지 + 레벨 ----- */}
-      <div className="flex items-center gap-6 min-w-[150px]">
+      <div className="flex items-center gap-3 md:gap-6 min-w-[150px]">
         {/* 등수 */}
-        <div className="min-w-[32px] text-center">
+        <div className="min-w-[24px] md:min-w-[32px] text-center">
           <UserTitle mode={USER_TITLE_MODE.CARD_RANK}>{rank}</UserTitle>
         </div>
 
@@ -48,17 +48,17 @@ const TeamMemberCard = ({
       </div>
 
       {/* ----- 닉네임 + 소개글 ----- */}
-      <div className="flex flex-1 items-center gap-2 overflow-hidden">
+      <div className="flex flex-col md:flex-row flex-1 gap-1 md:gap-2 overflow-hidden">
         {/* 닉네임 */}
         <div className="w-[110px] truncate">
           <UserTitle mode={USER_TITLE_MODE.CARD_NAME}>{member.name}</UserTitle>
         </div>
         {/* 소개글 */}
-        <Text className="truncate min-w-0">{member.bio}</Text>
+        <Text className="truncate text-sm text-gray-600">{member.bio}</Text>
       </div>
 
       {/* ----- 기여도 ----- */}
-      <div className="min-w-[70px] text-right shrink-0">
+      <div className="text-right shrink-0 text-sm font-semibold">
         <UserTitle mode={USER_TITLE_MODE.CARD_LEVEL}>
           {totalContribution}점
         </UserTitle>
