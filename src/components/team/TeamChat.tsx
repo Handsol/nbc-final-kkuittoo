@@ -123,7 +123,7 @@ export const TeamChat = ({ teamId }: TeamChatProps) => {
   };
 
   return (
-    <section className="flex-1 w-full bg-white rounded-lg">
+    <section className="flex-1 w-full mb-4 bg-white rounded-lg">
       <Title mode={TITLE_MODE.SECTION_TITLE}>Team Chat</Title>
       <div className="flex flex-col mt-6 h-96 border border-gray-200 rounded-lg">
         <div
