@@ -25,8 +25,8 @@ export const TopUserRankCard = ({ user, rank, animationDelay = 0 }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const podiumSize =
     rank === 1
-      ? { width: 'w-44', height: 'h-56' }
-      : { width: 'w-32', height: 'h-44' };
+      ? { width: 'w-28 md:w-52', height: 'h-32 md:h-64' }
+      : { width: 'w-20 md:w-44', height: 'h-24 md:h-52' };
 
   const topFaceOffset = '-mt-10';
   const topFaceHeight = rank === 1 ? 'h-8' : 'h-6';
@@ -53,7 +53,7 @@ export const TopUserRankCard = ({ user, rank, animationDelay = 0 }: Props) => {
 
         {/* 포디움 영역 */}
         <div
-          className={`${podiumBaseStyle} ${podiumSize.width} ${podiumSize.height}
+          className={`relative rounded-t-md bg-gradient-to-b from-main to-white flex items-center justify-center animate-fade-up ${podiumSize.width} ${podiumSize.height}
           `}
           style={{ animationDelay: `${animationDelay}ms` }}
         >

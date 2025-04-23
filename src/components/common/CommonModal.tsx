@@ -1,6 +1,7 @@
 'use client';
 
 import { ReactNode } from 'react';
+import { MdClose } from 'react-icons/md';
 /**
  * 공통 모달 컴포넌트입니다.
  *
@@ -38,13 +39,21 @@ export const CommonModal = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-black bg-opacity-60 flex justify-center items-center"
-      onClick={onClose} // 배경 클릭 시 닫힘
+      className="fixed inset-0 z-50 bg-black bg-opacity-60 flex justify-center items-center px-4"
+      onClick={onClose}
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="bg-white rounded-2xl p-8 max-w-[40%] max-h-[70%] w-full h-auto overflow-auto shadow-xl"
+        className="relative bg-white rounded-2xl w-full max-w-sm md:max-w-lg p-6 max-h-[80vh] overflow-auto shadow-xl"
       >
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="모달 닫기"
+          className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition"
+        >
+          <MdClose />
+        </button>
         {children}
       </div>
     </div>

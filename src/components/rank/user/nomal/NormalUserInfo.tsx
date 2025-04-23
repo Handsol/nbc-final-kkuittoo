@@ -11,10 +11,22 @@ export const NormalUserInfo = ({ user }: Props) => {
   return (
     <section className="flex-1">
       <div className="flex flex-row items-center gap-3">
-        <UserTitle mode={USER_TITLE_MODE.CARD_NAME}>{user.name}</UserTitle>
-        <UserTitle mode={USER_TITLE_MODE.CARD_LEVEL}>Lv.{userLevel}</UserTitle>
+        <UserTitle
+          mode={USER_TITLE_MODE.CARD_NAME}
+          className="truncate max-w-[100px] dm:max-w-[160px] text-body-xs md:text-base"
+        >
+          {user.name}
+        </UserTitle>
+        <UserTitle
+          mode={USER_TITLE_MODE.CARD_LEVEL}
+          className="truncate max-w-[100px] dm:max-w-[160px] text-body-xs md:text-base"
+        >
+          Lv.{userLevel}
+        </UserTitle>
       </div>
-      <Text className="text-dark-gray truncate">{user.bio}</Text>
+      <Text className="text-dark-gray truncate max-w-[100px] dm:max-w-[160px] text-ellipsis">
+        {user.bio}
+      </Text>
     </section>
   );
 };
