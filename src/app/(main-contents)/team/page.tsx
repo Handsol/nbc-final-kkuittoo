@@ -10,7 +10,8 @@ export const generateMetadata = async () => {
 
 const NoTeamPage = () => {
   return (
-    <div className="w-full h-screen flex justify-center items-center bg-sub-light">
+    //모바일 스크롤 방지를 위해 min-h-[calc(100vh-98px)] 추가
+    <div className="w-full min-h-[calc(100vh-98px)] md:min-h-screen flex justify-center items-center bg-sub-light">
       <NoTeam />
     </div>
   );

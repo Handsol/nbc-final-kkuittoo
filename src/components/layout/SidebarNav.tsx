@@ -22,7 +22,7 @@ const SidebarNav = () => {
   ];
 
   return (
-    <div className="w-full flex flex-col gap-4 pt-[40px] pl-8">
+    <div className="w-full flex flex-col gap-4 pt-[10px] md:pt-[30px] pl-8">
       {NAV_ITEMS.map((item) => (
         <LinkButton
           key={item.name}
