@@ -85,7 +85,7 @@ export const TopRankTeamCard = ({
         </div>
 
         {/* 참여하기 버튼 */}
-        <div className="z-50 min-h-[40px] flex justify-center items-center">
+        <div className="mt-2 min-h-[40px] flex justify-center items-center">
           <TeamJoin
             team={team}
             hasTeam={hasTeam}
