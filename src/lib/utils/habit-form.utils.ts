@@ -1,4 +1,8 @@
-import { DAYS_OF_WEEK, HABIT_CATEGORIES } from '@/constants/habits.constants';
+import {
+  DAYS_OF_WEEK,
+  DAYS_OF_WEEK_ARRAY,
+  HABIT_CATEGORIES,
+} from '@/constants/habits.constants';
 import { HabitFormData } from '@/types/habits.type';
 import { Categories, Habit } from '@prisma/client';
 import { HabitFormSchema } from '../schema/habit.schema';
@@ -56,7 +60,9 @@ export const getDefaultValues = (habit?: HabitFormData): HabitFormSchema => ({
   title: habit?.title || '',
   notes: habit?.notes || '',
   categories: habit?.categories || HABIT_CATEGORIES[0],
-  selectedDays: habit ? DAYS_OF_WEEK.filter((day) => habit[day]) : [],
+  selectedDays: habit
+    ? DAYS_OF_WEEK.filter((day) => habit[day])
+    : DAYS_OF_WEEK_ARRAY,
 });
 
 /**
