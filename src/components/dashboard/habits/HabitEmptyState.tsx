@@ -10,11 +10,9 @@ const HabitEmptyState = ({ onCreate }: { onCreate: () => void }) => (
     {/* 제목 & 서브타이틀 */}
     <div className="text-center">
       <Text className="mb-1 font-bold text-lg">아직 습관이 없어요</Text>
-      <Text className="text-dark-gray mb-4">
-        작은 목표부터&nbsp;시작해&nbsp;볼까요?
-      </Text>
+      <Text className="text-dark-gray mb-4">작은 목표부터 시작해 볼까요?</Text>
 
-      {/* 핵심 가이드 */}
+      {/* 포인트 추가 가이드 */}
       <ul className="text-body-sm text-medium-gray space-y-3 text-left mb-[10px]">
         <li className="flex items-start gap-1">
           <Info size={16} className="mt-[2px]" aria-hidden />
