@@ -13,6 +13,7 @@ const MobileHeader = ({ onOpen }: { onOpen: () => void }) => {
     if (pathname.startsWith(PATH.DASHBOARD)) return 'DASHBOARD';
     if (pathname.startsWith(PATH.TEAM)) return 'MY TEAM';
     if (pathname.startsWith(PATH.RANK.USERS)) return 'RANK';
+    if (pathname.startsWith(PATH.RANK.TEAMS)) return 'RANK';
     return '';
   };
 
