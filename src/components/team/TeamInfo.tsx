@@ -41,47 +41,109 @@ const TeamInfo = async ({ id }: TeamQuestProps) => {
   const { teamName, teamBio, emblem, isOpened, id: teamId } = teamData;
 
   return (
-    <article className="relative w-full p-6 flex items-center gap-6 bg-sub-light">
-      {/* 퀘스트 이미지 */}
-      <Image
-        src={teamCurrentQuest.questImage}
-        alt={`${teamName} teamQuest`}
-        width={120}
-        height={120}
-      />
-      <section className="w-[380px] flex flex-col gap-3 justify-center relative">
-        <div className="w-full flex justify-between items-start gap-10">
-          {/* 팀 타이틀 : 팀 이름 + 팀 현재 퀘스트이름 */}
-          <TeamTitle
-            teamName={teamName}
-            currentQuestName={teamCurrentQuest.questName}
-          />
-          {/* 팀 공개 여부 토글 버튼 */}
-          {isOwner ? (
-            <TeamOpenToggleButton teamId={teamId} />
-          ) : (
-            <TeamOpenNotEditMode isOpened={isOpened} />
-          )}
-        </div>
-        {/* 팀 progress : progress bar + 숫자 */}
-        <TeamProgress
-          teamTotalPoints={teamTotalPoints}
-          currentQuestRequired={teamCurrentQuest.requiredPoints}
+    <article className="relative w-full bg-sub-light">
+      {/* 데스크탑 버전 */}
+      <div className="hidden md:flex relative py-6 pl-10 items-center gap-6">
+        {/* 퀘스트 이미지 */}
+        <Image
+          src={teamCurrentQuest.questImage}
+          alt={`${teamName} teamQuest`}
+          width={120}
+          height={120}
+          className="flex-shrink-0"
         />
-        {/* 팀 소개 : 생성자이면 수정버튼 활성화 */}
+
+        <section className="w-[380px] flex flex-col gap-3 justify-center">
+          <div className="w-full flex items-baseline gap-2">
+            <TeamTitle
+              teamName={teamName}
+              currentQuestName={teamCurrentQuest.questName}
+            />
+            {isOwner ? (
+              <TeamOpenToggleButton teamId={teamId} />
+            ) : (
+              <TeamOpenNotEditMode isOpened={isOpened} />
+            )}
+          </div>
+
+          <TeamProgress
+            teamTotalPoints={teamTotalPoints}
+            currentQuestRequired={teamCurrentQuest.requiredPoints}
+          />
+
+          {isOwner ? (
+            <TeamBioEditMode teamBio={teamBio} teamId={id} />
+          ) : (
+            <TeamBioNotEditMode teamBio={teamBio} />
+          )}
+        </section>
+
+        {/* 엠블럼 이미지 */}
+        <section className="absolute w-20 flex flex-col items-center justify-center right-14">
+          <Image src={emblem} alt="emblem" width={80} height={80} />
+          <UserTitle mode={USER_TITLE_MODE.CARD_LEVEL}>
+            Level {teamCurrentQuest.id}
+          </UserTitle>
+        </section>
+      </div>
+
+      {/* 모바일 버전 */}
+      <div className="md:hidden w-full min-w-[375px] px-4 py-4 flex flex-col">
+        <div className="flex gap-4 items-start">
+          <div className="w-[120px] h-[120px] flex-shrink-0">
+            <Image
+              src={teamCurrentQuest.questImage}
+              alt={`${teamName} teamQuest`}
+              width={120}
+              height={120}
+              className="w-full h-full object-cover"
+            />
+          </div>
+
+          <div className="flex-1 min-w-0 flex flex-col">
+            {/* 토글 버튼 + 엠블럼*/}
+            <div className="w-full flex justify-between items-center mb-2 ml-4">
+              <div>
+                {isOwner ? (
+                  <TeamOpenToggleButton teamId={teamId} />
+                ) : (
+                  <TeamOpenNotEditMode isOpened={isOpened} />
+                )}
+              </div>
+              <div className="w-[50px] h-[50px] flex-shrink-0">
+                <Image
+                  src={emblem}
+                  alt="emblem"
+                  width={50}
+                  height={50}
+                  className="w-full h-full object-contain"
+                />
+              </div>
+            </div>
+
+            {/* 팀 타이틀 */}
+            <TeamTitle
+              teamName={teamName}
+              currentQuestName={teamCurrentQuest.questName}
+            />
+
+            {/* 프로그래스 바 */}
+            <div className="mt-3">
+              <TeamProgress
+                teamTotalPoints={teamTotalPoints}
+                currentQuestRequired={teamCurrentQuest.requiredPoints}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* 팀 소개 */}
         {isOwner ? (
           <TeamBioEditMode teamBio={teamBio} teamId={id} />
         ) : (
           <TeamBioNotEditMode teamBio={teamBio} />
         )}
-      </section>
-      {/* 엠블럼 이미지 */}
-      <section className="absolute w-20 flex flex-col items-center justify-center right-6">
-        <Image src={emblem} alt="emblem" width={80} height={80} />
-        <UserTitle mode={USER_TITLE_MODE.CARD_LEVEL}>
-          Level {teamCurrentQuest.id}
-        </UserTitle>
-      </section>
+      </div>
     </article>
   );
 };
