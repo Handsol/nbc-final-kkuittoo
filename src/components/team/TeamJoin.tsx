@@ -9,6 +9,7 @@ import { TeamWithPoints } from '@/types/rank.type';
 import { useSession } from 'next-auth/react';
 import { fetchJoinTeam } from '@/lib/services/team-actions.services';
 import { TEAM_TOAST_MESSAGES } from '@/constants/toast-messages.contants';
+import { useQueryClient } from '@tanstack/react-query';
 
 type TeamJoinProps = {
   team: TeamWithPoints;
@@ -42,6 +43,7 @@ const TeamJoin = ({ team, hasTeam, currentMembers }: TeamJoinProps) => {
   const { toast } = useToast();
   const router = useRouter();
   const { data: session } = useSession();
+  const queryClient = useQueryClient();
 
   // team 정보
   const { id: teamId, teamName, isOpened, maxTeamSize } = team;
@@ -62,6 +64,7 @@ const TeamJoin = ({ team, hasTeam, currentMembers }: TeamJoinProps) => {
     try {
       const result = await fetchJoinTeam(teamId, userId);
       if (result.success) {
+        queryClient.invalidateQueries({ queryKey: ['myTeam'] });
         toast({
           title: TEAM_TOAST_MESSAGES.SUCCESS.TEAM_JOIN.TITLE,
           description:

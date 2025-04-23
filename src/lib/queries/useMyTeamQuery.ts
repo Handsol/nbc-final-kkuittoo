@@ -6,5 +6,7 @@ export const useMyTeamQuery = (userId: string) => {
     queryKey: ['myTeam', userId],
     queryFn: () => fetchGetMyTeamData(userId),
     enabled: !!userId,
+    refetchOnWindowFocus: true, // 창 포커스 시 자동 리페치
+    staleTime: 1000 * 60 * 5, // 과도한 리페치 방지 하려고
   });
 };

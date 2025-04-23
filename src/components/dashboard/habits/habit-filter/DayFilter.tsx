@@ -22,7 +22,7 @@ const DayFilter = ({ selectedDay, setSelectedDay }: DayFilterProps) => {
           key={day}
           className={`
             flex-shrink-0 w-[calc(100%/7)] pb-[8px] text-body-sm border-b-4 font-dohyeon 
-            transition-all duration-200 ease-in-out cursor-pointer hover:text-sub hover:border-sub 
+            transition-all duration-200 ease-in-out cursor-pointer hover:border-sub 
             text-center
             ${
               selectedDay.includes(day)

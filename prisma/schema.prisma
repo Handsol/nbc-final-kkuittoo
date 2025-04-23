@@ -68,6 +68,7 @@ model User {
   teamMessages    TeamMessage[]
   userPoints      UserPoint[]
   payments        Payment[]
+  userItems       UserItem[]
 }
 
 model UserPoint {
@@ -159,4 +160,23 @@ model Payment {
   paymentType   String? //결제 진행 후 나오는 결제 타입 ('NORMAL' | 'BRANDPAY')
   status        PaymentStatus   @default(PENDING)
   user          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+//아이템 및 구매 관련
+model Item {
+  id           String       @id @default(uuid())
+  itemName     String
+  amount       Int          //가격
+  itemImage    String
+  userItems    UserItem[]
+}
+
+model UserItem {
+  id           String       @id @default(uuid())
+  orderId      String
+  userId       String
+  itemId       String
+  isApplied    Boolean
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  item          Item        @relation(fields: [itemId], references: [id], onDelete: Cascade)
 }

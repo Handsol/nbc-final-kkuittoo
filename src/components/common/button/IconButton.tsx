@@ -35,7 +35,9 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
         break;
       case ICONBUTTON_MODE.POINT:
         icon = <span className="text-body-md font-bold">+P</span>;
-        variantClasses = 'w-[40px] h-[40px] bg-light-gray';
+        variantClasses = disabled
+          ? 'w-[40px] h-[40px] bg-medium-gray text-white'
+          : 'w-[40px] h-[40px] bg-sub text-white';
         break;
       case ICONBUTTON_MODE.CONFIRM:
         icon = <FaCheck className="w-[12px] h-[12px]" />;
@@ -45,9 +47,10 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
         break;
     }
 
-    const disabledClasses = disabled
-      ? 'bg-medium-gray text-white cursor-not-allowed hover:bg-dark-gray hover:text-white'
-      : '';
+    const disabledClasses =
+      disabled && mode !== ICONBUTTON_MODE.POINT
+        ? 'bg-medium-gray text-white cursor-not-allowed hover:bg-dark-gray hover:text-white'
+        : '';
 
     return (
       <button

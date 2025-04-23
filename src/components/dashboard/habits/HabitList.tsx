@@ -5,6 +5,7 @@ import { HabitFormData, HabitWithPoints } from '@/types/habits.type';
 import { useCreateHabitMutation } from '@/lib/mutations/useHabitMutation';
 import { useMemo } from 'react';
 import { sortHabitsByEnabled } from '@/lib/utils/habit-filter.utils';
+import HabitEmptyState from './HabitEmptyState';
 
 type HabitListProps = {
   userId: string;
@@ -51,9 +52,7 @@ const HabitList = ({
           ))}
         </div>
       ) : (
-        <li>
-          <Text>등록된 habit이 없습니다.</Text>
-        </li>
+        <HabitEmptyState onCreate={onToggleCreate} />
       )}
     </ul>
   );
