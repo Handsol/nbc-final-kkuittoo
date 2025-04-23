@@ -59,6 +59,11 @@ const ActionButton = forwardRef<HTMLButtonElement, ActionButtonProps>(
         variantStyle = 'bg-main text-white hover:bg-sub';
         roundedStyle = 'rounded-md';
         break;
+      case ACTIONBUTTON_MODE.ROUNDED_MD_SMALL:
+        sizeStyle = 'w-[100px] h-[36px]';
+        variantStyle = 'bg-main text-white hover:bg-sub';
+        roundedStyle = 'rounded-md';
+        break;
       case ACTIONBUTTON_MODE.ROUNDED_MD_LIGHT_GRAY:
         sizeStyle = 'w-[180px] h-[40px]';
         variantStyle =
