@@ -1,13 +1,12 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import { loadTossPayments, ANONYMOUS } from '@tosspayments/tosspayments-sdk';
 import { CommonModal } from '../common/CommonModal';
 import ActionButton from '../common/button/ActionButton';
 import { ACTIONBUTTON_MODE } from '@/constants/mode.constants';
 import { useTossWidget } from '@/lib/hooks/useTossWidget';
-import { PATH, PROJECT_URL } from '@/constants/path.constants';
+import { API_PATH, PROJECT_URL } from '@/constants/path.constants';
 import { useToast } from '@/lib/hooks/use-toast';
+import { fetchCreateInitPaymentLog } from '@/lib/services/payment-client.services';
 
 type TossPaymentModalProps = {
   isOpen: boolean;
@@ -27,7 +26,7 @@ const TossPaymentModal = ({
   paymentInfo,
 }: TossPaymentModalProps) => {
   const { userId, userEmail, itemId, itemName, amount } = paymentInfo;
-  const { tossPayments, isReadyToPay, clientKey, customerKey } = useTossWidget({
+  const { tossPayments, isReadyToPay } = useTossWidget({
     isOpen,
     userId,
     amount,
@@ -38,39 +37,45 @@ const TossPaymentModal = ({
   const handlePayment = async () => {
     if (!tossPayments) return;
 
+    const orderId = `order_${userId}_${Date.now()}`;
+    const paymentInitData = {
+      orderId,
+      userId,
+      itemId,
+      itemName,
+    };
+
+    // 1. DB에 초기 payment log 입력
     try {
-      // await widgets.requestPayment({
-      //   orderId: `order_${userId}_${Date.now()}`,
-      //   orderName: itemName,
-      //   successUrl: `${PROJECT_URL}${PATH.PAYMENTS.SUCCESS}`,
-      //   failUrl: `${PROJECT_URL}${PATH.PAYMENTS.FAIL}`,
-      //   customerEmail: userEmail,
-      //   customerName: userId,
-      //   customerMobilePhone: null,
-      // });
+      const response = await fetchCreateInitPaymentLog(paymentInitData);
+    } catch (error) {
+      console.error('payment 초기 데이터 생성 시 에러 발생: ', error);
+      toast({
+        title: '결제에 실패했습니다.',
+        description: '초기데이터 생성 실패',
+        variant: 'destructive',
+      });
+    }
 
-      //orderID를 만들어서 미리 넣기
-      //status => pending로 해서 데이터 넣고
-      //리다이렉트
-
-      //임시 테스트용 입니다!!
+    // 2. 토스페이먼츠 위젯 requestPayment 실행
+    try {
       const payment = await tossPayments.requestPayment({
-        orderId: `order_${Date.now()}`,
-        orderName: '테스트아이템',
-        successUrl: `${PROJECT_URL}${PATH.PAYMENTS.SUCCESS}`,
-        failUrl: `${PROJECT_URL}${PATH.PAYMENTS.FAIL}`,
-        customerEmail: 'customer123@gmail.com',
-        customerName: '김토스',
+        orderId,
+        orderName: itemName,
+        successUrl: `${PROJECT_URL}${API_PATH.PAYMENTS.SUCCESS}`,
+        failUrl: `${PROJECT_URL}${API_PATH.PAYMENTS.FAIL}`,
+        customerEmail: userEmail,
+        customerName: userId,
         customerMobilePhone: null,
       });
 
-      console.log('payment', payment);
       //여기랑 successURL에서도 데이터 인서트 테스트 해보기
     } catch (error) {
       console.error(error);
       toast({
         title: '결제에 실패했습니다',
         description: '결제 실패!',
+        variant: 'destructive',
       });
     }
   };

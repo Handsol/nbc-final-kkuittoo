@@ -24,16 +24,16 @@ export const useTossWidget = ({
       const tossSdk = await loadTossPayments(clientKey);
       const tossWidgets = tossSdk.widgets({ customerKey });
 
-      // await tossWidgets.setAmount({
-      //   currency: 'KRW',
-      //   value: amount,
-      // });
-
-      // 임시 테스트용 입니다!
       await tossWidgets.setAmount({
         currency: 'KRW',
-        value: 5000,
+        value: amount,
       });
+
+      // // 임시 테스트용 입니다!
+      // await tossWidgets.setAmount({
+      //   currency: 'KRW',
+      //   value: 5000,
+      // });
 
       // 결제 수단 & 약관 동의 위젯 렌더링
       await Promise.all([
