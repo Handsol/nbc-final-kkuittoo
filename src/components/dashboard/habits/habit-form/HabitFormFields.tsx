@@ -25,7 +25,7 @@ const HabitFormFields = ({
     <HabitFormInput
       id="title"
       label="제목"
-      placeholder="습관 제목"
+      placeholder="습관 제목(1-15자)"
       {...register('title')}
       error={errors.title?.message}
       aria-invalid={!!errors.title}
@@ -33,7 +33,7 @@ const HabitFormFields = ({
     <HabitFormInput
       id="description"
       label="설명"
-      placeholder="설명"
+      placeholder="설명(1-50자)"
       {...register('notes')}
       error={errors.notes?.message}
       aria-invalid={!!errors.notes}

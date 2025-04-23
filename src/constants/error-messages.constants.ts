@@ -9,7 +9,7 @@ export const HABIT_ERROR_MESSAGES = {
   INVALID_DAY: '오늘은 이 습관의 반복 요일이 아닙니다.',
   COOLDOWN_ACTIVE: '1시간 내에는 다시 포인트를 추가할 수 없습니다.',
   TITLE_LENGTH: '제목은 1~15자여야 합니다.',
-  NOTES_LENGTH: '메모는 1~50자여야 합니다.',
+  NOTES_LENGTH: '설명은 1~50자여야 합니다.',
   CATEGORY_REQUIRED: '카테고리는 1개 이상 선택해야 합니다.',
   CREATE_FAILED: 'Habit 생성에 실패했습니다.',
   UPDATE_FAILED: 'Habit 수정에 실패했습니다.',
