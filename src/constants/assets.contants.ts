@@ -30,3 +30,5 @@ export const IMAGE_ASSETS = {
     YELLOW: '/assets/images/yellow.png',
   },
 };
+
+export const FAVICON = '/assets/images/kkuitddo-favicon.ico';
