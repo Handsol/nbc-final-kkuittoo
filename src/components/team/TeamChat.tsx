@@ -123,7 +123,7 @@ export const TeamChat = ({ teamId }: TeamChatProps) => {
   };
 
   return (
-    <section className="flex-1 w-full mb-4 bg-white rounded-lg">
+    <section className="flex-1 w-full mt-11 mb-11 bg-white rounded-lg">
       <Title mode={TITLE_MODE.SECTION_TITLE}>Team Chat</Title>
       <div className="flex flex-col mt-6 h-96 border border-gray-200 rounded-lg">
         <div
@@ -187,15 +187,15 @@ export const TeamChat = ({ teamId }: TeamChatProps) => {
 
         <form
           onSubmit={handleSubmit}
-          className="p-2 border-t bg-light-gray rounded-b-lg"
+          className="p-2 border-t bg-white  md:bg-light-gray rounded-b-lg"
         >
           <div className="flex space-x-2">
             <input
               type="text"
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
-              placeholder="Reply"
-              className="flex-1 bg-light-gray focus:outline-none"
+              placeholder="Reply..."
+              className="flex-1 bg-white  md:bg-light-gray focus:outline-none"
             />
             <button
               type="submit"

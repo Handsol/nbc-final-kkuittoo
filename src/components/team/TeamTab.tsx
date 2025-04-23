@@ -21,13 +21,13 @@ export const MobileTeamTabs = ({
           className={getTabButtonClass(selectedTab === 'members')}
           onClick={() => setSelectedTab('members')}
         >
-          팀원 목록
+          Members
         </button>
         <button
           className={getTabButtonClass(selectedTab === 'chat')}
           onClick={() => setSelectedTab('chat')}
         >
-          팀 채팅
+          Chat
         </button>
       </div>
       <div className="px-4">
