@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import TossPaymentModal from './TossPaymentModal';
+import TossPaymentModal from '../TossPaymentModal';
 import { ACTIONBUTTON_MODE } from '@/constants/mode.constants';
-import ActionButton from '../common/button/ActionButton';
+import ActionButton from '../../common/button/ActionButton';
 
 type purchaseButtonProps = {
   paymentInfo: {
