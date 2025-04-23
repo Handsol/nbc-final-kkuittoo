@@ -30,9 +30,7 @@ const Sidebar = ({
         <SidebarNav />
       </div>
 
-      <div className="flex-1" />
-
-      <div className="flex flex-col gap-3 items-center w-full">
+      <div className="flex flex-col pt-10 gap-3 items-center w-full">
         <SidebarProfile />
         <LogoutButton />
       </div>
