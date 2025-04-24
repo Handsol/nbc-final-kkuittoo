@@ -31,6 +31,7 @@ const NotPurchasedItemList = ({
             item={item}
             userId={userId}
             userEmail={userEmail}
+            key={item.id}
           />
         ))}
       </ul>
