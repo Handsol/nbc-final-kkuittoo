@@ -4,12 +4,19 @@ import Title from '../common/Title';
 import Text from '../common/Text';
 import { TITLE_MODE } from '@/constants/mode.constants';
 import ApplyButton from './items/ApplyButton';
+import AppliedButton from './items/AppliedButton';
 
 type PurchasedItemCardProps = {
   item: ShopItem;
+  isApplied: boolean;
+  onApply: () => void;
 };
 
-const PurchasedItemCard = ({ item }: PurchasedItemCardProps) => {
+const PurchasedItemCard = ({
+  item,
+  isApplied,
+  onApply,
+}: PurchasedItemCardProps) => {
   const { itemName, amount, itemImage } = item;
 
   return (
@@ -27,7 +34,11 @@ const PurchasedItemCard = ({ item }: PurchasedItemCardProps) => {
           <Text className="text-medium-gray mt-[8px]">{`${amount}원`}</Text>
         </div>
         <div className="flex justify-end">
-          <ApplyButton />
+          {isApplied ? (
+            <AppliedButton onClick={onApply} />
+          ) : (
+            <ApplyButton onClick={onApply} />
+          )}
         </div>
       </div>
     </div>
