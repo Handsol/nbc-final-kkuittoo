@@ -11,7 +11,7 @@ export const ServiceInfo1 = () => {
   return (
     <section className="w-full max-w-[90%] md:max-w-md mx-auto">
       <header className="flex items-center justify-center gap-2 md:gap-3 mb-1 md:mb-2">
-        <PiPlant className="w-[18px] h-[18px] md:w-[24px] md:h-[24px] text-black" />
+        <PiPlant className="w-[18px] h-[18px] md:w-[24px] md:h-[24px] text-main" />
         <HomeTitleLg>작심삼일을 넘어 지속 가능한 성장</HomeTitleLg>
       </header>
       <HomeTitleSm>
@@ -28,7 +28,7 @@ export const ServiceInfo2 = () => {
   return (
     <section className="w-full mx-auto">
       <header className="flex items-center justify-center gap-2 md:gap-3 mb-1 md:mb-2">
-        <RiGamepadLine className="w-[18px] h-[18px] md:w-[24px] md:h-[24px] text-black" />
+        <RiGamepadLine className="w-[18px] h-[18px] md:w-[24px] md:h-[24px] text-main" />
         <HomeTitleLg>게임처럼 즐기는 습관 관리</HomeTitleLg>
       </header>
       <HomeTitleSm>
@@ -45,7 +45,7 @@ export const ServiceInfo3 = () => {
   return (
     <section className="w-full mx-auto">
       <header className="flex items-center justify-center gap-2 md:gap-3 mb-1 md:mb-2">
-        <LuHandshake className="w-[18px] h-[18px] md:w-[24px] md:h-[24px] text-black" />
+        <LuHandshake className="w-[18px] h-[18px] md:w-[24px] md:h-[24px] text-main" />
         <HomeTitleLg>혼자보단 함께 – 팀 기반 습관 트래커</HomeTitleLg>
       </header>
       <HomeTitleSm>
@@ -71,7 +71,7 @@ export const BioPage2Image = () => {
             style={{ animationDelay: `${idx * 0.5}s` }}
           />
           {idx < Object.values(IMAGE_ASSETS.USER).length - 1 && (
-            <FaArrowRight className="opacity-0 md:opacity-100 text-white w-[16px] h-[16px] md:w-[20px] md:h-[20px]" />
+            <FaArrowRight className="opacity-0 md:opacity-100 text-sub w-[16px] h-[16px] md:w-[20px] md:h-[20px]" />
           )}
         </div>
       ))}
