@@ -53,19 +53,3 @@ export const sortHabitsByEnabled = (
     return aEnabled === bEnabled ? 0 : aEnabled ? -1 : 1;
   });
 };
-
-/**
- * habit이 비활성화된 상태인지 확인
- * 쿨다운 활성화, 오늘 수행 불가, 또는 펜딩 중일 때 true를 반환
- * @param habit - 확인할 habit 객체
- * @param isAddPending - 포인트 추가 펜딩 여부
- * @returns 비활성화 여부
- */
-export const isHabitDisabled = (
-  habit: HabitWithPoints,
-  isAddPending: boolean,
-): boolean => {
-  const isValidDay = getCurrentDayStatus(habit);
-  const isCooldownActive = getCooldownStatus(habit.userPoints);
-  return !isValidDay || isCooldownActive || isAddPending;
-};
