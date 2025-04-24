@@ -1,17 +1,12 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
 import { useUserProfileMutation } from '@/lib/mutations/useUserProfileMutation';
 import CommonInputBar from '@/components/common/CommonInputBar';
-import ActionButton from '@/components/common/button/ActionButton';
 import { UserFormData } from '@/lib/services/user-client.services';
-import { toast } from '@/lib/hooks/use-toast';
-import { validateUserProfile } from '@/lib/utils/client/user-validation.client';
 import IconButton from '@/components/common/button/IconButton';
 import { ICONBUTTON_MODE } from '@/constants/mode.constants';
-import BioInputBar from './items/BioInputBar';
-import Text from '@/components/common/Text';
-import { USER_VALIDATION } from '@/constants/validation.constants';
+import { useUserUpdateForm } from '@/lib/hooks/useUserUpdateForm';
+import ErrorMessage from '@/components/common/ErrorMessage';
 
 type Props = UserFormData & {
   userId: string;
@@ -26,48 +21,36 @@ const UserProfileEditMode = ({
   onCancel,
   onSuccess,
 }: Props) => {
-  const { register, handleSubmit, reset } = useForm<UserFormData>({
-    defaultValues: { name, bio },
-  });
+  // react-hook-form
+  const { userProfileValidation, register, handleSubmit, errors } =
+    useUserUpdateForm(name, bio);
 
+  // tanstack query - useMutation
   const { mutate: updateUser, isPending } = useUserProfileMutation(userId);
 
-  const onSubmit = (data: UserFormData) => {
-    const validation = validateUserProfile(data.name, data.bio);
-
-    if (!validation.isValid) {
-      toast({
-        title: validation.field === 'name' ? '닉네임 오류' : '소개 오류',
-        description: validation.message,
-        variant: 'destructive',
-      });
-      return;
-    }
-
-    updateUser(data, {
-      onSuccess: () => {
-        reset(data);
-        onSuccess();
-      },
-    });
+  const handleOnSubmit = (data: UserFormData) => {
+    updateUser(data);
+    onSuccess();
   };
 
   return (
     <div className="flex flex-col gap-1 items-center min-h-[160px] justify-between">
-      <CommonInputBar id="name" {...register('name')} />
-      <Text className="w-full text-left pl-2 text-body-md text-medium-gray">
-        MAX : {USER_VALIDATION.NAME.MAX} 글자
-      </Text>
-      <CommonInputBar id="bio" {...register('bio')} />
-      <Text className="w-full text-left pl-2 text-body-md text-medium-gray">
-        {' '}
-        MAX : {USER_VALIDATION.BIO.MAX} 글자
-      </Text>
+      <CommonInputBar
+        id="name"
+        {...register('name', userProfileValidation.nickname)}
+      />
+      <ErrorMessage>{errors.name && errors.name.message}</ErrorMessage>
+      <textarea
+        className="w-full h-14 rounded-xl px-4 py-1 bg-light-gray font-pretendard text-body-sm"
+        id="bio"
+        {...register('bio', userProfileValidation.bio)}
+      />
+      <ErrorMessage>{errors.bio && errors.bio.message}</ErrorMessage>
 
       <div className="flex gap-2 mt-2">
         <IconButton
           mode={ICONBUTTON_MODE.CONFIRM}
-          onClick={handleSubmit(onSubmit)}
+          onClick={handleSubmit(handleOnSubmit)}
           disabled={isPending}
         />
         <IconButton mode={ICONBUTTON_MODE.DELETE} onClick={onCancel} />
