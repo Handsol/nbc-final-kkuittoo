@@ -14,11 +14,13 @@ const LoginButton = () => {
   return (
     <button
       onClick={handleLogin}
-      className="flex flex-row justify-center items-center text-center w-[250px] h-[55px] rounded-full bg-white gap-[10px]"
+      className="flex flex-row justify-center items-center text-center w-[250px] h-[55px] rounded-full bg-main gap-[10px]"
     >
-      <FcGoogle className="w-8 h-8" />
+      <FcGoogle className="w-10 h-10 bg-white rounded-full" />
       <div className="pt-1">
-        <Title mode={TITLE_MODE.SECTION_SUBTITLE}>구글로 시작하기</Title>
+        <Title mode={TITLE_MODE.LINK} className="text-white">
+          구글로 시작하기
+        </Title>
       </div>
     </button>
   );

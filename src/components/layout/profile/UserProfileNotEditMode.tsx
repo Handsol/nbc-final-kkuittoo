@@ -25,9 +25,9 @@ const UserProfileNotEditMode = ({ name, bio, userId, onEdit }: Props) => {
         </UserTitle>
       </div>
 
-      <div className="min-h-[40px] flex items-center justify-center">
-        <Text className="font-dohyeon text-center text-body-md">{bio}</Text>
-      </div>
+      <Text className="font-dohyeon text-center text-body-md break-all w-full max-h-[80px] overflow-hidden">
+        {bio}
+      </Text>
 
       <EditProfileButton onClick={onEdit} />
     </div>
