@@ -18,6 +18,7 @@ const ShopItemList = async () => {
 
   return (
     <div>
+      {/* TODO: 여기 위에 구매한 아이템 목록 렌더링하면 됩니다! */}
       <NotPurchasedItemList
         itemList={notPurchasedItemList}
         userId={userId}
