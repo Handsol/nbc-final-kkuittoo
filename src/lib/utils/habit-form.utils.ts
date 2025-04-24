@@ -75,17 +75,15 @@ export const isHabitDataUnchanged = (
   newData: HabitFormData,
   initialHabit?: HabitFormData,
 ): boolean => {
-  if (!initialHabit) return false; // 초기 데이터가 없으면 생성이라 false로 얼리리턴
+  if (!initialHabit) return false;
   return (
+    DAYS_OF_WEEK.every(
+      (day) =>
+        newData[day as keyof HabitFormData] ===
+        initialHabit[day as keyof HabitFormData],
+    ) &&
     newData.title === initialHabit.title &&
     newData.notes === initialHabit.notes &&
-    newData.categories === initialHabit.categories &&
-    newData.mon === initialHabit.mon &&
-    newData.tue === initialHabit.tue &&
-    newData.wed === initialHabit.wed &&
-    newData.thu === initialHabit.thu &&
-    newData.fri === initialHabit.fri &&
-    newData.sat === initialHabit.sat &&
-    newData.sun === initialHabit.sun
+    newData.categories === initialHabit.categories
   );
 };

@@ -1,16 +1,15 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { Habit, UserPoint } from '@prisma/client';
 import HabitForm from './HabitForm';
-import { isHabitDisabled } from '@/lib/utils/habit-filter.utils';
 import { ICONBUTTON_MODE } from '@/constants/mode.constants';
 import IconButton from '@/components/common/button/IconButton';
 import { useHabitItemHandlers } from '@/lib/hooks/useHabitItemHandlers';
 import HabitItemActions from './habit-item/HabitItemActions';
 import HabitItemInfo from './habit-item/HabitItemInfo';
-import { calculateTodayPoints } from '@/lib/utils/habit-points.utils';
 import HabitDaysBadge from './habit-item/HabitDaysBadge';
 import ConfirmDialog from '@/components/common/ConfirmDialog';
 import { POINT_DIALOG_CONTENTS } from '@/constants/dialog.constants';
+import { useHabitItemState } from '@/lib/hooks/useHabitItemState';
 
 type HabitItemProps = {
   habit: Habit & { userPoints: UserPoint[] };
@@ -19,10 +18,6 @@ type HabitItemProps = {
 
 const HabitItem = ({ habit, userId }: HabitItemProps) => {
   const [isEditing, setIsEditing] = useState(false);
-  const todayPoints = useMemo(
-    () => calculateTodayPoints(habit.userPoints),
-    [habit.userPoints],
-  );
 
   const {
     handleAddPoint,
@@ -37,19 +32,10 @@ const HabitItem = ({ habit, userId }: HabitItemProps) => {
     onEditToggle: setIsEditing,
   });
 
-  const isDisabled = isHabitDisabled(habit, isAddPending);
-
-  const getDaysString = () => {
-    const days = [];
-    if (habit.mon) days.push('월');
-    if (habit.tue) days.push('화');
-    if (habit.wed) days.push('수');
-    if (habit.thu) days.push('목');
-    if (habit.fri) days.push('금');
-    if (habit.sat) days.push('토');
-    if (habit.sun) days.push('일');
-    return days.join(', ');
-  };
+  const { todayPoints, isDisabled, daysString } = useHabitItemState(
+    habit,
+    isAddPending,
+  );
 
   const handleConfirmAddPoint = async () => {
     await handleAddPoint(todayPoints);
@@ -61,7 +47,7 @@ const HabitItem = ({ habit, userId }: HabitItemProps) => {
         <ConfirmDialog
           contents={{
             ...POINT_DIALOG_CONTENTS,
-            description: POINT_DIALOG_CONTENTS.description(getDaysString()),
+            description: POINT_DIALOG_CONTENTS.description(daysString),
           }}
           onClick={handleConfirmAddPoint}
         >

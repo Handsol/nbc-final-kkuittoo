@@ -35,8 +35,16 @@ export const isCooldownActive = (
  * @returns {boolean} - 아직 쿨다운 중이라면 true, 아니라면 false
  */
 export const getCooldownStatus = (userPoints: UserPoint[]): boolean => {
-  const now = new Date();
-  return isCooldownActive(userPoints, now);
+  if (userPoints.length === 0) return false;
+
+  const lastPoint = [...userPoints].sort(
+    (a, b) => new Date(b.getTime).getTime() - new Date(a.getTime).getTime(),
+  )[0];
+
+  return (
+    new Date() <
+    new Date(new Date(lastPoint.getTime).getTime() + ONE_HOUR_COOLDOWN_MS)
+  );
 };
 
 /**
