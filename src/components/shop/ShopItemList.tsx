@@ -2,6 +2,7 @@ import { getUserSession } from '@/lib/services/getUserSession.services';
 import UnauthorizedPage from '../loading-error-page/UnauthorizedPage';
 import { fetchGetItemList } from '@/lib/services/payment-actions.services';
 import NotPurchasedItemList from './NotPurchasedItemList';
+import PurchasedItemList from './PurchasedItemList';
 
 const ShopItemList = async () => {
   // 로그인한 유저 정보 가져오기
@@ -17,7 +18,8 @@ const ShopItemList = async () => {
     await fetchGetItemList(userId);
 
   return (
-    <div>
+    <div className="flex flex-col gap-6">
+      <PurchasedItemList itemList={purchasedItemList} />
       <NotPurchasedItemList
         itemList={notPurchasedItemList}
         userId={userId}
