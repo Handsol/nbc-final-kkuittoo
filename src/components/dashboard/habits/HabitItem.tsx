@@ -10,6 +10,7 @@ import HabitDaysBadge from './habit-item/HabitDaysBadge';
 import ConfirmDialog from '@/components/common/ConfirmDialog';
 import { POINT_DIALOG_CONTENTS } from '@/constants/dialog.constants';
 import { useHabitItemState } from '@/lib/hooks/useHabitItemState';
+import HabitCategoryBadge from './habit-item/HabitCategoryBadge';
 
 type HabitItemProps = {
   habit: Habit & { userPoints: UserPoint[] };
@@ -59,7 +60,10 @@ const HabitItem = ({ habit, userId }: HabitItemProps) => {
         </ConfirmDialog>
 
         <div className="flex-1 min-w-0">
-          <HabitDaysBadge habit={habit} />
+          <div className="flex items-baseline gap-[4px] flex-wrap mb-[2px]">
+            <HabitCategoryBadge category={habit.categories} />
+            <HabitDaysBadge habit={habit} />
+          </div>
           <HabitItemInfo habit={habit} />
         </div>
         {!isEditing && (

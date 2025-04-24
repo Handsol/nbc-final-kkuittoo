@@ -16,13 +16,13 @@ const HabitDaysBadge = ({ habit }: { habit: Habit }) => {
       {activeDays.map(({ key, label }) => {
         const isToday = habitDays[adjustedTodayIndex].key === key;
         return (
-          <span
+          <Text
             key={key}
             className={`px-[3px] py-[2px] rounded-full text-body-xs leading-none 
                 ${isToday ? 'bg-main text-light-gray' : 'bg-light-gray text-medium-gray'}`}
           >
             {label}
-          </span>
+          </Text>
         );
       })}
     </div>
