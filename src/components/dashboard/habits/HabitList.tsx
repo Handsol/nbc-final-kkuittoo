@@ -1,4 +1,3 @@
-import Text from '@/components/common/Text';
 import HabitForm from './HabitForm';
 import HabitItem from './HabitItem';
 import { HabitFormData, HabitWithPoints } from '@/types/habits.type';

@@ -18,7 +18,12 @@ export const UserLevelProgress = ({
     <article className="flex items-center gap-[8px] w-full">
       <UserLevel level={level} />
       <div className="flex-1 flex items-center gap-[4px]">
-        <Progress value={expPercent} className="h-[20px] flex-1" />
+        <Progress
+          value={expPercent}
+          className="h-[20px] flex-1"
+          aria-label={`사용자 레벨 ${level} 진행 상황`}
+          aria-valuenow={expPercent}
+        />
         <Text className="text-body-sm text-medium-gray text-right font-bold">
           {currentPoints}/{MAX_EXP}
         </Text>
