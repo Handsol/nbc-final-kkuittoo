@@ -7,6 +7,7 @@ import IconButton from '@/components/common/button/IconButton';
 import { ICONBUTTON_MODE } from '@/constants/mode.constants';
 import { useUserUpdateForm } from '@/lib/hooks/useUserUpdateForm';
 import ErrorMessage from '@/components/common/ErrorMessage';
+import { PLACEHOLDER } from '@/constants/placeholder.constants';
 
 type Props = UserFormData & {
   userId: string;
@@ -37,12 +38,14 @@ const UserProfileEditMode = ({
     <div className="flex flex-col gap-1 items-center min-h-[160px] justify-between">
       <CommonInputBar
         id="name"
+        placeholder={PLACEHOLDER.USER_NICKNAME}
         {...register('name', userProfileValidation.nickname)}
       />
       <ErrorMessage>{errors.name && errors.name.message}</ErrorMessage>
       <textarea
         className="w-full h-14 rounded-xl px-4 py-1 bg-light-gray font-pretendard text-body-sm"
         id="bio"
+        placeholder={PLACEHOLDER.USER_BIO}
         {...register('bio', userProfileValidation.bio)}
       />
       <ErrorMessage>{errors.bio && errors.bio.message}</ErrorMessage>
