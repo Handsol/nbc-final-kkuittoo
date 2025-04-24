@@ -28,7 +28,7 @@ const HomePaginationController = () => {
         {/* 메인 영역 */}
         <section
           aria-label={`홈페이지 소개 ${page}페이지`}
-          className="w-full max-w-[700px] h-[350px] md:h-[450px] md:border-2 md:border-white rounded-2xl flex items-center justify-center mx-2"
+          className="w-full max-w-[700px] h-[350px] md:h-[450px] rounded-2xl flex items-center justify-center mx-2"
         >
           <HomeBioContent page={page} />
         </section>

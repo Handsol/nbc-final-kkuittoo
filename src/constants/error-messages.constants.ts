@@ -70,9 +70,10 @@ export const USER_ERROR_MESSAGES = {
   USER_NOT_FOUND: 'User 정보가 존재하지 않습니다.', // 404
   INVALID_USER: '자신의 정보만 조회할 수 있습니다.', // 403
   FETCH_FAILED: 'User 정보를 가져오는데 실패했습니다.', // 500
-  NAME_LENGTH: '닉네임은 2~10자여야 하며, 앞뒤 공백을 허용하지 않습니다.',
-  BIO_LENGTH: '자기소개는 1~20자여야 하며, 앞뒤 공백을 허용하지 않습니다.',
+  NAME_LENGTH: '닉네임은 2~15자여야 합니다.',
+  BIO_LENGTH: '자기소개는 30자 이하여야 합니다.',
   UPDATE_FAILED: 'Profile 수정에 실패했습니다.',
+  BLANK: '닉네임은 필수 입력입니다.',
 } as const;
 
 export const PAYMENT_MESSAGE = {

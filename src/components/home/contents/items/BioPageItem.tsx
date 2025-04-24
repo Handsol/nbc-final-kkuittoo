@@ -11,7 +11,7 @@ export const ServiceInfo1 = () => {
   return (
     <section className="w-full max-w-[90%] md:max-w-md mx-auto">
       <header className="flex items-center justify-center gap-2 md:gap-3 mb-1 md:mb-2">
-        <PiPlant className="w-[18px] h-[18px] md:w-[24px] md:h-[24px] text-white" />
+        <PiPlant className="w-[18px] h-[18px] md:w-[24px] md:h-[24px] text-main" />
         <HomeTitleLg>작심삼일을 넘어 지속 가능한 성장</HomeTitleLg>
       </header>
       <HomeTitleSm>
@@ -28,7 +28,7 @@ export const ServiceInfo2 = () => {
   return (
     <section className="w-full mx-auto">
       <header className="flex items-center justify-center gap-2 md:gap-3 mb-1 md:mb-2">
-        <RiGamepadLine className="w-[18px] h-[18px] md:w-[24px] md:h-[24px] text-white" />
+        <RiGamepadLine className="w-[18px] h-[18px] md:w-[24px] md:h-[24px] text-main" />
         <HomeTitleLg>게임처럼 즐기는 습관 관리</HomeTitleLg>
       </header>
       <HomeTitleSm>
@@ -45,7 +45,7 @@ export const ServiceInfo3 = () => {
   return (
     <section className="w-full mx-auto">
       <header className="flex items-center justify-center gap-2 md:gap-3 mb-1 md:mb-2">
-        <LuHandshake className="w-[18px] h-[18px] md:w-[24px] md:h-[24px] text-white" />
+        <LuHandshake className="w-[18px] h-[18px] md:w-[24px] md:h-[24px] text-main" />
         <HomeTitleLg>혼자보단 함께 – 팀 기반 습관 트래커</HomeTitleLg>
       </header>
       <HomeTitleSm>
@@ -71,7 +71,7 @@ export const BioPage2Image = () => {
             style={{ animationDelay: `${idx * 0.5}s` }}
           />
           {idx < Object.values(IMAGE_ASSETS.USER).length - 1 && (
-            <FaArrowRight className="text-white w-[16px] h-[16px] md:w-[20px] md:h-[20px]" />
+            <FaArrowRight className="opacity-0 md:opacity-100 text-sub w-[16px] h-[16px] md:w-[20px] md:h-[20px]" />
           )}
         </div>
       ))}
@@ -103,8 +103,11 @@ export const BioPage3Info = () => {
       <HomeTitleSm>
         혼자라면 지치던 습관도 함께라면 더 멀리 갈 수 있습니다. <br />
         각각 팀원이 매일 습관을 달성하면 팀도 함께 성장합니다. <br />
-        팀원들과 채팅으로 응원하고, 서로의 실천을 함께 나눌 수 있어요. <br />
-        팀을 만들어 동료들과 몬스터를 무찌르며 협동의 즐거움을 느껴보세요!
+        팀원들과 채팅으로 응원하고, 서로의 실천을
+        <span className="whitespace-nowrap">함께 나눌 수 있어요.</span>
+        <br />
+        팀을 만들어 동료들과 몬스터를 무찌르며 협동의
+        <span className="whitespace-nowrap">즐거움을 느껴보세요!</span>
       </HomeTitleSm>
     </div>
   );
