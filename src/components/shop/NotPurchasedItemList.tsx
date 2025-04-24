@@ -1,10 +1,8 @@
 import { ItemList } from '@/types/shop.type';
 import Title from '../common/Title';
 import { TITLE_MODE } from '@/constants/mode.constants';
-import Image from 'next/image';
-import Text from '../common/Text';
-import PurchaseButton from './PurchaseButton';
 import NotPurchasedItemCard from './NotPurchasedItemCard';
+import { shopItemListUlStyle } from '@/styles/shopItemListStyles';
 
 type NotPurchasedItemListProps = {
   itemList: ItemList;
@@ -27,7 +25,7 @@ const NotPurchasedItemList = ({
       >
         {`All Items (${itemNumber})`}
       </Title>
-      <section className="w-full grid grid-cols-1 md:grid-cols-2 mt-[24px] gap-[24px]">
+      <ul className={shopItemListUlStyle}>
         {itemList.map((item) => (
           <NotPurchasedItemCard
             item={item}
@@ -35,7 +33,7 @@ const NotPurchasedItemList = ({
             userEmail={userEmail}
           />
         ))}
-      </section>
+      </ul>
     </article>
   );
 };
