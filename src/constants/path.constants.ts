@@ -27,6 +27,6 @@ export const API_PATH = {
   },
 };
 
-export const PROJECT_URL = 'https://www.kkuitddo.com/';
+export const PROJECT_URL = 'https://www.kkuitddo.com';
 
 export const TOSS_API_URL = 'https://api.tosspayments.com/v1/payments/confirm';
