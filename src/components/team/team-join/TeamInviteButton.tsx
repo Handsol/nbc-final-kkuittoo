@@ -15,7 +15,7 @@ const TeamInviteButton = ({ id }: TeamInviteButtonProps) => {
   return (
     <>
       <ActionButton
-        mode={ACTIONBUTTON_MODE.ROUNDED_MD}
+        mode={ACTIONBUTTON_MODE.ROUNDED_MD_REVERSE}
         onClick={handleInviteButtonClick}
       >
         팀 초대하기
