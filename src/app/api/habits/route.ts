@@ -16,18 +16,31 @@ import { createHabitSchema } from '@/lib/schema/habit.schema';
  * - 인증된 사용자가 자신의 Habit 목록 조회
  * - `userPoints` 포함, 생성일 내림차순 정렬
  */
-export const GET = async () => {
+export const GET = async (request: NextRequest) => {
   const { session, response } = await checkAuth();
   if (response) return response;
 
   try {
+    const { searchParams } = new URL(request.url);
+    const skip = parseInt(searchParams.get('skip') || '0');
+    const take = parseInt(searchParams.get('take') || '5');
+
     const habits = await prisma.habit.findMany({
       where: { userId: session.user.id },
-      include: { userPoints: true }, //Habit 조회 시 연관된 UserPoint 데이터를 함께 가져옴
+      include: { userPoints: true },
       orderBy: { createdAt: 'desc' },
+      skip,
+      take,
     });
 
-    return NextResponse.json(habits);
+    const totalHabits = await prisma.habit.count({
+      where: { userId: session.user.id },
+    });
+
+    return NextResponse.json({
+      habits,
+      totalHabits,
+    });
   } catch (error) {
     console.error('Habit 조회 에러:', error);
     return NextResponse.json(

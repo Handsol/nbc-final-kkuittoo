@@ -30,48 +30,49 @@ export const POST = async (request: NextRequest) => {
   try {
     const body = (await request.json()) as CreateUserPoint;
     const { habitId } = body;
+    console.log('POST /api/habits:', { habitId, userId: session.user.id });
 
     const habit = await prisma.habit.findUnique({
       where: { id: habitId },
       include: { userPoints: true },
     });
+    console.log('Habit:', habit);
 
     const permissionError = checkHabitPermission(habit, session.user.id);
-    if (permissionError) return permissionError;
+    if (permissionError) {
+      console.log('Permission error:', permissionError);
+      return permissionError;
+    }
 
-    // 현재 요일 확인
     const now = new Date();
-    if (!getCurrentDayStatus(habit!)) {
+    const isValidDay = getCurrentDayStatus(habit!);
+
+    if (!isValidDay) {
       return NextResponse.json(
         { error: HABIT_ERROR_MESSAGES.INVALID_DAY },
         { status: HTTP_STATUS.BAD_REQUEST },
       );
     }
 
-    // 최근 1시간 내 포인트 추가하는지 확인
     const cooldownError = checkCooldown(habit!.userPoints, now);
+    console.log('Cooldown check:', {
+      cooldownError,
+      userPoints: habit!.userPoints,
+    });
     if (cooldownError) return cooldownError;
 
-    // 오늘 날짜 (시간 제외)
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-
-    // 오늘 획득한 총 포인트 계산 (모든 습관에 대한 총합)
     const todayPoints = await prisma.userPoint.aggregate({
       where: {
         userId: session.user.id,
-        getTime: {
-          gte: today.toISOString(),
-        },
+        getTime: { gte: today.toISOString() },
       },
-      _sum: {
-        points: true,
-      },
+      _sum: { points: true },
     });
-
     const totalTodayPoints = todayPoints._sum.points || 0;
+    console.log('Today points:', { totalTodayPoints, MAX_POINTS_PER_DAY });
 
-    // 하루 최대 포인트 검증 (10점 제한)
     if (totalTodayPoints >= MAX_POINTS_PER_DAY) {
       return NextResponse.json(
         { error: HABIT_ERROR_MESSAGES.DAILY_POINT_LIMIT_EXCEEDED },
@@ -79,13 +80,12 @@ export const POST = async (request: NextRequest) => {
       );
     }
 
-    // 추가할 포인트 계산 (남은 양이 1점 미만이면 남은 양만 추가)
     const pointsToAdd = Math.min(
       POINTS_TO_ADD,
       MAX_POINTS_PER_DAY - totalTodayPoints,
     );
+    console.log('Adding points:', { pointsToAdd });
 
-    // 포인트 추가 (계산된 pointsToAdd 사용)
     const userPoint = await prisma.userPoint.create({
       data: {
         userId: session.user.id,

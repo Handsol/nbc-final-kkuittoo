@@ -12,16 +12,10 @@ export const metadata: Metadata = dashboardMetadata;
 
 const Dashboard = async () => {
   const session = await getUserSession();
-
-  if (!session) {
-    return <UnauthorizedPage />;
-  }
+  if (!session) return <UnauthorizedPage />;
   const userId = session.user.id;
 
-  // 초기 습관 데이터 가져오기
-  const habits = await fetchGetUserHabits(userId);
-
-  // 초기 포인트 계산
+  const { habits, totalHabits } = await fetchGetUserHabits(userId, 0, 5);
   const userProfile = await fetchGetUserProfile(userId);
   const totalPoints = userProfile
     ? userProfile.userPoints.reduce((sum, p) => sum + p.points, 0)
@@ -36,6 +30,7 @@ const Dashboard = async () => {
         <DashboardHabits
           userId={userId}
           initialHabits={habits}
+          initialTotalHabits={totalHabits}
           initialPoints={totalPoints}
         />
       </DashboardSection>
