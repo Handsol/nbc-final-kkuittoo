@@ -1,3 +1,5 @@
+import ActionButton from '@/components/common/button/ActionButton';
+import { ACTIONBUTTON_MODE } from '@/constants/mode.constants';
 import { FaCheck } from 'react-icons/fa6';
 
 type AppliedProps = {
@@ -6,13 +8,10 @@ type AppliedProps = {
 
 const AppliedButton = ({ onClick }: AppliedProps) => {
   return (
-    <button
-      onClick={onClick}
-      className="flex flex-row items-center justify-center gap-2 w-[115px] h-[36px] bg-sub-light text-main border-2 border-main rounded-md hover:bg-sub "
-    >
+    <ActionButton mode={ACTIONBUTTON_MODE.ROUNDED_MD_APPLIED} onClick={onClick}>
       <FaCheck className="w-[15px] h-[15px] text-main" />
       <p className="font-dohyeon text-body-sm text-main">적용됨</p>
-    </button>
+    </ActionButton>
   );
 };
 
