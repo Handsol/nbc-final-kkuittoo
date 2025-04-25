@@ -25,7 +25,6 @@ export const API_PATH = {
     SUCCESS: '/api/payments/success',
     FAIL: '/api/payments/fail',
   },
-  SHOP: 'api/shop',
 };
 
 export const PROJECT_URL = 'http://localhost:3000';
