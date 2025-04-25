@@ -10,11 +10,13 @@ import { useSession } from 'next-auth/react';
 import { fetchJoinTeam } from '@/lib/services/team-actions.services';
 import { TEAM_TOAST_MESSAGES } from '@/constants/toast-messages.contants';
 import { useQueryClient } from '@tanstack/react-query';
+import { TeamData } from '@/types/teams.type';
 
 type TeamJoinProps = {
-  team: TeamWithPoints;
+  team: TeamWithPoints | TeamData;
   hasTeam: boolean;
   currentMembers: number;
+  mode?: string;
 };
 
 /**
@@ -38,7 +40,7 @@ type TeamJoinProps = {
  * @returns
  */
 
-const TeamJoin = ({ team, hasTeam, currentMembers }: TeamJoinProps) => {
+const TeamJoin = ({ team, hasTeam, currentMembers, mode }: TeamJoinProps) => {
   // toast + router
   const { toast } = useToast();
   const router = useRouter();
@@ -50,11 +52,11 @@ const TeamJoin = ({ team, hasTeam, currentMembers }: TeamJoinProps) => {
 
   // 공개 팀 가입 로직
   const joinContents = {
-    uiButtonText: 'JOIN',
-    title: 'JOIN THIS TEAM',
+    uiButtonText: '가입하기',
+    title: '공개 팀 가입하기',
     description: `${teamName}의 팀원들과 함께 모험을 떠나시겠습니까?`,
-    cancelButtonText: 'NO',
-    confirmButtonText: 'YES',
+    cancelButtonText: '취소',
+    confirmButtonText: '가입',
   };
 
   const handleJoinOpenTeam = async () => {
@@ -99,9 +101,13 @@ const TeamJoin = ({ team, hasTeam, currentMembers }: TeamJoinProps) => {
   return (
     <>
       {isOpened ? (
-        <ConfirmDialog contents={joinContents} onClick={handleJoinOpenTeam} />
+        <ConfirmDialog
+          contents={joinContents}
+          onClick={handleJoinOpenTeam}
+          mode={mode}
+        />
       ) : (
-        <TeamJoinPrivateModal teamId={teamId} />
+        <TeamJoinPrivateModal teamId={teamId} mode={mode} />
       )}
     </>
   );

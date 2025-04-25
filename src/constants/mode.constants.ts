@@ -46,3 +46,8 @@ export const SELECTBUTTON_MODE = {
   CATEGORY: 'category',
   DAY: 'day',
 } as const;
+
+export const JOINBUTTON_MODE = {
+  TEAM_PAGE: 'teamPage',
+  RANK_PAGE: 'rankPage',
+} as const;
