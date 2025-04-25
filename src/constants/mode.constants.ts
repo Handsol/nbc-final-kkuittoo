@@ -34,6 +34,7 @@ export const ACTIONBUTTON_MODE = {
   DARK_GRAY_SMALL: 'dark-gray-small',
   ROUNDED_MD: 'rounded-md',
   ROUNDED_MD_LIGHT_GRAY: 'rounded-md-light-gray',
+  ROUNDED_MD_REVERSE: 'rounded-md-reverse',
   LOGOUT: 'logout',
 } as const;
 
@@ -45,4 +46,9 @@ export const MODAL_MODE = {
 export const SELECTBUTTON_MODE = {
   CATEGORY: 'category',
   DAY: 'day',
+} as const;
+
+export const JOINBUTTON_MODE = {
+  TEAM_PAGE: 'teamPage',
+  RANK_PAGE: 'rankPage',
 } as const;

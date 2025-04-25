@@ -260,3 +260,39 @@ export const fetchJoinTeam = async (teamId: string, userId: string) => {
     };
   }
 };
+
+/**
+ * 해당 유저가 이 팀의 멤버인지, 가입한 팀이 있는지 조회하는 로직
+ *
+ * @param userId {string}
+ * @param teamId {string}
+ */
+export const fetchGetUserTeamInfo = async (userId: string, teamId: string) => {
+  try {
+    // isUserhasTeam = 해당 유저가 현재 팀이 있는지 조회
+    // isThisTeamMember = 해당 유저가 이 팀의 멤버인지 조회
+    let isUserhasTeam = false;
+    let isThisTeamMember = false;
+
+    const userTeamData = await prisma.teamMember.findFirst({
+      where: { userId },
+      include: { team: true },
+    });
+    const currentTeamMembers = await prisma.teamMember.count({
+      where: { teamId },
+    });
+
+    // 해당 유저에 대한 데이터가 없는 경우 : 둘 다 false
+    if (!userTeamData) {
+      return { isThisTeamMember, isUserhasTeam, currentTeamMembers };
+    }
+
+    isThisTeamMember = userTeamData.team.id === teamId;
+    isUserhasTeam = userTeamData !== null;
+
+    return { isThisTeamMember, isUserhasTeam, currentTeamMembers };
+  } catch (error) {
+    console.error('fetchGetUserTeamInfo 에러:', error);
+    throw new Error(`${TEAMS_MESSAGES.FETCH_FAILED}, user's Team`);
+  }
+};

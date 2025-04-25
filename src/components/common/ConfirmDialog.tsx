@@ -12,7 +12,7 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import ActionButton from './button/ActionButton';
-import { ACTIONBUTTON_MODE } from '@/constants/mode.constants';
+import { ACTIONBUTTON_MODE, JOINBUTTON_MODE } from '@/constants/mode.constants';
 
 type ConfirmDialogProps = {
   contents: {
@@ -24,6 +24,7 @@ type ConfirmDialogProps = {
   };
   onClick: () => Promise<void>;
   children?: React.ReactNode;
+  mode?: string;
 };
 
 /**
@@ -40,7 +41,12 @@ type ConfirmDialogProps = {
  * @param onClick {() => Promise<void>}
  * @returns
  */
-const ConfirmDialog = ({ contents, onClick, children }: ConfirmDialogProps) => {
+const ConfirmDialog = ({
+  contents,
+  onClick,
+  children,
+  mode,
+}: ConfirmDialogProps) => {
   const {
     uiButtonText,
     title,
@@ -48,6 +54,7 @@ const ConfirmDialog = ({ contents, onClick, children }: ConfirmDialogProps) => {
     cancelButtonText,
     confirmButtonText,
   } = contents;
+  const isTeamJoinButton = mode === JOINBUTTON_MODE.TEAM_PAGE;
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -58,7 +65,7 @@ const ConfirmDialog = ({ contents, onClick, children }: ConfirmDialogProps) => {
         {children || (
           <ActionButton
             mode={
-              uiButtonText === 'JOIN'
+              uiButtonText === '가입하기' && !isTeamJoinButton
                 ? ACTIONBUTTON_MODE.DARK_GRAY_SMALL
                 : ACTIONBUTTON_MODE.ROUNDED_MD
             }

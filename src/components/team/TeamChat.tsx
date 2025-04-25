@@ -124,7 +124,7 @@ export const TeamChat = ({ teamId }: TeamChatProps) => {
 
   return (
     <section className="flex-1 w-full mt-11 mb-11 bg-white rounded-lg">
-      <Title mode={TITLE_MODE.SECTION_TITLE}>Team Chat</Title>
+      <Title mode={TITLE_MODE.SECTION_TITLE}>팀 채팅</Title>
       <div className="flex flex-col mt-6 h-96 border border-gray-200 rounded-lg">
         <div
           ref={containerRef}
