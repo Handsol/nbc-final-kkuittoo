@@ -18,7 +18,7 @@ const TeamMemberList = async ({ id }: TeamMemberListProps) => {
       <div className="w-full flex justify-between items-center">
         <Title mode={TITLE_MODE.SECTION_TITLE}>팀 멤버</Title>
         <div className="flex gap-4">
-          <TeamInviteButton />
+          <TeamInviteButton id={id} />
           <TeamLeave id={id} />
         </div>
       </div>
