@@ -19,7 +19,7 @@ const TeamLeaveButton = ({ id }: TeamLeaveButtonProps) => {
 
   // alert-dialog에 들어갈 컨텐츠
   const leaveContents = {
-    uiButtonText: 'LEAVE',
+    uiButtonText: '팀 탈퇴하기',
     title: TEAM_TOAST_MESSAGES.CONFIRM.TEAM_LEAVE.TITLE,
     description: TEAM_TOAST_MESSAGES.CONFIRM.TEAM_LEAVE.DESCRIPTION,
     cancelButtonText: 'NO',

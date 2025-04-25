@@ -4,6 +4,7 @@ import { TITLE_MODE } from '@/constants/mode.constants';
 import { getUserLevel } from '@/lib/utils/user-level.utils';
 import { fetchGetTeamMembers } from '@/lib/services/team-actions.services';
 import TeamLeave from './TeamLeave';
+import TeamInviteButton from './team-join/TeamInviteButton';
 
 type TeamMemberListProps = {
   id: string;
@@ -15,8 +16,11 @@ const TeamMemberList = async ({ id }: TeamMemberListProps) => {
   return (
     <div className="w-full flex flex-col gap-5 mt-11 mb-11">
       <div className="w-full flex justify-between items-center">
-        <Title mode={TITLE_MODE.SECTION_TITLE}>Members</Title>
-        <TeamLeave id={id} />
+        <Title mode={TITLE_MODE.SECTION_TITLE}>팀 멤버</Title>
+        <div className="flex gap-4">
+          <TeamInviteButton />
+          <TeamLeave id={id} />
+        </div>
       </div>
       <ul className="w-full flex flex-col gap-2">
         {teamMemberList.map((member, index) => {
