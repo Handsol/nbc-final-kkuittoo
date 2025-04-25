@@ -1,10 +1,10 @@
 import { FaCheck } from 'react-icons/fa6';
 
-type AppliedButtonProps = {
+type AppliedProps = {
   onClick: () => void;
 };
 
-const AppliedButton = ({ onClick }: AppliedButtonProps) => {
+const AppliedButton = ({ onClick }: AppliedProps) => {
   return (
     <button
       onClick={onClick}
