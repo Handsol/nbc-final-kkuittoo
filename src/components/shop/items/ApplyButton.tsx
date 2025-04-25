@@ -5,7 +5,7 @@ type ApplyProps = {
 const ApplyButton = ({ onClick }: ApplyProps) => {
   return (
     <button
-      className="w-[75px] h-[36px] bg-white text-main border-2 border-main rounded-md hover:bg-sub"
+      className="w-[100px] h-[36px] bg-white text-main border-2 border-main rounded-md hover:bg-sub"
       onClick={onClick}
     >
       <p className="font-dohyeon text-body-sm text-main">적용하기</p>
