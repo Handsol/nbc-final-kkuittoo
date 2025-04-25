@@ -24,7 +24,7 @@ const PurchaseButton = ({ paymentInfo }: purchaseButtonProps) => {
         mode={ACTIONBUTTON_MODE.ROUNDED_MD_SMALL}
         onClick={() => setIsModalOpen(true)}
       >
-        Purchase
+        구매하기
       </ActionButton>
 
       <TossPaymentModal
