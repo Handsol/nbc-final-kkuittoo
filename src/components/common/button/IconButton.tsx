@@ -2,6 +2,7 @@ import { ButtonHTMLAttributes, forwardRef } from 'react';
 import { Pencil, X, Plus } from 'lucide-react';
 import { ICONBUTTON_MODE } from '@/constants/mode.constants';
 import { FaCheck } from 'react-icons/fa6';
+import { motion } from 'framer-motion';
 
 type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   mode: string;
@@ -18,7 +19,7 @@ type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
   ({ mode, disabled = false, ...props }, ref) => {
     const baseClasses =
-      'w-9 h-9 flex items-center justify-center rounded-full transition-colors w-4 h-4 text-medium-gray hover:text-main';
+      'w-9 h-9 flex items-center justify-center rounded-full transition-colors w-4 h-4 text-medium-gray';
 
     let icon;
     let variantClasses;
@@ -34,10 +35,27 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
         icon = <Plus />;
         break;
       case ICONBUTTON_MODE.POINT:
-        icon = <span className="text-body-md font-bold">+P</span>;
+        icon = disabled ? (
+          <span className="text-body-md font-bold">+P</span>
+        ) : (
+          <motion.span
+            whileHover={{
+              rotate: [0, -10, 10, -10, 10, -10, 10, 0], // 좌우로 흔들
+              scale: 1.2,
+            }}
+            transition={{
+              duration: 1,
+              ease: 'easeInOut',
+            }}
+            className="text-body-md font-bold"
+          >
+            +P
+          </motion.span>
+        );
+
         variantClasses = disabled
           ? 'w-[40px] h-[40px] bg-medium-gray text-white'
-          : 'w-[40px] h-[40px] bg-sub text-white';
+          : 'w-[40px] h-[40px] bg-[#FFAA32] border-4 border-[#FFC864] text-[#FFDB98]';
         break;
       case ICONBUTTON_MODE.CONFIRM:
         icon = <FaCheck className="w-[12px] h-[12px]" />;
@@ -49,7 +67,7 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 
     const disabledClasses =
       disabled && mode !== ICONBUTTON_MODE.POINT
-        ? 'bg-medium-gray text-white cursor-not-allowed hover:bg-dark-gray hover:text-white'
+        ? 'bg-medium-gray text-white cursor-not-allowed'
         : '';
 
     return (
