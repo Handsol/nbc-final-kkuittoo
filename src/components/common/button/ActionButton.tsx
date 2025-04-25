@@ -83,7 +83,8 @@ const ActionButton = forwardRef<HTMLButtonElement, ActionButtonProps>(
         break;
       case ACTIONBUTTON_MODE.ROUNDED_MD_APPLIED:
         sizeStyle = 'w-[115px] h-[36px]';
-        variantStyle = 'bg-white text-main border-2 border-main hover:bg-sub';
+        variantStyle =
+          'flex flex-row items-center justify-center gap-2 bg-sub-light text-main border-2 border-main hover:bg-sub';
         roundedStyle = 'rounded-md';
         break;
       default:
