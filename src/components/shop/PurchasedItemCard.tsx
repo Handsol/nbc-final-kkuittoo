@@ -1,23 +1,29 @@
-import { ShopItem } from '@/types/shop.type';
+'use client';
+
+import { useState } from 'react';
 import Image from 'next/image';
 import Title from '../common/Title';
 import Text from '../common/Text';
 import { TITLE_MODE } from '@/constants/mode.constants';
-import ApplyButton from './items/ApplyButton';
-import AppliedButton from './items/AppliedButton';
+import { ShopItem } from '@/types/shop.type';
+import ApplyButtonWrapper from './items/ApplyButtonWrapper';
 
-type PurchasedItemCardProps = {
+type Props = {
   item: ShopItem;
-  isApplied: boolean;
-  onApply: () => void;
 };
 
-const PurchasedItemCard = ({
-  item,
-  isApplied,
-  onApply,
-}: PurchasedItemCardProps) => {
-  const { itemName, amount, itemImage } = item;
+const PurchasedItemCard = ({ item }: Props) => {
+  const { id, itemName, amount, itemImage } = item;
+  const [appliedItemId, setAppliedItemId] = useState<string | null>(null);
+  const isApplied = appliedItemId === id;
+
+  const handleClick = () => {
+    if (isApplied) {
+      setAppliedItemId('');
+    } else {
+      setAppliedItemId(id);
+    }
+  };
 
   return (
     <div className="w-full flex justify-between border border-light-gray rounded-md gap-[16px]">
@@ -34,11 +40,7 @@ const PurchasedItemCard = ({
           <Text className="text-medium-gray mt-[8px]">{`${amount}원`}</Text>
         </div>
         <div className="flex justify-end">
-          {isApplied ? (
-            <AppliedButton onClick={onApply} />
-          ) : (
-            <ApplyButton onClick={onApply} />
-          )}
+          <ApplyButtonWrapper isApplied={isApplied} onClick={handleClick} />
         </div>
       </div>
     </div>
