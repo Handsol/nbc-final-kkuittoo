@@ -53,7 +53,7 @@ const TeamInfo = async ({ id }: TeamQuestProps) => {
           className="flex-shrink-0"
         />
 
-        <section className="w-[380px] flex flex-col gap-3 justify-center">
+        <section className="flex-1 flex flex-col gap-3 justify-center min-w-0">
           <div className="w-full flex items-baseline gap-2">
             <TeamTitle
               teamName={teamName}
@@ -79,7 +79,7 @@ const TeamInfo = async ({ id }: TeamQuestProps) => {
         </section>
 
         {/* 엠블럼 이미지 */}
-        <section className="absolute w-20 flex flex-col items-center justify-center right-14">
+        <section className="w-20 flex flex-col items-center justify-center flex-shrink-0 mr-6">
           <Image src={emblem} alt="emblem" width={80} height={80} />
           <UserTitle mode={USER_TITLE_MODE.CARD_LEVEL}>
             Level {teamCurrentQuest.id}

@@ -1,3 +1,4 @@
+import { DAY_LABELS_KO, DAYS_OF_WEEK } from '@/constants/habits.constants';
 import { Habit } from '@prisma/client';
 
 /**
@@ -33,16 +34,17 @@ export const isToday = (date: Date): boolean => {
  * @returns {boolean} - 오늘이 습관 수행 요일인지 여부
  */
 export const getCurrentDayStatus = (habit: Habit) => {
-  const now = new Date();
-  const dayOfWeek = now.getDay(); //현재 요일을 숫자로 가져옴
-  const days = [
-    habit.sun,
-    habit.mon,
-    habit.tue,
-    habit.wed,
-    habit.thu,
-    habit.fri,
-    habit.sat,
-  ];
-  return days[dayOfWeek]; //오늘 요일에 해당하는 인덱스의 값을 반환
+  const dayOfWeek = new Date().getDay(); // 0(일) ~ 6(토)
+  const adjustedIndex = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+  return habit[DAYS_OF_WEEK[adjustedIndex]] as boolean;
+};
+
+/**
+ * 한국어 요일 정보를 가진 배열 생성
+ */
+export const getKoreanDayInfoArray = (): { key: string; label: string }[] => {
+  return DAYS_OF_WEEK.map((key, index) => ({
+    key,
+    label: DAY_LABELS_KO[index],
+  }));
 };

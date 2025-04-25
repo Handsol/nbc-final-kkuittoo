@@ -57,13 +57,14 @@ const TeamBioEditMode = ({ teamBio, teamId }: TeamBioProps) => {
       ) : isEditMode ? (
         <form
           onSubmit={handleSubmit(handleOnSubmit)}
-          className="w-full flex justify-between items-baseline gap-5"
+          className="w-full flex justify-start items-baseline gap-2"
         >
-          <div className="flex-1 flex flex-col justify-start mt-[24px]">
+          <div className="flex-1 flex flex-col justify-start mt-[30px] gap-[2px] md:max-w-[220px]">
             <CommonInputBar
               id="teamBio"
               {...register('teamBio', teamBioValidation)}
             />
+
             <ErrorMessage>
               {errors.teamBio && errors.teamBio.message}
             </ErrorMessage>

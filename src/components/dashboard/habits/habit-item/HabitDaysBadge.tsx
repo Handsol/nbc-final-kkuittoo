@@ -1,39 +1,30 @@
 import { Habit } from '@prisma/client';
 import Text from '@/components/common/Text';
-import { getToday } from '@/lib/utils/habit-date.utils';
+import { getKoreanDayInfoArray, getToday } from '@/lib/utils/habit-date.utils';
 
 const HabitDaysBadge = ({ habit }: { habit: Habit }) => {
   const today = getToday().getDay(); // 일요일(0) ~ 토요일(6)
-  const habitDays = [
-    { key: 'sun', label: '일' },
-    { key: 'mon', label: '월' },
-    { key: 'tue', label: '화' },
-    { key: 'wed', label: '수' },
-    { key: 'thu', label: '목' },
-    { key: 'fri', label: '금' },
-    { key: 'sat', label: '토' },
-  ];
+  const habitDays = getKoreanDayInfoArray();
+
+  // 월요일(0)~일요일(6) 순서에 맞게
+  const adjustedTodayIndex = today === 0 ? 6 : today - 1;
 
   const activeDays = habitDays.filter(({ key }) => habit[key as keyof Habit]);
 
   return (
     <div className="flex flex-wrap justify-start gap-[2px] max-w-full mb-2">
-      {activeDays.length > 0 ? (
-        activeDays.map(({ key, label }) => {
-          const isToday = habitDays[today].key === key;
-          return (
-            <span
-              key={label}
-              className={`px-[3px] py-[2px] rounded-full text-body-xs leading-none 
+      {activeDays.map(({ key, label }) => {
+        const isToday = habitDays[adjustedTodayIndex].key === key;
+        return (
+          <Text
+            key={key}
+            className={`px-[3px] py-[2px] rounded-full text-body-xs leading-none 
                 ${isToday ? 'bg-main text-light-gray' : 'bg-light-gray text-medium-gray'}`}
-            >
-              {label}
-            </span>
-          );
-        })
-      ) : (
-        <Text className="text-body-xs">요일 미설정</Text>
-      )}
+          >
+            {label}
+          </Text>
+        );
+      })}
     </div>
   );
 };

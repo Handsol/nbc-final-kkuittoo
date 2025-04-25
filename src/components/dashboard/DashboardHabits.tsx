@@ -20,7 +20,7 @@ const DashboardHabits = ({
   initialHabits,
   initialPoints,
 }: DashboardHabitsProps) => {
-  const { habits, isError, level, expPercent } = useHabitRecords(
+  const { habits, isError, level, expPercent, currentExp } = useHabitRecords(
     userId,
     initialHabits,
     initialPoints,
@@ -34,7 +34,11 @@ const DashboardHabits = ({
   return (
     <div className="flex flex-col h-full px-4 md:px-[40px] gap-[32px]">
       <HabitHeader habitsCount={habits.length} />
-      <UserLevelProgress level={level} expPercent={expPercent} />
+      <UserLevelProgress
+        level={level}
+        expPercent={expPercent}
+        currentPoints={currentExp}
+      />
       <HabitsFilter
         habits={habits}
         onFilterChange={setFilteredHabits}

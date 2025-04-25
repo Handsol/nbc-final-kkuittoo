@@ -30,7 +30,7 @@ export const TEAMS_MESSAGES = {
   // teamBio 관련
   TEAM_BIO_NOT_ALLOW: '팀 소개가 적합하지 않습니다.',
   TEAM_BIO_BLANK: '팀 소개는 필수 입력입니다.',
-  TEAM_BIO_LENGTH: '팀 소개는 5~20자여야 하며, 공백을 허용하지 않습니다.',
+  TEAM_BIO_LENGTH: '팀 소개는 5~20자여야 합니다.',
   // maxTeamsize 관련
   TEAM_SIZE_BLANK: '팀 인원을 선택해주세요.',
   TEAM_SIZE_MAX: '팀 최대 인원수를 초과했습니다.',

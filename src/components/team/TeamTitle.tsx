@@ -8,7 +8,7 @@ type TeamTitleProps = {
 
 const TeamTitle = ({ teamName, currentQuestName }: TeamTitleProps) => {
   return (
-    <div className="pl-4">
+    <div className="pl-4 flex flex-col gap-1">
       <UserTitle mode={USER_TITLE_MODE.CARD_NAME}>{teamName}</UserTitle>
       <UserTitle mode={USER_TITLE_MODE.CARD_LEVEL}>
         {currentQuestName}
