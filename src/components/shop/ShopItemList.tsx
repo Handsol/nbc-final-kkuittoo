@@ -18,8 +18,8 @@ const ShopItemList = async () => {
     await fetchGetItemList(userId);
 
   return (
-    <div className="flex flex-col gap-6">
-      <PurchasedItemList itemList={purchasedItemList} />
+    <div>
+      {/* TODO: 여기 위에 구매한 아이템 목록 렌더링하면 됩니다! */}
       <NotPurchasedItemList
         itemList={notPurchasedItemList}
         userId={userId}
