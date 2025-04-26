@@ -7,6 +7,7 @@ import { checkAuth } from '@/lib/utils/auth-route-handler.utils';
 import { HABIT_ERROR_MESSAGES } from '@/constants/error-messages.constants';
 import { createHabitSchema } from '@/lib/schema/habit.schema';
 import { Categories } from '@prisma/client';
+import { getCurrentDayField } from '@/lib/utils/habit-filter.utils';
 
 /**
  * 사용자의 모든 Habit 목록을 조회
@@ -36,11 +37,17 @@ export const GET = async (request: NextRequest) => {
       ...(category && { categories: category }),
     };
 
+    const currentDayField = getCurrentDayField();
+
     const [habits, totalHabits]: [HabitWithPoints[], number] =
       await Promise.all([
         prisma.habit.findMany({
           where,
           include: { userPoints: true },
+          orderBy: [
+            { [currentDayField]: 'desc' }, // 현재 요일에 해당하는 습관 우선
+            { createdAt: 'desc' }, // 동일 요일 내에서는 최신순
+          ],
           skip,
           take,
         }) as Promise<HabitWithPoints[]>,
@@ -50,7 +57,7 @@ export const GET = async (request: NextRequest) => {
     return NextResponse.json({
       habits: habits.map((habit) => ({
         ...habit,
-        userPoints: habit.userPoints || [], // userPoints가 항상 배열로 반환
+        userPoints: habit.userPoints || [],
       })),
       totalHabits,
     });

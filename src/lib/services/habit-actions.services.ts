@@ -3,6 +3,7 @@
 import { prisma } from '@/lib/prisma';
 import { HabitWithPoints } from '@/types/habits.type';
 import { Categories } from '@prisma/client';
+import { getCurrentDayField } from '../utils/habit-filter.utils';
 
 export const fetchGetUserHabits = async (
   userId: string,
@@ -21,11 +22,17 @@ export const fetchGetUserHabits = async (
       ...(category && { categories: category }),
     };
 
+    const currentDayField = getCurrentDayField();
+
     const [habits, totalHabits]: [HabitWithPoints[], number] =
       await Promise.all([
         prisma.habit.findMany({
           where,
           include: { userPoints: true },
+          orderBy: [
+            { [currentDayField]: 'desc' }, // 현재 요일에 해당하는 습관 우선
+            { createdAt: 'desc' }, // 동일 요일 내에서는 최신순
+          ],
           skip,
           take,
         }) as Promise<HabitWithPoints[]>,
@@ -35,7 +42,7 @@ export const fetchGetUserHabits = async (
     return {
       habits: habits.map((habit) => ({
         ...habit,
-        userPoints: habit.userPoints || [], // userPoints가 항상 배열로 반환
+        userPoints: habit.userPoints || [],
       })),
       totalHabits,
     };

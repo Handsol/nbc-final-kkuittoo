@@ -9,7 +9,6 @@ import { HabitWithPoints } from '@/types/habits.type';
 import { useHabitsControls } from '@/lib/hooks/useHabitsControls';
 import { useHabitRecords } from '@/lib/hooks/useHabitRecords';
 import useHabitsFilter from '@/lib/hooks/useHabitsFilter';
-import { useEffect } from 'react';
 
 type DashboardHabitsProps = {
   userId: string;
@@ -62,7 +61,7 @@ const DashboardHabits = ({
       />
       <HabitsFilter
         habits={habits}
-        onFilterChange={() => {}} // 서버 측 필터링 사용으로 no-op
+        onFilterChange={() => {}}
         isCreating={isCreating}
         onToggleCreate={handleToggleCreate}
         selectedDay={selectedDay}
