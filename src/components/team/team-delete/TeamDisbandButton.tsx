@@ -30,7 +30,7 @@ const TeamDisbandButton = ({
 
   // confirmDialog에 들어갈 컨텐츠
   const disbandContents = {
-    uiButtonText: 'DISBAND',
+    uiButtonText: '팀 해체하기',
     title: TEAM_TOAST_MESSAGES.CONFIRM.TEAM_DISBAND.TITLE,
     description: TEAM_TOAST_MESSAGES.CONFIRM.TEAM_DISBAND.DESCRIPTION,
     cancelButtonText: 'NO',
