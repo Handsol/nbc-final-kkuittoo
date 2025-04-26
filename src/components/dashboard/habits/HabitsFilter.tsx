@@ -1,7 +1,6 @@
 import { HabitWithPoints } from '@/types/habits.type';
 import DayFilter from './habit-filter/DayFilter';
 import CategoryFilter from './habit-filter/CetegoryFilter';
-import useHabitsFilter from '@/lib/hooks/useHabitsFilter';
 import ActionButton from '@/components/common/button/ActionButton';
 import { ACTIONBUTTON_MODE } from '@/constants/mode.constants';
 import MobileCategoryFilter from './habit-filter/MobileCategoryFilter';
@@ -19,8 +18,6 @@ type HabitsFilterProps = {
 };
 
 const HabitsFilter = ({
-  habits,
-  onFilterChange,
   isCreating,
   onToggleCreate,
   selectedDay,

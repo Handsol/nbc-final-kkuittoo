@@ -1,5 +1,5 @@
 import { HabitWithPoints } from '@/types/habits.type';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 export const useHabitsControls = (initialHabits: HabitWithPoints[]) => {
   const [isCreating, setIsCreating] = useState(false);

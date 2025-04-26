@@ -16,7 +16,6 @@ const Dashboard = async () => {
   if (!session) return <UnauthorizedPage />;
   const userId = session.user.id;
 
-  // 기본 필터: 모든 요일, category=null
   const { habits, totalHabits } = await fetchGetUserHabits(
     userId,
     0,

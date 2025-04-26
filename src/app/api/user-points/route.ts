@@ -41,6 +41,7 @@ export const POST = async (request: NextRequest) => {
       return permissionError;
     }
 
+    // 현재 요일 확인
     const now = new Date();
     const isValidDay = getCurrentDayStatus(habit!);
 
@@ -51,11 +52,15 @@ export const POST = async (request: NextRequest) => {
       );
     }
 
+    // 최근 1시간 내 포인트 추가하는지 확인
     const cooldownError = checkCooldown(habit!.userPoints, now);
     if (cooldownError) return cooldownError;
 
+    // 오늘 날짜 (시간 제외)
     const today = new Date();
     today.setHours(0, 0, 0, 0);
+
+    // 오늘 획득한 총 포인트 계산 (모든 습관에 대한 총합)
     const todayPoints = await prisma.userPoint.aggregate({
       where: {
         userId: session.user.id,
@@ -65,6 +70,7 @@ export const POST = async (request: NextRequest) => {
     });
     const totalTodayPoints = todayPoints._sum.points || 0;
 
+    // 하루 최대 포인트 검증 (10점 제한)
     if (totalTodayPoints >= MAX_POINTS_PER_DAY) {
       return NextResponse.json(
         { error: HABIT_ERROR_MESSAGES.DAILY_POINT_LIMIT_EXCEEDED },
@@ -72,11 +78,13 @@ export const POST = async (request: NextRequest) => {
       );
     }
 
+    // 추가할 포인트 계산 (남은 양이 1점 미만이면 남은 양만 추가)
     const pointsToAdd = Math.min(
       POINTS_TO_ADD,
       MAX_POINTS_PER_DAY - totalTodayPoints,
     );
 
+    // 포인트 추가 (계산된 pointsToAdd 사용)
     const userPoint = await prisma.userPoint.create({
       data: {
         userId: session.user.id,
@@ -88,6 +96,7 @@ export const POST = async (request: NextRequest) => {
 
     return NextResponse.json(userPoint, { status: HTTP_STATUS.CREATED });
   } catch (error) {
+    console.error('UserPoint 생성 에러:', error);
     return NextResponse.json(
       { error: HABIT_ERROR_MESSAGES.POINT_ADD_FAILED },
       { status: HTTP_STATUS.INTERNAL_SERVER_ERROR },

@@ -14,7 +14,6 @@ import {
 import { useHabitsQuery } from '../queries/useHabitsQuery';
 import { useUserPointsQuery } from '../queries/useUserPointsQuery';
 import { Categories } from '@prisma/client';
-import { filterHabits } from '../utils/habit-filter.utils';
 
 export const useHabitRecords = (
   userId: string,

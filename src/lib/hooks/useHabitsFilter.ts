@@ -1,8 +1,7 @@
 import { HabitWithPoints } from '@/types/habits.type';
 import { Categories } from '@prisma/client';
 import { useEffect, useState } from 'react';
-import { filterHabits } from '../utils/habit-filter.utils';
-import { DAYS_OF_WEEK, DAYS_OF_WEEK_ARRAY } from '@/constants/habits.constants';
+import { DAYS_OF_WEEK_ARRAY } from '@/constants/habits.constants';
 
 type UseHabitsFilterReturn = {
   selectedDay: string[];

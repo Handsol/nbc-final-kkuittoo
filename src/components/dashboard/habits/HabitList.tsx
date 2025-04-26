@@ -2,10 +2,12 @@ import HabitForm from './HabitForm';
 import HabitItem from './HabitItem';
 import { HabitFormData, HabitWithPoints } from '@/types/habits.type';
 import { useCreateHabitMutation } from '@/lib/mutations/useHabitMutation';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { sortHabitsByEnabled } from '@/lib/utils/habit-filter.utils';
 import HabitEmptyState from './HabitEmptyState';
-import { useHabitsQuery } from '@/lib/queries/useHabitsQuery';
+import ActionButton from '@/components/common/button/ActionButton';
+import { ACTIONBUTTON_MODE } from '@/constants/mode.constants';
+import Text from '@/components/common/Text';
 
 type HabitListProps = {
   userId: string;
@@ -57,21 +59,21 @@ const HabitList = ({
               <HabitItem key={habit.id} habit={habit} userId={userId} />
             ))}
           </ul>
-          {hasNextPage ? (
-            <button
-              onClick={() => {
-                fetchNextPage();
-              }}
-              disabled={isFetchingNextPage}
-              className="mt-4 w-full py-2 text-center text-main hover:font-bold disabled:opacity-50"
-            >
-              {isFetchingNextPage ? '로딩 중...' : '더 보기'}
-            </button>
-          ) : (
-            <p className="mt-4 text-center text-gray-500">
-              더 이상 습관이 없습니다.
-            </p>
-          )}
+          <div className="mt-4 flex w-full flex-col items-center justify-center">
+            {hasNextPage ? (
+              <ActionButton
+                mode={ACTIONBUTTON_MODE.ROUNDED_MD_LIGHT_GRAY}
+                onClick={fetchNextPage}
+                disabled={isFetchingNextPage}
+              >
+                {isFetchingNextPage ? '불러오는 중...' : '더 보기'}
+              </ActionButton>
+            ) : (
+              <Text className="text-sm text-medium-gray">
+                마지막 습관까지 다 봤어요!
+              </Text>
+            )}
+          </div>
         </>
       ) : (
         <HabitEmptyState onCreate={onToggleCreate} />
