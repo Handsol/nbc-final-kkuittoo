@@ -41,6 +41,7 @@ export const isEnabled = (habit: HabitWithPoints): boolean => {
     getCurrentDayStatus(habit)
   );
 };
+
 /**
  * habit list를 활성화 상태 기준으로 정렬
  * 활성화된 habit(쿨다운 없고 오늘 수행 가능)이 위쪽에 배치
@@ -55,4 +56,11 @@ export const sortHabitsByEnabled = (
     const bEnabled = isEnabled(b);
     return aEnabled === bEnabled ? 0 : aEnabled ? -1 : 1;
   });
+};
+
+// 현재 요일에 따라 정렬
+export const getCurrentDayField = (): string => {
+  const daysOfWeek = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+  const today = new Date().getDay(); // 0: 일요일, 1: 월요일, ...
+  return daysOfWeek[today];
 };

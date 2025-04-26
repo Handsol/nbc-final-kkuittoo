@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { CreateHabit } from '@/types/habits.type';
+import { CreateHabit, HabitWithPoints } from '@/types/habits.type';
 import { DAYS_OF_WEEK } from '@/constants/habits.constants';
 import { HTTP_STATUS } from '@/constants/http-status.constants';
 import { checkAuth } from '@/lib/utils/auth-route-handler.utils';
@@ -36,18 +36,24 @@ export const GET = async (request: NextRequest) => {
       ...(category && { categories: category }),
     };
 
-    const [habits, totalHabits] = await Promise.all([
-      prisma.habit.findMany({
-        where,
-        include: { userPoints: true },
-        orderBy: { createdAt: 'desc' },
-        skip,
-        take,
-      }),
-      prisma.habit.count({ where }),
-    ]);
+    const [habits, totalHabits]: [HabitWithPoints[], number] =
+      await Promise.all([
+        prisma.habit.findMany({
+          where,
+          include: { userPoints: true },
+          skip,
+          take,
+        }) as Promise<HabitWithPoints[]>,
+        prisma.habit.count({ where }),
+      ]);
 
-    return NextResponse.json({ habits, totalHabits });
+    return NextResponse.json({
+      habits: habits.map((habit) => ({
+        ...habit,
+        userPoints: habit.userPoints || [], // userPoints가 항상 배열로 반환
+      })),
+      totalHabits,
+    });
   } catch (error) {
     console.error('Habit 조회 에러:', error);
     return NextResponse.json(

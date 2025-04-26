@@ -46,12 +46,7 @@ const DashboardHabits = ({
     selectedCategory,
   );
 
-  const { isCreating, filteredHabits, setFilteredHabits, handleToggleCreate } =
-    useHabitsControls(habits);
-
-  useEffect(() => {
-    setFilteredHabits(habits);
-  }, [habits, setFilteredHabits]);
+  const { isCreating, handleToggleCreate } = useHabitsControls();
 
   if (isError) {
     return <Text>데이터를 불러오는 데 실패했습니다.</Text>;
@@ -59,10 +54,7 @@ const DashboardHabits = ({
 
   return (
     <div className="flex flex-col h-full px-4 md:px-[40px] gap-[32px]">
-      <HabitHeader
-        habitsCount={totalHabits}
-        filteredCount={filteredHabits.length}
-      />
+      <HabitHeader habitsCount={totalHabits} filteredCount={habits.length} />
       <UserLevelProgress
         level={level}
         expPercent={expPercent}
@@ -70,7 +62,7 @@ const DashboardHabits = ({
       />
       <HabitsFilter
         habits={habits}
-        onFilterChange={setFilteredHabits}
+        onFilterChange={() => {}} // 서버 측 필터링 사용으로 no-op
         isCreating={isCreating}
         onToggleCreate={handleToggleCreate}
         selectedDay={selectedDay}
@@ -81,7 +73,7 @@ const DashboardHabits = ({
       <div className="flex-1 overflow-hidden">
         <HabitList
           userId={userId}
-          habits={filteredHabits}
+          habits={habits}
           isCreating={isCreating}
           onToggleCreate={handleToggleCreate}
           fetchNextPage={fetchNextPage}

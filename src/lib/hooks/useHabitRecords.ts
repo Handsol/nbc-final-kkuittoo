@@ -8,6 +8,7 @@ import {
 import { useHabitsQuery } from '../queries/useHabitsQuery';
 import { useUserPointsQuery } from '../queries/useUserPointsQuery';
 import { Categories } from '@prisma/client';
+import { sortHabitsByEnabled } from '../utils/habit-filter.utils';
 
 export const useHabitRecords = (
   userId: string,
@@ -31,7 +32,7 @@ export const useHabitRecords = (
     const result =
       data?.pages.flatMap((page: HabitsQueryResult) => page.habits) ??
       initialHabits;
-    return result;
+    return sortHabitsByEnabled(result); // 여기서 정렬 적용
   }, [data, initialHabits]);
 
   const totalHabits = useMemo(() => {

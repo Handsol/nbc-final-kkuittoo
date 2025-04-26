@@ -41,8 +41,6 @@ const HabitList = ({
     });
   };
 
-  const sortedHabits = useMemo(() => sortHabitsByEnabled(habits), [habits]);
-
   return (
     <div className="my-[16px] overflow-y-auto">
       {isCreating ? (
@@ -52,10 +50,10 @@ const HabitList = ({
             onSuccess={handleCreateSuccess}
           />
         </div>
-      ) : sortedHabits.length > 0 ? (
+      ) : habits.length > 0 ? (
         <>
           <ul className="flex flex-col gap-[8px]">
-            {sortedHabits.map((habit) => (
+            {habits.map((habit) => (
               <HabitItem key={habit.id} habit={habit} userId={userId} />
             ))}
           </ul>

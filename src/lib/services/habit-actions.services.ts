@@ -21,18 +21,24 @@ export const fetchGetUserHabits = async (
       ...(category && { categories: category }),
     };
 
-    const [habits, totalHabits] = await Promise.all([
-      prisma.habit.findMany({
-        where,
-        include: { userPoints: true },
-        orderBy: { createdAt: 'desc' },
-        skip,
-        take,
-      }),
-      prisma.habit.count({ where }),
-    ]);
+    const [habits, totalHabits]: [HabitWithPoints[], number] =
+      await Promise.all([
+        prisma.habit.findMany({
+          where,
+          include: { userPoints: true },
+          skip,
+          take,
+        }) as Promise<HabitWithPoints[]>,
+        prisma.habit.count({ where }),
+      ]);
 
-    return { habits, totalHabits };
+    return {
+      habits: habits.map((habit) => ({
+        ...habit,
+        userPoints: habit.userPoints || [], // userPoints가 항상 배열로 반환
+      })),
+      totalHabits,
+    };
   } catch (error) {
     console.error('습관 데이터 페칭 실패:', error);
     return { habits: [], totalHabits: 0 };
