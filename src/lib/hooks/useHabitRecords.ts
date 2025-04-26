@@ -1,11 +1,5 @@
-import { QUERY_KEYS } from '@/constants/query-keys.constants';
-import {
-  HabitsQueryResult,
-  HabitWithPoints,
-  PageParam,
-} from '@/types/habits.type';
-import { InfiniteData, useQueryClient } from '@tanstack/react-query';
-import { useEffect, useMemo } from 'react';
+import { HabitsQueryResult, HabitWithPoints } from '@/types/habits.type';
+import { useMemo } from 'react';
 import {
   getCurrentExp,
   getExpPercent,
@@ -23,7 +17,6 @@ export const useHabitRecords = (
   selectedDay: string[],
   selectedCategory: Categories | null,
 ) => {
-  const queryClient = useQueryClient();
   const {
     data,
     isError: isHabitsError,

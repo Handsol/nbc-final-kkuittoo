@@ -6,19 +6,20 @@ import { Categories } from '@prisma/client';
 
 export const fetchGetUserHabits = async (
   userId: string,
-  skip: number = 0,
-  take: number = 5,
-  days?: string[],
-  category?: Categories | null,
+  skip = 0,
+  take = 5,
+  days: string[] = [],
+  category: Categories | null = null,
 ): Promise<{ habits: HabitWithPoints[]; totalHabits: number }> => {
   try {
-    const where: any = { userId };
-    if (days && days.length > 0 && days.length < 7) {
-      where.AND = days.map((day) => ({ [day]: true }));
-    }
-    if (category) {
-      where.categories = category;
-    }
+    const where = {
+      userId,
+      ...(days.length > 0 &&
+        days.length < 7 && {
+          AND: days.map((day) => ({ [day]: true })),
+        }),
+      ...(category && { categories: category }),
+    };
 
     const [habits, totalHabits] = await Promise.all([
       prisma.habit.findMany({

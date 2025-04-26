@@ -25,7 +25,7 @@ const DashboardHabits = ({
   initialPoints,
 }: DashboardHabitsProps) => {
   const { selectedDay, setSelectedDay, selectedCategory, setSelectedCategory } =
-    useHabitsFilter(initialHabits, () => {});
+    useHabitsFilter();
 
   const {
     habits,
@@ -49,7 +49,6 @@ const DashboardHabits = ({
   const { isCreating, filteredHabits, setFilteredHabits, handleToggleCreate } =
     useHabitsControls(habits);
 
-  // habits 변경 시 filteredHabits 업데이트
   useEffect(() => {
     setFilteredHabits(habits);
   }, [habits, setFilteredHabits]);
@@ -93,4 +92,5 @@ const DashboardHabits = ({
     </div>
   );
 };
+
 export default DashboardHabits;
