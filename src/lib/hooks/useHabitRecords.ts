@@ -54,29 +54,6 @@ export const useHabitRecords = (
     };
   }, [totalPoints]);
 
-  useEffect(() => {
-    queryClient.setQueryData<InfiniteData<HabitsQueryResult, PageParam>>(
-      QUERY_KEYS.HABITS(userId, selectedDay, selectedCategory),
-      {
-        pages: [
-          {
-            habits: initialHabits,
-            totalHabits: initialTotalHabits,
-            nextSkip: initialHabits.length,
-          },
-        ],
-        pageParams: [{ skip: 0, take: 5 }],
-      },
-    );
-  }, [
-    queryClient,
-    userId,
-    initialHabits,
-    initialTotalHabits,
-    selectedDay,
-    selectedCategory,
-  ]);
-
   return {
     habits,
     totalHabits,
