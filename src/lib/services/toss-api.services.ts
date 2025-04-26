@@ -31,9 +31,6 @@ export const fetchCreateTossConfirm = async ({
       }),
     });
 
-    console.log('paymentKey', paymentKey);
-    console.log('response', response);
-
     if (!response.ok) {
       await prisma.payment.update({
         where: { orderId },

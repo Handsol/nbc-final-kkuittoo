@@ -2,7 +2,7 @@ import HabitForm from './HabitForm';
 import HabitItem from './HabitItem';
 import { HabitFormData, HabitWithPoints } from '@/types/habits.type';
 import { useCreateHabitMutation } from '@/lib/mutations/useHabitMutation';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { sortHabitsByEnabled } from '@/lib/utils/habit-filter.utils';
 import HabitEmptyState from './HabitEmptyState';
 import { useHabitsQuery } from '@/lib/queries/useHabitsQuery';
@@ -57,14 +57,20 @@ const HabitList = ({
               <HabitItem key={habit.id} habit={habit} userId={userId} />
             ))}
           </ul>
-          {hasNextPage && (
+          {hasNextPage ? (
             <button
-              onClick={() => fetchNextPage()}
+              onClick={() => {
+                fetchNextPage();
+              }}
               disabled={isFetchingNextPage}
               className="mt-4 w-full py-2 text-center text-main hover:font-bold disabled:opacity-50"
             >
               {isFetchingNextPage ? '로딩 중...' : '더 보기'}
             </button>
+          ) : (
+            <p className="mt-4 text-center text-gray-500">
+              더 이상 습관이 없습니다.
+            </p>
           )}
         </>
       ) : (

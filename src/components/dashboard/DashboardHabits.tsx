@@ -8,6 +8,8 @@ import UserLevelProgress from './habits/UserLevelProgress';
 import { HabitWithPoints } from '@/types/habits.type';
 import { useHabitsControls } from '@/lib/hooks/useHabitsControls';
 import { useHabitRecords } from '@/lib/hooks/useHabitRecords';
+import useHabitsFilter from '@/lib/hooks/useHabitsFilter';
+import { useEffect } from 'react';
 
 type DashboardHabitsProps = {
   userId: string;
@@ -22,9 +24,12 @@ const DashboardHabits = ({
   initialTotalHabits,
   initialPoints,
 }: DashboardHabitsProps) => {
+  const { selectedDay, setSelectedDay, selectedCategory, setSelectedCategory } =
+    useHabitsFilter(initialHabits, () => {});
+
   const {
     habits,
-    totalHabits, // 추가
+    totalHabits,
     isError,
     level,
     expPercent,
@@ -32,9 +37,22 @@ const DashboardHabits = ({
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useHabitRecords(userId, initialHabits, initialTotalHabits, initialPoints);
+  } = useHabitRecords(
+    userId,
+    initialHabits,
+    initialTotalHabits,
+    initialPoints,
+    selectedDay,
+    selectedCategory,
+  );
+
   const { isCreating, filteredHabits, setFilteredHabits, handleToggleCreate } =
     useHabitsControls(habits);
+
+  // habits 변경 시 filteredHabits 업데이트
+  useEffect(() => {
+    setFilteredHabits(habits);
+  }, [habits, setFilteredHabits]);
 
   if (isError) {
     return <Text>데이터를 불러오는 데 실패했습니다.</Text>;
@@ -54,8 +72,12 @@ const DashboardHabits = ({
       <HabitsFilter
         habits={habits}
         onFilterChange={setFilteredHabits}
-        onToggleCreate={handleToggleCreate}
         isCreating={isCreating}
+        onToggleCreate={handleToggleCreate}
+        selectedDay={selectedDay}
+        setSelectedDay={setSelectedDay}
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
       />
       <div className="flex-1 overflow-hidden">
         <HabitList
@@ -71,5 +93,4 @@ const DashboardHabits = ({
     </div>
   );
 };
-
 export default DashboardHabits;

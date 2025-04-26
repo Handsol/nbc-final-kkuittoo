@@ -13,12 +13,16 @@ import {
 } from '../utils/user-level.utils';
 import { useHabitsQuery } from '../queries/useHabitsQuery';
 import { useUserPointsQuery } from '../queries/useUserPointsQuery';
+import { Categories } from '@prisma/client';
+import { filterHabits } from '../utils/habit-filter.utils';
 
 export const useHabitRecords = (
   userId: string,
   initialHabits: HabitWithPoints[],
   initialTotalHabits: number,
   initialPoints: number,
+  selectedDay: string[],
+  selectedCategory: Categories | null,
 ) => {
   const queryClient = useQueryClient();
   const {
@@ -27,21 +31,20 @@ export const useHabitRecords = (
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useHabitsQuery(userId);
+  } = useHabitsQuery(userId, selectedDay, selectedCategory);
   const { data: totalPoints = initialPoints, isError: isPointsError } =
     useUserPointsQuery(userId);
 
-  // habits를 페이지에서 평평하게 펼침
   const habits = useMemo(() => {
-    return (
+    const result =
       data?.pages.flatMap((page: HabitsQueryResult) => page.habits) ??
-      initialHabits
-    );
+      initialHabits;
+    return result;
   }, [data, initialHabits]);
 
-  // totalHabits 계산: data가 있으면 첫 페이지의 totalHabits 사용, 없으면 initialTotalHabits
   const totalHabits = useMemo(() => {
-    return data?.pages[0]?.totalHabits ?? initialTotalHabits;
+    const result = data?.pages[0]?.totalHabits ?? initialTotalHabits;
+    return result;
   }, [data, initialTotalHabits]);
 
   const levelInfo = useMemo(() => {
@@ -52,10 +55,9 @@ export const useHabitRecords = (
     };
   }, [totalPoints]);
 
-  // 초기 데이터를 쿼리 캐시에 설정
   useEffect(() => {
     queryClient.setQueryData<InfiniteData<HabitsQueryResult, PageParam>>(
-      QUERY_KEYS.HABITS(userId),
+      QUERY_KEYS.HABITS(userId, selectedDay, selectedCategory),
       {
         pages: [
           {
@@ -67,11 +69,18 @@ export const useHabitRecords = (
         pageParams: [{ skip: 0, take: 5 }],
       },
     );
-  }, [queryClient, userId, initialHabits, initialTotalHabits]);
+  }, [
+    queryClient,
+    userId,
+    initialHabits,
+    initialTotalHabits,
+    selectedDay,
+    selectedCategory,
+  ]);
 
   return {
     habits,
-    totalHabits, // 추가
+    totalHabits,
     totalPoints,
     isError: isHabitsError || isPointsError,
     fetchNextPage,

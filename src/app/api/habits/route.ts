@@ -6,6 +6,7 @@ import { HTTP_STATUS } from '@/constants/http-status.constants';
 import { checkAuth } from '@/lib/utils/auth-route-handler.utils';
 import { HABIT_ERROR_MESSAGES } from '@/constants/error-messages.constants';
 import { createHabitSchema } from '@/lib/schema/habit.schema';
+import { Categories } from '@prisma/client';
 
 /**
  * 사용자의 모든 Habit 목록을 조회
@@ -24,23 +25,29 @@ export const GET = async (request: NextRequest) => {
     const { searchParams } = new URL(request.url);
     const skip = parseInt(searchParams.get('skip') || '0');
     const take = parseInt(searchParams.get('take') || '5');
+    const days = searchParams.get('days')?.split(',');
+    const category = searchParams.get('category') as Categories | null;
 
-    const habits = await prisma.habit.findMany({
-      where: { userId: session.user.id },
-      include: { userPoints: true },
-      orderBy: { createdAt: 'desc' },
-      skip,
-      take,
-    });
+    const where: any = { userId: session.user.id };
+    if (days && days.length > 0) {
+      where.AND = days.map((day) => ({ [day]: true }));
+    }
+    if (category) {
+      where.categories = category;
+    }
 
-    const totalHabits = await prisma.habit.count({
-      where: { userId: session.user.id },
-    });
+    const [habits, totalHabits] = await Promise.all([
+      prisma.habit.findMany({
+        where,
+        include: { userPoints: true },
+        orderBy: { createdAt: 'desc' },
+        skip,
+        take,
+      }),
+      prisma.habit.count({ where }),
+    ]);
 
-    return NextResponse.json({
-      habits,
-      totalHabits,
-    });
+    return NextResponse.json({ habits, totalHabits });
   } catch (error) {
     console.error('Habit 조회 에러:', error);
     return NextResponse.json(

@@ -21,7 +21,7 @@ const CategoryFilter = ({
       isSelected={selectedCategory === null}
       onClick={() => setSelectedCategory(null)}
     >
-      ALL
+      모든 카테고리
     </HabitSelectButton>
     {HABIT_CATEGORIES.map((c) => (
       <HabitSelectButton

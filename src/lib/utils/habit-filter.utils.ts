@@ -8,7 +8,7 @@ import { getCooldownStatus } from './habit-points.utils';
  * @param habits - 필터링할 습관 객체 배열
  * @param selectedDay - 선택된 요일 문자열 배열 (예: ['mon', 'wed'])
  * @param selectedCategory - 선택된 카테고리 (null일 경우 카테고리 필터링 X)
- * @returns 필터링된 습관 객체 배열!!
+ * @returns 필터링된 습관 객체 배열
  */
 export const filterHabits = (
   habits: HabitWithPoints[],
@@ -16,9 +16,9 @@ export const filterHabits = (
   selectedCategory: Categories | null,
 ): HabitWithPoints[] => {
   let filtered = [...habits];
-  if (selectedDay.length > 0) {
+  if (selectedDay.length > 0 && selectedDay.length < 7) {
     filtered = filtered.filter((habit) =>
-      selectedDay.some((day) => habit[day as keyof HabitWithPoints]),
+      selectedDay.some((day) => habit[day as keyof HabitWithPoints] === true),
     );
   }
   if (selectedCategory) {

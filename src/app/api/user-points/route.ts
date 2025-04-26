@@ -30,17 +30,14 @@ export const POST = async (request: NextRequest) => {
   try {
     const body = (await request.json()) as CreateUserPoint;
     const { habitId } = body;
-    console.log('POST /api/habits:', { habitId, userId: session.user.id });
 
     const habit = await prisma.habit.findUnique({
       where: { id: habitId },
       include: { userPoints: true },
     });
-    console.log('Habit:', habit);
 
     const permissionError = checkHabitPermission(habit, session.user.id);
     if (permissionError) {
-      console.log('Permission error:', permissionError);
       return permissionError;
     }
 
@@ -55,10 +52,6 @@ export const POST = async (request: NextRequest) => {
     }
 
     const cooldownError = checkCooldown(habit!.userPoints, now);
-    console.log('Cooldown check:', {
-      cooldownError,
-      userPoints: habit!.userPoints,
-    });
     if (cooldownError) return cooldownError;
 
     const today = new Date();
@@ -71,7 +64,6 @@ export const POST = async (request: NextRequest) => {
       _sum: { points: true },
     });
     const totalTodayPoints = todayPoints._sum.points || 0;
-    console.log('Today points:', { totalTodayPoints, MAX_POINTS_PER_DAY });
 
     if (totalTodayPoints >= MAX_POINTS_PER_DAY) {
       return NextResponse.json(
@@ -84,7 +76,6 @@ export const POST = async (request: NextRequest) => {
       POINTS_TO_ADD,
       MAX_POINTS_PER_DAY - totalTodayPoints,
     );
-    console.log('Adding points:', { pointsToAdd });
 
     const userPoint = await prisma.userPoint.create({
       data: {
@@ -97,7 +88,6 @@ export const POST = async (request: NextRequest) => {
 
     return NextResponse.json(userPoint, { status: HTTP_STATUS.CREATED });
   } catch (error) {
-    console.error('UserPoint 생성 에러:', error);
     return NextResponse.json(
       { error: HABIT_ERROR_MESSAGES.POINT_ADD_FAILED },
       { status: HTTP_STATUS.INTERNAL_SERVER_ERROR },

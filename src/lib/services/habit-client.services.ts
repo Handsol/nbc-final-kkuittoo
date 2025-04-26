@@ -1,6 +1,6 @@
 import { API_PATH } from '@/constants/path.constants';
 import { CreateHabit, HabitWithPoints, UpdateHabit } from '@/types/habits.type';
-import { Habit, UserPoint } from '@prisma/client';
+import { Categories, Habit, UserPoint } from '@prisma/client';
 
 /**
  * 사용자의 모든 Habit 목록을 조회하는 API 요청 함수
@@ -9,19 +9,33 @@ import { Habit, UserPoint } from '@prisma/client';
 export const fetchGetAllHabits = async (
   skip: number = 0,
   take: number = 5,
+  days?: string[],
+  category?: Categories | null,
 ): Promise<{ habits: HabitWithPoints[]; totalHabits: number }> => {
-  const response = await fetch(`/api/habits?skip=${skip}&take=${take}`, {
+  const queryParams = new URLSearchParams({
+    skip: skip.toString(),
+    take: take.toString(),
+  });
+  if (days && days.length > 0) {
+    queryParams.append('days', days.join(','));
+  }
+  if (category) {
+    queryParams.append('category', category);
+  }
+
+  const url = `${API_PATH.HABITS}?${queryParams}`;
+
+  const response = await fetch(url, {
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: { 'Content-Type': 'application/json' },
   });
 
   if (!response.ok) {
     throw new Error('습관 데이터 페칭 실패');
   }
 
-  return response.json();
+  const data = await response.json();
+  return data;
 };
 
 /**
