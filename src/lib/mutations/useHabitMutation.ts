@@ -22,7 +22,9 @@ export const useCreateHabitMutation = (userId: string) => {
   >({
     mutationFn: (habit) => fetchCreateHabit(habit),
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.HABITS(userId) });
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.BASE_HABITS(userId),
+      });
     },
   });
 };
@@ -44,7 +46,9 @@ export const useUpdateHabitMutation = (userId: string, habitId: string) => {
   >({
     mutationFn: (updatedData) => fetchUpdateHabit(habitId, updatedData),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.HABITS(userId) });
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.BASE_HABITS(userId),
+      });
     },
     onError: (error) => {
       console.error('습관 수정 실패:', error);
@@ -65,7 +69,9 @@ export const useDeleteHabitMutation = (userId: string, habitId: string) => {
   return useMutation<void, Error, void>({
     mutationFn: () => fetchDeleteHabit(habitId),
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.HABITS(userId) });
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.BASE_HABITS(userId),
+      });
     },
   });
 };
