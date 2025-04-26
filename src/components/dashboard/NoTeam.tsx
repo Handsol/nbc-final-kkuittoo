@@ -41,7 +41,7 @@ const NoTeam = () => {
             <LinkButton mode={LINKBUTTON_MODE.COMMON} href={PATH.RANK.TEAMS}>
               Find New Team
             </LinkButton>
-            <LinkButton mode={LINKBUTTON_MODE.COMMON} href={PATH.MAEK_TEAM}>
+            <LinkButton mode={LINKBUTTON_MODE.COMMON} href={PATH.MAKE_TEAM}>
               Make New Team
             </LinkButton>
           </div>

@@ -2,12 +2,12 @@ export const PATH = {
   HOME: '/',
   DASHBOARD: '/dashboard',
   TEAM: '/team',
-  MAEK_TEAM: '/make-team',
+  MAKE_TEAM: '/make-team',
+  SHOP: '/shop',
   RANK: {
     USERS: '/rank/users',
     TEAMS: '/rank/teams',
   },
-  SHOP: '/shop',
   PAYMENTS: {
     SUCCESS: '/shop/payments/success',
     FAIL: '/shop/payments/fail',

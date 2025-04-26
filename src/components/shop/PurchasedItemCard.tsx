@@ -1,36 +1,28 @@
-import { ShopItem } from '@/types/shop.type';
+'use client';
+
 import Image from 'next/image';
 import Title from '../common/Title';
 import Text from '../common/Text';
-import PurchaseButton from './items/PurchaseButton';
 import { TITLE_MODE } from '@/constants/mode.constants';
+import { ShopItem } from '@/types/shop.type';
+import ApplyButtonWrapper from './items/ApplyButtonWrapper';
 import {
-  shopItemCardImgStyle,
   shopItemCardLiStyle,
+  shopItemCardImgStyle,
+  shopItemCardTextSectionStyle,
   shopItemCardPriceTextStyle,
   shopItemCardPurchaseBtnStyle,
-  shopItemCardTextSectionStyle,
 } from '@/styles/shopItemListStyles';
 
-type NotPurchasedItemCardProps = {
+type Props = {
   item: ShopItem;
-  userId: string;
-  userEmail: string | null | undefined;
+  isApplied: boolean;
+  onClick: () => void;
 };
 
-const NotPurchasedItemCard = ({
-  item,
-  userId,
-  userEmail,
-}: NotPurchasedItemCardProps) => {
-  const { id, itemName, amount, itemImage } = item;
-  const paymentInfo = {
-    userId,
-    userEmail,
-    itemName,
-    itemId: id,
-    amount,
-  };
+const PurchasedItemCard = ({ item, isApplied, onClick }: Props) => {
+  const { itemName, amount, itemImage } = item;
+
   return (
     <li className={shopItemCardLiStyle}>
       <Image
@@ -46,11 +38,11 @@ const NotPurchasedItemCard = ({
           <Text className={shopItemCardPriceTextStyle}>{`${amount}원`}</Text>
         </div>
         <div className={shopItemCardPurchaseBtnStyle}>
-          <PurchaseButton paymentInfo={paymentInfo} />
+          <ApplyButtonWrapper isApplied={isApplied} onClick={onClick} />
         </div>
       </div>
     </li>
   );
 };
 
-export default NotPurchasedItemCard;
+export default PurchasedItemCard;

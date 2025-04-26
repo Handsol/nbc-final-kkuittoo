@@ -36,6 +36,8 @@ export const ACTIONBUTTON_MODE = {
   ROUNDED_MD: 'rounded-md',
   ROUNDED_MD_SMALL: 'rounded-md-small',
   ROUNDED_MD_LIGHT_GRAY: 'rounded-md-light-gray',
+  ROUNDED_MD_APPLY: 'rounded-md-apply',
+  ROUNDED_MD_APPLIED: 'rounded-md-applied',
   LOGOUT: 'logout',
 } as const;
 

@@ -2,6 +2,7 @@ import { getUserSession } from '@/lib/services/getUserSession.services';
 import UnauthorizedPage from '../loading-error-page/UnauthorizedPage';
 import { fetchGetItemList } from '@/lib/services/payment-actions.services';
 import NotPurchasedItemList from './NotPurchasedItemList';
+import PurchasedItemList from './PurchasedItemList';
 
 const ShopItemList = async () => {
   // 로그인한 유저 정보 가져오기
@@ -11,14 +12,13 @@ const ShopItemList = async () => {
   }
   const userId = session.user.id;
   const userEmail = session.user.email;
-
   // 아이템 리스트 데이터 가져오기
   const { purchasedItemList, notPurchasedItemList } =
     await fetchGetItemList(userId);
 
   return (
-    <div>
-      {/* TODO: 여기 위에 구매한 아이템 목록 렌더링하면 됩니다! */}
+    <div className="flex flex-col gap-6">
+      <PurchasedItemList itemList={purchasedItemList} />
       <NotPurchasedItemList
         itemList={notPurchasedItemList}
         userId={userId}
@@ -27,5 +27,4 @@ const ShopItemList = async () => {
     </div>
   );
 };
-
 export default ShopItemList;
