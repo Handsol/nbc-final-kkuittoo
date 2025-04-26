@@ -58,6 +58,6 @@ export const useHabitsQuery = (
     },
     initialPageParam: { skip: 0, take: 5 },
     enabled: !!userId,
-    staleTime: STALE_TIME.FIVE_MINUTES,
+    staleTime: 0,
   });
 };

@@ -1,8 +1,8 @@
 import { HabitWithPoints } from '@/types/habits.type';
 import { getCurrentDayStatus } from './habit-date.utils';
-import { getCooldownStatus } from './habit-points.utils';
 import { DAY_LABELS_KO, DAYS_OF_WEEK } from '@/constants/habits.constants';
 import { Habit } from '@prisma/client';
+import { isCooldownActive } from './habit-points.utils';
 
 /**
  * habit이 비활성화된 상태인지 확인
@@ -16,8 +16,8 @@ export const isHabitDisabled = (
   isAddPending: boolean,
 ): boolean => {
   const isValidDay = getCurrentDayStatus(habit);
-  const isCooldownActive = getCooldownStatus(habit.userPoints);
-  return !isValidDay || isCooldownActive || isAddPending;
+  const isCooldown = isCooldownActive(habit.userPoints, new Date());
+  return !isValidDay || isCooldown || isAddPending;
 };
 
 /**
