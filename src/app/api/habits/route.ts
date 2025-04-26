@@ -8,6 +8,7 @@ import { HABIT_ERROR_MESSAGES } from '@/constants/error-messages.constants';
 import { createHabitSchema } from '@/lib/schema/habit.schema';
 import { Categories } from '@prisma/client';
 import { getCurrentDayField } from '@/lib/utils/habit-filter.utils';
+import { isCooldownActive } from '@/lib/utils/habit-points.utils';
 
 /**
  * 사용자의 모든 Habit 목록을 조회
@@ -38,26 +39,44 @@ export const GET = async (request: NextRequest) => {
     };
 
     const currentDayField = getCurrentDayField();
+    const now = new Date();
 
-    const [habits, totalHabits]: [HabitWithPoints[], number] =
-      await Promise.all([
-        prisma.habit.findMany({
-          where,
-          include: { userPoints: true },
-          orderBy: [
-            { [currentDayField]: 'desc' }, // 현재 요일에 해당하는 습관 우선
-            { createdAt: 'desc' }, // 동일 요일 내에서는 최신순
-          ],
-          skip,
-          take,
-        }) as Promise<HabitWithPoints[]>,
-        prisma.habit.count({ where }),
-      ]);
+    // 1. 먼저 현재 요일 습관 조회
+    const currentDayHabits = (await prisma.habit.findMany({
+      where: { ...where, [currentDayField]: true },
+      include: { userPoints: true },
+      orderBy: { createdAt: 'desc' },
+    })) as HabitWithPoints[];
+
+    // 2. 활성화/비활성화 분류
+    const [enabledHabits, disabledHabits] = currentDayHabits.reduce(
+      ([enabled, disabled], habit) => {
+        const isEnabled = !isCooldownActive(habit.userPoints, now);
+        return isEnabled
+          ? [[...enabled, habit], disabled]
+          : [enabled, [...disabled, habit]];
+      },
+      [[], []] as [HabitWithPoints[], HabitWithPoints[]],
+    );
+
+    // 3. 다른 요일 습관 조회
+    const otherHabits = (await prisma.habit.findMany({
+      where: { ...where, [currentDayField]: false },
+      include: { userPoints: true },
+      orderBy: { createdAt: 'desc' },
+    })) as HabitWithPoints[];
+
+    // 4. 전체 습관 (활성화 > 비활성화 > 다른 요일)
+    const allHabits = [...enabledHabits, ...disabledHabits, ...otherHabits];
+    const paginatedHabits = allHabits.slice(skip, skip + take);
+
+    const totalHabits = await prisma.habit.count({ where });
 
     return NextResponse.json({
-      habits: habits.map((habit) => ({
+      habits: paginatedHabits.map((habit) => ({
         ...habit,
         userPoints: habit.userPoints || [],
+        isEnabled: enabledHabits.includes(habit),
       })),
       totalHabits,
     });
