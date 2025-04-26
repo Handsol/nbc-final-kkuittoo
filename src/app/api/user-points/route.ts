@@ -37,9 +37,7 @@ export const POST = async (request: NextRequest) => {
     });
 
     const permissionError = checkHabitPermission(habit, session.user.id);
-    if (permissionError) {
-      return permissionError;
-    }
+    if (permissionError) return permissionError;
 
     // 현재 요일 확인
     const now = new Date();
