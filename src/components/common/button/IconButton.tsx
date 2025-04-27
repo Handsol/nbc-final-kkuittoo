@@ -3,6 +3,7 @@ import { Pencil, X, Plus } from 'lucide-react';
 import { ICONBUTTON_MODE } from '@/constants/mode.constants';
 import { FaCheck } from 'react-icons/fa6';
 import { motion } from 'framer-motion';
+import Text from '../Text';
 
 type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   mode: string;
@@ -19,24 +20,24 @@ type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
   ({ mode, disabled = false, ...props }, ref) => {
     const baseClasses =
-      'w-9 h-9 flex items-center justify-center rounded-full transition-colors w-4 h-4 text-medium-gray';
+      'w-9 h-9 flex items-center justify-center rounded-full transition-colors w-4 h-4';
 
     let icon;
     let variantClasses;
 
     switch (mode) {
       case ICONBUTTON_MODE.EDIT:
-        icon = <Pencil className="w-[14px] h-[14px]" />;
+        icon = <Pencil className="w-[14px] h-[14px] text-medium-gray" />;
         break;
       case ICONBUTTON_MODE.DELETE:
-        icon = <X className="w-[14px] h-[14px]" />;
+        icon = <X className="w-[14px] h-[14px] text-medium-gray" />;
         break;
       case ICONBUTTON_MODE.ADD:
         icon = <Plus />;
         break;
       case ICONBUTTON_MODE.POINT:
         icon = disabled ? (
-          <span className="text-body-md font-bold">+P</span>
+          <Text className="text-body-md font-bold">+P</Text>
         ) : (
           <motion.span
             whileHover={{

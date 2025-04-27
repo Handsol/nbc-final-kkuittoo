@@ -38,7 +38,7 @@ export const fetchGetAllHabits = async (
   return {
     habits: data.habits.map((habit: HabitWithPoints) => ({
       ...habit,
-      userPoints: habit.userPoints || [], // userPoints가 항상 배열인지 확인
+      userPoints: habit.userPoints || [],
     })),
     totalHabits: data.totalHabits,
   };
