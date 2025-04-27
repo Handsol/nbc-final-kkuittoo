@@ -32,14 +32,14 @@ const HabitSelectButton = ({
       sizeStyle = 'p-[8px] text-body-sm rounded-lg truncate';
       variantStyle = isSelected
         ? 'bg-sub-light text-main border-main'
-        : 'bg-white text-dark-gray border-medium-gray hover:text-main hover:bg-sub hover:text-white';
+        : 'bg-white text-dark-gray border-medium-gray hover:text-main';
       break;
     case SELECTBUTTON_MODE.DAY:
       sizeStyle =
         'w-[42px] h-[42px] flex items-center justify-center text-body-md rounded-full font-dohyeon';
       variantStyle = isSelected
         ? 'bg-sub text-main border-main text-main'
-        : 'bg-white text-medium-gray border-medium-gray hover:bg-sub hover:border-main hover:bg-sub hover:text-white';
+        : 'bg-white text-medium-gray border-medium-gray';
       break;
     default:
       sizeStyle = 'min-w-[80px] text-xs';

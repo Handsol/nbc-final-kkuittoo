@@ -4,17 +4,16 @@ import { TITLE_MODE } from '@/constants/mode.constants';
 
 type HabitHeaderProps = {
   habitsCount: number;
+  filteredCount?: number;
 };
-
-const HabitHeader = ({ habitsCount }: HabitHeaderProps) => {
+const HabitHeader = ({ habitsCount, filteredCount }: HabitHeaderProps) => {
   return (
-    <header
-      className="flex items-center justify-between "
-      aria-label="Habit section header"
-    >
+    <header className="flex items-center justify-between">
       <div className="flex items-center gap-[4px]">
         <Title mode={TITLE_MODE.SECTION_TITLE}>My Habits</Title>
-        <Text className="font-bold">({habitsCount})</Text>
+        <Text className="font-bold">
+          ({filteredCount ?? habitsCount}/{habitsCount})
+        </Text>
       </div>
     </header>
   );

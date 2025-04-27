@@ -1,4 +1,4 @@
-import { DAY_LABELS_KO, DAYS_OF_WEEK } from '@/constants/habits.constants';
+import { DAY_LABELS, DAYS_OF_WEEK } from '@/constants/habits.constants';
 import { Habit } from '@prisma/client';
 
 /**
@@ -45,6 +45,6 @@ export const getCurrentDayStatus = (habit: Habit) => {
 export const getKoreanDayInfoArray = (): { key: string; label: string }[] => {
   return DAYS_OF_WEEK.map((key, index) => ({
     key,
-    label: DAY_LABELS_KO[index],
+    label: DAY_LABELS[index],
   }));
 };
