@@ -27,24 +27,6 @@ export const isCooldownActive = (
   return now < oneHourLater;
 };
 
-// /**
-//  * 최근 포인트 획득 시간을 기준으로 쿨다운 상태인지 확인하는 유틸리티 함수
-//  * @param {UserPoint[]} userPoints - 유저의 포인트 이력 배열
-//  * @returns {boolean} - 아직 쿨다운 중이라면 true, 아니라면 false
-//  */
-// export const getCooldownStatus = (userPoints: UserPoint[]): boolean => {
-//   if (userPoints.length === 0) return false;
-
-//   const lastPoint = [...userPoints].sort(
-//     (a, b) => new Date(b.getTime).getTime() - new Date(a.getTime).getTime(),
-//   )[0];
-
-//   return (
-//     new Date() <
-//     new Date(new Date(lastPoint.getTime).getTime() + ONE_HOUR_COOLDOWN_MS)
-//   );
-// };
-
 /**
  * 오늘 획득한 총 포인트 계산
  */

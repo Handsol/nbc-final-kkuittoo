@@ -1,34 +1,6 @@
 import { HabitWithPoints } from '@/types/habits.type';
-import { Categories } from '@prisma/client';
 import { getCurrentDayStatus } from './habit-date.utils';
 import { isCooldownActive } from './habit-points.utils';
-import { DAYS_OF_WEEK } from '@/constants/habits.constants';
-
-/**
- * 습관 목록을 선택된 요일과 카테고리에 따라 필터링하는 유틸리티 함수
- * @param habits - 필터링할 습관 객체 배열
- * @param selectedDay - 선택된 요일 문자열 배열 (예: ['mon', 'wed'])
- * @param selectedCategory - 선택된 카테고리 (null일 경우 카테고리 필터링 X)
- * @returns 필터링된 습관 객체 배열
- */
-export const filterHabits = (
-  habits: HabitWithPoints[],
-  selectedDay: (typeof DAYS_OF_WEEK)[number][],
-  selectedCategory: Categories | null,
-): HabitWithPoints[] => {
-  let filtered = habits;
-  if (selectedDay.length > 0 && selectedDay.length < 7) {
-    filtered = filtered.filter((habit) =>
-      selectedDay.some((day) => habit[day as keyof HabitWithPoints] === true),
-    );
-  }
-  if (selectedCategory) {
-    filtered = filtered.filter(
-      (habit) => habit.categories === selectedCategory,
-    );
-  }
-  return filtered;
-};
 
 /**
  * 습관이 활성화된 상태인지 확인(쿨다운 비활성화 및 오늘 수행 가능).

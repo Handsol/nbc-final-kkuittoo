@@ -29,13 +29,3 @@ export const getHabitDaysString = (habit: Habit): string => {
   );
   return activeDays.join(', ');
 };
-
-/**
- * 습관의 기본 정보 추출
- */
-export const getHabitBasicInfo = (habit: Habit) => ({
-  id: habit.id,
-  title: habit.title,
-  notes: habit.notes,
-  categories: habit.categories,
-});

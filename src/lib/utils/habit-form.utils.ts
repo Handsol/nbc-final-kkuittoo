@@ -4,18 +4,7 @@ import {
   HABIT_CATEGORIES,
 } from '@/constants/habits.constants';
 import { HabitFormData } from '@/types/habits.type';
-import { Categories, Habit } from '@prisma/client';
 import { HabitFormSchema } from '../schema/habit.schema';
-
-/**
- * 선택된 요일 목록을 반환하는 유틸리티 함수
- * @param {Habit} [habit] - 선택된 요일 정보를 가진 습관 객체
- * @returns {string[]} - 선택된 요일 문자열 배열 (예: ['mon', 'wed'])
- */
-export const getInitialSelectedDays = (habit?: Habit) => {
-  if (!habit) return [];
-  return DAYS_OF_WEEK.filter((day) => habit[day as keyof Habit]);
-};
 
 /**
  * 요일 선택 토글하는 유틸리티 함수
@@ -25,31 +14,6 @@ export const getInitialSelectedDays = (habit?: Habit) => {
  */
 export const toggleDay = (days: string[], day: string): string[] =>
   days.includes(day) ? days.filter((d) => d !== day) : [...days, day];
-
-/**
- * habit 생성 또는 수정할 때 사용될 habit data 생성하는 유틸리티 함수
- * @param {string} [id] - 습관 ID (수정 시 사용)
- * @returns {HabitFormData}
- */
-export const createHabitData = (
-  title: string,
-  notes: string,
-  selectedDays: string[],
-  category: Categories,
-  id?: string,
-): HabitFormData => ({
-  id: id || Math.random().toString(),
-  title,
-  notes,
-  categories: category,
-  mon: selectedDays.includes('mon'),
-  tue: selectedDays.includes('tue'),
-  wed: selectedDays.includes('wed'),
-  thu: selectedDays.includes('thu'),
-  fri: selectedDays.includes('fri'),
-  sat: selectedDays.includes('sat'),
-  sun: selectedDays.includes('sun'),
-});
 
 /**
  * react-hook-form에서 사용할 기본값
