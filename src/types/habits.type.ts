@@ -33,3 +33,21 @@ export type HabitFormValues = {
   categories: Categories;
   selectedDays: string[];
 };
+
+export type PageParam = {
+  skip: number;
+  take: number;
+};
+
+export type HabitsQueryResult = {
+  habits: HabitWithPoints[];
+  totalHabits: number;
+  nextSkip: number;
+};
+
+export type FilterState = {
+  selectedDay: string[];
+  setSelectedDay: (day: string[]) => void;
+  selectedCategory: Categories | null;
+  setSelectedCategory: (category: Categories | null) => void;
+};
