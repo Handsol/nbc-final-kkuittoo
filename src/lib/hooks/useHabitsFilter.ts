@@ -10,14 +10,17 @@ type UseHabitsFilterReturn = {
 };
 
 const useHabitsFilter = (): UseHabitsFilterReturn => {
-  const [selectedDay, setSelectedDay] = useState<string[]>([
-    ...DAYS_OF_WEEK_ARRAY,
-  ]);
+  const [selectedDay, setSelectedDay] = useState([...DAYS_OF_WEEK_ARRAY]);
   const [selectedCategory, setSelectedCategory] = useState<Categories | null>(
     null,
   );
 
-  return { selectedDay, setSelectedDay, selectedCategory, setSelectedCategory };
+  return {
+    selectedDay,
+    setSelectedDay,
+    selectedCategory,
+    setSelectedCategory,
+  };
 };
 
 export default useHabitsFilter;

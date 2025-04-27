@@ -23,8 +23,7 @@ const DashboardHabits = ({
   initialTotalHabits,
   initialPoints,
 }: DashboardHabitsProps) => {
-  const { selectedDay, setSelectedDay, selectedCategory, setSelectedCategory } =
-    useHabitsFilter();
+  const filterState = useHabitsFilter();
 
   const {
     habits,
@@ -41,8 +40,8 @@ const DashboardHabits = ({
     initialHabits,
     initialTotalHabits,
     initialPoints,
-    selectedDay,
-    selectedCategory,
+    filterState.selectedDay,
+    filterState.selectedCategory,
   );
 
   const { isCreating, handleToggleCreate } = useHabitsControls();
@@ -60,14 +59,9 @@ const DashboardHabits = ({
         currentPoints={currentExp}
       />
       <HabitsFilter
-        habits={habits}
-        onFilterChange={() => {}}
+        filterState={filterState}
         isCreating={isCreating}
         onToggleCreate={handleToggleCreate}
-        selectedDay={selectedDay}
-        setSelectedDay={setSelectedDay}
-        selectedCategory={selectedCategory}
-        setSelectedCategory={setSelectedCategory}
       />
       <div className="flex-1 overflow-hidden">
         <HabitList

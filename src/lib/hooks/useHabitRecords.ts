@@ -1,4 +1,4 @@
-import { HabitsQueryResult, HabitWithPoints } from '@/types/habits.type';
+import { HabitWithPoints } from '@/types/habits.type';
 import { useMemo } from 'react';
 import {
   getCurrentExp,
@@ -18,6 +18,7 @@ export const useHabitRecords = (
   selectedDay: string[],
   selectedCategory: Categories | null,
 ) => {
+  // 습관 리스트 가져오기
   const {
     data,
     isError: isHabitsError,
@@ -25,28 +26,36 @@ export const useHabitRecords = (
     hasNextPage,
     isFetchingNextPage,
   } = useHabitsQuery(userId, selectedDay, selectedCategory);
+
+  // 사용자 포인트 가져오기
   const { data: totalPoints = initialPoints, isError: isPointsError } =
     useUserPointsQuery(userId);
 
+  // 가져온 습관 데이터 정리
   const habits = useMemo(() => {
-    const result =
-      data?.pages.flatMap((page: HabitsQueryResult) => page.habits) ??
-      initialHabits;
-    return sortHabitsByEnabled(result); // 여기서 정렬 적용
+    if (!data) return sortHabitsByEnabled(initialHabits);
+
+    const allHabits = data.pages
+      .map((page) => page.habits)
+      .reduce((all, habits) => [...all, ...habits], []);
+
+    return sortHabitsByEnabled(allHabits);
   }, [data, initialHabits]);
 
+  // 전체 습관 수
   const totalHabits = useMemo(() => {
-    const result = data?.pages[0]?.totalHabits ?? initialTotalHabits;
-    return result;
+    return data?.pages[0]?.totalHabits ?? initialTotalHabits;
   }, [data, initialTotalHabits]);
 
-  const levelInfo = useMemo(() => {
-    return {
+  // 레벨 관련 정보 계산
+  const levelInfo = useMemo(
+    () => ({
       level: getUserLevel(totalPoints),
       expPercent: getExpPercent(totalPoints),
       currentExp: getCurrentExp(totalPoints),
-    };
-  }, [totalPoints]);
+    }),
+    [totalPoints],
+  );
 
   return {
     habits,

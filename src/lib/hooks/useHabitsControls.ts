@@ -1,4 +1,3 @@
-import { HabitWithPoints } from '@/types/habits.type';
 import { useState } from 'react';
 
 export const useHabitsControls = () => {

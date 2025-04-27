@@ -1,16 +1,7 @@
-import {
-  InfiniteData,
-  useInfiniteQuery,
-  useQuery,
-} from '@tanstack/react-query';
+import { InfiniteData, useInfiniteQuery } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@/constants/query-keys.constants';
-import {
-  HabitsQueryResult,
-  HabitWithPoints,
-  PageParam,
-} from '@/types/habits.type';
+import { HabitsQueryResult, PageParam } from '@/types/habits.type';
 import { fetchGetAllHabits } from '../services/habit-client.services';
-import { STALE_TIME } from '@/constants/time.constants';
 import { Categories } from '@prisma/client';
 
 /**
@@ -45,15 +36,21 @@ export const useHabitsQuery = (
         nextSkip: pageParam.skip + pageParam.take,
       };
     },
+    // 다음 페이지 요청을 결정하는 로직
     getNextPageParam: (lastPage, allPages) => {
-      const totalFetched = allPages.flatMap((page) => page.habits).length;
+      // 모든 habits 갯수 세기
+      const totalFetched = allPages
+        .map((page) => page.habits.length)
+        .reduce((sum, length) => sum + length, 0);
 
+      // 모든 습관을 가져왔거나, 더 가져올 습관이 없다면 종료
       if (
         totalFetched >= lastPage.totalHabits ||
         lastPage.habits.length === 0
       ) {
         return undefined;
       }
+
       return { skip: lastPage.nextSkip, take: 5 };
     },
     initialPageParam: { skip: 0, take: 5 },

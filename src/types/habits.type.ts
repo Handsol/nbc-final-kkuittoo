@@ -44,3 +44,10 @@ export type HabitsQueryResult = {
   totalHabits: number;
   nextSkip: number;
 };
+
+export type FilterState = {
+  selectedDay: string[];
+  setSelectedDay: (day: string[]) => void;
+  selectedCategory: Categories | null;
+  setSelectedCategory: (category: Categories | null) => void;
+};
