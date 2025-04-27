@@ -20,6 +20,8 @@ export const API_PATH = {
   HABITS: '/api/habits',
   TEAMS: '/api/teams',
   MEMBERS: '/api/teams/member',
+  RANK_USERS: '/api/rank/users',
+  RANK_TEAMS: '/api/rank/teams',
   PAYMENTS: {
     PATH: '/api/payments',
     SUCCESS: '/api/payments/success',
