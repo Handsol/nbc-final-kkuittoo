@@ -1,16 +1,21 @@
+import { ShowMoreWrapper } from '../ShowMoreWrapper';
 import { UserRankCard } from './UserRankCard';
 import { UserData } from '@/types/rank.type';
 
 type Props = {
   otherUsers: UserData[];
+  isSearching: boolean;
 };
 
-export const UserOtherSection = ({ otherUsers }: Props) => {
+export const UserOtherSection = ({ otherUsers, isSearching }: Props) => {
+  if (otherUsers.length === 0) {
+    return <p className="text-center text-gray-500">검색 결과가 없습니다.</p>;
+  }
+
   return (
     <section>
-      {otherUsers.length === 0 ? (
-        <p className="text-center text-gray-500">검색 결과가 없습니다.</p>
-      ) : (
+      {isSearching ? (
+        // 검색 모드일 때
         <ul className="space-y-4">
           {otherUsers.map((user) => (
             <li key={user.id}>
@@ -18,6 +23,9 @@ export const UserOtherSection = ({ otherUsers }: Props) => {
             </li>
           ))}
         </ul>
+      ) : (
+        // 일반 모드 (더보기 가능)
+        <ShowMoreWrapper initialUsers={otherUsers} />
       )}
     </section>
   );
