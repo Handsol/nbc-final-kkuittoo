@@ -1,6 +1,6 @@
 import { HabitWithPoints } from '@/types/habits.type';
 import { getCurrentDayStatus } from './habit-date.utils';
-import { DAY_LABELS_KO, DAYS_OF_WEEK } from '@/constants/habits.constants';
+import { DAY_LABELS, DAYS_OF_WEEK } from '@/constants/habits.constants';
 import { Habit } from '@prisma/client';
 import { isCooldownActive } from './habit-points.utils';
 
@@ -24,7 +24,7 @@ export const isHabitDisabled = (
  * 습관의 활성 요일을 한국어 문자열로 변환
  */
 export const getHabitDaysString = (habit: Habit): string => {
-  const activeDays = DAY_LABELS_KO.filter(
+  const activeDays = DAY_LABELS.filter(
     (_, index) => habit[DAYS_OF_WEEK[index] as keyof Habit],
   );
   return activeDays.join(', ');
