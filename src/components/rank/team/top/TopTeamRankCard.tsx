@@ -16,6 +16,7 @@ import {
 import Link from 'next/link';
 import { PATH } from '@/constants/path.constants';
 import TeamOpenNotEditMode from '@/components/team/team-edit/TeamOpenNotEditMode';
+import { Z_INDEX } from '@/constants/z-index.constants';
 
 type Props = {
   team: TeamWithPoints;
@@ -78,7 +79,9 @@ export const TopRankTeamCard = ({ team, rank, animationDelay }: Props) => {
               }}
             />
           </div>
-          <span className="text-heading-xl font-bold text-white z-10">
+          <span
+            className={`text-heading-xl font-bold text-white z-${Z_INDEX.RANK_LABEL}`}
+          >
             {rank}
           </span>
         </div>

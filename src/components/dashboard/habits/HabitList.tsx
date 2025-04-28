@@ -2,12 +2,12 @@ import HabitForm from './HabitForm';
 import HabitItem from './HabitItem';
 import { HabitFormData, HabitWithPoints } from '@/types/habits.type';
 import { useCreateHabitMutation } from '@/lib/mutations/useHabitMutation';
-import { useMemo } from 'react';
-import { sortHabitsByEnabled } from '@/lib/utils/habit-filter.utils';
 import HabitEmptyState from './HabitEmptyState';
 import ActionButton from '@/components/common/button/ActionButton';
 import { ACTIONBUTTON_MODE } from '@/constants/mode.constants';
 import Text from '@/components/common/Text';
+import HabitListLoading from './HabitListLoading';
+import { CommonLoadingSpinner } from '@/components/common/CommonLoadingSpinner';
 
 type HabitListProps = {
   userId: string;
@@ -17,6 +17,7 @@ type HabitListProps = {
   fetchNextPage: () => void;
   hasNextPage: boolean;
   isFetchingNextPage: boolean;
+  isInitialLoading: boolean;
 };
 
 const HabitList = ({
@@ -27,6 +28,7 @@ const HabitList = ({
   fetchNextPage,
   hasNextPage,
   isFetchingNextPage,
+  isInitialLoading,
 }: HabitListProps) => {
   const createMutation = useCreateHabitMutation(userId);
 
@@ -40,6 +42,10 @@ const HabitList = ({
       },
     });
   };
+
+  if (isInitialLoading) {
+    return <HabitListLoading />;
+  }
 
   return (
     <div className="my-[16px] overflow-y-auto">
@@ -64,7 +70,14 @@ const HabitList = ({
                 onClick={fetchNextPage}
                 disabled={isFetchingNextPage}
               >
-                {isFetchingNextPage ? '불러오는 중...' : '더 보기'}
+                {isFetchingNextPage ? (
+                  <div className="flex items-center justify-center gap-[12px]">
+                    <Text>더 불러오기...</Text>
+                    <CommonLoadingSpinner size={24} />
+                  </div>
+                ) : (
+                  '더 보기'
+                )}
               </ActionButton>
             ) : (
               <Text className="text-sm text-medium-gray">
