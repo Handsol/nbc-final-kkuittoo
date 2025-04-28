@@ -7,6 +7,8 @@ import TeamDisbandButton from './team-delete/TeamDisbandButton';
 import { getUserSession } from '@/lib/services/getUserSession.services';
 import { notFound } from 'next/navigation';
 import UnauthorizedPage from '../loading-error-page/UnauthorizedPage';
+import CommonTooltip from '../common/CommonTooltip';
+import { TOOLTIP_MESSAGE } from '@/constants/tooltip-message.constants';
 
 type TeamLeaveProps = {
   id: string;
@@ -37,13 +39,17 @@ const TeamLeave = async ({ id }: TeamLeaveProps) => {
   return (
     <div>
       {isOwner ? (
-        <TeamDisbandButton
-          teamId={id}
-          ownerId={myTeamData.team.ownerId}
-          memberList={myTeamMembers}
-        />
+        <CommonTooltip message={TOOLTIP_MESSAGE.TEAM.DISBAND}>
+          <TeamDisbandButton
+            teamId={id}
+            ownerId={myTeamData.team.ownerId}
+            memberList={myTeamMembers}
+          />
+        </CommonTooltip>
       ) : (
-        <TeamLeaveButton id={teamMemberId} />
+        <CommonTooltip message={TOOLTIP_MESSAGE.TEAM.LEAVE}>
+          <TeamLeaveButton id={teamMemberId} />
+        </CommonTooltip>
       )}
     </div>
   );

@@ -4,6 +4,8 @@ import CategoryFilter from './habit-filter/CetegoryFilter';
 import ActionButton from '@/components/common/button/ActionButton';
 import { ACTIONBUTTON_MODE } from '@/constants/mode.constants';
 import MobileCategoryFilter from './habit-filter/MobileCategoryFilter';
+import CommonTooltip from '@/components/common/CommonTooltip';
+import { TOOLTIP_MESSAGE } from '@/constants/tooltip-message.constants';
 
 type HabitsFilterProps = {
   filterState: FilterState;
@@ -35,13 +37,15 @@ const HabitsFilter = ({
             setSelectedCategory={filterState.setSelectedCategory}
           />
         </div>
-        <ActionButton
-          mode={ACTIONBUTTON_MODE.ROUNDED_MD}
-          onClick={onToggleCreate}
-          disabled={isCreating}
-        >
-          습관 추가하기
-        </ActionButton>
+        <CommonTooltip message={TOOLTIP_MESSAGE.HABIT.CREATE}>
+          <ActionButton
+            mode={ACTIONBUTTON_MODE.ROUNDED_MD}
+            onClick={onToggleCreate}
+            disabled={isCreating}
+          >
+            습관 추가하기
+          </ActionButton>
+        </CommonTooltip>
       </div>
     </div>
   );
