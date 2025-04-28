@@ -10,7 +10,7 @@ const HabitHeader = ({ habitsCount, filteredCount }: HabitHeaderProps) => {
   return (
     <header className="flex items-center justify-between">
       <div className="flex items-center gap-[4px]">
-        <Title mode={TITLE_MODE.SECTION_TITLE}>My Habits</Title>
+        <Title mode={TITLE_MODE.SECTION_TITLE}>나의 습관</Title>
         <Text className="font-bold">
           ({filteredCount ?? habitsCount}/{habitsCount})
         </Text>

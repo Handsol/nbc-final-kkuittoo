@@ -1,15 +1,14 @@
 import {
   DAY_LABELS,
   DAYS_OF_WEEK,
-  REPEAT_OPTION_DAYS,
   REPEAT_OPTION_LABELS,
   REPEAT_OPTIONS,
 } from '@/constants/habits.constants';
 import { SELECTBUTTON_MODE } from '@/constants/mode.constants';
 import HabitSelectButton from '../habit-filter/HabitSelectButton';
 import ErrorMessage from '@/components/common/ErrorMessage';
-import { useEffect, useState } from 'react';
-import { toggleDay } from '@/lib/utils/habit-form.utils';
+import { useEffect } from 'react';
+import { useHabitRepeatDays } from '@/lib/hooks/useHabitRepeatDays';
 
 type HabitFormRepeatDaysProps = {
   selectedDays: string[];
@@ -18,67 +17,17 @@ type HabitFormRepeatDaysProps = {
 };
 
 const HabitFormRepeatDays = ({
-  selectedDays,
-  setSelectedDays,
+  selectedDays: initialDays,
+  setSelectedDays: onDaysChange,
   error,
 }: HabitFormRepeatDaysProps) => {
-  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+  const { selectedOptions, handleOptionClick, handleDayClick, selectedDays } =
+    useHabitRepeatDays(initialDays);
 
-  // selectedDays에 따라 상태 동기화
+  // 상태 변경할때마다 상위 컴포넌트에 알려주기
   useEffect(() => {
-    const newOptions: string[] = [];
-
-    // 매일
-    if (
-      selectedDays.length === DAYS_OF_WEEK.length &&
-      DAYS_OF_WEEK.every((day) => selectedDays.includes(day))
-    ) {
-      newOptions.push(REPEAT_OPTIONS.EVERY_DAY);
-    }
-    // 주중
-    else if (
-      selectedDays.length ===
-        REPEAT_OPTION_DAYS[REPEAT_OPTIONS.WEEKDAYS].length &&
-      REPEAT_OPTION_DAYS[REPEAT_OPTIONS.WEEKDAYS].every((day) =>
-        selectedDays.includes(day),
-      ) &&
-      selectedDays.every((day) =>
-        REPEAT_OPTION_DAYS[REPEAT_OPTIONS.WEEKDAYS].includes(day),
-      )
-    ) {
-      newOptions.push(REPEAT_OPTIONS.WEEKDAYS);
-    }
-    // 주말
-    else if (
-      selectedDays.length ===
-        REPEAT_OPTION_DAYS[REPEAT_OPTIONS.WEEKENDS].length &&
-      REPEAT_OPTION_DAYS[REPEAT_OPTIONS.WEEKENDS].every((day) =>
-        selectedDays.includes(day),
-      ) &&
-      selectedDays.every((day) =>
-        REPEAT_OPTION_DAYS[REPEAT_OPTIONS.WEEKENDS].includes(day),
-      )
-    ) {
-      newOptions.push(REPEAT_OPTIONS.WEEKENDS);
-    }
-
-    setSelectedOptions(newOptions);
-  }, [selectedDays]);
-
-  // 주기 옵션 클릭 핸들러
-  const handleOptionClick = (option: string) => {
-    const newSelectedOptions = [option];
-    const newSelectedDays = [...REPEAT_OPTION_DAYS[option]];
-
-    setSelectedOptions(newSelectedOptions);
-    setSelectedDays(newSelectedDays);
-  };
-
-  // 월~일 요일 클릭 핸들러!
-  const handleDayClick = (day: string) => {
-    const newSelectedDays = toggleDay(selectedDays, day);
-    setSelectedDays(newSelectedDays);
-  };
+    onDaysChange(selectedDays);
+  }, [selectedDays, onDaysChange]);
 
   return (
     <div className="flex flex-col gap-[12px]">
