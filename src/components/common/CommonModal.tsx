@@ -40,7 +40,7 @@ export const CommonModal = ({
 
   return (
     <div
-      className={`fixed inset-0 z-${Z_INDEX.COMMON} bg-black bg-opacity-60 flex justify-center items-center px-4`}
+      className={`fixed inset-0 z-${Z_INDEX.MODAL} bg-black bg-opacity-60 flex justify-center items-center px-4`}
       onClick={onClose}
     >
       <div
