@@ -10,6 +10,7 @@ import { TITLE_MODE } from '@/constants/mode.constants';
 import { SlArrowRight } from 'react-icons/sl';
 import { getUserImageByLevel } from '@/lib/utils/user.utils';
 import { getUserLevel } from '@/lib/utils/user-level.utils';
+import TeamChatDisabled from './TeamChatDisabled';
 
 type TeamMessage = {
   id: string;
@@ -25,6 +26,11 @@ type TeamMessage = {
 type TeamChatProps = {
   // 어떤 팀의 채팅인지 구분하기 위함
   teamId: string;
+  userTeamInfo: {
+    isThisTeamMember: boolean;
+    isUserhasTeam: boolean;
+    currentTeamMembers: number;
+  };
 };
 {
   /*
@@ -34,7 +40,11 @@ type TeamChatProps = {
     messagesEndRef: 새 메시지가 생기면 자동으로 아래로 스크롤하기 위해 사용됩니다.
   */
 }
-export const TeamChat = ({ teamId }: TeamChatProps) => {
+export const TeamChat = ({ teamId, userTeamInfo }: TeamChatProps) => {
+  //해당 팀 멤버가 아닌 경우 채팅창 비활성화
+  const { isThisTeamMember } = userTeamInfo;
+  if (!isThisTeamMember) return <TeamChatDisabled />;
+
   const [messages, setMessages] = useState<TeamMessage[]>([]);
   const [newMessage, setNewMessage] = useState('');
   const { data: session } = useSession();
