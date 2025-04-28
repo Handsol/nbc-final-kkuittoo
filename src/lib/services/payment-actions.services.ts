@@ -16,7 +16,7 @@ export const fetchGetItemList = async () => {
 // 구매한 아이템 목록 가져오기
 export const fetchGetPurchasedItemList = async () => {
   try {
-    const res = await fetch('/api/purchased-items');
+    const res = await fetch('/api/items/purchased-items');
     if (!res.ok) {
       const errorData = await res.json();
       throw new Error(errorData?.error || '구매 아이템 목록 불러오기 실패');
@@ -31,7 +31,7 @@ export const fetchGetPurchasedItemList = async () => {
 // 구매하지 않은 아이템 목록 가져오기
 export const fetchGetNotPurchasedItemList = async () => {
   try {
-    const res = await fetch('/api/not-purchased-items');
+    const res = await fetch('/api/items/not-purchased-items');
     if (!res.ok) {
       const errorData = await res.json();
       throw new Error(errorData?.error || '미구매 아이템 목록 불러오기 실패');
