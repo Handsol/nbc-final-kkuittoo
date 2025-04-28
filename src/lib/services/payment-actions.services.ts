@@ -1,47 +1,49 @@
-import { SHOP_MESSAGE } from '@/constants/error-messages.constants';
-import { prisma } from '@/lib/prisma';
-
-// 구매하지 않은 아이템 리스트 가져오기
-export const fetchGetNotPurchasedItemList = async (userId: string) => {
+// 모든 아이템 다 가져오기
+export const fetchGetItemList = async () => {
   try {
-    const { notPurchasedItemList } = await fetchGetItemList(userId);
-    return notPurchasedItemList;
+    const res = await fetch('/api/items');
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(errorData?.error || '아이템 목록 불러오기 실패');
+    }
+    return res.json();
   } catch (error) {
     console.error(error);
-    throw new Error(`Failed to fetch not purchased items: ${error}`);
+    throw new Error(`아이템 목록 불러오기 실패 : ${error}`);
   }
 };
 
-export const fetchGetItemList = async (userId: string) => {
+// 구매한 아이템 목록 가져오기
+export const fetchGetPurchasedItemList = async () => {
   try {
-    // 아이템 전체 리스트와 해당 유저가 구매한 아이템 리스트 가져오기
-    const itemList = await prisma.item.findMany({
-      include: {
-        userItems: {
-          where: { userId },
-        },
-      },
-    });
-
-    if (!itemList) throw new Error(SHOP_MESSAGE.ITEM.FETCH_FAIL);
-
-    // 구매한 아이템 목록
-    const purchasedItemList = itemList.filter(
-      (item) => !!item.userItems.length,
-    );
-    // 구매하지 않은 아이템 목록
-    const notPurchasedItemList = itemList.filter(
-      (item) => !item.userItems.length,
-    );
-
-    return { purchasedItemList, notPurchasedItemList };
+    const res = await fetch('/api/purchased-items');
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(errorData?.error || '구매 아이템 목록 불러오기 실패');
+    }
+    return res.json();
   } catch (error) {
     console.error(error);
-    throw new Error(`${SHOP_MESSAGE.ITEM.FETCH_FAIL}, itemList`);
+    throw new Error(`구매 아이템 목록 불러오기 실패 : ${error}`);
   }
 };
 
-// 아이템 적용 시 isApplied 상태를 true로 변경
+// 구매하지 않은 아이템 목록 가져오기
+export const fetchGetNotPurchasedItemList = async () => {
+  try {
+    const res = await fetch('/api/not-purchased-items');
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(errorData?.error || '미구매 아이템 목록 불러오기 실패');
+    }
+    return res.json();
+  } catch (error) {
+    console.error(error);
+    throw new Error(`미구매 아이템 목록 불러오기 실패 : ${error}`);
+  }
+};
+
+// 아이템 적용 상태 변경하기
 export const fetchPatchApplyItem = async (userItemId: string) => {
   try {
     const res = await fetch(`/api/user-items/${userItemId}`, {
@@ -52,11 +54,12 @@ export const fetchPatchApplyItem = async (userItemId: string) => {
       body: JSON.stringify({ isApplied: true }),
     });
     if (!res.ok) {
-      throw new Error(`Failed to apply item with ID: ${userItemId}`);
+      const errorData = await res.json();
+      throw new Error(errorData?.error || `ID: ${userItemId} 아이템 적용 실패`);
     }
     return res.json();
   } catch (error) {
     console.error(error);
-    throw new Error(`Failed to apply item: ${error}`);
+    throw new Error(`아이템 적용 실패: ${error}`);
   }
 };
