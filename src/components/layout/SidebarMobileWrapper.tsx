@@ -5,6 +5,7 @@ import MobileHeader from './MobileHeader';
 import { usePathname } from 'next/navigation';
 import Sidebar from './Sidebar';
 import { Z_INDEX } from '@/constants/z-index.constants';
+import { MD_BREAKPOINT } from '@/constants/breakpoints.constants';
 
 const SidebarMobileWrapper = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,7 +14,7 @@ const SidebarMobileWrapper = () => {
   // 창 크기 변경(resize)을 감지해서 768px보다 크면 사이드바 저절 닫힘
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 768) {
+      if (window.innerWidth >= MD_BREAKPOINT) {
         setIsOpen(false);
       }
     };
