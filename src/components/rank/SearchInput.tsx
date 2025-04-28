@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import CommonInputBar from '@/components/common/CommonInputBar';
 import debounce from 'lodash-es/debounce';
 import { Loader2 } from 'lucide-react';
+import { LoaderCircle } from 'lucide-react';
 
 type SearchInputProps = {
   placeholder: string;
@@ -79,7 +80,7 @@ export const SearchInput = ({ placeholder }: SearchInputProps) => {
       )}
       {isPending && (
         <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
-          <Loader2 className="animate-spin h-5 w-5 text-medium-gray" />
+          <LoaderCircle className="animate-spin h-5 w-5 text-medium-gray" />
         </div>
       )}
     </div>

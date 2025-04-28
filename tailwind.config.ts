@@ -111,6 +111,7 @@ const config: Config = {
       animation: {
         'loading-bar': 'loadingBar 1.5s infinite ease-in-out',
         'fade-out': 'fadeOut 0.5s ease-out forwards',
+        'slide-in-left': 'slide-in-left 300ms ease-out forwards',
       },
       keyframes: {
         loadingBar: {
@@ -120,6 +121,10 @@ const config: Config = {
         fadeOut: {
           '0%': { opacity: '1' },
           '100%': { opacity: '0' },
+        },
+        'slide-in-left': {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(0)' },
         },
       },
       boxShadow: {
