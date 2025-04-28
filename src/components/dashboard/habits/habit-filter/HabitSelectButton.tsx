@@ -62,9 +62,10 @@ const HabitSelectButton = ({
   return (
     <label
       className={`
-          ${baseStyle} ${sizeStyle} ${disabledStyle} 
-          ${disabled ? 'pointer-events-none' : ''}
-        `}
+    ${baseStyle} ${sizeStyle} ${disabledStyle}
+    ${disabled ? 'pointer-events-none' : 'hover:scale-105'}
+    transform transition-transform
+  `}
     >
       <input
         type={inputType}
