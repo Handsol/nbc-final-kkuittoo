@@ -54,7 +54,7 @@ const TeamInfo = async ({ id }: TeamQuestProps) => {
         />
 
         <section className="flex-1 flex flex-col gap-3 justify-center min-w-0">
-          <div className="w-full flex items-baseline gap-2">
+          <div className="w-[260px] flex items-center justify-between">
             <TeamTitle
               teamName={teamName}
               currentQuestName={teamCurrentQuest.questName}
