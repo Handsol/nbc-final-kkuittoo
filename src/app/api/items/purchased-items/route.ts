@@ -10,6 +10,7 @@ export const GET = async () => {
 
   try {
     const userId = session.user.id;
+
     const itemList = await prisma.item.findMany({
       include: {
         userItems: {
@@ -17,12 +18,15 @@ export const GET = async () => {
         },
       },
     });
+
     const purchasedItemList = itemList.filter(
       (item) => !!item.userItems.length,
     );
+
     return NextResponse.json(purchasedItemList);
   } catch (error) {
     console.error('Failed to fetch purchased items:', error);
+
     return NextResponse.json(
       { error: SHOP_MESSAGE.ITEM.FETCH_FAIL },
       { status: HTTP_STATUS.SERVER_ERROR },
