@@ -13,6 +13,8 @@ import { getUserSession } from '@/lib/services/getUserSession.services';
 import UnauthorizedPage from '../loading-error-page/UnauthorizedPage';
 import TeamJoin from './TeamJoin';
 import { TeamData } from '@/types/teams.type';
+import CommonTooltip from '../common/CommonTooltip';
+import { TOOLTIP_MESSAGE } from '@/constants/tooltip-message.constants';
 
 type TeamMemberListProps = {
   id: string;
@@ -34,7 +36,9 @@ const TeamMemberList = async ({ id }: TeamMemberListProps) => {
         <Title mode={TITLE_MODE.SECTION_TITLE}>팀 멤버</Title>
         {isThisTeamMember ? (
           <div className="flex gap-4">
-            <TeamInviteButton id={id} />
+            <CommonTooltip message={TOOLTIP_MESSAGE.TEAM.INVITE}>
+              <TeamInviteButton id={id} />
+            </CommonTooltip>
             <TeamLeave id={id} />
           </div>
         ) : (

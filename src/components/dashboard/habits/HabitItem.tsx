@@ -11,6 +11,8 @@ import ConfirmDialog from '@/components/common/ConfirmDialog';
 import { POINT_DIALOG_CONTENTS } from '@/constants/dialog.constants';
 import { useHabitItemState } from '@/lib/hooks/useHabitItemState';
 import HabitCategoryBadge from './habit-item/HabitCategoryBadge';
+import CommonTooltip from '@/components/common/CommonTooltip';
+import { TOOLTIP_MESSAGE } from '@/constants/tooltip-message.constants';
 
 type HabitItemProps = {
   habit: Habit & { userPoints: UserPoint[] };
@@ -52,11 +54,16 @@ const HabitItem = ({ habit, userId }: HabitItemProps) => {
           }}
           onClick={handleConfirmAddPoint}
         >
-          <IconButton
-            mode={ICONBUTTON_MODE.POINT}
-            disabled={isDisabled}
-            aria-label="Add point"
-          />
+          <CommonTooltip
+            message={TOOLTIP_MESSAGE.HABIT.POINT}
+            isDisabled={isDisabled}
+          >
+            <IconButton
+              mode={ICONBUTTON_MODE.POINT}
+              disabled={isDisabled}
+              aria-label="Add point"
+            />
+          </CommonTooltip>
         </ConfirmDialog>
 
         <div className="flex-1 min-w-0">

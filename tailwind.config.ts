@@ -25,6 +25,7 @@ const config: Config = {
         'body-md': ['16px', '24px'],
         'body-sm': ['14px', '20px'],
         'body-xs': ['12px', '18px'],
+        'body-xxs': ['10px', '12px'],
       },
       colors: {
         background: 'hsl(var(--background))',
