@@ -53,7 +53,11 @@ const DashboardHabits = ({
 
   return (
     <div className="flex flex-col h-full px-4 md:px-[40px] gap-[32px]">
-      <HabitHeader habitsCount={totalHabits} filteredCount={habits.length} />
+      <HabitHeader
+        habitsCount={totalHabits}
+        filteredCount={habits.length}
+        isInitialLoading={isFetching}
+      />
       <UserLevelProgress
         level={level}
         expPercent={expPercent}
@@ -73,7 +77,7 @@ const DashboardHabits = ({
           fetchNextPage={fetchNextPage}
           hasNextPage={hasNextPage}
           isFetchingNextPage={isFetchingNextPage}
-          isInitialLoading={isFetching}
+          isInitialLoading={isFetching && !isFetchingNextPage} //전체 목록을 처음 불러올 때만 더보기 눌렀을 때는 X
         />
       </div>
     </div>
