@@ -2,6 +2,7 @@ import { TEAMS_MESSAGES } from '@/constants/error-messages.constants';
 import { API_PATH } from '@/constants/path.constants';
 import { TeamData } from '@/types/teams.type';
 import { TeamFormInputs } from '../hooks/useTeamCreateForm';
+import { TeamWithPoints } from '@/types/rank.type';
 
 // 팀 데이터 가져오기
 export const fetchGetTeams = async (): Promise<TeamData[]> => {
@@ -230,4 +231,24 @@ export const fetchCreateTeamMember = async (
     console.error('fetchDeleteTeam 에러:', error);
     throw new Error(TEAMS_MESSAGES.JOIN_FAILED);
   }
+};
+
+// 서버에서 팀 랭킹 데이터 가져오기 (더보기용)
+export const fetchGetTeamRankList = async (
+  offset = 0,
+  limit = 5,
+): Promise<TeamWithPoints[]> => {
+  const res = await fetch(
+    `${API_PATH.RANK_TEAMS}?offset=${offset}&limit=${limit}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    },
+  );
+  if (!res.ok) {
+    throw new Error(TEAMS_MESSAGES.FETCH_FAILED);
+  }
+  return res.json();
 };

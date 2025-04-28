@@ -1,16 +1,23 @@
+import Text from '@/components/common/Text';
+import { ShowMoreWrapper } from '../ShowMoreWrapper';
 import { UserRankCard } from './UserRankCard';
 import { UserData } from '@/types/rank.type';
 
 type Props = {
   otherUsers: UserData[];
+  isSearching: boolean;
 };
 
-export const UserOtherSection = ({ otherUsers }: Props) => {
+export const UserOtherSection = ({ otherUsers, isSearching }: Props) => {
+  if (otherUsers.length === 0) {
+    return (
+      <Text className="text-center text-gray-500">검색 결과가 없습니다.</Text>
+    );
+  }
+
   return (
     <section>
-      {otherUsers.length === 0 ? (
-        <p className="text-center text-gray-500">검색 결과가 없습니다.</p>
-      ) : (
+      {isSearching ? (
         <ul className="space-y-4">
           {otherUsers.map((user) => (
             <li key={user.id}>
@@ -18,6 +25,8 @@ export const UserOtherSection = ({ otherUsers }: Props) => {
             </li>
           ))}
         </ul>
+      ) : (
+        <ShowMoreWrapper initialUsers={otherUsers} />
       )}
     </section>
   );

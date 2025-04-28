@@ -7,6 +7,7 @@ import { SearchInput } from '../SearchInput';
 import Link from 'next/link';
 import { getTabButtonClass } from '@/styles/tabButtonStyles';
 import { usePathname } from 'next/navigation';
+import { PLACEHOLDER } from '@/constants/placeholder.constants';
 
 export const UserRankHeader = () => {
   const pathname = usePathname();
@@ -27,7 +28,7 @@ export const UserRankHeader = () => {
       </div>
 
       {/* PC용 LinkButton */}
-      <div className="hidden md:flex space-x-2 p-4">
+      <div className="hidden md:flex space-x-4 p-12 md:w-full">
         <LinkButton mode={LINKBUTTON_MODE.RANK} href={PATH.RANK.USERS} disabled>
           Character
         </LinkButton>
@@ -37,8 +38,8 @@ export const UserRankHeader = () => {
       </div>
 
       {/* 검색창 공통 */}
-      <div className="mt-2 md:mt-0 w-full md:w-auto">
-        <SearchInput placeholder="캐릭터 이름을 검색해보세요." />
+      <div className="mt-2 p-4 md:mt-0 w-full md:w-1/2">
+        <SearchInput placeholder={PLACEHOLDER.USER_SEARCH} />
       </div>
     </section>
   );

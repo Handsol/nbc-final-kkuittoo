@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import MobileHeader from './MobileHeader';
 import SlideSidebar from './SlideSidebar';
 import { usePathname } from 'next/navigation';
+import Sidebar from './Sidebar';
 
 const SidebarMobileWrapper = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,8 +46,34 @@ const SidebarMobileWrapper = () => {
 
   return (
     <>
+      {/* 1) 헤더에서 open 버튼 */}
       <MobileHeader onOpen={() => setIsOpen(true)} />
-      {isOpen && <SlideSidebar onClose={() => setIsOpen(false)} />}
+
+      {/* 2) 오버레이 + 패널 */}
+      <div className="fixed inset-0 z-50 flex pointer-events-none md:hidden">
+        {/* 오버레이 (클릭 시 닫힘) */}
+        <div
+          onClick={() => setIsOpen(false)}
+          className={`
+            absolute inset-0 bg-black
+            transition-opacity duration-300
+            ${isOpen ? 'opacity-50 pointer-events-auto' : 'opacity-0'}
+          `}
+        />
+
+        {/* 사이드바 패널 */}
+        <div
+          className={`
+            relative w-[240px] h-full bg-white
+            transform transition-transform duration-300
+            ${
+              isOpen ? 'translate-x-0 pointer-events-auto' : '-translate-x-full'
+            }
+          `}
+        >
+          <Sidebar isMobile={true} onClose={() => setIsOpen(false)} />
+        </div>
+      </div>
     </>
   );
 };
