@@ -6,7 +6,7 @@ export const TOOLTIP_MESSAGE = {
     INVITE: '카카오 공유하기로 팀원을 초대해보세요!',
   },
   HABIT: {
-    CREATE: '매일 꾸준하게 실천할 habit을 만들어보세요!',
+    CREATE: '매일 꾸준하게 실천할 습관을 만들어보세요!',
     POINT: '완료 후 포인트 쌓고 캐릭터를 성장시켜요!',
   },
 } as const;
