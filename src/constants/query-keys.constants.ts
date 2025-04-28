@@ -5,5 +5,6 @@ export const QUERY_KEYS = {
   TEAMS: ['teams'] as const,
   SINGLE_TEAM: (teamId: string) => ['team', teamId] as const,
   USER_POINTS: (userId: string) => ['userPoints', userId] as const,
-  PURCHASED_ITEMS: (userId: string) => ['purchasedItems', userId] as const,
+  PURCHASED_ITEMS: ['purchasedItems'] as const,
+  NOT_PURCHASED_ITEMS: ['notPurchasedItems'] as const,
 };
