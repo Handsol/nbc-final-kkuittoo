@@ -11,7 +11,8 @@ const HabitListLoading = () => {
           alt="Loading logo"
           width={120}
           height={90}
-          className="animate-pulse"
+          priority
+          className="animate-pulse w-auto h-auto"
         />
         <Text className="text-medium-gray">습관 목록을 불러오는 중...</Text>
         <div className="w-40 h-1.5 bg-light-gray rounded-full overflow-hidden">
