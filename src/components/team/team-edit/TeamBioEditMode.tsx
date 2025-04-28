@@ -12,10 +12,6 @@ import { TeamFormData } from '@/lib/services/team-client.services';
 import ErrorMessage from '@/components/common/ErrorMessage';
 import { useTeamBioUpdateForm } from '@/lib/hooks/useTeamBioUpdateForm';
 import { CommonLoadingSpinner } from '@/components/common/CommonLoadingSpinner';
-import { PATH } from '@/constants/path.constants';
-import ErrorPageText from '@/components/loading-error-page/ErrorPageText';
-import Image from 'next/image';
-import { IMAGE_ASSETS } from '@/constants/assets.contants';
 
 type TeamBioProps = {
   teamBio: string;

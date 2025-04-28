@@ -1,11 +1,7 @@
 'use client';
 
 import { CommonLoadingSpinner } from '@/components/common/CommonLoadingSpinner';
-import Text from '@/components/common/Text';
-import ErrorPageText from '@/components/loading-error-page/ErrorPageText';
 import { Switch } from '@/components/ui/switch';
-import { IMAGE_ASSETS } from '@/constants/assets.contants';
-import { PATH } from '@/constants/path.constants';
 import { useTeamOpenMutation } from '@/lib/mutations/useTeamOpenMutation';
 import { useSingleTeamQuery } from '@/lib/queries/useSingleTeamQuery';
 import Image from 'next/image';
