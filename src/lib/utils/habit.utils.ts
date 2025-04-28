@@ -25,7 +25,7 @@ export const isHabitDisabled = (
  */
 export const getHabitDaysString = (habit: Habit): string => {
   const activeDays = DAY_LABELS.filter(
-    (_, index) => habit[DAYS_OF_WEEK[index] as keyof Habit],
+    (_, index) => habit[DAYS_OF_WEEK[index]],
   );
   return activeDays.join(', ');
 };

@@ -11,7 +11,6 @@ import ConfirmDialog from '@/components/common/ConfirmDialog';
 import { POINT_DIALOG_CONTENTS } from '@/constants/dialog.constants';
 import { useHabitItemState } from '@/lib/hooks/useHabitItemState';
 import HabitCategoryBadge from './habit-item/HabitCategoryBadge';
-import CommonTooltip from '@/components/common/CommonTooltip';
 import { TOOLTIP_MESSAGE } from '@/constants/tooltip-message.constants';
 
 type HabitItemProps = {

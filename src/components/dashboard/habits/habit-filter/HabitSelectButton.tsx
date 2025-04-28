@@ -28,6 +28,12 @@ const HabitSelectButton = ({
   let variantStyle: string;
 
   switch (mode) {
+    case SELECTBUTTON_MODE.REPEAT_OPTION:
+      sizeStyle = 'px-[4px] py-[2px] text-body-sm rounded-lg';
+      variantStyle = isSelected
+        ? 'bg-sub-light text-main border-main'
+        : 'bg-white text-dark-gray border-medium-gray hover:text-main';
+      break;
     case SELECTBUTTON_MODE.CATEGORY:
       sizeStyle = 'p-[8px] text-body-sm rounded-lg truncate';
       variantStyle = isSelected
@@ -56,9 +62,10 @@ const HabitSelectButton = ({
   return (
     <label
       className={`
-          ${baseStyle} ${sizeStyle} ${disabledStyle} 
-          ${disabled ? 'pointer-events-none' : ''}
-        `}
+    ${baseStyle} ${sizeStyle} ${disabledStyle}
+    ${disabled ? 'pointer-events-none' : 'hover:scale-105'}
+    transform transition-transform
+  `}
     >
       <input
         type={inputType}

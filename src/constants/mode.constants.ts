@@ -46,6 +46,7 @@ export const MODAL_MODE = {
 export const SELECTBUTTON_MODE = {
   CATEGORY: 'category',
   DAY: 'day',
+  REPEAT_OPTION: 'repeat-option',
 } as const;
 
 export const JOINBUTTON_MODE = {

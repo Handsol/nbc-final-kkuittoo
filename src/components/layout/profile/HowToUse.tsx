@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { CommonModal } from '@/components/common/CommonModal'; // 경로는 실제 위치에 맞춰 조정
 import Image from 'next/image';
-import HowToUseModal from './HowToUseModal';
+import { HowToUseModal } from './HowToUseModal';
 
 export default function HowToUse() {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,12 +22,12 @@ export default function HowToUse() {
           width={30}
           height={30}
         />
-        <span className="text-sm">사용 방법</span>
+        <span className="text-body-sm">사용 방법</span>
       </button>
 
       {/* 모달 */}
       <CommonModal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <HowToUseModal />
+        <HowToUseModal onClose={() => setIsOpen(false)} />
       </CommonModal>
     </>
   );

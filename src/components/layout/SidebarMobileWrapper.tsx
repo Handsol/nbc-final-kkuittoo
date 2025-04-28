@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import MobileHeader from './MobileHeader';
-import SlideSidebar from './SlideSidebar';
 import { usePathname } from 'next/navigation';
 import Sidebar from './Sidebar';
+import { Z_INDEX } from '@/constants/z-index.constants';
+import { MD_BREAKPOINT } from '@/constants/breakpoints.constants';
 
 const SidebarMobileWrapper = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,7 +14,7 @@ const SidebarMobileWrapper = () => {
   // 창 크기 변경(resize)을 감지해서 768px보다 크면 사이드바 저절 닫힘
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 768) {
+      if (window.innerWidth >= MD_BREAKPOINT) {
         setIsOpen(false);
       }
     };
@@ -50,7 +51,9 @@ const SidebarMobileWrapper = () => {
       <MobileHeader onOpen={() => setIsOpen(true)} />
 
       {/* 2) 오버레이 + 패널 */}
-      <div className="fixed inset-0 z-50 flex pointer-events-none md:hidden">
+      <div
+        className={`fixed inset-0 z-${Z_INDEX.COMMON} flex pointer-events-none md:hidden`}
+      >
         {/* 오버레이 (클릭 시 닫힘) */}
         <div
           onClick={() => setIsOpen(false)}

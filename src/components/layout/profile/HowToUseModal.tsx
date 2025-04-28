@@ -15,7 +15,7 @@ type HowToUseModalProps = {
 
 const TOTAL_PAGES = HOW_TO_USE_IMAGES.length;
 
-export default function HowToUseModal() {
+export const HowToUseModal = ({ onClose }: HowToUseModalProps) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const handlePrev = () => currentPage > 1 && setCurrentPage(currentPage - 1);
@@ -25,7 +25,7 @@ export default function HowToUseModal() {
   const currentImage = HOW_TO_USE_IMAGES[currentPage - 1];
 
   return (
-    <div className="relative w-full flex flex-col items-center justify-between min-h-[400px] md:min-h-[520px] ">
+    <div className="relative w-full flex flex-col items-center justify-between min-h-[400px] md:min-h-[520px]">
       {/* 이미지 + 타이틀 영역 */}
       <div
         aria-label={`사용 방법 ${currentPage}페이지`}
@@ -68,4 +68,4 @@ export default function HowToUseModal() {
       </div>
     </div>
   );
-}
+};

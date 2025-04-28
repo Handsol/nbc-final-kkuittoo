@@ -20,8 +20,9 @@ import { getCurrentDayStatus } from '@/lib/utils/habit-date.utils';
  * @returns {Promise<NextResponse>} - 생성된 UserPoint 또는 에러
  * @throws {Error} 데이터베이스 생성 실패했을 때
  * @description
- * - 인증된 사용자가 자신의 Habit에 포인트 추가
- * - 요일 및 1시간 제한 조건 확인 후 포인트 추가(1점-임시)
+ * - 자신의 Habit에 포인트를 추가
+ * - 포인트 추가 전, 요일과 1시간 제한 조건 체크
+ * - 하루에 추가할 수 있는 최대 포인트는 10점
  */
 export const POST = async (request: NextRequest) => {
   const { session, response } = await checkAuth();
