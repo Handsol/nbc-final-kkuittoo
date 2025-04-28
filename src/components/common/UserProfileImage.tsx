@@ -1,12 +1,16 @@
 'use client';
 
+import { usePurchasedItemsQuery } from '@/lib/queries/usePurchasedItemsQuery';
 import { cn } from '@/lib/utils';
 import { getUserImageByLevel } from '@/lib/utils/user.utils';
+import { ShopItem } from '@/types/shop.type';
+
 import Image from 'next/image';
 
 type UserProfileImageProps = {
   level: number;
   size?: 'sm' | 'md' | 'lg' | 'xl';
+  item: string;
 };
 
 const SIZE_VARIANTS = {
@@ -17,17 +21,33 @@ const SIZE_VARIANTS = {
 };
 
 const UserProfileImage = ({ level, size = 'md' }: UserProfileImageProps) => {
+  const { data } = usePurchasedItemsQuery() as { data: ShopItem[] };
   const userImageSrc = getUserImageByLevel(level);
+  const appliedItem = data?.find((item) => item.userItems?.[0]?.isApplied);
+  const borderImageSrc = appliedItem?.itemImage || null;
 
   return (
-    <div className="relative">
-      {/* 프로필 이미지 (앞에) */}
+    <div
+      className={cn(
+        'relative flex items-center justify-center',
+        SIZE_VARIANTS[size],
+      )}
+    >
+      {/* 테두리 */}
+      {borderImageSrc && (
+        <Image
+          src={borderImageSrc}
+          alt="border"
+          fill
+          className="absolute rounded-full object-cover"
+        />
+      )}
+      {/* 프로필 캐릭터 */}
       <Image
         src={userImageSrc}
         alt="user profile"
-        width={150}
-        height={150}
-        className={cn('rounded-full object-cover z-10', SIZE_VARIANTS[size])}
+        fill
+        className="rounded-full object-cover p-5"
       />
     </div>
   );
