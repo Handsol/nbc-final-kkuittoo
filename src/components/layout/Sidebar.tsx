@@ -3,6 +3,7 @@ import SidebarProfile from './SidebarProfile';
 import SidebarLogo from './SidebarLogo';
 import SidebarNav from './SidebarNav';
 import { ChevronLeft } from 'lucide-react';
+import HowToUse from './profile/HowToUse';
 
 const Sidebar = ({
   isMobile = false,
@@ -33,6 +34,9 @@ const Sidebar = ({
       <div className="flex flex-col pt-10 gap-3 items-center w-full">
         <SidebarProfile />
         <LogoutButton />
+      </div>
+      <div className="flex flex-col pt-6 md:pt-10 gap-3 items-center">
+        <HowToUse />
       </div>
     </aside>
   );
