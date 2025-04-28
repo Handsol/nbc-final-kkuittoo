@@ -25,9 +25,10 @@ const PurchasedItemList = () => {
     mutationFn: (userItemId: string) => fetchPatchApplyItem(userItemId),
     onSuccess: () => {
       // 성공 시 캐시를 무효화하여 서버 데이터를 다시 불러옴
-      queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS.PURCHASED_ITEMS,
-      });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.PURCHASED_ITEMS] });
+    },
+    onError: (error) => {
+      console.error('아이템 적용 실패:', error);
     },
   });
   const handleApplyItem = (userItemId: string) => {
