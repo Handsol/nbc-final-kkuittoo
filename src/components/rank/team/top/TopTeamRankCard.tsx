@@ -15,6 +15,7 @@ import {
   rankCardContainer,
   rankCardInfoWrapper,
 } from '@/styles/rankCardStyles';
+import { Z_INDEX } from '@/constants/z-index.constants';
 
 type Props = {
   team: TeamWithPoints;
@@ -79,7 +80,9 @@ export const TopRankTeamCard = ({
               }}
             />
           </div>
-          <span className="text-heading-xl font-bold text-white z-10">
+          <span
+            className={`text-heading-xl font-bold text-white z-${Z_INDEX.RANK_LABEL}`}
+          >
             {rank}
           </span>
         </div>

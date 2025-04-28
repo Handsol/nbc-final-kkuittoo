@@ -3,6 +3,7 @@
 import * as React from 'react';
 import * as AlertDialogPrimitive from '@radix-ui/react-alert-dialog';
 import { cn } from '@/lib/utils';
+import { Z_INDEX } from '@/constants/z-index.constants';
 
 const AlertDialog = AlertDialogPrimitive.Root;
 
@@ -16,7 +17,7 @@ const AlertDialogOverlay = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <AlertDialogPrimitive.Overlay
     className={cn(
-      'fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
+      `fixed inset-0 z-${Z_INDEX.COMMON} bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0`,
       className,
     )}
     {...props}
@@ -32,9 +33,9 @@ const AlertDialogContent = React.forwardRef<
   <AlertDialogPortal>
     <AlertDialogOverlay />
     <div
-      className="fixed left-[50%] top-[50%] z-50 
+      className={`fixed left-[50%] top-[50%] z-${Z_INDEX.COMMON} 
                  w-full max-w-lg 
-                 -translate-x-1/2 -translate-y-1/2"
+                 -translate-x-1/2 -translate-y-1/2`}
     >
       <AlertDialogPrimitive.Content
         ref={ref}
