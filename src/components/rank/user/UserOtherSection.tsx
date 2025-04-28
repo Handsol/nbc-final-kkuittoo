@@ -1,3 +1,4 @@
+import Text from '@/components/common/Text';
 import { ShowMoreWrapper } from '../ShowMoreWrapper';
 import { UserRankCard } from './UserRankCard';
 import { UserData } from '@/types/rank.type';
@@ -9,7 +10,9 @@ type Props = {
 
 export const UserOtherSection = ({ otherUsers, isSearching }: Props) => {
   if (otherUsers.length === 0) {
-    return <p className="text-center text-gray-500">검색 결과가 없습니다.</p>;
+    return (
+      <Text className="text-center text-gray-500">검색 결과가 없습니다.</Text>
+    );
   }
 
   return (

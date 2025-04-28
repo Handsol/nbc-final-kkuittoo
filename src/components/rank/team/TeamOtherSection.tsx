@@ -1,3 +1,4 @@
+import Text from '@/components/common/Text';
 import { TeamShowMoreWrapper } from './ShowMoreWrapper';
 import { TeamCard } from './TeamRankCard';
 import { TeamWithPoints } from '@/types/rank.type';
@@ -14,7 +15,9 @@ export const OtherTeamsSection = ({
   hasTeam,
 }: Props) => {
   if (otherTeams.length === 0) {
-    return <p className="text-center text-gray-500">검색 결과가 없습니다.</p>;
+    return (
+      <Text className="text-center text-gray-500">검색 결과가 없습니다.</Text>
+    );
   }
 
   return (

@@ -7,6 +7,7 @@ import { SearchInput } from '../SearchInput';
 import Link from 'next/link';
 import { getTabButtonClass } from '@/styles/tabButtonStyles';
 import { usePathname } from 'next/navigation';
+import { PLACEHOLDER } from '@/constants/placeholder.constants';
 
 export const TeamRankHeader = () => {
   const pathname = usePathname();
@@ -38,7 +39,7 @@ export const TeamRankHeader = () => {
 
       {/* 검색창 공통 */}
       <div className="mt-2 p-4 md:mt-0 w-full md:w-1/2">
-        <SearchInput placeholder="팀 이름을 검색해보세요." />
+        <SearchInput placeholder={PLACEHOLDER.TEAM_SEARCH} />
       </div>
     </section>
   );
