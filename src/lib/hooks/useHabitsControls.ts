@@ -1,17 +1,14 @@
-import { HabitWithPoints } from '@/types/habits.type';
 import { useState } from 'react';
 
-export const useHabitsControls = (initialHabits: HabitWithPoints[]) => {
+export const useHabitsControls = () => {
   const [isCreating, setIsCreating] = useState(false);
-  const [filteredHabits, setFilteredHabits] =
-    useState<HabitWithPoints[]>(initialHabits);
 
-  const handleToggleCreate = () => setIsCreating((prev) => !prev);
+  const handleToggleCreate = () => {
+    setIsCreating((prev) => !prev);
+  };
 
   return {
     isCreating,
-    filteredHabits,
-    setFilteredHabits,
     handleToggleCreate,
   };
 };

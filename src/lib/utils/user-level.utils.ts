@@ -1,4 +1,4 @@
-export const MAX_EXP = 20;
+export const MAX_EXP = 10; // 20 -> 10으로 변경
 
 export const getUserLevel = (points: number) => {
   return Math.floor(points / MAX_EXP) + 1;

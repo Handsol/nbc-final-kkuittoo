@@ -41,7 +41,9 @@ export const POST = async (request: NextRequest) => {
 
     // 현재 요일 확인
     const now = new Date();
-    if (!getCurrentDayStatus(habit!)) {
+    const isValidDay = getCurrentDayStatus(habit!);
+
+    if (!isValidDay) {
       return NextResponse.json(
         { error: HABIT_ERROR_MESSAGES.INVALID_DAY },
         { status: HTTP_STATUS.BAD_REQUEST },
@@ -60,15 +62,10 @@ export const POST = async (request: NextRequest) => {
     const todayPoints = await prisma.userPoint.aggregate({
       where: {
         userId: session.user.id,
-        getTime: {
-          gte: today.toISOString(),
-        },
+        getTime: { gte: today.toISOString() },
       },
-      _sum: {
-        points: true,
-      },
+      _sum: { points: true },
     });
-
     const totalTodayPoints = todayPoints._sum.points || 0;
 
     // 하루 최대 포인트 검증 (10점 제한)
