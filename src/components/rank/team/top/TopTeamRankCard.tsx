@@ -10,7 +10,6 @@ import Text from '@/components/common/Text';
 import { motion } from 'framer-motion';
 import {
   floatAnimation,
-  podiumBaseStyle,
   podiumTopFaceBaseStyle,
   rankCardContainer,
   rankCardInfoWrapper,

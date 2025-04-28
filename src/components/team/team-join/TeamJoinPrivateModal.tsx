@@ -13,6 +13,8 @@ import { CommonModal } from '@/components/common/CommonModal';
 import ActionButton from '@/components/common/button/ActionButton';
 import Image from 'next/image';
 import { IMAGE_ASSETS } from '@/constants/assets.contants';
+import CommonTooltip from '@/components/common/CommonTooltip';
+import { TOOLTIP_MESSAGE } from '@/constants/tooltip-message.constants';
 
 type TeamJoinPrivateModalProps = {
   teamId: string;
@@ -26,17 +28,19 @@ const TeamJoinPrivateModal = ({ teamId, mode }: TeamJoinPrivateModalProps) => {
 
   return (
     <div>
-      <ActionButton
-        mode={
-          isTeamJoinButton
-            ? ACTIONBUTTON_MODE.ROUNDED_MD
-            : ACTIONBUTTON_MODE.DARK_GRAY_SMALL
-        }
-        type="button"
-        onClick={() => setIsModalOpen(true)}
-      >
-        가입하기
-      </ActionButton>
+      <CommonTooltip message={TOOLTIP_MESSAGE.TEAM.PRIVATE_JOIN}>
+        <ActionButton
+          mode={
+            isTeamJoinButton
+              ? ACTIONBUTTON_MODE.ROUNDED_MD
+              : ACTIONBUTTON_MODE.DARK_GRAY_SMALL
+          }
+          type="button"
+          onClick={() => setIsModalOpen(true)}
+        >
+          가입하기
+        </ActionButton>
+      </CommonTooltip>
       <CommonModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <div className="flex flex-col items-center gap-3">
           <Title mode={TITLE_MODE.SECTION_SUBTITLE}>비공개 팀 가입하기</Title>
