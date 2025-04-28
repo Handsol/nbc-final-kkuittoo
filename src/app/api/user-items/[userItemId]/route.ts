@@ -31,6 +31,20 @@ export const PATCH = async (
 
     const updatedIsApplied = !existingUserItem.isApplied;
 
+    if (updatedIsApplied) {
+      // 현재 유저의 다른 적용된 아이템을 false로 변경
+      await prisma.userItem.updateMany({
+        where: {
+          userId: session.user.id,
+          isApplied: true,
+          id: { not: userItemId },
+        },
+        data: {
+          isApplied: false,
+        },
+      });
+    }
+
     const updatedUserItem = await prisma.userItem.update({
       where: {
         id: userItemId,
