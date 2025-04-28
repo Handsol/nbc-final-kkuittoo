@@ -10,7 +10,7 @@ import {
 
 type CommonTooltipProps = {
   children: React.ReactNode;
-  message: string;
+  message: string | null;
   isDisabled?: boolean;
 };
 
@@ -27,6 +27,7 @@ const CommonTooltip = ({
   isDisabled,
 }: CommonTooltipProps) => {
   if (isDisabled) return <>{children}</>;
+  if (!message) return <>{children}</>;
 
   return (
     <TooltipProvider>
