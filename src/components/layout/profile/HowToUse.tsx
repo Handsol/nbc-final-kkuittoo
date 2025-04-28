@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { CommonModal } from '@/components/common/CommonModal'; // 경로는 실제 위치에 맞춰 조정
+import { CommonModal } from '@/components/common/CommonModal';
 import Image from 'next/image';
 import { HowToUseModal } from './HowToUseModal';
 
