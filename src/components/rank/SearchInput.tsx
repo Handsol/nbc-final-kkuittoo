@@ -4,7 +4,7 @@ import { useMemo, useState, useTransition } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import CommonInputBar from '@/components/common/CommonInputBar';
 import debounce from 'lodash-es/debounce';
-import CommonLoadingSpinner from '../common/CommonLoadingSpinner';
+import { CommonLoadingSpinner } from '../common/CommonLoadingSpinner';
 
 type SearchInputProps = {
   placeholder: string;
@@ -79,7 +79,7 @@ export const SearchInput = ({ placeholder }: SearchInputProps) => {
       )}
       {isPending && (
         <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
-          <CommonLoadingSpinner width={20} height={20} />
+          <CommonLoadingSpinner size={20} />
         </div>
       )}
     </div>
