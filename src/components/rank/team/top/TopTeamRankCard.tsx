@@ -2,7 +2,6 @@
 
 import { TeamWithPoints } from '@/types/rank.type';
 import { TeamEmblem } from './TopTeamEmblem';
-import TeamJoin from '@/components/team/TeamJoin';
 import UserTitle from '@/components/common/UserTitle';
 import { USER_TITLE_MODE } from '@/constants/mode.constants';
 import { getCurrentTeamQuest } from '@/lib/utils/team.utils';
@@ -14,22 +13,17 @@ import {
   rankCardContainer,
   rankCardInfoWrapper,
 } from '@/styles/rankCardStyles';
+import Link from 'next/link';
+import { PATH } from '@/constants/path.constants';
 import TeamOpenNotEditMode from '@/components/team/team-edit/TeamOpenNotEditMode';
 
 type Props = {
   team: TeamWithPoints;
   rank: number;
-  hasTeam: boolean;
   animationDelay?: number;
 };
 
-export const TopRankTeamCard = ({
-  team,
-  rank,
-  hasTeam,
-  animationDelay,
-}: Props) => {
-  const currentMembers = team.memberCount;
+export const TopRankTeamCard = ({ team, rank, animationDelay }: Props) => {
   // 랭킹에 따라 포디움 크기와 상단면 크기 동적 설정
   const podiumSize =
     rank === 1
@@ -40,8 +34,10 @@ export const TopRankTeamCard = ({
 
   const currentQuest = getCurrentTeamQuest(team.totalPoints);
 
+  const teamId = team.id;
+
   return (
-    <>
+    <Link href={`${PATH.TEAM}/${teamId}`}>
       <article className={rankCardContainer}>
         {/* 유저 정보 영역 */}
         <div className={`${rankCardInfoWrapper} aniamte-fade-up`}>
@@ -86,16 +82,7 @@ export const TopRankTeamCard = ({
             {rank}
           </span>
         </div>
-
-        {/* 참여하기 버튼 */}
-        <div className="mt-2 min-h-[40px] flex justify-center items-center">
-          <TeamJoin
-            team={team}
-            hasTeam={hasTeam}
-            currentMembers={currentMembers}
-          />
-        </div>
       </article>
-    </>
+    </Link>
   );
 };

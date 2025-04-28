@@ -3,6 +3,7 @@
 import ConfirmDialog from '@/components/common/ConfirmDialog';
 import { PATH } from '@/constants/path.constants';
 import { TEAM_TOAST_MESSAGES } from '@/constants/toast-messages.contants';
+import { TOOLTIP_MESSAGE } from '@/constants/tooltip-message.constants';
 import { useToast } from '@/lib/hooks/use-toast';
 import { fetchDeleteMyTeamMember } from '@/lib/services/team-client.services';
 import { useRouter } from 'next/navigation';
@@ -44,7 +45,11 @@ const TeamLeaveButton = ({ id }: TeamLeaveButtonProps) => {
   };
 
   return (
-    <ConfirmDialog contents={leaveContents} onClick={handleLeaveBtnClick} />
+    <ConfirmDialog
+      contents={leaveContents}
+      onClick={handleLeaveBtnClick}
+      tooltipMessage={TOOLTIP_MESSAGE.TEAM.LEAVE}
+    />
   );
 };
 

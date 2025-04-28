@@ -53,17 +53,13 @@ const HabitItem = ({ habit, userId }: HabitItemProps) => {
             description: POINT_DIALOG_CONTENTS.description(daysString),
           }}
           onClick={handleConfirmAddPoint}
+          tooltipMessage={TOOLTIP_MESSAGE.HABIT.POINT}
         >
-          <CommonTooltip
-            message={TOOLTIP_MESSAGE.HABIT.POINT}
-            isDisabled={isDisabled}
-          >
-            <IconButton
-              mode={ICONBUTTON_MODE.POINT}
-              disabled={isDisabled}
-              aria-label="Add point"
-            />
-          </CommonTooltip>
+          <IconButton
+            mode={ICONBUTTON_MODE.POINT}
+            disabled={isDisabled}
+            aria-label="Add point"
+          />
         </ConfirmDialog>
 
         <div className="flex-1 min-w-0">

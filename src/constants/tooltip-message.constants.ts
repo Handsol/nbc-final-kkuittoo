@@ -9,4 +9,7 @@ export const TOOLTIP_MESSAGE = {
     CREATE: '매일 꾸준하게 실천할 습관을 만들어보세요!',
     POINT: '완료 후 포인트 쌓고 캐릭터를 성장시켜요!',
   },
+  RANK: {
+    TEAM_CARD: '팀 카드를 클릭해서 해당 팀 페이지로 이동해보세요!',
+  },
 } as const;

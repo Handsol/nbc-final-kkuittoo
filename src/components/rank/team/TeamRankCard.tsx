@@ -12,13 +12,8 @@ export const TeamCard = ({
   hasTeam,
 }: TeamCardProps) => {
   return isTopRank ? (
-    <TopRankTeamCard
-      team={team}
-      rank={rank}
-      hasTeam={hasTeam}
-      animationDelay={animationDelay}
-    />
+    <TopRankTeamCard team={team} rank={rank} animationDelay={animationDelay} />
   ) : (
-    <NormalRankTeamCard team={team} rank={rank} hasTeam={hasTeam} />
+    <NormalRankTeamCard team={team} rank={rank} />
   );
 };
