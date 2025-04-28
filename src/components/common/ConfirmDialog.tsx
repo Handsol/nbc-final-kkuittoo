@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import ActionButton from './button/ActionButton';
 import { ACTIONBUTTON_MODE, JOINBUTTON_MODE } from '@/constants/mode.constants';
+import CommonTooltip from './CommonTooltip';
 
 type ConfirmDialogProps = {
   contents: {
@@ -25,6 +26,7 @@ type ConfirmDialogProps = {
   onClick: () => Promise<void>;
   children?: React.ReactNode;
   mode?: string;
+  tooltipMessage?: string;
 };
 
 /**
@@ -46,6 +48,7 @@ const ConfirmDialog = ({
   onClick,
   children,
   mode,
+  tooltipMessage,
 }: ConfirmDialogProps) => {
   const {
     uiButtonText,
@@ -57,23 +60,25 @@ const ConfirmDialog = ({
   const isTeamJoinButton = mode === JOINBUTTON_MODE.TEAM_PAGE;
   return (
     <AlertDialog>
-      <AlertDialogTrigger asChild>
-        {/* 
+      <CommonTooltip message={tooltipMessage || null}>
+        <AlertDialogTrigger asChild>
+          {/* 
         children이 있을 경우 - cildren에 해당하는 버튼이 화면에 보이고, 
         children이 없을 경우 - 화면에서 팀 탈퇴 버튼 or 팀 조인 버튼이 보임
         */}
-        {children || (
-          <ActionButton
-            mode={
-              uiButtonText === '가입하기' && !isTeamJoinButton
-                ? ACTIONBUTTON_MODE.DARK_GRAY_SMALL
-                : ACTIONBUTTON_MODE.ROUNDED_MD
-            }
-          >
-            {uiButtonText}
-          </ActionButton>
-        )}
-      </AlertDialogTrigger>
+          {children || (
+            <ActionButton
+              mode={
+                uiButtonText === '가입하기' && !isTeamJoinButton
+                  ? ACTIONBUTTON_MODE.DARK_GRAY_SMALL
+                  : ACTIONBUTTON_MODE.ROUNDED_MD
+              }
+            >
+              {uiButtonText}
+            </ActionButton>
+          )}
+        </AlertDialogTrigger>
+      </CommonTooltip>
       {/* 모달창 */}
       <AlertDialogContent>
         <AlertDialogHeader>

@@ -1,3 +1,4 @@
+import UnauthorizedPage from '@/components/loading-error-page/UnauthorizedPage';
 import { TeamChat } from '@/components/team/TeamChat';
 import TeamInfo from '@/components/team/TeamInfo';
 import TeamMemberList from '@/components/team/TeamMemberList';
@@ -6,6 +7,8 @@ import {
   generateTeamMetadata,
   TEAM_METADATA_MODE,
 } from '@/lib/seo/generateTeamMetadata';
+import { getUserSession } from '@/lib/services/getUserSession.services';
+import { fetchGetUserTeamInfo } from '@/lib/services/team-actions.services';
 
 type RouteParams = {
   params: {
@@ -18,10 +21,15 @@ export const generateMetadata = async ({ params }: RouteParams) => {
 };
 
 const TeamPage = async ({ params }: RouteParams) => {
-  const id = params.id;
+  const session = await getUserSession();
+  if (!session) return <UnauthorizedPage />;
+  const userId = session.user.id;
 
-  const membersTab = <TeamMemberList id={id} />;
-  const chatTab = <TeamChat teamId={id} />;
+  const id = params.id;
+  const userTeamInfo = await fetchGetUserTeamInfo(userId, id);
+
+  const membersTab = <TeamMemberList id={id} userTeamInfo={userTeamInfo} />;
+  const chatTab = <TeamChat teamId={id} userTeamInfo={userTeamInfo} />;
 
   return (
     <section className="w-full">
