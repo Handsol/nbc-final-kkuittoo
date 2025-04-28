@@ -181,8 +181,14 @@ export const fetchGetMyTeamMemberData = async (teamId: string) => {
   }
 };
 
-// 팀 전체 랭킹 리스트 (rank 포함)
-export const fetchGetTeamsWithPoints = async () => {
+/**
+ * 일부 팀의 정보를 가져와서 총 포인트 기준으로 정렬한 리스트를 반환
+ * offset, limit을 받아 잘라 반환
+ */
+export const fetchGetFilteredTeamsWithTotalPoints = async ({
+  offset = 0,
+  limit = 8,
+}: { offset?: number; limit?: number } = {}) => {
   const teamList = await prisma.team.findMany({
     include: { teamMembers: true },
   });
@@ -203,7 +209,7 @@ export const fetchGetTeamsWithPoints = async () => {
   let prevPoints: number | null = null;
   let currentRank = 1;
 
-  return sorted.map((team, index) => {
+  const ranked = sorted.map((team, index) => {
     if (team.totalPoints === prevPoints) {
       return { ...team, rank: currentRank };
     } else {
@@ -212,8 +218,9 @@ export const fetchGetTeamsWithPoints = async () => {
       return { ...team, rank: currentRank };
     }
   });
-};
 
+  return ranked.slice(offset, offset + limit);
+};
 /**
  * 사용자를 특정 팀에 가입시키는 함수
  *
@@ -292,4 +299,40 @@ export const fetchGetUserTeamInfo = async (userId: string, teamId: string) => {
     console.error('fetchGetUserTeamInfo 에러:', error);
     throw new Error(`${TEAMS_MESSAGES.FETCH_FAILED}, user's Team`);
   }
+};
+
+/**
+ * 모든 팀의 정보를 가져와서 총 포인트 기준으로 정렬한 전체 리스트를 반환
+ * 검색(Search)용
+ */
+export const fetchAllTeamsWithTotalPoints = async () => {
+  const teamList = await prisma.team.findMany({
+    include: { teamMembers: true },
+  });
+
+  const teamsWithPoints = await Promise.all(
+    teamList.map(async (team) => {
+      const { teamTotalPoints } = await fetchGetTeamTotalPoints(team.id);
+      return {
+        ...team,
+        totalPoints: teamTotalPoints,
+        memberCount: team.teamMembers.length,
+      };
+    }),
+  );
+
+  const sorted = teamsWithPoints.sort((a, b) => b.totalPoints - a.totalPoints);
+
+  let prevPoints: number | null = null;
+  let currentRank = 1;
+
+  return sorted.map((team, index) => {
+    if (team.totalPoints === prevPoints) {
+      return { ...team, rank: currentRank };
+    } else {
+      currentRank = index + 1;
+      prevPoints = team.totalPoints;
+      return { ...team, rank: currentRank };
+    }
+  });
 };

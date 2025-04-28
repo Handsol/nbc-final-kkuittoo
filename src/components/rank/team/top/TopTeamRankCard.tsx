@@ -14,6 +14,7 @@ import {
   rankCardContainer,
   rankCardInfoWrapper,
 } from '@/styles/rankCardStyles';
+import TeamOpenNotEditMode from '@/components/team/team-edit/TeamOpenNotEditMode';
 import { Z_INDEX } from '@/constants/z-index.constants';
 
 type Props = {
@@ -45,9 +46,12 @@ export const TopRankTeamCard = ({
       <article className={rankCardContainer}>
         {/* 유저 정보 영역 */}
         <div className={`${rankCardInfoWrapper} aniamte-fade-up`}>
-          <UserTitle mode={USER_TITLE_MODE.CARD_NAME}>
-            {team.teamName}
-          </UserTitle>
+          <div className="flex items-center gap-2">
+            <UserTitle mode={USER_TITLE_MODE.CARD_NAME}>
+              {team.teamName}
+            </UserTitle>
+            <TeamOpenNotEditMode isOpened={team.isOpened} />
+          </div>
           <UserTitle mode={USER_TITLE_MODE.CARD_LEVEL}>
             Lv.{currentQuest.id}
           </UserTitle>
