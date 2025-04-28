@@ -1,5 +1,5 @@
 import ErrorPageText from '@/components/loading-error-page/ErrorPageText';
-import { IMAGE_ASSETS } from '@/constants/assets.contants';
+import { IMAGE_ASSETS } from '@/constants/assets.constants';
 import { PATH } from '@/constants/path.constants';
 import Image from 'next/image';
 

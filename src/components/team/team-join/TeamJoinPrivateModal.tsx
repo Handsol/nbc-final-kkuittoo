@@ -8,7 +8,7 @@ import Text from '@/components/common/Text';
 import { CommonModal } from '@/components/common/CommonModal';
 import ActionButton from '@/components/common/button/ActionButton';
 import Image from 'next/image';
-import { IMAGE_ASSETS } from '@/constants/assets.contants';
+import { IMAGE_ASSETS } from '@/constants/assets.constants';
 
 type TeamJoinPrivateModalProps = {
   teamId: string;

@@ -1,6 +1,6 @@
 import LinkButton from '@/components/common/button/LinkButton';
 import Title from '@/components/common/Title';
-import { IMAGE_ASSETS } from '@/constants/assets.contants';
+import { IMAGE_ASSETS } from '@/constants/assets.constants';
 import { LINKBUTTON_MODE, TITLE_MODE } from '@/constants/mode.constants';
 import { PATH } from '@/constants/path.constants';
 import { paymentResultPageStyle } from '@/styles/paymentResultStyles';

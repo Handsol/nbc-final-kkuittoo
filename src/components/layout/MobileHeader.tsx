@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { IMAGE_ASSETS } from '@/constants/assets.contants';
+import { IMAGE_ASSETS } from '@/constants/assets.constants';
 import { Menu } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { PATH } from '@/constants/path.constants';
