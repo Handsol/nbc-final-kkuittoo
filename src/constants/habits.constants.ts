@@ -25,6 +25,24 @@ export const HABIT_CATEGORY_LABELS: Record<Categories, string> = {
   SD: '자기계발',
   ETC: '기타',
 };
+export const REPEAT_OPTIONS = {
+  EVERY_DAY: 'everyDay',
+  WEEKDAYS: 'weekdays',
+  WEEKENDS: 'weekends',
+} as const;
+
+export const REPEAT_OPTION_LABELS = {
+  [REPEAT_OPTIONS.EVERY_DAY]: '매일',
+  [REPEAT_OPTIONS.WEEKDAYS]: '주중',
+  [REPEAT_OPTIONS.WEEKENDS]: '주말',
+} as const;
+
+export const REPEAT_OPTION_DAYS: Record<string, string[]> = {
+  [REPEAT_OPTIONS.EVERY_DAY]: DAYS_OF_WEEK_ARRAY,
+  [REPEAT_OPTIONS.WEEKDAYS]: ['mon', 'tue', 'wed', 'thu', 'fri'],
+  [REPEAT_OPTIONS.WEEKENDS]: ['sat', 'sun'],
+};
+
 export const POINTS_TO_ADD = 1;
 export const MAX_POINTS_PER_DAY = 10;
 export const ONE_HOUR_COOLDOWN_MS = 60 * 60 * 1000;

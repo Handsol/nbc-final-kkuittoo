@@ -8,7 +8,6 @@ import {
 import HabitFormInput from './HabitFormInput';
 import HabitFormTags from './HabitFormTags';
 import HabitFormRepeatDays from './HabitFormRepeatDays';
-import { toggleDay } from '@/lib/utils/habit-form.utils';
 import { PLACEHOLDER } from '@/constants/placeholder.constants';
 
 type HabitFormFieldsProps = {
@@ -46,7 +45,6 @@ const HabitFormFields = ({
         <HabitFormRepeatDays
           selectedDays={field.value}
           setSelectedDays={field.onChange}
-          toggleDay={toggleDay}
           error={errors.selectedDays?.message}
         />
       )}

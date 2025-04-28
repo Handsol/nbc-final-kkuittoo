@@ -2,6 +2,7 @@
 
 import { IMAGE_ASSETS } from '@/constants/assets.contants';
 import { PATH } from '@/constants/path.constants';
+import { Z_INDEX } from '@/constants/z-index.constants';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -35,7 +36,9 @@ const GlobalLoadingBar = () => {
   if (!loading) return null;
 
   return (
-    <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white transition-opacity duration-300">
+    <div
+      className={`fixed inset-0 z-${Z_INDEX.LOADING_BAR}] flex flex-col items-center justify-center bg-white transition-opacity duration-300`}
+    >
       <Image
         src={IMAGE_ASSETS.LOGO.DESKTOP}
         alt="loading page logo"
