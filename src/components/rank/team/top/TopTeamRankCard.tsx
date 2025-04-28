@@ -14,6 +14,8 @@ import {
   rankCardContainer,
   rankCardInfoWrapper,
 } from '@/styles/rankCardStyles';
+import Link from 'next/link';
+import { PATH } from '@/constants/path.constants';
 
 type Props = {
   team: TeamWithPoints;
@@ -39,8 +41,10 @@ export const TopRankTeamCard = ({
 
   const currentQuest = getCurrentTeamQuest(team.totalPoints);
 
+  const teamId = team.id;
+
   return (
-    <>
+    <Link href={`${PATH.TEAM}/${teamId}`}>
       <article className={rankCardContainer}>
         {/* 유저 정보 영역 */}
         <div className={`${rankCardInfoWrapper} aniamte-fade-up`}>
@@ -92,6 +96,6 @@ export const TopRankTeamCard = ({
           />
         </div>
       </article>
-    </>
+    </Link>
   );
 };

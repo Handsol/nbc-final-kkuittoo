@@ -5,6 +5,8 @@ import { NormalTeamRankLabel } from './NormalTeamRankLabel';
 import { NormalTeamEmblem } from './NormalTeamEmblem';
 import { NormalTeamInfo } from './NormalTeamInfo';
 import TeamJoin from '@/components/team/TeamJoin';
+import Link from 'next/link';
+import { PATH } from '@/constants/path.constants';
 
 type Props = {
   team: TeamWithPoints;
@@ -14,9 +16,10 @@ type Props = {
 
 export const NormalRankTeamCard = ({ team, rank, hasTeam }: Props) => {
   const currentMembers = team.memberCount;
+  const teamId = team.id;
   return (
-    <>
-      <article className="border rounded-3xl p-4 shadow-md bg-sub-light w-full h-24 flex items-center justify-between overflow-hidden">
+    <Link href={`${PATH.TEAM}/${teamId}`}>
+      <article className="border rounded-3xl p-4 shadow-md bg-sub-light w-full h-24 flex items-center justify-between overflow-hidden cursor-pointer hover:scale-[1.03] duration-200">
         {/* 왼쪽 정보 그룹 */}
         <div className="flex items-center gap-3 flex-1 min-w-0">
           <NormalTeamRankLabel rank={rank} />
@@ -33,6 +36,6 @@ export const NormalRankTeamCard = ({ team, rank, hasTeam }: Props) => {
           />
         </div>
       </article>
-    </>
+    </Link>
   );
 };
