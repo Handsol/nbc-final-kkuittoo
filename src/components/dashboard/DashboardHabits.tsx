@@ -35,6 +35,7 @@ const DashboardHabits = ({
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
+    isFetching,
   } = useHabitRecords(
     userId,
     initialHabits,
@@ -72,6 +73,7 @@ const DashboardHabits = ({
           fetchNextPage={fetchNextPage}
           hasNextPage={hasNextPage}
           isFetchingNextPage={isFetchingNextPage}
+          isInitialLoading={isFetching}
         />
       </div>
     </div>
