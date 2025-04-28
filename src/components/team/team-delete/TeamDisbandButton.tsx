@@ -3,6 +3,7 @@
 import ConfirmDialog from '@/components/common/ConfirmDialog';
 import { PATH } from '@/constants/path.constants';
 import { TEAM_TOAST_MESSAGES } from '@/constants/toast-messages.contants';
+import { TOOLTIP_MESSAGE } from '@/constants/tooltip-message.constants';
 import { useToast } from '@/lib/hooks/use-toast';
 import { fetchDeleteTeam } from '@/lib/services/team-client.services';
 import { TeamMemberData } from '@/types/teams.type';
@@ -64,7 +65,11 @@ const TeamDisbandButton = ({
   };
 
   return (
-    <ConfirmDialog contents={disbandContents} onClick={handleDisbandBtnClick} />
+    <ConfirmDialog
+      contents={disbandContents}
+      onClick={handleDisbandBtnClick}
+      tooltipMessage={TOOLTIP_MESSAGE.TEAM.DISBAND}
+    />
   );
 };
 
