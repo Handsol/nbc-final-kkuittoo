@@ -5,27 +5,24 @@ import { getUserLevel } from '@/lib/utils/user-level.utils';
 import {
   fetchGetTeamData,
   fetchGetTeamMembers,
-  fetchGetUserTeamInfo,
 } from '@/lib/services/team-actions.services';
 import TeamLeave from './TeamLeave';
 import TeamInviteButton from './team-join/TeamInviteButton';
-import { getUserSession } from '@/lib/services/getUserSession.services';
-import UnauthorizedPage from '../loading-error-page/UnauthorizedPage';
 import TeamJoin from './TeamJoin';
 
 type TeamMemberListProps = {
   id: string;
+  userTeamInfo: {
+    isThisTeamMember: boolean;
+    isUserhasTeam: boolean;
+    currentTeamMembers: number;
+  };
 };
 
-const TeamMemberList = async ({ id }: TeamMemberListProps) => {
-  const session = await getUserSession();
-  if (!session) return <UnauthorizedPage />;
-  const userId = session.user.id;
-
+const TeamMemberList = async ({ id, userTeamInfo }: TeamMemberListProps) => {
   const teamData = await fetchGetTeamData(id);
   const teamMemberList = await fetchGetTeamMembers(id);
-  const { isThisTeamMember, isUserhasTeam, currentTeamMembers } =
-    await fetchGetUserTeamInfo(userId, id);
+  const { isThisTeamMember, isUserhasTeam, currentTeamMembers } = userTeamInfo;
 
   return (
     <div className="w-full flex flex-col gap-5 mt-11 mb-11">
