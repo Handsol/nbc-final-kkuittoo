@@ -65,7 +65,7 @@ const HabitFormRepeatDays = ({
     setSelectedOptions(newOptions);
   }, [selectedDays]);
 
-  // 반복 옵션 클릭 핸들러
+  // 주기 옵션 클릭 핸들러
   const handleOptionClick = (option: string) => {
     const newSelectedOptions = [option];
     const newSelectedDays = [...REPEAT_OPTION_DAYS[option]];
@@ -74,7 +74,7 @@ const HabitFormRepeatDays = ({
     setSelectedDays(newSelectedDays);
   };
 
-  // 개별 요일 클릭 핸들러
+  // 월~일 요일 클릭 핸들러!
   const handleDayClick = (day: string) => {
     const newSelectedDays = toggleDay(selectedDays, day);
     setSelectedDays(newSelectedDays);
@@ -86,7 +86,7 @@ const HabitFormRepeatDays = ({
         <label className="block text-body-md font-semibold text-dark-gray font-dohyeon">
           주기
         </label>
-        {/* 반복 옵션: 매일, 주중, 주말 */}
+        {/* 주기 옵션: 매일, 주중, 주말 */}
         <div className="flex gap-2 flex-wrap">
           {Object.values(REPEAT_OPTIONS).map((option) => (
             <HabitSelectButton
