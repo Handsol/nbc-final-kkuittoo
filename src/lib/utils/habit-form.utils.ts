@@ -67,11 +67,7 @@ export const isHabitDataUnchanged = (
 ): boolean => {
   if (!initialHabit) return false;
   return (
-    DAYS_OF_WEEK.every(
-      (day) =>
-        newData[day as keyof HabitFormData] ===
-        initialHabit[day as keyof HabitFormData],
-    ) &&
+    DAYS_OF_WEEK.every((day) => newData[day] === initialHabit[day]) &&
     newData.title === initialHabit.title &&
     newData.notes === initialHabit.notes &&
     newData.categories === initialHabit.categories

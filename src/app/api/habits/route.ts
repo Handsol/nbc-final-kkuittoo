@@ -16,8 +16,10 @@ import { isCooldownActive } from '@/lib/utils/habit-points.utils';
  * @returns {Promise<NextResponse>} - 조회된 Habit 목록 또는 에러
  * @throws {Error} 데이터베이스 조회 실패했을 때
  * @description
- * - 인증된 사용자가 자신의 Habit 목록 조회
- * - `userPoints` 포함, 생성일 내림차순 정렬
+ * - 인증된 사용자가 자신의 Habit 목록을 조회
+ * - `userPoints` 정보를 포함하고, 생성일을 기준으로 내림차순으로 정렬
+ * - 쿼리 파라미터에 따라 페이지네이션(`skip`, `take`), 요일 필터링(`days`), 카테고리 필터링(`category`)
+ * - 활성화된 습관과 비활성화된 습관을 구분하여 반환
  */
 export const GET = async (request: NextRequest) => {
   const { session, response } = await checkAuth();
