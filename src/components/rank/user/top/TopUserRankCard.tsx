@@ -36,7 +36,7 @@ export const TopUserRankCard = ({ user, rank, animationDelay = 0 }: Props) => {
   return (
     <>
       <article
-        className={`${rankCardContainer} animate-fade-up`}
+        className={`${rankCardContainer} animate-fade-up cursor-pointer`}
         onClick={() => setIsModalOpen(true)}
         style={{ animationDelay: `${animationDelay}ms` }}
       >
