@@ -20,7 +20,6 @@ export const TeamShowMoreWrapper = ({ initialTeams, hasTeam }: Props) => {
   const allTeams = [...initialTeams, ...fetchedTeams];
 
   const handleLoadMore = () => {
-    console.log('팀 더보기 버튼 눌림'); // ✅ 콘솔 추가
     if (!isFetchStarted) {
       setIsFetchStarted(true);
     }

@@ -19,7 +19,6 @@ export const ShowMoreWrapper = ({ initialUsers }: Props) => {
   const allUsers = [...initialUsers, ...fetchedUsers];
 
   const handleLoadMore = () => {
-    console.log('더보기 버튼 눌림');
     if (!isFetchStarted) {
       setIsFetchStarted(true);
     }

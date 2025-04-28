@@ -8,9 +8,6 @@ export const GET = async (req: Request) => {
 
   try {
     const teams = await fetchGetFilteredTeamsWithTotalPoints({ offset, limit });
-    console.log(
-      `offset: ${offset}, limit: ${limit}, fetched teams: ${teams.length}`,
-    );
     return NextResponse.json(teams);
   } catch (error) {
     console.error('[GET /api/rank/teams] Error:', error);

@@ -15,7 +15,6 @@ export const UserOtherSection = ({ otherUsers, isSearching }: Props) => {
   return (
     <section>
       {isSearching ? (
-        // 검색 모드일 때
         <ul className="space-y-4">
           {otherUsers.map((user) => (
             <li key={user.id}>
@@ -24,7 +23,6 @@ export const UserOtherSection = ({ otherUsers, isSearching }: Props) => {
           ))}
         </ul>
       ) : (
-        // 일반 모드 (더보기 가능)
         <ShowMoreWrapper initialUsers={otherUsers} />
       )}
     </section>
