@@ -1,3 +1,4 @@
+// app/api/user-items/[userItemId]/route.ts
 import { prisma } from '@/lib/prisma';
 import { NextResponse, NextRequest } from 'next/server';
 import { checkAuth } from '@/lib/utils/auth-route-handler.utils';
@@ -14,15 +15,21 @@ export const PATCH = async (
   const { userItemId } = params;
 
   try {
-    const body = await request.json();
-    const { isApplied } = body;
+    const existingUserItem = await prisma.userItem.findUnique({
+      where: {
+        id: userItemId,
+        userId: session.user.id,
+      },
+    });
 
-    if (typeof isApplied !== 'boolean') {
+    if (!existingUserItem) {
       return NextResponse.json(
-        { error: SHOP_MESSAGE.ITEM.BAD_REQUEST },
-        { status: HTTP_STATUS.BAD_REQUEST },
+        { error: SHOP_MESSAGE.ITEM.NOT_FOUND },
+        { status: HTTP_STATUS.NOT_FOUND },
       );
     }
+
+    const updatedIsApplied = !existingUserItem.isApplied;
 
     const updatedUserItem = await prisma.userItem.update({
       where: {
@@ -30,16 +37,9 @@ export const PATCH = async (
         userId: session.user.id,
       },
       data: {
-        isApplied,
+        isApplied: updatedIsApplied,
       },
     });
-
-    if (!updatedUserItem) {
-      return NextResponse.json(
-        { error: SHOP_MESSAGE.ITEM.NOT_FOUND },
-        { status: HTTP_STATUS.NOT_FOUND },
-      );
-    }
 
     return NextResponse.json(updatedUserItem);
   } catch (error) {
