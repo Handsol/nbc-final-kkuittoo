@@ -1,3 +1,6 @@
+'use client';
+
+import { TooltipArrow } from '@radix-ui/react-tooltip';
 import {
   Tooltip,
   TooltipContent,
@@ -8,6 +11,7 @@ import {
 type CommonTooltipProps = {
   children: React.ReactNode;
   message: string;
+  isDisabled?: boolean;
 };
 
 /**
@@ -17,13 +21,20 @@ type CommonTooltipProps = {
  * @param message {string} : TooltipContent에 들어갈 message (실질적으로 뜨는 메세지)
  * !message는 tooltip-message.constants.tsx에 정의된 상수로 관리
  */
-const CommonTooltip = ({ children, message }: CommonTooltipProps) => {
+const CommonTooltip = ({
+  children,
+  message,
+  isDisabled,
+}: CommonTooltipProps) => {
+  if (isDisabled) return <>{children}</>;
+
   return (
     <TooltipProvider>
       <Tooltip>
-        <TooltipTrigger>{children}</TooltipTrigger>
+        <TooltipTrigger asChild>{children}</TooltipTrigger>
         <TooltipContent>
           <p>{message}</p>
+          <TooltipArrow className="fill-sub" />
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
