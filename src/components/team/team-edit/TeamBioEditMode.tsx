@@ -61,18 +61,7 @@ const TeamBioEditMode = ({ teamBio, teamId }: TeamBioProps) => {
     linkButtonText: '팀 페이지로 돌아가기',
   };
 
-  if (isTeamDataError)
-    return (
-      <div className="w-screen h-screen flex flex-col justify-center items-center gap-5 bg-sub">
-        <Image
-          src={IMAGE_ASSETS.LOGO.DESKTOP}
-          alt="Not-found page logo"
-          width={300}
-          height={200}
-        />
-        <ErrorPageText contents={TeamErrorContents} />
-      </div>
-    );
+  if (isTeamDataError) throw new Error('팀 데이터 가져오기 실패');
 
   return (
     <div className="w-full h-[50px] flex items-center justify-between">

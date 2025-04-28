@@ -32,18 +32,7 @@ const TeamOpenToggleButton = ({ teamId }: TeamOpenToggleButtonProps) => {
   if (isPending) return <CommonLoadingSpinner size={20} />;
 
   // 데이터 페칭 실패 시 예외처리
-  if (!teamData)
-    return (
-      <div className="w-screen h-screen flex flex-col justify-center items-center gap-5 bg-sub">
-        <Image
-          src={IMAGE_ASSETS.LOGO.DESKTOP}
-          alt="Not-found page logo"
-          width={300}
-          height={200}
-        />
-        <ErrorPageText contents={TeamErrorContents} />
-      </div>
-    );
+  if (!teamData) throw new Error('팀 데이터 가져오기 실패');
 
   return (
     <div className="flex items-center gap-2">
