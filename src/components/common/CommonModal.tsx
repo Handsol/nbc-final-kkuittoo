@@ -1,8 +1,16 @@
 'use client';
-
 import { Z_INDEX } from '@/constants/z-index.constants';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { MdClose } from 'react-icons/md';
+
+type CommonModalProps = {
+  isOpen: boolean;
+  onClose: () => void;
+  children: ReactNode;
+  mode?: 'common' | 'parallel';
+};
+
 /**
  * 공통 모달 컴포넌트입니다.
  *
@@ -23,22 +31,21 @@ import { MdClose } from 'react-icons/md';
  * </CommonModal>
  * ```
  */
-type CommonModalProps = {
-  isOpen: boolean;
-  onClose: () => void;
-  children: ReactNode;
-  mode?: 'common' | 'parallel';
-};
 
 export const CommonModal = ({
-  isOpen = false, // 기본값 설정
+  isOpen,
   onClose,
   children,
-  mode = 'common',
 }: CommonModalProps) => {
-  if (!isOpen) return null;
+  const [mounted, setMounted] = useState(false);
 
-  return (
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!isOpen || !mounted) return null;
+
+  return createPortal(
     <div
       className={`fixed inset-0 z-${Z_INDEX.MODAL} bg-black bg-opacity-60 flex justify-center items-center px-4`}
       onClick={onClose}
@@ -55,8 +62,9 @@ export const CommonModal = ({
         >
           <MdClose />
         </button>
-        {children}
+        <div className="mt-8">{children}</div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 };
