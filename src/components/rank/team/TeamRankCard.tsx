@@ -9,6 +9,7 @@ export const TeamCard = ({
   rank,
   isTopRank,
   animationDelay,
+  hasTeam,
 }: TeamCardProps) => {
   return isTopRank ? (
     <TopRankTeamCard team={team} rank={rank} animationDelay={animationDelay} />
