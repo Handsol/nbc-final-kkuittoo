@@ -1,3 +1,4 @@
+import { DAY_LABELS, DAYS_OF_WEEK } from '@/constants/habits.constants';
 import { Habit } from '@prisma/client';
 
 /**
@@ -33,16 +34,31 @@ export const isToday = (date: Date): boolean => {
  * @returns {boolean} - 오늘이 습관 수행 요일인지 여부
  */
 export const getCurrentDayStatus = (habit: Habit) => {
-  const now = new Date();
-  const dayOfWeek = now.getDay(); //현재 요일을 숫자로 가져옴
-  const days = [
-    habit.sun,
-    habit.mon,
-    habit.tue,
-    habit.wed,
-    habit.thu,
-    habit.fri,
-    habit.sat,
-  ];
-  return days[dayOfWeek]; //오늘 요일에 해당하는 인덱스의 값을 반환
+  const dayOfWeek = new Date().getDay(); // 0(일) ~ 6(토)
+  const adjustedIndex = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+  return habit[DAYS_OF_WEEK[adjustedIndex]];
+};
+
+/**
+ * 습관의 활성 요일 정보를 추출
+ * @param habit - Prisma Habit 객체
+ * @returns {key: string, label: string}[] - 활성화된 요일 정보 배열
+ */
+export const getActiveDays = (habit: Habit) => {
+  return DAYS_OF_WEEK.map((key, index) => ({
+    key,
+    label: DAY_LABELS[index],
+    isActive: habit[key],
+  })).filter((day) => day.isActive);
+};
+
+/**
+ * 주어진 요일 키가 오늘 요일인지 확인
+ * @param key - 확인할 요일 키 (예: 'mon', 'tue')
+ * @returns boolean - 오늘 요일이면 true
+ */
+export const isTodayDay = (key: string): boolean => {
+  const today = new Date().getDay(); // 일요일(0) ~ 토요일(6)
+  const adjustedTodayIndex = today === 0 ? 6 : today - 1; // 월요일(0)~일요일(6) 조정
+  return DAYS_OF_WEEK[adjustedTodayIndex] === key;
 };

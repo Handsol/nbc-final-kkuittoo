@@ -8,7 +8,7 @@ import {
 import HabitFormInput from './HabitFormInput';
 import HabitFormTags from './HabitFormTags';
 import HabitFormRepeatDays from './HabitFormRepeatDays';
-import { toggleDay } from '@/lib/utils/habit-form.utils';
+import { PLACEHOLDER } from '@/constants/placeholder.constants';
 
 type HabitFormFieldsProps = {
   register: UseFormRegister<HabitFormSchema>;
@@ -25,7 +25,7 @@ const HabitFormFields = ({
     <HabitFormInput
       id="title"
       label="제목"
-      placeholder="습관 제목"
+      placeholder={PLACEHOLDER.HABIT_NAME}
       {...register('title')}
       error={errors.title?.message}
       aria-invalid={!!errors.title}
@@ -33,7 +33,7 @@ const HabitFormFields = ({
     <HabitFormInput
       id="description"
       label="설명"
-      placeholder="설명"
+      placeholder={PLACEHOLDER.HABIT_NOTES}
       {...register('notes')}
       error={errors.notes?.message}
       aria-invalid={!!errors.notes}
@@ -45,7 +45,6 @@ const HabitFormFields = ({
         <HabitFormRepeatDays
           selectedDays={field.value}
           setSelectedDays={field.onChange}
-          toggleDay={toggleDay}
           error={errors.selectedDays?.message}
         />
       )}

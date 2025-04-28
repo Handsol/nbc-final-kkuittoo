@@ -3,6 +3,7 @@
 import ConfirmDialog from '@/components/common/ConfirmDialog';
 import { PATH } from '@/constants/path.constants';
 import { TEAM_TOAST_MESSAGES } from '@/constants/toast-messages.contants';
+import { TOOLTIP_MESSAGE } from '@/constants/tooltip-message.constants';
 import { useToast } from '@/lib/hooks/use-toast';
 import { fetchDeleteMyTeamMember } from '@/lib/services/team-client.services';
 import { useRouter } from 'next/navigation';
@@ -19,7 +20,7 @@ const TeamLeaveButton = ({ id }: TeamLeaveButtonProps) => {
 
   // alert-dialog에 들어갈 컨텐츠
   const leaveContents = {
-    uiButtonText: 'LEAVE',
+    uiButtonText: '팀 탈퇴하기',
     title: TEAM_TOAST_MESSAGES.CONFIRM.TEAM_LEAVE.TITLE,
     description: TEAM_TOAST_MESSAGES.CONFIRM.TEAM_LEAVE.DESCRIPTION,
     cancelButtonText: 'NO',
@@ -44,7 +45,11 @@ const TeamLeaveButton = ({ id }: TeamLeaveButtonProps) => {
   };
 
   return (
-    <ConfirmDialog contents={leaveContents} onClick={handleLeaveBtnClick} />
+    <ConfirmDialog
+      contents={leaveContents}
+      onClick={handleLeaveBtnClick}
+      tooltipMessage={TOOLTIP_MESSAGE.TEAM.LEAVE}
+    />
   );
 };
 

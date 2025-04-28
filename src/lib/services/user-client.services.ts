@@ -41,3 +41,23 @@ export const fetchUpdateUserProfile = async ({
   }
   return res.json();
 };
+
+// 서버에서 유저 랭킹 데이터 가져오기 (더보기용)
+export const fetchGetUserRankList = async (
+  offset = 0,
+  limit = 5,
+): Promise<UserData[]> => {
+  const res = await fetch(
+    `${API_PATH.RANK_USERS}?offset=${offset}&limit=${limit}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    },
+  );
+  if (!res.ok) {
+    throw new Error(USER_ERROR_MESSAGES.FETCH_FAILED);
+  }
+  return res.json();
+};

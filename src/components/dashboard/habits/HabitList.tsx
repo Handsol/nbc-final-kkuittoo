@@ -1,23 +1,34 @@
-import Text from '@/components/common/Text';
 import HabitForm from './HabitForm';
 import HabitItem from './HabitItem';
 import { HabitFormData, HabitWithPoints } from '@/types/habits.type';
 import { useCreateHabitMutation } from '@/lib/mutations/useHabitMutation';
-import { useMemo } from 'react';
-import { sortHabitsByEnabled } from '@/lib/utils/habit-filter.utils';
+import HabitEmptyState from './HabitEmptyState';
+import ActionButton from '@/components/common/button/ActionButton';
+import { ACTIONBUTTON_MODE } from '@/constants/mode.constants';
+import Text from '@/components/common/Text';
+import HabitListLoading from './HabitListLoading';
+import { CommonLoadingSpinner } from '@/components/common/CommonLoadingSpinner';
 
 type HabitListProps = {
   userId: string;
   habits: HabitWithPoints[];
   isCreating: boolean;
   onToggleCreate: () => void;
+  fetchNextPage: () => void;
+  hasNextPage: boolean;
+  isFetchingNextPage: boolean;
+  isInitialLoading: boolean;
 };
 
 const HabitList = ({
-  habits,
   userId,
+  habits,
   isCreating,
   onToggleCreate,
+  fetchNextPage,
+  hasNextPage,
+  isFetchingNextPage,
+  isInitialLoading,
 }: HabitListProps) => {
   const createMutation = useCreateHabitMutation(userId);
 
@@ -32,30 +43,54 @@ const HabitList = ({
     });
   };
 
-  // 쿨다운 없음, 오늘 수행 가능 -> 위쪽에 정렬
-  const sortedHabits = useMemo(() => sortHabitsByEnabled(habits), [habits]);
+  if (isInitialLoading) {
+    return <HabitListLoading />;
+  }
 
   return (
-    <ul className="my-[16px] overflow-y-auto">
+    <div className="my-[16px] overflow-y-auto">
       {isCreating ? (
-        <li className="my-[8px] flex items-center justify-center">
+        <div className="my-[8px] flex items-center justify-center">
           <HabitForm
             onCancel={onToggleCreate}
             onSuccess={handleCreateSuccess}
           />
-        </li>
-      ) : sortedHabits.length > 0 ? (
-        <div className=" flex flex-col gap-[8px]">
-          {sortedHabits.map((habit) => (
-            <HabitItem key={habit.id} habit={habit} userId={userId} />
-          ))}
         </div>
+      ) : habits.length > 0 ? (
+        <>
+          <ul className="flex flex-col gap-[8px]">
+            {habits.map((habit) => (
+              <HabitItem key={habit.id} habit={habit} userId={userId} />
+            ))}
+          </ul>
+          <div className="mt-4 flex w-full flex-col items-center justify-center">
+            {hasNextPage ? (
+              <ActionButton
+                mode={ACTIONBUTTON_MODE.ROUNDED_MD_LIGHT_GRAY}
+                onClick={fetchNextPage}
+                disabled={isFetchingNextPage}
+              >
+                {isFetchingNextPage ? (
+                  <div className="flex items-center justify-center gap-[12px]">
+                    <Text>더 불러오기...</Text>
+                    <CommonLoadingSpinner size={24} />
+                  </div>
+                ) : (
+                  '더 보기'
+                )}
+              </ActionButton>
+            ) : (
+              <Text className="text-sm text-medium-gray">
+                마지막 습관까지 다 봤어요!
+              </Text>
+            )}
+          </div>
+        </>
       ) : (
-        <li>
-          <Text>등록된 habit이 없습니다.</Text>
-        </li>
+        <HabitEmptyState onCreate={onToggleCreate} />
       )}
-    </ul>
+    </div>
   );
 };
+
 export default HabitList;

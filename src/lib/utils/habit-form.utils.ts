@@ -1,17 +1,11 @@
-import { DAYS_OF_WEEK, HABIT_CATEGORIES } from '@/constants/habits.constants';
+import {
+  DAYS_OF_WEEK,
+  DAYS_OF_WEEK_ARRAY,
+  HABIT_CATEGORIES,
+} from '@/constants/habits.constants';
 import { HabitFormData } from '@/types/habits.type';
-import { Categories, Habit } from '@prisma/client';
+import { Categories } from '@prisma/client';
 import { HabitFormSchema } from '../schema/habit.schema';
-
-/**
- * 선택된 요일 목록을 반환하는 유틸리티 함수
- * @param {Habit} [habit] - 선택된 요일 정보를 가진 습관 객체
- * @returns {string[]} - 선택된 요일 문자열 배열 (예: ['mon', 'wed'])
- */
-export const getInitialSelectedDays = (habit?: Habit) => {
-  if (!habit) return [];
-  return DAYS_OF_WEEK.filter((day) => habit[day as keyof Habit]);
-};
 
 /**
  * 요일 선택 토글하는 유틸리티 함수
@@ -56,7 +50,9 @@ export const getDefaultValues = (habit?: HabitFormData): HabitFormSchema => ({
   title: habit?.title || '',
   notes: habit?.notes || '',
   categories: habit?.categories || HABIT_CATEGORIES[0],
-  selectedDays: habit ? DAYS_OF_WEEK.filter((day) => habit[day]) : [],
+  selectedDays: habit
+    ? DAYS_OF_WEEK.filter((day) => habit[day])
+    : DAYS_OF_WEEK_ARRAY,
 });
 
 /**
@@ -69,17 +65,11 @@ export const isHabitDataUnchanged = (
   newData: HabitFormData,
   initialHabit?: HabitFormData,
 ): boolean => {
-  if (!initialHabit) return false; // 초기 데이터가 없으면 생성이라 false로 얼리리턴
+  if (!initialHabit) return false;
   return (
+    DAYS_OF_WEEK.every((day) => newData[day] === initialHabit[day]) &&
     newData.title === initialHabit.title &&
     newData.notes === initialHabit.notes &&
-    newData.categories === initialHabit.categories &&
-    newData.mon === initialHabit.mon &&
-    newData.tue === initialHabit.tue &&
-    newData.wed === initialHabit.wed &&
-    newData.thu === initialHabit.thu &&
-    newData.fri === initialHabit.fri &&
-    newData.sat === initialHabit.sat &&
-    newData.sun === initialHabit.sun
+    newData.categories === initialHabit.categories
   );
 };

@@ -69,7 +69,8 @@ export const HABIT_TOAST_MESSAGES = {
   SUCCESS: {
     HABIT_CREATE: {
       title: '성공',
-      description: '습관이 생성되었습니다.',
+      description:
+        '습관이 생성되었습니다. [+P 버튼]을 눌러 포인트를 추가하세요.',
     },
     HABIT_UPDATE: {
       title: '성공',
@@ -113,3 +114,10 @@ export const HABIT_TOAST_MESSAGES = {
     },
   },
 } as const;
+
+export const SHARE_TOAST_MESSAGES = {
+  SDK_LOADING: {
+    TITLE: '오류가 발생했습니다',
+    DESCRIPTION: '잠시 후에 다시 시도해주세요!',
+  },
+};

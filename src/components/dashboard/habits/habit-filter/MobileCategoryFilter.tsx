@@ -34,10 +34,10 @@ const MobileCategoryFilter = ({
           className="w-full px-[16px] py-[8px] text-body-lg border border-medium-gray rounded-lg focus:outline focus:ring-offset-0 focus:ring-2 focus:ring-main"
           aria-label="Category filter"
         >
-          <SelectValue placeholder="ALL" />
+          <SelectValue placeholder="모든 카테고리" />
         </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="ALL">ALL</SelectItem>
+        <SelectContent position="item-aligned">
+          <SelectItem value="ALL">모든 카테고리</SelectItem>
           {HABIT_CATEGORIES.map((c) => (
             <SelectItem key={c} value={c}>
               {HABIT_CATEGORY_LABELS[c]}

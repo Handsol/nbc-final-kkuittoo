@@ -7,7 +7,7 @@ export const TopUserAvatar = ({ userName, level }: Props) => {
   return (
     <figure
       className="w-20 h-20 md:w-28 md:h-28  bg-white rounded-full flex items-center
-     justify-center overflow-hidden
+     justify-center overflow-hidden hover:scale-105 duration-200
      "
     >
       <Image

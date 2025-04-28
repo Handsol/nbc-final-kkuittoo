@@ -2,7 +2,7 @@
 
 import { PATH } from '@/constants/path.constants';
 import { signIn } from 'next-auth/react';
-import { FcGoogle } from 'react-icons/fc';
+import { FaGoogle } from 'react-icons/fa';
 import Title from '../common/Title';
 import { TITLE_MODE } from '@/constants/mode.constants';
 
@@ -14,11 +14,13 @@ const LoginButton = () => {
   return (
     <button
       onClick={handleLogin}
-      className="flex flex-row justify-center items-center text-center w-[250px] h-[55px] rounded-full bg-white gap-[10px]"
+      className="flex flex-row justify-center items-center text-center w-[250px] h-[55px] rounded-full bg-main gap-[10px]"
     >
-      <FcGoogle className="w-8 h-8" />
+      <FaGoogle className="text-white" />
       <div className="pt-1">
-        <Title mode={TITLE_MODE.SECTION_SUBTITLE}>구글로 시작하기</Title>
+        <Title mode={TITLE_MODE.LINK} className="text-white">
+          구글로 시작하기
+        </Title>
       </div>
     </button>
   );

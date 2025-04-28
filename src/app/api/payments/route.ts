@@ -49,7 +49,6 @@ export const POST = async (request: NextRequest) => {
       { status: HTTP_STATUS.CREATED },
     );
   } catch (error) {
-    console.log(error);
     return NextResponse.json(
       { error: PAYMENT_MESSAGE.BEFORE.CREATE_FAIL },
       { status: HTTP_STATUS.SERVER_ERROR },

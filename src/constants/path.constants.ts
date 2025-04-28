@@ -20,6 +20,8 @@ export const API_PATH = {
   HABITS: '/api/habits',
   TEAMS: '/api/teams',
   MEMBERS: '/api/teams/member',
+  RANK_USERS: '/api/rank/users',
+  RANK_TEAMS: '/api/rank/teams',
   PAYMENTS: {
     PATH: '/api/payments',
     SUCCESS: '/api/payments/success',
@@ -27,6 +29,6 @@ export const API_PATH = {
   },
 };
 
-export const PROJECT_URL = 'http://localhost:3000';
+export const PROJECT_URL = 'https://www.kkuitddo.com';
 
 export const TOSS_API_URL = 'https://api.tosspayments.com/v1/payments/confirm';

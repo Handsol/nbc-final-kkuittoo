@@ -1,13 +1,17 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { Habit, UserPoint } from '@prisma/client';
 import HabitForm from './HabitForm';
-import { isHabitDisabled } from '@/lib/utils/habit-filter.utils';
 import { ICONBUTTON_MODE } from '@/constants/mode.constants';
 import IconButton from '@/components/common/button/IconButton';
 import { useHabitItemHandlers } from '@/lib/hooks/useHabitItemHandlers';
 import HabitItemActions from './habit-item/HabitItemActions';
 import HabitItemInfo from './habit-item/HabitItemInfo';
-import { calculateTodayPoints } from '@/lib/utils/habit-points.utils';
+import HabitDaysBadge from './habit-item/HabitDaysBadge';
+import ConfirmDialog from '@/components/common/ConfirmDialog';
+import { POINT_DIALOG_CONTENTS } from '@/constants/dialog.constants';
+import { useHabitItemState } from '@/lib/hooks/useHabitItemState';
+import HabitCategoryBadge from './habit-item/HabitCategoryBadge';
+import { TOOLTIP_MESSAGE } from '@/constants/tooltip-message.constants';
 
 type HabitItemProps = {
   habit: Habit & { userPoints: UserPoint[] };
@@ -16,10 +20,6 @@ type HabitItemProps = {
 
 const HabitItem = ({ habit, userId }: HabitItemProps) => {
   const [isEditing, setIsEditing] = useState(false);
-  const todayPoints = useMemo(
-    () => calculateTodayPoints(habit.userPoints),
-    [habit.userPoints],
-  );
 
   const {
     handleAddPoint,
@@ -34,18 +34,40 @@ const HabitItem = ({ habit, userId }: HabitItemProps) => {
     onEditToggle: setIsEditing,
   });
 
-  const isDisabled = isHabitDisabled(habit, isAddPending);
+  const { todayPoints, isDisabled, daysString } = useHabitItemState(
+    habit,
+    isAddPending,
+  );
+
+  const handleConfirmAddPoint = async () => {
+    await handleAddPoint(todayPoints);
+  };
 
   return (
     <div className="flex flex-col gap-[8px] relative">
       <li className="flex items-center gap-[16px] p-[16px] border-b">
-        <IconButton
-          mode={ICONBUTTON_MODE.POINT}
-          onClick={() => handleAddPoint(todayPoints)}
-          disabled={isDisabled}
-        />
+        <ConfirmDialog
+          contents={{
+            ...POINT_DIALOG_CONTENTS,
+            description: POINT_DIALOG_CONTENTS.description(daysString),
+          }}
+          onClick={handleConfirmAddPoint}
+          tooltipMessage={TOOLTIP_MESSAGE.HABIT.POINT}
+        >
+          <IconButton
+            mode={ICONBUTTON_MODE.POINT}
+            disabled={isDisabled}
+            aria-label="Add point"
+          />
+        </ConfirmDialog>
 
-        <HabitItemInfo habit={habit} />
+        <div className="flex-1 min-w-0">
+          <div className="flex items-baseline gap-[4px] mb-[2px]">
+            <HabitCategoryBadge category={habit.categories} />
+            <HabitDaysBadge habit={habit} />
+          </div>
+          <HabitItemInfo habit={habit} />
+        </div>
         {!isEditing && (
           <HabitItemActions
             onEdit={() => setIsEditing(true)}

@@ -3,6 +3,7 @@
 import ConfirmDialog from '@/components/common/ConfirmDialog';
 import { PATH } from '@/constants/path.constants';
 import { TEAM_TOAST_MESSAGES } from '@/constants/toast-messages.contants';
+import { TOOLTIP_MESSAGE } from '@/constants/tooltip-message.constants';
 import { useToast } from '@/lib/hooks/use-toast';
 import { fetchDeleteTeam } from '@/lib/services/team-client.services';
 import { TeamMemberData } from '@/types/teams.type';
@@ -30,7 +31,7 @@ const TeamDisbandButton = ({
 
   // confirmDialog에 들어갈 컨텐츠
   const disbandContents = {
-    uiButtonText: 'DISBAND',
+    uiButtonText: '팀 해체하기',
     title: TEAM_TOAST_MESSAGES.CONFIRM.TEAM_DISBAND.TITLE,
     description: TEAM_TOAST_MESSAGES.CONFIRM.TEAM_DISBAND.DESCRIPTION,
     cancelButtonText: 'NO',
@@ -64,7 +65,11 @@ const TeamDisbandButton = ({
   };
 
   return (
-    <ConfirmDialog contents={disbandContents} onClick={handleDisbandBtnClick} />
+    <ConfirmDialog
+      contents={disbandContents}
+      onClick={handleDisbandBtnClick}
+      tooltipMessage={TOOLTIP_MESSAGE.TEAM.DISBAND}
+    />
   );
 };
 

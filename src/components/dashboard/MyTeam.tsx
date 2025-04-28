@@ -19,36 +19,36 @@ const MyTeam = ({ team, teamTotalPoints, teamCurrentQuest }: MyTeamProps) => {
 
   return (
     <article className="relative w-full bg-sub-light">
-      {/* 데스크탑 버전  */}
-      <div className="hidden md:flex relative py-[24px] pl-[40px] items-center gap-6">
+      {/* 데스크탑 버전 */}
+      <div className="hidden md:flex py-[24px] pl-[40px] items-center gap-6">
         {/* 퀘스트 이미지 */}
         <Image
           src={questImage}
           alt={`${teamName} teamQuest`}
           width={120}
           height={120}
+          className="flex-shrink-0"
         />
 
-        <section className="w-[380px] flex flex-col gap-3 justify-center">
-          <div className="w-full flex items-baseline gap-[8px]">
-            {/* 팀 타이틀 : 팀 이름 + 팀 현재 퀘스트이름 */}
+        <section className="flex-1 flex flex-col gap-3 justify-center min-w-0">
+          <div className="w-[260px] flex items-center justify-between">
             <TeamTitle
               teamName={teamName}
               currentQuestName={teamCurrentQuest.questName}
             />
-            {/* 팀 공개 여부 토글 버튼 */}
             <TeamOpenNotEditMode isOpened={isOpened} />
           </div>
-          {/* 팀 progress : progress bar + 숫자 */}
+
           <TeamProgress
             teamTotalPoints={teamTotalPoints}
             currentQuestRequired={teamCurrentQuest.requiredPoints}
           />
-          {/* 팀 소개 */}
+
           <TeamBioNotEditMode teamBio={teamBio} />
         </section>
+
         {/* 엠블럼 이미지 */}
-        <section className="absolute w-20 flex flex-col items-center justify-center right-[60px]">
+        <section className="w-20 flex flex-col items-center justify-center flex-shrink-0 mr-6">
           <Image src={emblem} alt="emblem" width={80} height={80} />
           <UserTitle mode={USER_TITLE_MODE.CARD_LEVEL}>Level {id}</UserTitle>
         </section>
@@ -68,7 +68,6 @@ const MyTeam = ({ team, teamTotalPoints, teamCurrentQuest }: MyTeamProps) => {
           </div>
 
           <div className="flex-1 min-w-0 flex flex-col">
-            {/* 상단 영역 (토글 버튼 + 엠블럼) - 팀이름이 길어질 경우 레이아웃을 벗어나서 위쪽으로 이동시킴*/}
             <div className="w-full flex justify-between items-center mb-2 ml-4">
               <TeamOpenNotEditMode isOpened={isOpened} />
               <div className="w-[60px] h-[60px] flex-shrink-0">
@@ -82,13 +81,11 @@ const MyTeam = ({ team, teamTotalPoints, teamCurrentQuest }: MyTeamProps) => {
               </div>
             </div>
 
-            {/* 팀 타이틀 */}
             <TeamTitle
               teamName={teamName}
               currentQuestName={teamCurrentQuest.questName}
             />
 
-            {/* 프로그래스 바 */}
             <div className="mt-3">
               <TeamProgress
                 teamTotalPoints={teamTotalPoints}
@@ -98,7 +95,6 @@ const MyTeam = ({ team, teamTotalPoints, teamCurrentQuest }: MyTeamProps) => {
           </div>
         </div>
 
-        {/* 팀 소개 */}
         <div className="mt-4">
           <TeamBioNotEditMode teamBio={teamBio} />
         </div>

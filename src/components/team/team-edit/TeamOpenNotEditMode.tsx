@@ -8,7 +8,7 @@ type TeamOpenNotEditModeProps = {
 const TeamOpenNotEditMode = ({ isOpened }: TeamOpenNotEditModeProps) => {
   return (
     <>
-      <div className="h-6 flex items-center gap-2">
+      <div className="flex items-center gap-2">
         {isOpened ? <FaLockOpen /> : <FaLock />}
       </div>
     </>
