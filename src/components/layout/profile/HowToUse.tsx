@@ -27,7 +27,7 @@ export default function HowToUse() {
 
       {/* 모달 */}
       <CommonModal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <HowToUseModal onClose={() => setIsOpen(false)} />
+        <HowToUseModal />
       </CommonModal>
     </>
   );

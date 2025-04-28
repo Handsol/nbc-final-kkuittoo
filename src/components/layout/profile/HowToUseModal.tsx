@@ -9,13 +9,9 @@ import { TITLE_MODE } from '@/constants/mode.constants';
 import Title from '@/components/common/Title';
 import { HOW_TO_USE_IMAGES } from '@/constants/how-to-use.constants';
 
-type HowToUseModalProps = {
-  onClose: () => void;
-};
-
 const TOTAL_PAGES = HOW_TO_USE_IMAGES.length;
 
-export const HowToUseModal = ({ onClose }: HowToUseModalProps) => {
+export const HowToUseModal = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const handlePrev = () => currentPage > 1 && setCurrentPage(currentPage - 1);
