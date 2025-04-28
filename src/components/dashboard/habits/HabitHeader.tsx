@@ -1,7 +1,7 @@
+import { CommonLoadingSpinner } from '@/components/common/CommonLoadingSpinner';
 import Text from '@/components/common/Text';
 import Title from '@/components/common/Title';
 import { TITLE_MODE } from '@/constants/mode.constants';
-import { LoaderCircle } from 'lucide-react';
 
 type HabitHeaderProps = {
   habitsCount: number;
@@ -18,7 +18,7 @@ const HabitHeader = ({
       <div className="flex items-center gap-[4px] font-bold">
         <Title mode={TITLE_MODE.SECTION_TITLE}>나의 습관</Title>
         {isInitialLoading ? (
-          <LoaderCircle className="animate-spin" />
+          <CommonLoadingSpinner size={16} />
         ) : (
           <Text>
             ({filteredCount ?? habitsCount}/{habitsCount})

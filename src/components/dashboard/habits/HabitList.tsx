@@ -6,8 +6,8 @@ import HabitEmptyState from './HabitEmptyState';
 import ActionButton from '@/components/common/button/ActionButton';
 import { ACTIONBUTTON_MODE } from '@/constants/mode.constants';
 import Text from '@/components/common/Text';
-import { LoaderCircle } from 'lucide-react';
 import HabitListLoading from './HabitListLoading';
+import { CommonLoadingSpinner } from '@/components/common/CommonLoadingSpinner';
 
 type HabitListProps = {
   userId: string;
@@ -73,7 +73,7 @@ const HabitList = ({
                 {isFetchingNextPage ? (
                   <div className="flex items-center justify-center gap-[12px]">
                     <Text>더 불러오기...</Text>
-                    <LoaderCircle className="animate-spin w-[24px] h-[24px]" />
+                    <CommonLoadingSpinner size={24} />
                   </div>
                 ) : (
                   '더 보기'
