@@ -54,13 +54,6 @@ const TeamBioEditMode = ({ teamBio, teamId }: TeamBioProps) => {
   };
 
   // 에러 발생 시 예외처리
-  const TeamErrorContents = {
-    title: 'ERROR',
-    text: '문제가 발생했어요. 잠시 후에 다시 도전해볼까요?',
-    href: `${PATH.TEAM}/${teamId}`,
-    linkButtonText: '팀 페이지로 돌아가기',
-  };
-
   if (isTeamDataError) throw new Error('팀 데이터 가져오기 실패');
 
   return (

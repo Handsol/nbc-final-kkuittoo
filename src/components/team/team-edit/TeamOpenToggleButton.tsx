@@ -17,13 +17,6 @@ type TeamOpenToggleButtonProps = {
 };
 
 const TeamOpenToggleButton = ({ teamId }: TeamOpenToggleButtonProps) => {
-  const TeamErrorContents = {
-    title: 'ERROR',
-    text: '문제가 발생했어요. 잠시 후에 다시 도전해볼까요?',
-    href: `${PATH.TEAM}/${teamId}`,
-    linkButtonText: '팀 페이지로 돌아가기',
-  };
-
   // tanstack query - useQuery
   const { data: teamData, isPending } = useSingleTeamQuery(teamId);
   // tanstack query - useMutation
