@@ -33,7 +33,7 @@ export const GET = async (request: NextRequest) => {
     const where = {
       userId: session.user.id,
       ...(days.length > 0 && {
-        AND: days.map((day) => ({ [day]: true })),
+        OR: days.map((day) => ({ [day]: true })),
       }),
       ...(category && { categories: category }),
     };
