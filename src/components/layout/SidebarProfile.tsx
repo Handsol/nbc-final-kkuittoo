@@ -2,10 +2,9 @@
 
 import { useSession } from 'next-auth/react';
 import { useUserQuery } from '@/lib/queries/useUserQuery';
-import Image from 'next/image';
 import UserProfileEdit from './profile/UserProfileEdit';
 import Text from '../common/Text';
-import { getUserImageByLevel } from '@/lib/utils/user.utils';
+import UserProfileImage from '../common/UserProfileImage';
 
 const SidebarProfile = () => {
   const { data: session } = useSession();
@@ -18,17 +17,10 @@ const SidebarProfile = () => {
   const totalPoints =
     profileData?.userPoints?.reduce((sum, p) => sum + p.points, 0) || 0;
   const level = Math.floor(totalPoints / 20) + 1;
-  const userImageSrc = getUserImageByLevel(level);
 
   return (
     <div className="my-[10px] flex flex-col items-center gap-1 md:gap-3">
-      <Image
-        src={userImageSrc}
-        alt="user"
-        width={100}
-        height={100}
-        className="md:w-[150px] md:h-[150px] w-[100px] h-[100px]"
-      />
+      <UserProfileImage level={level} size="lg" />
 
       <UserProfileEdit
         name={profileData?.name || ''}

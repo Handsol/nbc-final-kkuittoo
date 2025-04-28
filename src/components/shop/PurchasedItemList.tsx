@@ -1,18 +1,39 @@
 'use client';
 
-import { ItemList } from '@/types/shop.type';
+import {
+  fetchGetPurchasedItemList,
+  fetchPatchApplyItem,
+} from '@/lib/services/payment-actions.services';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import Title from '../common/Title';
 import { TITLE_MODE } from '@/constants/mode.constants';
 import PurchasedItemCard from './PurchasedItemCard';
-import { useState } from 'react';
+import { QUERY_KEYS } from '@/constants/query-keys.constants';
+import { ShopItem } from '@/types/shop.type';
 
-type Props = {
-  itemList: ItemList;
-};
+const PurchasedItemList = () => {
+  const queryClient = useQueryClient();
 
-const PurchasedItemList = ({ itemList }: Props) => {
-  const itemNumber = itemList.length;
-  const [appliedItemId, setAppliedItemId] = useState<string | null>(null);
+  const { data: purchasedItemList } = useQuery<ShopItem[]>({
+    queryKey: [QUERY_KEYS.PURCHASED_ITEMS],
+    queryFn: fetchGetPurchasedItemList,
+  });
+
+  const itemNumber = purchasedItemList?.length || 0;
+
+  const applyItemMutation = useMutation({
+    mutationFn: (userItemId: string) => fetchPatchApplyItem(userItemId),
+    onSuccess: () => {
+      // 성공 시 캐시를 무효화하여 서버 데이터를 다시 불러옴
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.PURCHASED_ITEMS] });
+    },
+    onError: (error) => {
+      console.error('아이템 적용 실패:', error);
+    },
+  });
+  const handleApplyItem = (userItemId: string) => {
+    applyItemMutation.mutate(userItemId);
+  };
 
   return (
     <article>
@@ -23,14 +44,12 @@ const PurchasedItemList = ({ itemList }: Props) => {
         {`Purchased Items (${itemNumber})`}
       </Title>
       <section className="w-full grid grid-cols-1 md:grid-cols-2 mt-[24px] gap-[24px]">
-        {itemList.map((item) => (
+        {purchasedItemList?.map((item) => (
           <PurchasedItemCard
             key={item.id}
             item={item}
-            isApplied={appliedItemId === item.id}
-            onClick={() =>
-              setAppliedItemId(appliedItemId === item.id ? null : item.id)
-            }
+            isApplied={item.userItems[0]?.isApplied}
+            onClick={() => handleApplyItem(item.userItems[0]?.id as string)}
           />
         ))}
       </section>

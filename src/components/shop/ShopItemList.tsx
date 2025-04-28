@@ -1,6 +1,5 @@
 import { getUserSession } from '@/lib/services/getUserSession.services';
 import UnauthorizedPage from '../loading-error-page/UnauthorizedPage';
-import { fetchGetItemList } from '@/lib/services/payment-actions.services';
 import NotPurchasedItemList from './NotPurchasedItemList';
 import PurchasedItemList from './PurchasedItemList';
 
@@ -11,19 +10,12 @@ const ShopItemList = async () => {
     return <UnauthorizedPage />;
   }
   const userId = session.user.id;
-  const userEmail = session.user.email;
-  // 아이템 리스트 데이터 가져오기
-  const { purchasedItemList, notPurchasedItemList } =
-    await fetchGetItemList(userId);
+  const userEmail = session.user.email!;
 
   return (
     <div className="flex flex-col gap-6">
-      <PurchasedItemList itemList={purchasedItemList} />
-      <NotPurchasedItemList
-        itemList={notPurchasedItemList}
-        userId={userId}
-        userEmail={userEmail}
-      />
+      <PurchasedItemList />
+      <NotPurchasedItemList userId={userId} userEmail={userEmail} />
     </div>
   );
 };

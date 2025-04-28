@@ -3,7 +3,7 @@ import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import Provider from '@/lib/providers/Provider';
 import GlobalLoadingBar from '@/components/loading-error-page/GlobalLoadingBar';
-import { FAVICON } from '@/constants/assets.contants';
+import { FAVICON } from '@/constants/assets.constants';
 
 export const metadata: Metadata = {
   title: 'KKUITTOO',

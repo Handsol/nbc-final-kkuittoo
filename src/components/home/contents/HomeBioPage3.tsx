@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { BioPage3Info } from './items/BioPageItem';
-import { IMAGE_ASSETS } from '@/constants/assets.contants';
+import { IMAGE_ASSETS } from '@/constants/assets.constants';
 
 const HomeBioPage3 = () => {
   return (
