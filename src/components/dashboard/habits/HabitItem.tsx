@@ -62,7 +62,7 @@ const HabitItem = ({ habit, userId }: HabitItemProps) => {
         </ConfirmDialog>
 
         <div className="flex-1 min-w-0">
-          <div className="flex items-baseline gap-[4px] mb-[2px]">
+          <div className="flex flex-col md:flex-row items-baseline gap-[4px] mb-[2px]">
             <HabitCategoryBadge category={habit.categories} />
             <HabitDaysBadge habit={habit} />
           </div>
