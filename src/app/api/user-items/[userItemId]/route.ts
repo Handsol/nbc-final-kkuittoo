@@ -4,6 +4,8 @@ import { NextResponse, NextRequest } from 'next/server';
 import { checkAuth } from '@/lib/utils/auth-route-handler.utils';
 import { HTTP_STATUS } from '@/constants/http-status.constants';
 import { SHOP_MESSAGE } from '@/constants/error-messages.constants';
+import { revalidatePath } from 'next/cache';
+import { PATH } from '@/constants/path.constants';
 
 export const PATCH = async (
   request: NextRequest,
@@ -54,6 +56,19 @@ export const PATCH = async (
         isApplied: updatedIsApplied,
       },
     });
+
+    const userTeam = await prisma.teamMember.findFirst({
+      where: { userId: session.user.id },
+    });
+
+    // 팀 데이터가 있는 경우 팀 페이지 revalidate
+    if (!!userTeam) {
+      const teamId = userTeam?.id;
+      revalidatePath(`${PATH.TEAM}/${teamId}`);
+    }
+    // 랭킹 페이지 revalidate
+    revalidatePath(PATH.RANK.USERS);
+    revalidatePath('/');
 
     return NextResponse.json(updatedUserItem);
   } catch (error) {
