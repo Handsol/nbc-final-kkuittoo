@@ -16,14 +16,14 @@ const NoTeam = () => {
           alt="Guild Image"
           width={120}
           height={60}
-          className="rounded-lg w-32 h-auto md:w-40 lg:w-64" // 중간에 LinkButton 레이아웃이 깨지는 현상때문에 lg, md 이미지 사이즈 분리
+          className="rounded-lg w-32 h-auto md:w-40 lg:w-64"
         />
       </div>
       {/* 메인 영역 */}
       <article className="flex flex-col items-center md:items-start justify-center gap-2 md:gap-3 text-left flex-1">
         {/* 제목 */}
         <div className="hidden md:block md:text-body-md">
-          <Title mode={TITLE_MODE.SECTION_TITLE}>FIND OR MAKE MY TEAM</Title>
+          <Title mode={TITLE_MODE.SECTION_TITLE}>팀에 가입하거나 생성해보세요!</Title>
         </div>
 
         {/* 팀을 찾거나 팀을 생성하는 영역 */}
@@ -39,10 +39,10 @@ const NoTeam = () => {
           {/* 버튼 wrapper */}
           <div className="flex flex-row flex-wrap gap-2 md:gap-4 w-full mt-1 md:mt-2 items-center justify-center md:items-start md:justify-normal">
             <LinkButton mode={LINKBUTTON_MODE.COMMON} href={PATH.RANK.TEAMS}>
-              Find New Team
+              팀 가입하기
             </LinkButton>
             <LinkButton mode={LINKBUTTON_MODE.COMMON} href={PATH.MAKE_TEAM}>
-              Make New Team
+              팀 생성하기
             </LinkButton>
           </div>
         </div>
