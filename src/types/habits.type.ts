@@ -1,4 +1,5 @@
 import { Categories, Habit } from '@prisma/client';
+import { InfiniteData } from '@tanstack/react-query';
 
 export type UserPoint = {
   id: string;
@@ -50,4 +51,8 @@ export type FilterState = {
   setSelectedDay: (day: string[]) => void;
   selectedCategory: Categories | null;
   setSelectedCategory: (category: Categories | null) => void;
+};
+
+export type MutationContext = {
+  previousData?: InfiniteData<HabitsQueryResult, PageParam>;
 };

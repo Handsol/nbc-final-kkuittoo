@@ -35,7 +35,7 @@ const DashboardHabits = ({
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-    isFetching,
+    isPending,
   } = useHabitRecords(
     userId,
     initialHabits,
@@ -56,7 +56,7 @@ const DashboardHabits = ({
       <HabitHeader
         habitsCount={totalHabits}
         filteredCount={habits.length}
-        isInitialLoading={isFetching}
+        isInitialLoading={isPending}
       />
       <UserLevelProgress
         level={level}
@@ -77,7 +77,7 @@ const DashboardHabits = ({
           fetchNextPage={fetchNextPage}
           hasNextPage={hasNextPage}
           isFetchingNextPage={isFetchingNextPage}
-          isInitialLoading={isFetching && !isFetchingNextPage} //전체 목록을 처음 불러올 때만 더보기 눌렀을 때는 X
+          isInitialLoading={isPending && !isFetchingNextPage} //전체 목록을 처음 불러올 때만 더보기 눌렀을 때는 X
         />
       </div>
     </div>

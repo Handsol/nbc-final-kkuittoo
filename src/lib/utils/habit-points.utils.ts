@@ -2,8 +2,15 @@ import {
   MAX_POINTS_PER_DAY,
   ONE_HOUR_COOLDOWN_MS,
 } from '@/constants/habits.constants';
-import { UserPoint } from '@prisma/client';
+import { Habit, UserPoint } from '@prisma/client';
 import { getToday } from './habit-date.utils';
+import { QUERY_KEYS } from '@/constants/query-keys.constants';
+import { InfiniteData } from '@tanstack/react-query';
+import {
+  HabitsQueryResult,
+  HabitWithPoints,
+  PageParam,
+} from '@/types/habits.type';
 
 /**
  * 쿨다운 상태와 남은 시간을 반환
@@ -72,4 +79,28 @@ export const calculateTodayPoints = (points: UserPoint[]): number => {
  */
 export const isDailyPointsLimitExceeded = (todayPoints: number): boolean => {
   return todayPoints >= MAX_POINTS_PER_DAY;
+};
+
+export const getHabitQueryKeys = (userId: string) => ({
+  base: QUERY_KEYS.BASE_HABITS(userId),
+  userPoints: QUERY_KEYS.USER_POINTS(userId),
+});
+
+export const optimisticUpdate = (
+  oldData: InfiniteData<HabitsQueryResult, PageParam> | undefined,
+  habitId: string,
+  tempPoint: UserPoint,
+) => {
+  if (!oldData) return oldData;
+  return {
+    ...oldData,
+    pages: oldData.pages.map((page) => ({
+      ...page,
+      habits: page.habits.map((habit) =>
+        habit.id === habitId
+          ? { ...habit, userPoints: [...habit.userPoints, tempPoint] }
+          : habit,
+      ),
+    })),
+  };
 };
