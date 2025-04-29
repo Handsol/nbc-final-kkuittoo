@@ -9,8 +9,8 @@ type AppliedProps = {
 const AppliedButton = ({ onClick }: AppliedProps) => {
   return (
     <ActionButton mode={ACTIONBUTTON_MODE.ROUNDED_MD_APPLIED} onClick={onClick}>
-      <FaCheck className="w-[15px] h-[15px] text-main" />
-      <p className="font-dohyeon pt-1 text-body-sm text-main">적용됨</p>
+      <FaCheck className="w-[12px] h-[12px]" />
+      적용됨
     </ActionButton>
   );
 };
