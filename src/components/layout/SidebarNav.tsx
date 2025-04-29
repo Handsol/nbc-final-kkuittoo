@@ -22,10 +22,10 @@ const SidebarNav = () => {
   const teamHref = team ? `${PATH.TEAM}/${team.teamId}` : PATH.TEAM;
 
   const NAV_ITEMS = [
-    { name: 'DASHBOARD', href: PATH.DASHBOARD },
-    { name: 'MY TEAM', href: teamHref },
-    { name: 'RANK', href: PATH.RANK.USERS },
-    { name: 'SHOP', href: PATH.SHOP },
+    { name: 'Dashboard', href: PATH.DASHBOARD },
+    { name: 'My team', href: teamHref },
+    { name: 'Rank', href: PATH.RANK.USERS },
+    { name: 'Shop', href: PATH.SHOP },
   ];
 
   return (
