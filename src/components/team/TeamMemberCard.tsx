@@ -31,12 +31,14 @@ const TeamMemberCard = ({
     <li className="w-full bg-sub-light rounded-lg px-4 py-3">
       {/* 모바일 전용 구조  */}
       <div className="flex flex-col gap-2 md:hidden relative pb-8">
-        <div className="text-sm font-semibold">
+        <div className="text-body-sm font-semibold">
           <UserTitle mode={USER_TITLE_MODE.CARD_RANK}>{rank}</UserTitle>
         </div>
         <div className="grid grid-cols-[auto_1fr] gap-3 items-start">
-          <TeamMemberAvatar userName={member.name} level={memberLevel} />
-          <div className="flex flex-col justify-between w-full">
+          <div className="items-center pl-8">
+            <TeamMemberAvatar userName={member.name} level={memberLevel} />
+          </div>
+          <div className="flex flex-col justify-between w-full items-center">
             <div>
               <UserTitle mode={USER_TITLE_MODE.CARD_LEVEL}>
                 Lv.{memberLevel}
@@ -46,11 +48,11 @@ const TeamMemberCard = ({
                   {member.name}
                 </UserTitle>
               </div>
-              <Text className="truncate text-sm text-gray-600">
+              <Text className="truncate text-body-sm text-gray-600">
                 {member.bio}
               </Text>
             </div>
-            <div className="absolute bottom-2 right-4 text-sm font-semibold">
+            <div className="absolute bottom-2 right-4 text-body-sm font-semibold">
               <Text>기여도</Text>
               <UserTitle mode={USER_TITLE_MODE.CARD_LEVEL}>
                 {totalContribution}점
@@ -68,7 +70,7 @@ const TeamMemberCard = ({
             <UserTitle mode={USER_TITLE_MODE.CARD_RANK}>{rank}</UserTitle>
           </div>
           <TeamMemberAvatar userName={member.name} level={memberLevel} />
-          <div className="min-w-[60px] text-sm">
+          <div className="min-w-[60px] text-body-sm">
             <UserTitle mode={USER_TITLE_MODE.CARD_LEVEL}>
               Lv.{memberLevel}
             </UserTitle>
@@ -82,11 +84,13 @@ const TeamMemberCard = ({
               {member.name}
             </UserTitle>
           </div>
-          <Text className="truncate text-sm text-gray-600">{member.bio}</Text>
+          <Text className="truncate text-body-sm text-gray-600">
+            {member.bio}
+          </Text>
         </div>
 
         {/* 기여도 */}
-        <div className="text-right shrink-0 text-sm font-semibold">
+        <div className="text-right shrink-0 text-body-sm font-semibold">
           <UserTitle mode={USER_TITLE_MODE.CARD_LEVEL}>
             {totalContribution}점
           </UserTitle>
