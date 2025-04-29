@@ -18,9 +18,10 @@ import { USER_TITLE_MODE } from '@/constants/mode.constants';
 
 type TeamQuestProps = {
   id: string;
+  editMode?: boolean;
 };
 
-const TeamInfo = async ({ id }: TeamQuestProps) => {
+const TeamInfo = async ({ id, editMode = true }: TeamQuestProps) => {
   // 팀 기본 데이터
   const teamData = await fetchGetTeamData(id);
   // 팀의 전체 포인트와 현재 퀘스트를 가져오는 로직
@@ -37,6 +38,8 @@ const TeamInfo = async ({ id }: TeamQuestProps) => {
   // 팀 생성자 여부 판단
   const userId = session.user.id;
   const isOwner = teamData.ownerId === userId;
+  // editMode가 false(대시보드)이면 무조건 수정 불가능하도록 변경
+  const canEdit = editMode && isOwner;
 
   const { teamName, teamBio, emblem, isOpened, id: teamId } = teamData;
 
@@ -59,10 +62,10 @@ const TeamInfo = async ({ id }: TeamQuestProps) => {
               teamName={teamName}
               currentQuestName={teamCurrentQuest.questName}
             />
-            {isOwner ? (
+            {canEdit ? (
               <TeamOpenToggleButton teamId={teamId} />
             ) : (
-              <TeamOpenNotEditMode isOpened={isOpened} />
+              <TeamOpenNotEditMode teamId={teamId} />
             )}
           </div>
 
@@ -71,7 +74,7 @@ const TeamInfo = async ({ id }: TeamQuestProps) => {
             currentQuestRequired={teamCurrentQuest.requiredPoints}
           />
 
-          {isOwner ? (
+          {canEdit ? (
             <TeamBioEditMode teamBio={teamBio} teamId={id} />
           ) : (
             <TeamBioNotEditMode teamBio={teamBio} />
@@ -104,10 +107,10 @@ const TeamInfo = async ({ id }: TeamQuestProps) => {
             {/* 토글 버튼 + 엠블럼*/}
             <div className="w-full flex justify-between items-center mb-2 ml-4">
               <div>
-                {isOwner ? (
+                {canEdit ? (
                   <TeamOpenToggleButton teamId={teamId} />
                 ) : (
-                  <TeamOpenNotEditMode isOpened={isOpened} />
+                  <TeamOpenNotEditMode teamId={teamId} />
                 )}
               </div>
               <div className="w-[60px] h-[60px] flex-shrink-0">
@@ -138,7 +141,7 @@ const TeamInfo = async ({ id }: TeamQuestProps) => {
         </div>
 
         {/* 팀 소개 */}
-        {isOwner ? (
+        {canEdit ? (
           <TeamBioEditMode teamBio={teamBio} teamId={id} />
         ) : (
           <TeamBioNotEditMode teamBio={teamBio} />

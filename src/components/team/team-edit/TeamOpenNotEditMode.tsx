@@ -1,17 +1,20 @@
+'use client';
+
+import { useSingleTeamQuery } from '@/lib/queries/useSingleTeamQuery';
 import { FaLock } from 'react-icons/fa6';
 import { FaLockOpen } from 'react-icons/fa6';
 
 type TeamOpenNotEditModeProps = {
-  isOpened: boolean;
+  teamId: string;
 };
 
-const TeamOpenNotEditMode = ({ isOpened }: TeamOpenNotEditModeProps) => {
+const TeamOpenNotEditMode = ({ teamId }: TeamOpenNotEditModeProps) => {
+  // tanstack query - useQuery
+  const { data: teamData } = useSingleTeamQuery(teamId);
   return (
-    <>
-      <div className="flex items-center gap-2">
-        {isOpened ? <FaLockOpen /> : <FaLock />}
-      </div>
-    </>
+    <div className="flex items-center gap-2">
+      {teamData.isOpened ? <FaLockOpen /> : <FaLock />}
+    </div>
   );
 };
 
