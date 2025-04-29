@@ -21,6 +21,17 @@ export const fetchGetUserProfile = async (
       bio: true,
       userPoints: true,
       teamMembers: true,
+      userItems: {
+        select: {
+          itemId: true,
+          isApplied: true,
+          item: {
+            select: {
+              itemImage: true,
+            },
+          },
+        },
+      },
     },
   });
 };
@@ -43,6 +54,17 @@ export const fetchGetFilteredUsersWithTotalPoints = async ({
       email: true,
       userPoints: {
         select: { points: true },
+      },
+      userItems: {
+        select: {
+          itemId: true,
+          isApplied: true,
+          item: {
+            select: {
+              itemImage: true,
+            },
+          },
+        },
       },
     },
   });
@@ -83,6 +105,17 @@ export const fetchAllUsersWithTotalPoints = async () => {
       email: true,
       userPoints: {
         select: { points: true },
+      },
+      userItems: {
+        select: {
+          itemId: true,
+          isApplied: true,
+          item: {
+            select: {
+              itemImage: true,
+            },
+          },
+        },
       },
     },
   });

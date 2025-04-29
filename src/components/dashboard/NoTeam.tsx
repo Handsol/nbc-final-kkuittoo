@@ -4,7 +4,7 @@ import { PATH } from '@/constants/path.constants';
 import { LINKBUTTON_MODE, TITLE_MODE } from '@/constants/mode.constants';
 import Text from '../common/Text';
 import Title from '../common/Title';
-import { IMAGE_ASSETS } from '@/constants/assets.contants';
+import { IMAGE_ASSETS } from '@/constants/assets.constants';
 
 const NoTeam = () => {
   return (
@@ -41,7 +41,7 @@ const NoTeam = () => {
             <LinkButton mode={LINKBUTTON_MODE.COMMON} href={PATH.RANK.TEAMS}>
               Find New Team
             </LinkButton>
-            <LinkButton mode={LINKBUTTON_MODE.COMMON} href={PATH.MAEK_TEAM}>
+            <LinkButton mode={LINKBUTTON_MODE.COMMON} href={PATH.MAKE_TEAM}>
               Make New Team
             </LinkButton>
           </div>

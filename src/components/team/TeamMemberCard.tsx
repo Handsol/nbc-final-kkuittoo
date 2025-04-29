@@ -1,8 +1,7 @@
-import Image from 'next/image';
 import UserTitle from '../common/UserTitle';
 import { USER_TITLE_MODE } from '@/constants/mode.constants';
 import Text from '../common/Text';
-import { TeamMemberAvatar } from './TeamMemberAvatar';
+import UserProfileImage from '../common/UserProfileImage';
 
 type TeamMemberCardProps = {
   rank: number;
@@ -18,6 +17,13 @@ type TeamMemberCardProps = {
     }[];
   };
   memberLevel: number;
+  memberItemList: {
+    itemId: string;
+    isApplied: boolean;
+    item: {
+      itemImage: string;
+    };
+  }[];
   totalContribution: number;
 };
 
@@ -25,6 +31,7 @@ const TeamMemberCard = ({
   rank,
   member,
   memberLevel,
+  memberItemList,
   totalContribution,
 }: TeamMemberCardProps) => {
   return (
@@ -36,7 +43,11 @@ const TeamMemberCard = ({
         </div>
         <div className="grid grid-cols-[auto_1fr] gap-3 items-start">
           <div className="items-center pl-8">
-            <TeamMemberAvatar userName={member.name} level={memberLevel} />
+            <UserProfileImage
+              level={memberLevel}
+              size="sm"
+              items={memberItemList}
+            />
           </div>
           <div className="flex flex-col justify-between w-full items-center">
             <div>
@@ -69,7 +80,11 @@ const TeamMemberCard = ({
           <div className="min-w-[32px] text-center">
             <UserTitle mode={USER_TITLE_MODE.CARD_RANK}>{rank}</UserTitle>
           </div>
-          <TeamMemberAvatar userName={member.name} level={memberLevel} />
+          <UserProfileImage
+            level={memberLevel}
+            size="sm"
+            items={memberItemList}
+          />
           <div className="min-w-[60px] text-body-sm">
             <UserTitle mode={USER_TITLE_MODE.CARD_LEVEL}>
               Lv.{memberLevel}
