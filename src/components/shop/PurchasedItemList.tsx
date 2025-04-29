@@ -10,6 +10,7 @@ import { TITLE_MODE } from '@/constants/mode.constants';
 import PurchasedItemCard from './PurchasedItemCard';
 import { QUERY_KEYS } from '@/constants/query-keys.constants';
 import { ShopItem } from '@/types/shop.type';
+import { useRouter } from 'next/navigation';
 
 type PurchasedItemListProps = {
   userId: string;
@@ -17,6 +18,7 @@ type PurchasedItemListProps = {
 
 const PurchasedItemList = ({ userId }: PurchasedItemListProps) => {
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   const { data: purchasedItemList } = useQuery<ShopItem[]>({
     queryKey: [QUERY_KEYS.PURCHASED_ITEMS],
@@ -41,6 +43,7 @@ const PurchasedItemList = ({ userId }: PurchasedItemListProps) => {
   });
   const handleApplyItem = (userItemId: string) => {
     applyItemMutation.mutate(userItemId);
+    router.refresh();
   };
 
   return (
