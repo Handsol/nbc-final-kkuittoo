@@ -55,6 +55,17 @@ export const fetchGetFilteredUsersWithTotalPoints = async ({
       userPoints: {
         select: { points: true },
       },
+      userItems: {
+        select: {
+          itemId: true,
+          isApplied: true,
+          item: {
+            select: {
+              itemImage: true,
+            },
+          },
+        },
+      },
     },
   });
 
