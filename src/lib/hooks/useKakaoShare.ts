@@ -4,8 +4,8 @@ import { useEffect } from 'react';
 import { useToast } from './use-toast';
 import { SHARE_TOAST_MESSAGES } from '@/constants/toast-messages.contants';
 import { PATH, PROJECT_URL } from '@/constants/path.constants';
-import { IMAGE_ASSETS } from '@/constants/assets.contants';
 import { ID_SLICE } from '@/constants/magic-numbers.constants';
+import { IMAGE_ASSETS } from '@/constants/assets.constants';
 
 // 글로벌 타입에 기존 Window 인터페이스에 Kakao 추가
 // Kakao에 대한 타입이 공식문서에 없어서 any로 설정
