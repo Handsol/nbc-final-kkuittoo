@@ -47,12 +47,12 @@ export const CommonModal = ({
 
   return createPortal(
     <div
-      className={`fixed inset-0 z-${Z_INDEX.MODAL} bg-black bg-opacity-60 flex justify-center items-center px-4`}
+      className={`fixed inset-0 z-${Z_INDEX.MODAL} bg-black bg-opacity-60 flex justify-center items-center px-4 `}
       onClick={onClose}
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative bg-white rounded-2xl w-full max-w-sm md:max-w-lg p-6 max-h-[90vh] overflow-auto shadow-xl"
+        className="relative bg-white rounded-2xl w-full max-w-sm md:max-w-lg p-6 max-h-[90vh] overflow-auto scrollbar-hide shadow-xl"
       >
         <button
           type="button"

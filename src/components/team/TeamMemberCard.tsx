@@ -48,7 +48,7 @@ const TeamMemberCard = ({
                   {member.name}
                 </UserTitle>
               </div>
-              <Text className="truncate text-body-sm text-gray-600">
+              <Text className="break-words text-body-sm text-dark-gray w-full">
                 {member.bio}
               </Text>
             </div>

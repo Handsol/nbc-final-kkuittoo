@@ -24,7 +24,7 @@ export const HowToUseModal = () => {
       {/* 이미지 + 타이틀 영역 */}
       <div
         aria-label={`사용 방법 ${currentPage}페이지`}
-        className="flex flex-col items-center w-full max-w-[400px] min-h-[400px]"
+        className="flex flex-col items-center w-full max-w-[400px] min-h-[400px]  overflow-y-auto scrollbar-hide"
       >
         {/* 타이틀 */}
         <div className="text-xl font-bold text-left w-full">
