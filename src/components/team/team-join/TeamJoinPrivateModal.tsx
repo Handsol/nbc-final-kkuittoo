@@ -26,6 +26,10 @@ const TeamJoinPrivateModal = ({ teamId, mode }: TeamJoinPrivateModalProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const isTeamJoinButton = mode === JOINBUTTON_MODE.TEAM_PAGE;
 
+  const handleJoinSuccess = () => {
+    setIsModalOpen(false); // 모달 닫기
+  };
+
   return (
     <div>
       <CommonTooltip message={TOOLTIP_MESSAGE.TEAM.PRIVATE_JOIN}>
@@ -55,7 +59,7 @@ const TeamJoinPrivateModal = ({ teamId, mode }: TeamJoinPrivateModalProps) => {
             비공개 팀에 가입하기 위해선 비밀번호가 필요합니다!
             <br /> 초대장 확인 후, 비밀번호를 입력해주세요.
           </Text>
-          <TeamPasswordForm teamId={teamId} />
+          <TeamPasswordForm teamId={teamId} onSuccess={handleJoinSuccess} />
         </div>
       </CommonModal>
     </div>
