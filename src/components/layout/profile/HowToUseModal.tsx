@@ -20,7 +20,7 @@ export const HowToUseModal = () => {
   const currentImage = HOW_TO_USE_IMAGES[currentPage - 1];
 
   return (
-    <div className="relative w-full flex flex-col items-center justify-between min-h-[400px] md:min-h-[520px]">
+    <div className="relative w-full flex flex-col items-center justify-between min-h-[400px] md:max-h-[90vh]">
       {/* 이미지 + 타이틀 영역 */}
       <div
         aria-label={`사용 방법 ${currentPage}페이지`}
@@ -42,7 +42,7 @@ export const HowToUseModal = () => {
       </div>
 
       {/* 화살표 + 페이지네이션 */}
-      <div className="flex items-center justify-center gap-4 absolute bottom-2 md:bottom-4">
+      <div className="mt-8 shrink-0 flex items-center justify-center gap-4">
         <PaginationArrowButton
           direction="prev"
           onClick={handlePrev}

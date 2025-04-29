@@ -52,7 +52,7 @@ export const CommonModal = ({
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative bg-white rounded-2xl w-full max-w-sm md:max-w-lg p-6 max-h-[80vh] overflow-auto shadow-xl"
+        className="relative bg-white rounded-2xl w-full max-w-sm md:max-w-lg p-6 max-h-[90vh] overflow-auto shadow-xl"
       >
         <button
           type="button"
@@ -62,7 +62,7 @@ export const CommonModal = ({
         >
           <MdClose />
         </button>
-        <div className="mt-8">{children}</div>
+        <div className="mt-4">{children}</div>
       </div>
     </div>,
     document.body,
