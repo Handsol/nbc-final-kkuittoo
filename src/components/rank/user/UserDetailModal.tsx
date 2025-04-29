@@ -31,7 +31,7 @@ export const UserDetailModal = ({ user, onClose }: Props) => {
     <div>
       {/* 헤더 영역 */}
       <div onClick={onClose} className="flex items-center justify-between mb-4">
-        <Title mode={TITLE_MODE.SECTION_SUBTITLE}>USER DETAILS</Title>
+        <Title mode={TITLE_MODE.SECTION_SUBTITLE}>유저 상세보기</Title>
       </div>
 
       {/* 사용자 정보 영역 */}
