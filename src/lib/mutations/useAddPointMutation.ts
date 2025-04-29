@@ -16,6 +16,7 @@ import {
   getHabitQueryKeys,
   optimisticUpdate,
 } from '../utils/habit-points.utils';
+import { HABIT_ERROR_MESSAGES } from '@/constants/error-messages.constants';
 
 /**
  * 사용자 포인트 추가를 위한 React Query Mutation 훅
@@ -30,11 +31,7 @@ export const useAddPointMutation = (userId: string) => {
     mutationFn: fetchAddUserPoint,
 
     onMutate: async (habitId) => {
-      await queryClient.cancelQueries({
-        queryKey: queryKeys.base,
-        exact: false,
-      });
-
+      await queryClient.cancelQueries({ queryKey: queryKeys.base });
       const previousData = queryClient.getQueryData<
         InfiniteData<HabitsQueryResult, PageParam>
       >(queryKeys.base);
@@ -47,32 +44,33 @@ export const useAddPointMutation = (userId: string) => {
         points: POINTS_TO_ADD,
       };
 
-      queryClient.setQueriesData<InfiniteData<HabitsQueryResult, PageParam>>(
-        { queryKey: queryKeys.base, exact: false },
+      queryClient.setQueryData<InfiniteData<HabitsQueryResult, PageParam>>(
+        queryKeys.base,
         (oldData) => optimisticUpdate(oldData, habitId, tempPoint),
       );
 
-      return { previousData };
+      return { previousData, tempPoint };
     },
 
     onError: (error, habitId, context) => {
-      if (context?.previousData) {
-        queryClient.setQueriesData(
-          { queryKey: queryKeys.base, exact: true },
-          context.previousData,
-        );
+      if (
+        error.message !== HABIT_ERROR_MESSAGES.DAILY_POINT_LIMIT_EXCEEDED &&
+        context?.previousData
+      ) {
+        queryClient.setQueryData(queryKeys.base, context.previousData);
       }
     },
 
     onSettled: async (data, error, habitId) => {
+      const queriesToInvalidate =
+        error?.message === HABIT_ERROR_MESSAGES.DAILY_POINT_LIMIT_EXCEEDED
+          ? [queryKeys.userPoints]
+          : [queryKeys.base, queryKeys.userPoints];
+
       await Promise.all([
-        queryClient.invalidateQueries({
-          queryKey: [...queryKeys.base, habitId],
-          exact: false,
-        }),
-        queryClient.invalidateQueries({
-          queryKey: queryKeys.userPoints,
-        }),
+        ...queriesToInvalidate.map((key) =>
+          queryClient.invalidateQueries({ queryKey: key }),
+        ),
         revalidateDashboard(),
       ]);
     },
