@@ -2,12 +2,12 @@
 
 import { UserData } from '@/types/rank.type';
 import { NormalUserRankLabel } from './NormalUserRankLabel';
-import { NormalUserAvatar } from './NormalUserAvatar';
 import { NormalUserInfo } from './NormalUserInfo';
 import { getUserLevel } from '@/lib/utils/user-level.utils';
 import { useState } from 'react';
 import { CommonModal } from '@/components/common/CommonModal';
 import UserDetailModal from '../UserDetailModal';
+import UserProfileImage from '@/components/common/UserProfileImage';
 
 type Props = {
   user: UserData;
@@ -17,6 +17,10 @@ type Props = {
 export const NormalUserRankCard = ({ user, rank }: Props) => {
   const userLevel = getUserLevel(user.totalPoints);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const userItem = user.userItems;
+
+  !!userItem ?? console.log('userItem', userItem);
+
   return (
     <>
       <article
@@ -30,7 +34,7 @@ export const NormalUserRankCard = ({ user, rank }: Props) => {
           <NormalUserRankLabel rank={rank} />
         </div>
         {/* 이미지 영역 */}
-        <NormalUserAvatar userName={user.name} level={userLevel} />
+        <UserProfileImage level={userLevel} size="sm" items={userItem} />
         {/* 이미지와 정보 영역 사이에 25px 간격 */}
         <div className="ml-[25px] flex-1">
           <NormalUserInfo user={user} />
