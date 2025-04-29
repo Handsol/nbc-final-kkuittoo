@@ -25,7 +25,7 @@ export const useHabitRecords = (
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-    isFetching,
+    isPending,
   } = useHabitsQuery(userId, selectedDay, selectedCategory);
 
   // 사용자 포인트 가져오기
@@ -66,7 +66,7 @@ export const useHabitRecords = (
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-    isFetching,
+    isPending,
     ...levelInfo,
   };
 };
