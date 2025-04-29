@@ -25,9 +25,10 @@ const TeamMemberList = async ({ id, userTeamInfo }: TeamMemberListProps) => {
   const { isThisTeamMember, isUserhasTeam, currentTeamMembers } = userTeamInfo;
 
   return (
-    <div className="w-full flex flex-col gap-5 mt-11 mb-11">
-      <div className="w-full flex justify-between items-center">
-        <Title mode={TITLE_MODE.SECTION_TITLE}>팀 멤버</Title>
+    <div className="w-full flex flex-col gap-2 mt-11 mb-11">
+      <Title mode={TITLE_MODE.SECTION_TITLE}>팀 멤버</Title>
+
+      <div className="w-full flex justify-center md:justify-end">
         {isThisTeamMember ? (
           <div className="flex gap-4">
             <TeamInviteButton id={id} />
@@ -45,6 +46,7 @@ const TeamMemberList = async ({ id, userTeamInfo }: TeamMemberListProps) => {
       <ul className="w-full flex flex-col gap-2">
         {teamMemberList.map((member, index) => {
           const { user, totalPoints, totalContribution } = member;
+          const memberItemList = member.user.userItems;
           const memberLevel = getUserLevel(totalPoints);
           return (
             <TeamMemberCard
@@ -52,6 +54,7 @@ const TeamMemberList = async ({ id, userTeamInfo }: TeamMemberListProps) => {
               rank={index + 1}
               member={user}
               memberLevel={memberLevel}
+              memberItemList={memberItemList}
               totalContribution={totalContribution}
             />
           );

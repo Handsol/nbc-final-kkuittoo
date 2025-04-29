@@ -1,4 +1,4 @@
-import { IMAGE_ASSETS } from './assets.contants';
+import { IMAGE_ASSETS } from './assets.constants';
 
 const TEAM_QUEST_POINTS = {
   LV1: 100,

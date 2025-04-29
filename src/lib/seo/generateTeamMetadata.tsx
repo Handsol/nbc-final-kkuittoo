@@ -4,7 +4,7 @@ import { TeamData } from '@/types/teams.type';
 import { Metadata } from 'next';
 import { fetchGetTeamData } from '../services/team-actions.services';
 import { notFound } from 'next/navigation';
-import { IMAGE_ASSETS } from '@/constants/assets.contants';
+import { IMAGE_ASSETS } from '@/constants/assets.constants';
 
 export const TEAM_METADATA_MODE = {
   SINGLE_TEAM: 'singleTeam',

@@ -50,6 +50,7 @@ export const TeamChat = ({ teamId, userTeamInfo }: TeamChatProps) => {
   const { data: session } = useSession();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null); //input 포커스
 
   {
     /* 마지막 메시지로 스크롤이 부드럽게 이동 */
@@ -126,6 +127,9 @@ export const TeamChat = ({ teamId, userTeamInfo }: TeamChatProps) => {
 
       if (response.ok) {
         setNewMessage('');
+        inputRef.current?.focus(); // 메시지 전송 후 다시 포커스
+      } else {
+        console.error('Error sending message:', response.statusText);
       }
     } catch (error) {
       console.error('Error sending message:', error);
@@ -201,6 +205,7 @@ export const TeamChat = ({ teamId, userTeamInfo }: TeamChatProps) => {
         >
           <div className="flex space-x-2">
             <input
+              ref={inputRef}
               type="text"
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}

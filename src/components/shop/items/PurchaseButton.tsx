@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import TossPaymentModal from './TossPaymentModal';
+import TossPaymentModal from '../TossPaymentModal';
 import { ACTIONBUTTON_MODE } from '@/constants/mode.constants';
-import ActionButton from '../common/button/ActionButton';
+import ActionButton from '../../common/button/ActionButton';
 
 type purchaseButtonProps = {
   paymentInfo: {
@@ -21,10 +21,10 @@ const PurchaseButton = ({ paymentInfo }: purchaseButtonProps) => {
   return (
     <>
       <ActionButton
-        mode={ACTIONBUTTON_MODE.DARK_GRAY_SMALL}
+        mode={ACTIONBUTTON_MODE.ROUNDED_MD_SMALL}
         onClick={() => setIsModalOpen(true)}
       >
-        BUY
+        구매하기
       </ActionButton>
 
       <TossPaymentModal

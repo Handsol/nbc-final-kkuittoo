@@ -4,7 +4,7 @@ import { PiPlant } from 'react-icons/pi';
 import { HomeTitleLg, HomeTitleSm } from '../../HomePageItems';
 import { RiGamepadLine } from 'react-icons/ri';
 import { LuHandshake } from 'react-icons/lu';
-import { IMAGE_ASSETS } from '@/constants/assets.contants';
+import { IMAGE_ASSETS } from '@/constants/assets.constants';
 
 // 1페이지 서비스 관련 설명 1
 export const ServiceInfo1 = () => {

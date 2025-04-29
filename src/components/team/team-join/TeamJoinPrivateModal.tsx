@@ -12,9 +12,9 @@ import Text from '@/components/common/Text';
 import { CommonModal } from '@/components/common/CommonModal';
 import ActionButton from '@/components/common/button/ActionButton';
 import Image from 'next/image';
-import { IMAGE_ASSETS } from '@/constants/assets.contants';
 import CommonTooltip from '@/components/common/CommonTooltip';
 import { TOOLTIP_MESSAGE } from '@/constants/tooltip-message.constants';
+import { IMAGE_ASSETS } from '@/constants/assets.constants';
 
 type TeamJoinPrivateModalProps = {
   teamId: string;
@@ -25,6 +25,10 @@ const TeamJoinPrivateModal = ({ teamId, mode }: TeamJoinPrivateModalProps) => {
   // 모달창 state
   const [isModalOpen, setIsModalOpen] = useState(false);
   const isTeamJoinButton = mode === JOINBUTTON_MODE.TEAM_PAGE;
+
+  const handleJoinSuccess = () => {
+    setIsModalOpen(false); // 모달 닫기
+  };
 
   return (
     <div>
@@ -55,7 +59,7 @@ const TeamJoinPrivateModal = ({ teamId, mode }: TeamJoinPrivateModalProps) => {
             비공개 팀에 가입하기 위해선 비밀번호가 필요합니다!
             <br /> 초대장 확인 후, 비밀번호를 입력해주세요.
           </Text>
-          <TeamPasswordForm teamId={teamId} />
+          <TeamPasswordForm teamId={teamId} onSuccess={handleJoinSuccess} />
         </div>
       </CommonModal>
     </div>

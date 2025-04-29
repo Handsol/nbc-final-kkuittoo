@@ -47,9 +47,7 @@ const Title = ({ mode, children, className }: TitleProps) => {
         <h3 className="font-dohyeon text-body-xl text-black">{children}</h3>
       );
     case TITLE_MODE.SECTION_SUBTITLE:
-      return (
-        <h4 className="font-dohyeon text-body-lg text-black">{children}</h4>
-      );
+      return <h4 className={clsx('font-dohyeon', className)}>{children}</h4>;
     default:
       return <span className="font-pretendard text-black">{children}</span>;
   }

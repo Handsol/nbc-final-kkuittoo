@@ -29,7 +29,7 @@ export const NormalTeamInfo = ({ team }: Props) => {
             {team.memberCount}/{team.maxTeamSize}
           </Text>
           <div className="shrink-0">
-            <TeamOpenNotEditMode isOpened={team.isOpened} />
+            <TeamOpenNotEditMode teamId={team.id} />
           </div>
         </div>
       </div>

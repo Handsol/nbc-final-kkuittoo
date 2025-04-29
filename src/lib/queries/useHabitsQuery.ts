@@ -56,5 +56,6 @@ export const useHabitsQuery = (
     initialPageParam: { skip: 0, take: 5 },
     enabled: !!userId,
     staleTime: 0,
+    placeholderData: (previousData) => previousData, //새로운 쿼리키로 재패치하기 전까지 이전 값을 유지할 데이터를 만들어주는 개념
   });
 };

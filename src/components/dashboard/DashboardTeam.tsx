@@ -1,10 +1,7 @@
-import {
-  fetchGetMyTeamData,
-  fetchGetTeamTotalPoints,
-} from '@/lib/services/team-actions.services';
+import { fetchGetMyTeamData } from '@/lib/services/team-actions.services';
 import NoTeam from './NoTeam';
-import MyTeam from './MyTeam';
-import { getCurrentTeamQuest } from '@/lib/utils/team.utils';
+
+import TeamInfo from '../team/TeamInfo';
 
 type DashboardTeamProps = {
   userId: string;
@@ -20,16 +17,8 @@ const DashboardTeam = async ({ userId }: DashboardTeamProps) => {
 
   // 팀 존재 = 팀 전체 포인트, 현재 퀘스트 정보 조회
   const myTeam = myTeamWithMemberData.team;
-  const { teamTotalPoints } = await fetchGetTeamTotalPoints(myTeam.id);
-  const teamCurrentQuest = getCurrentTeamQuest(teamTotalPoints);
 
-  return (
-    <MyTeam
-      team={myTeam}
-      teamTotalPoints={teamTotalPoints}
-      teamCurrentQuest={teamCurrentQuest}
-    />
-  );
+  return <TeamInfo id={myTeam.id} editMode={false} />;
 };
 
 export default DashboardTeam;

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { CommonModal } from '@/components/common/CommonModal';
 import Image from 'next/image';
 import { HowToUseModal } from './HowToUseModal';
+import Text from '@/components/common/Text';
 
 export default function HowToUse() {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,7 +23,7 @@ export default function HowToUse() {
           width={30}
           height={30}
         />
-        <span className="text-body-sm">사용 방법</span>
+        <Text className="text-body-sm">사용 방법</Text>
       </button>
 
       {/* 모달 */}

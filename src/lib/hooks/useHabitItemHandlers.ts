@@ -40,6 +40,7 @@ export const useHabitItemHandlers = ({
         toast({
           title: HABIT_TOAST_MESSAGES.FAIL.POINT_ADD.title,
           description: errorMessage,
+          variant: 'destructive',
         });
       },
     });

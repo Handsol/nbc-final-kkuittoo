@@ -5,7 +5,7 @@ import { TITLE_MODE } from '@/constants/mode.constants';
 import TeamLinkShareButton from './TeamLinkShareButton';
 import { ID_SLICE } from '@/constants/magic-numbers.constants';
 import Image from 'next/image';
-import { IMAGE_ASSETS } from '@/constants/assets.contants';
+import { IMAGE_ASSETS } from '@/constants/assets.constants';
 
 type TeamInviteModalProps = {
   id: string;
