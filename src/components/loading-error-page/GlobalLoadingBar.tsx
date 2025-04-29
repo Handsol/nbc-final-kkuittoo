@@ -37,7 +37,7 @@ const GlobalLoadingBar = () => {
 
   return (
     <div
-      className={`fixed inset-0 z-${Z_INDEX.LOADING_BAR}] flex flex-col items-center justify-center bg-white transition-opacity duration-300`}
+      className={`fixed inset-0 z-[${Z_INDEX.LOADING_BAR}] flex flex-col items-center justify-center bg-white transition-opacity duration-300`}
     >
       <Image
         src={IMAGE_ASSETS.LOGO.DESKTOP}
