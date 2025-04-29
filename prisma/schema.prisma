@@ -59,6 +59,7 @@ model User {
   email           String         @unique
   emailVerified   DateTime?
   image           String?
+  password        String?        // 비밀번호 필드 추가
   characterImage  String         @default("/images/0.png")      
   accounts        Account[]
   sessions        Session[]
