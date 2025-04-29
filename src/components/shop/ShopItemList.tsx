@@ -14,7 +14,7 @@ const ShopItemList = async () => {
 
   return (
     <div className="flex flex-col gap-6">
-      <PurchasedItemList />
+      <PurchasedItemList userId={userId} />
       <NotPurchasedItemList userId={userId} userEmail={userEmail} />
     </div>
   );

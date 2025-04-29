@@ -29,7 +29,20 @@ export const GET = async (request: Request, { params }: RouteParams) => {
     const { id } = params;
     const user = await prisma.user.findUnique({
       where: { id },
-      include: { userPoints: true },
+      include: {
+        userPoints: true,
+        userItems: {
+          select: {
+            itemId: true,
+            isApplied: true,
+            item: {
+              select: {
+                itemImage: true,
+              },
+            },
+          },
+        },
+      },
     });
 
     if (!user) {

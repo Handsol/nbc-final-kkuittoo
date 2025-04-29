@@ -5,8 +5,16 @@ export type UserData = {
   bio: string | null;
   email: string;
   totalPoints: number;
-  userPoints: { points: number }[]; // 포인트 배열 (합산해서 랭킹 계산)
+  userPoints: { points: number }[];
+  userItems: CardUserItemData[]; // 포인트 배열 (합산해서 랭킹 계산)
   rank: number;
+};
+
+// 카드에 들어가는 유저 아이템 타입
+export type CardUserItemData = {
+  isApplied: boolean;
+  itemId: string;
+  item: { itemImage: string };
 };
 
 export type TeamWithPoints = {

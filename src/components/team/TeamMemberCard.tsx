@@ -1,8 +1,7 @@
-import Image from 'next/image';
 import UserTitle from '../common/UserTitle';
 import { USER_TITLE_MODE } from '@/constants/mode.constants';
 import Text from '../common/Text';
-import { NormalUserAvatar } from '../rank/user/nomal/NormalUserAvatar';
+import UserProfileImage from '../common/UserProfileImage';
 
 type TeamMemberCardProps = {
   rank: number;
@@ -18,6 +17,13 @@ type TeamMemberCardProps = {
     }[];
   };
   memberLevel: number;
+  memberItemList: {
+    itemId: string;
+    isApplied: boolean;
+    item: {
+      itemImage: string;
+    };
+  }[];
   totalContribution: number;
 };
 
@@ -25,6 +31,7 @@ const TeamMemberCard = ({
   rank,
   member,
   memberLevel,
+  memberItemList,
   totalContribution,
 }: TeamMemberCardProps) => {
   return (
@@ -37,7 +44,11 @@ const TeamMemberCard = ({
         </div>
 
         {/* 이미지 : 일단 본승님의 NormalUserAvatar를 사용했습니다.*/}
-        <NormalUserAvatar userName={member.name} level={memberLevel} />
+        <UserProfileImage
+          level={memberLevel}
+          size="sm"
+          items={memberItemList}
+        />
 
         {/* 레벨 */}
         <div className="min-w-[60px] text-sm">

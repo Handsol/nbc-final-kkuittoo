@@ -21,6 +21,17 @@ export const fetchGetUserProfile = async (
       bio: true,
       userPoints: true,
       teamMembers: true,
+      userItems: {
+        select: {
+          itemId: true,
+          isApplied: true,
+          item: {
+            select: {
+              itemImage: true,
+            },
+          },
+        },
+      },
     },
   });
 };
@@ -40,6 +51,17 @@ export const fetchGetUsersWithTotalPoints = async () => {
       email: true,
       userPoints: {
         select: { points: true },
+      },
+      userItems: {
+        select: {
+          itemId: true,
+          isApplied: true,
+          item: {
+            select: {
+              itemImage: true,
+            },
+          },
+        },
       },
     },
   });

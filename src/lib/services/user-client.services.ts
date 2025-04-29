@@ -41,3 +41,28 @@ export const fetchUpdateUserProfile = async ({
   }
   return res.json();
 };
+
+/**
+ * 유저 프로필 정보를 가져오는 fetch 함수
+ *
+ * @param userId - 조회할 유저 ID
+ * @returns
+ */
+export const fetchGetUserProfileWithClient = async (userId: string) => {
+  try {
+    const res = await fetch(`${API_PATH.USERS}/${userId}`, {
+      cache: 'no-store',
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (!res.ok) {
+      throw new Error(USER_ERROR_MESSAGES.FETCH_FAILED);
+    }
+    return res.json();
+  } catch (error) {
+    console.error('fetchGetUserProfile error:', error);
+    throw new Error(USER_ERROR_MESSAGES.FETCH_FAILED);
+  }
+};
