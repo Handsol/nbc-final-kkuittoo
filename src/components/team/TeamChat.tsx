@@ -10,6 +10,7 @@ import { TITLE_MODE } from '@/constants/mode.constants';
 import { SlArrowRight } from 'react-icons/sl';
 import { getUserImageByLevel } from '@/lib/utils/user.utils';
 import { getUserLevel } from '@/lib/utils/user-level.utils';
+import TeamChatDisabled from './TeamChatDisabled';
 
 type TeamMessage = {
   id: string;
@@ -25,6 +26,11 @@ type TeamMessage = {
 type TeamChatProps = {
   // 어떤 팀의 채팅인지 구분하기 위함
   teamId: string;
+  userTeamInfo: {
+    isThisTeamMember: boolean;
+    isUserhasTeam: boolean;
+    currentTeamMembers: number;
+  };
 };
 {
   /*
@@ -34,12 +40,17 @@ type TeamChatProps = {
     messagesEndRef: 새 메시지가 생기면 자동으로 아래로 스크롤하기 위해 사용됩니다.
   */
 }
-export const TeamChat = ({ teamId }: TeamChatProps) => {
+export const TeamChat = ({ teamId, userTeamInfo }: TeamChatProps) => {
+  //해당 팀 멤버가 아닌 경우 채팅창 비활성화
+  const { isThisTeamMember } = userTeamInfo;
+  if (!isThisTeamMember) return <TeamChatDisabled />;
+
   const [messages, setMessages] = useState<TeamMessage[]>([]);
   const [newMessage, setNewMessage] = useState('');
   const { data: session } = useSession();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null); //input 포커스
 
   {
     /* 마지막 메시지로 스크롤이 부드럽게 이동 */
@@ -116,6 +127,9 @@ export const TeamChat = ({ teamId }: TeamChatProps) => {
 
       if (response.ok) {
         setNewMessage('');
+        inputRef.current?.focus(); // 메시지 전송 후 다시 포커스
+      } else {
+        console.error('Error sending message:', response.statusText);
       }
     } catch (error) {
       console.error('Error sending message:', error);
@@ -124,7 +138,7 @@ export const TeamChat = ({ teamId }: TeamChatProps) => {
 
   return (
     <section className="flex-1 w-full mt-11 mb-11 bg-white rounded-lg">
-      <Title mode={TITLE_MODE.SECTION_TITLE}>Team Chat</Title>
+      <Title mode={TITLE_MODE.SECTION_TITLE}>팀 채팅</Title>
       <div className="flex flex-col mt-6 h-96 border border-gray-200 rounded-lg">
         <div
           ref={containerRef}
@@ -191,6 +205,7 @@ export const TeamChat = ({ teamId }: TeamChatProps) => {
         >
           <div className="flex space-x-2">
             <input
+              ref={inputRef}
               type="text"
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}

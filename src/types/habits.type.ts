@@ -1,4 +1,5 @@
 import { Categories, Habit } from '@prisma/client';
+import { InfiniteData } from '@tanstack/react-query';
 
 export type UserPoint = {
   id: string;
@@ -32,4 +33,26 @@ export type HabitFormValues = {
   notes: string;
   categories: Categories;
   selectedDays: string[];
+};
+
+export type PageParam = {
+  skip: number;
+  take: number;
+};
+
+export type HabitsQueryResult = {
+  habits: HabitWithPoints[];
+  totalHabits: number;
+  nextSkip: number;
+};
+
+export type FilterState = {
+  selectedDay: string[];
+  setSelectedDay: (day: string[]) => void;
+  selectedCategory: Categories | null;
+  setSelectedCategory: (category: Categories | null) => void;
+};
+
+export type MutationContext = {
+  previousData?: InfiniteData<HabitsQueryResult, PageParam>;
 };

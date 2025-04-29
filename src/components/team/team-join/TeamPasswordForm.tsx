@@ -20,9 +20,10 @@ type TeamPasswordFormData = {
 
 type TeamPasswordFormProps = {
   teamId: string;
+  onSuccess?: () => void;
 };
 
-const TeamPasswordForm = ({ teamId }: TeamPasswordFormProps) => {
+const TeamPasswordForm = ({ teamId, onSuccess }: TeamPasswordFormProps) => {
   // toast + router
   const { toast } = useToast();
   const router = useRouter();
@@ -60,8 +61,11 @@ const TeamPasswordForm = ({ teamId }: TeamPasswordFormProps) => {
         description: TEAM_TOAST_MESSAGES.SUCCESS.TEAM_JOIN.DESCRIPTION(),
       });
 
+      onSuccess?.(); // 모달 닫기
+
       // 팀 페이지로 이동
       router.push(`${PATH.TEAM}/${teamId}`);
+      router.refresh(); //refresh 호출
     }
   };
 

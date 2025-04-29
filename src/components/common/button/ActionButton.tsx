@@ -1,5 +1,6 @@
 import { ACTIONBUTTON_MODE } from '@/constants/mode.constants';
 import { Slot } from '@radix-ui/react-slot';
+import { round } from 'lodash';
 import { ButtonHTMLAttributes, forwardRef } from 'react';
 
 type ActionButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -55,7 +56,7 @@ const ActionButton = forwardRef<HTMLButtonElement, ActionButtonProps>(
         roundedStyle = 'rounded-full';
         break;
       case ACTIONBUTTON_MODE.ROUNDED_MD:
-        sizeStyle = 'w-[180px] h-[40px]';
+        sizeStyle = 'w-[150px] h-[40px] md:w-[180px] md:h-[40px]';
         variantStyle = 'bg-main text-white hover:bg-sub';
         roundedStyle = 'rounded-md';
         break;
@@ -68,6 +69,11 @@ const ActionButton = forwardRef<HTMLButtonElement, ActionButtonProps>(
         sizeStyle = 'w-[180px] h-[40px]';
         variantStyle =
           'bg-light-gray text-black hover:bg-medium-gray hover:text-white';
+        roundedStyle = 'rounded-md';
+      case ACTIONBUTTON_MODE.ROUNDED_MD_REVERSE:
+        sizeStyle = 'w-[150px] h-[40px] md:w-[180px] md:h-[40px]';
+        variantStyle =
+          'bg-white text-main border border-main hover:border-sub hover:bg-sub hover:text-white';
         roundedStyle = 'rounded-md';
         break;
       case ACTIONBUTTON_MODE.LOGOUT:

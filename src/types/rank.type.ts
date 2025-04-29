@@ -26,6 +26,7 @@ export type TeamCardProps = {
   rank: number; // 순위
   isTopRank: boolean; // 상단 3위 여부
   animationDelay?: number; // 애니메이션 지연 시간
+  hasTeam: boolean;
 };
 
 export type UserCardProps = {

@@ -12,7 +12,7 @@ const LogoutButton = () => {
   };
   return (
     <ActionButton mode={ACTIONBUTTON_MODE.LOGOUT} onClick={handleLogout}>
-      Logout
+      로그아웃
     </ActionButton>
   );
 };

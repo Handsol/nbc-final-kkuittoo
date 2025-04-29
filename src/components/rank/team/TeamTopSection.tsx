@@ -3,9 +3,10 @@ import { TeamWithPoints } from '@/types/rank.type';
 
 type Props = {
   topTeams: TeamWithPoints[];
+  hasTeam: boolean;
 };
 
-export const TeamTopSection = ({ topTeams }: Props) => {
+export const TeamTopSection = ({ topTeams, hasTeam }: Props) => {
   const ordered = [topTeams[1], topTeams[0], topTeams[2]]; // 2,1,3 순서
 
   const delays = [300, 600, 100];
@@ -21,6 +22,7 @@ export const TeamTopSection = ({ topTeams }: Props) => {
                 rank={rank}
                 isTopRank
                 animationDelay={delays[idx]}
+                hasTeam={hasTeam}
               />
             </div>
           );

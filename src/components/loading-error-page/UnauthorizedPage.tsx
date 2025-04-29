@@ -6,10 +6,13 @@ import { PATH } from '@/constants/path.constants';
 import Image from 'next/image';
 import { IMAGE_ASSETS } from '@/constants/assets.constants';
 import LinkButton from '../common/button/LinkButton';
+import { Z_INDEX } from '@/constants/z-index.constants';
 
 const UnauthorizedPage = () => {
   return (
-    <div className="w-screen h-screen flex flex-col justify-center items-center gap-5 bg-sub absolute top-0 left-0 z-50">
+    <div
+      className={`w-screen h-screen flex flex-col justify-center items-center gap-5 bg-sub absolute top-0 left-0 z-${Z_INDEX.COMMON}`}
+    >
       <Image
         src={IMAGE_ASSETS.LOGO.DESKTOP}
         alt="Unauthorized page logo"

@@ -14,6 +14,7 @@ import {
   rankCardContainer,
   rankCardInfoWrapper,
 } from '@/styles/rankCardStyles';
+import { Z_INDEX } from '@/constants/z-index.constants';
 
 type Props = {
   user: UserData;
@@ -36,7 +37,7 @@ export const TopUserRankCard = ({ user, rank, animationDelay = 0 }: Props) => {
   return (
     <>
       <article
-        className={`${rankCardContainer} animate-fade-up`}
+        className={rankCardContainer}
         onClick={() => setIsModalOpen(true)}
         style={{ animationDelay: `${animationDelay}ms` }}
       >
@@ -71,7 +72,9 @@ export const TopUserRankCard = ({ user, rank, animationDelay = 0 }: Props) => {
               }}
             />
           </div>
-          <span className="text-heading-xl font-bold text-white z-10">
+          <span
+            className={`text-heading-xl font-bold text-white  z-${Z_INDEX.RANK_LABEL}`}
+          >
             {rank}
           </span>
         </div>

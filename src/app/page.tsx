@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 export default function Home() {
   return (
-    <div className="h-screen overflow-hidden bg-main flex flex-col items-center justify-center pt-2 gap-8">
+    <div className="h-screen overflow-hidden bg-white flex flex-col items-center justify-center pt-2 gap-8">
       <Image
         alt="로고"
         src={'/assets/images/logo_desktop_kkuitddo.png'}

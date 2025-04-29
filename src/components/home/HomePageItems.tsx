@@ -8,7 +8,7 @@ type TextProps = {
 
 export const HomeTitleLg = ({ children }: TextProps) => {
   return (
-    <p className="font-dohyeon text-body-md md:text-body-xl text-white text-center pt-1">
+    <p className="font-dohyeon text-body-md md:text-body-xl text-main text-center pt-1">
       {children}
     </p>
   );
@@ -16,7 +16,7 @@ export const HomeTitleLg = ({ children }: TextProps) => {
 
 export const HomeTitleSm = ({ children }: TextProps) => {
   return (
-    <p className="font-pretendard text-body-xs md:text-body-md text-light-gray text-center">
+    <p className="font-pretendard text-body-xs md:text-body-md text-black text-center break-words">
       {children}
     </p>
   );
@@ -41,7 +41,7 @@ export const PaginationArrowButton = ({
     <button
       aria-label={direction === 'prev' ? '이전 페이지' : '다음 페이지'}
       onClick={onClick}
-      className={`text-white hover:text-sub transition disabled:opacity-40 disabled:cursor-not-allowed ${className}`}
+      className={`text-sub hover:text-main transition disabled:opacity-40 disabled:cursor-not-allowed ${className}`}
       {...props}
     >
       {icon}
@@ -71,7 +71,7 @@ export const PaginationNumberButton = ({
       onClick={() => onClickPage(page)}
       aria-pressed={isActive}
       className={`w-3 h-3 rounded-full border transition
-      ${isActive ? 'bg-white border-white' : 'border-white'} 
+      ${isActive ? 'bg-main border-main' : 'border-main'} 
       ${className}`}
       {...props}
     />

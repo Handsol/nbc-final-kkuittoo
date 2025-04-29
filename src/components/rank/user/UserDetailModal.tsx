@@ -5,7 +5,11 @@ import Image from 'next/image';
 import { UserData } from '@/types/rank.type';
 import UserTitle from '@/components/common/UserTitle';
 import { TITLE_MODE, USER_TITLE_MODE } from '@/constants/mode.constants';
-import { getUserLevel, getExpPercent } from '@/lib/utils/user-level.utils';
+import {
+  getUserLevel,
+  getExpPercent,
+  getCurrentExp,
+} from '@/lib/utils/user-level.utils';
 import { getUserImageByLevel } from '@/lib/utils/user.utils';
 import UserLevelProgress from '@/components/dashboard/habits/UserLevelProgress';
 import Title from '@/components/common/Title';
@@ -21,12 +25,13 @@ export const UserDetailModal = ({ user, onClose }: Props) => {
   const userLevel = getUserLevel(user.totalPoints);
   const expPercent = getExpPercent(user.totalPoints);
   const avatarUrl = getUserImageByLevel(userLevel);
+  const currentExp = getCurrentExp(user.totalPoints);
 
   return (
     <div>
       {/* 헤더 영역 */}
       <div onClick={onClose} className="flex items-center justify-between mb-4">
-        <Title mode={TITLE_MODE.SECTION_SUBTITLE}>USER DETAILS</Title>
+        <Title mode={TITLE_MODE.SECTION_SUBTITLE}>유저 상세보기</Title>
       </div>
 
       {/* 사용자 정보 영역 */}
@@ -45,7 +50,11 @@ export const UserDetailModal = ({ user, onClose }: Props) => {
         <UserTitle mode={USER_TITLE_MODE.CARD_NAME}>{user.name}</UserTitle>
         {/* 경험치 바 영역 */}
         <div className="w-full mt-4">
-          <UserLevelProgress level={userLevel} expPercent={expPercent} />
+          <UserLevelProgress
+            level={userLevel}
+            expPercent={expPercent}
+            currentPoints={currentExp}
+          />
         </div>
       </div>
 

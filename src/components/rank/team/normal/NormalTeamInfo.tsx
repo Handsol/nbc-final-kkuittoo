@@ -1,5 +1,6 @@
 import Text from '@/components/common/Text';
 import UserTitle from '@/components/common/UserTitle';
+import TeamOpenNotEditMode from '@/components/team/team-edit/TeamOpenNotEditMode';
 import { USER_TITLE_MODE } from '@/constants/mode.constants';
 import { getCurrentTeamQuest } from '@/lib/utils/team.utils';
 import { TeamWithPoints } from '@/types/rank.type';
@@ -13,19 +14,24 @@ export const NormalTeamInfo = ({ team }: Props) => {
       <div className="flex items-center gap-2">
         <UserTitle
           mode={USER_TITLE_MODE.CARD_NAME}
-          className="truncate max-w-[100px] dm:max-w-[160px] text-body-xs md:text-base"
+          className="truncate w-16 md:w-24 text-body-xs md:text-base"
         >
           {team.teamName}
         </UserTitle>
         <UserTitle
           mode={USER_TITLE_MODE.CARD_LEVEL}
-          className="truncate max-w-[100px] dm:max-w-[160px] text-body-xs md:text-base"
+          className="truncate max-w-[100px] md:max-w-[160px] text-body-xs md:text-base"
         >
           Lv. {currentQuest.id}
         </UserTitle>
-        <Text>
-          {team.memberCount}/{team.maxTeamSize}
-        </Text>
+        <div className="flex items-center gap-1">
+          <Text>
+            {team.memberCount}/{team.maxTeamSize}
+          </Text>
+          <div className="shrink-0">
+            <TeamOpenNotEditMode teamId={team.id} />
+          </div>
+        </div>
       </div>
       <Text className="text-dark-gray truncate  max-w-[100px] dm:max-w-[160px]">
         {team.teamBio}

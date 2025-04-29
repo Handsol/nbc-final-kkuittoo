@@ -1,7 +1,16 @@
 'use client';
-
-import { ReactNode } from 'react';
+import { Z_INDEX } from '@/constants/z-index.constants';
+import { ReactNode, useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { MdClose } from 'react-icons/md';
+
+type CommonModalProps = {
+  isOpen: boolean;
+  onClose: () => void;
+  children: ReactNode;
+  mode?: 'common' | 'parallel';
+};
+
 /**
  * 공통 모달 컴포넌트입니다.
  *
@@ -22,29 +31,28 @@ import { MdClose } from 'react-icons/md';
  * </CommonModal>
  * ```
  */
-type CommonModalProps = {
-  isOpen: boolean;
-  onClose: () => void;
-  children: ReactNode;
-  mode?: 'common' | 'parallel';
-};
 
 export const CommonModal = ({
-  isOpen = false, // 기본값 설정
+  isOpen,
   onClose,
   children,
-  mode = 'common',
 }: CommonModalProps) => {
-  if (!isOpen) return null;
+  const [mounted, setMounted] = useState(false);
 
-  return (
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!isOpen || !mounted) return null;
+
+  return createPortal(
     <div
-      className="fixed inset-0 z-50 bg-black bg-opacity-60 flex justify-center items-center px-4"
+      className={`fixed inset-0 z-${Z_INDEX.MODAL} bg-black bg-opacity-60 flex justify-center items-center px-4 `}
       onClick={onClose}
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative bg-white rounded-2xl w-full max-w-sm md:max-w-lg p-6 max-h-[80vh] overflow-auto shadow-xl"
+        className="relative bg-white rounded-2xl w-full max-w-sm md:max-w-lg p-6 max-h-[90vh] overflow-auto scrollbar-hide shadow-xl"
       >
         <button
           type="button"
@@ -54,8 +62,9 @@ export const CommonModal = ({
         >
           <MdClose />
         </button>
-        {children}
+        <div className="mt-4">{children}</div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 };

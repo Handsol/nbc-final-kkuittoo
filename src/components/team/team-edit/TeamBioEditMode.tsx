@@ -11,6 +11,7 @@ import IconButton from '@/components/common/button/IconButton';
 import { TeamFormData } from '@/lib/services/team-client.services';
 import ErrorMessage from '@/components/common/ErrorMessage';
 import { useTeamBioUpdateForm } from '@/lib/hooks/useTeamBioUpdateForm';
+import { CommonLoadingSpinner } from '@/components/common/CommonLoadingSpinner';
 
 type TeamBioProps = {
   teamBio: string;
@@ -48,22 +49,27 @@ const TeamBioEditMode = ({ teamBio, teamId }: TeamBioProps) => {
     setIsEditMode(false);
   };
 
+  // 에러 발생 시 예외처리
+  if (isTeamDataError) throw new Error('팀 데이터 가져오기 실패');
+
   return (
     <div className="w-full h-[50px] flex items-center justify-between">
       {isTeamDataPending ? (
-        <Text>로딩 중...</Text>
-      ) : isTeamDataError || !teamData ? (
-        <Text>데이터 불러오기 실패</Text>
+        <div className="flex gap-3">
+          <Text>가져오는 중...</Text>
+          <CommonLoadingSpinner size={20} />
+        </div>
       ) : isEditMode ? (
         <form
           onSubmit={handleSubmit(handleOnSubmit)}
-          className="w-full flex justify-between items-baseline gap-5"
+          className="w-full flex justify-start items-baseline gap-2"
         >
-          <div className="flex-1 flex flex-col justify-start mt-[24px]">
+          <div className="flex-1 flex flex-col justify-start mt-[30px] gap-[2px] md:max-w-[220px]">
             <CommonInputBar
               id="teamBio"
               {...register('teamBio', teamBioValidation)}
             />
+
             <ErrorMessage>
               {errors.teamBio && errors.teamBio.message}
             </ErrorMessage>
@@ -87,7 +93,7 @@ const TeamBioEditMode = ({ teamBio, teamId }: TeamBioProps) => {
           </div>
         </form>
       ) : (
-        <div className="w-full flex items-baseline gap-5 pl-4">
+        <div className="w-full flex items-baseline gap-5 pl-2">
           <Text>{teamData.teamBio}</Text>
           <IconButton
             mode={ICONBUTTON_MODE.EDIT}

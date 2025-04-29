@@ -4,6 +4,7 @@ import { TeamData } from '@/types/teams.type';
 import { Metadata } from 'next';
 import { fetchGetTeamData } from '../services/team-actions.services';
 import { notFound } from 'next/navigation';
+import { IMAGE_ASSETS } from '@/constants/assets.contants';
 
 export const TEAM_METADATA_MODE = {
   SINGLE_TEAM: 'singleTeam',
@@ -31,13 +32,12 @@ export const generateTeamMetadata = async (
         openGraph: {
           title: `${teamName} | KKUITTOO`,
           description: isOpened
-            ? `나 혼자 하면 작심삼일, ${teamName} 팀과 함께라면 습관도 성장도 쉬워져요!
-            팀 비밀번호 : ${teamPassword}`
-            : `나 혼자 하면 작심삼일, ${teamName} 팀과 함께라면 습관도 성장도 쉬워져요!`,
+            ? `나 혼자 하면 작심삼일, ${teamName} 팀과 함께라면 습관도 성장도 쉬워져요!`
+            : `팀 비밀번호 : ${teamPassword} | 나 혼자 하면 작심삼일, ${teamName} 팀과 함께라면 습관도 성장도 쉬워져요!`,
           url: `${PROJECT_URL}/team/${teamId}`,
           images: [
             {
-              url: '/images/test01.png',
+              url: `${PROJECT_URL}${IMAGE_ASSETS.SPRITE.PINK}`,
               width: 1200,
               height: 630,
               alt: `${teamName} 팀 미리보기`,
