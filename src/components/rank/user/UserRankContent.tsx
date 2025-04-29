@@ -16,7 +16,6 @@ export const UserRankContent = async ({
   const isSearching = Boolean(searchTerm);
 
   const usersList = await fetchGetFilteredUsersWithTotalPoints();
-
   const userItem = usersList.filter((user) => user.userItems.length > 0);
 
   const topUsers = usersList.slice(0, 3); // 1~3위
