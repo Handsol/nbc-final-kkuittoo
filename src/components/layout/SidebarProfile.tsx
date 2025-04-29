@@ -24,7 +24,7 @@ const SidebarProfile = () => {
       (sum: number, p: UserPoint) => sum + p.points,
       0,
     ) || 0;
-  const level = Math.floor(totalPoints / 20) + 1;
+  const level = Math.floor(totalPoints / 10) + 1;
   const userItems = profileData.userItems;
 
   return (
