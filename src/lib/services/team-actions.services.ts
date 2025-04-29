@@ -50,6 +50,17 @@ export const fetchGetTeamMembers = async (teamId: string) => {
                 getTime: true,
               },
             },
+            userItems: {
+              select: {
+                itemId: true,
+                isApplied: true,
+                item: {
+                  select: {
+                    itemImage: true,
+                  },
+                },
+              },
+            },
           },
         },
       },

@@ -11,7 +11,11 @@ import PurchasedItemCard from './PurchasedItemCard';
 import { QUERY_KEYS } from '@/constants/query-keys.constants';
 import { ShopItem } from '@/types/shop.type';
 
-const PurchasedItemList = () => {
+type PurchasedItemListProps = {
+  userId: string;
+};
+
+const PurchasedItemList = ({ userId }: PurchasedItemListProps) => {
   const queryClient = useQueryClient();
 
   const { data: purchasedItemList } = useQuery<ShopItem[]>({
@@ -23,9 +27,13 @@ const PurchasedItemList = () => {
 
   const applyItemMutation = useMutation({
     mutationFn: (userItemId: string) => fetchPatchApplyItem(userItemId),
-    onSuccess: () => {
-      // 성공 시 캐시를 무효화하여 서버 데이터를 다시 불러옴
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.PURCHASED_ITEMS] });
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.PURCHASED_ITEMS],
+      });
+      await queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.SINGLE_USER(userId),
+      });
     },
     onError: (error) => {
       console.error('아이템 적용 실패:', error);

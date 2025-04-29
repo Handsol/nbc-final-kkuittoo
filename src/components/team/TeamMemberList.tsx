@@ -46,6 +46,7 @@ const TeamMemberList = async ({ id, userTeamInfo }: TeamMemberListProps) => {
       <ul className="w-full flex flex-col gap-2">
         {teamMemberList.map((member, index) => {
           const { user, totalPoints, totalContribution } = member;
+          const memberItemList = member.user.userItems;
           const memberLevel = getUserLevel(totalPoints);
           return (
             <TeamMemberCard
@@ -53,6 +54,7 @@ const TeamMemberList = async ({ id, userTeamInfo }: TeamMemberListProps) => {
               rank={index + 1}
               member={user}
               memberLevel={memberLevel}
+              memberItemList={memberItemList}
               totalContribution={totalContribution}
             />
           );
