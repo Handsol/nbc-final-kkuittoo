@@ -16,7 +16,9 @@ export const fetchGetItemList = async () => {
 // 구매한 아이템 목록 가져오기
 export const fetchGetPurchasedItemList = async () => {
   try {
-    const res = await fetch('/api/items/purchased-items');
+    const res = await fetch('/api/items/purchased-items', {
+      cache: 'no-store',
+    });
     if (!res.ok) {
       const errorData = await res.json();
       throw new Error(errorData?.error || '구매 아이템 목록 불러오기 실패');
@@ -57,6 +59,7 @@ export const fetchPatchApplyItem = async (userItemId: string) => {
       const errorData = await res.json();
       throw new Error(errorData?.error || `ID: ${userItemId} 아이템 적용 실패`);
     }
+
     return res.json();
   } catch (error) {
     console.error(error);

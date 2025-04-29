@@ -19,15 +19,12 @@ export const NormalUserRankCard = ({ user, rank }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const userItem = user.userItems;
 
-  !!userItem ?? console.log('userItem', userItem);
-
   return (
     <>
       <article
         onClick={() => setIsModalOpen(true)}
         className="border rounded-3xl p-4 shadow-md bg-sub-light
-         w-full h-24 flex flex-row items-center
-         "
+        w-full h-24 flex flex-row items-center"
       >
         {/* 랭크 영역: width 18px, height 40px, 오른쪽에 25px 여백 */}
         <div className="mr-[25px]">

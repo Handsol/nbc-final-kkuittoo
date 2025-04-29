@@ -51,6 +51,7 @@ export const fetchUpdateUserProfile = async ({
 export const fetchGetUserProfileWithClient = async (userId: string) => {
   try {
     const res = await fetch(`${API_PATH.USERS}/${userId}`, {
+      cache: 'no-store',
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
