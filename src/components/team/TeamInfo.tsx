@@ -41,7 +41,7 @@ const TeamInfo = async ({ id, editMode = true }: TeamQuestProps) => {
   // editMode가 false(대시보드)이면 무조건 수정 불가능하도록 변경
   const canEdit = editMode && isOwner;
 
-  const { teamName, teamBio, emblem, isOpened, id: teamId } = teamData;
+  const { teamName, teamBio, emblem, id: teamId } = teamData;
 
   return (
     <article className="relative w-full bg-sub-light">
@@ -57,7 +57,7 @@ const TeamInfo = async ({ id, editMode = true }: TeamQuestProps) => {
         />
 
         <section className="flex-1 flex flex-col gap-3 justify-center min-w-0">
-          <div className="w-[260px] flex items-center justify-between">
+          <div className="w-[260px] flex items-start justify-start gap-2">
             <TeamTitle
               teamName={teamName}
               currentQuestName={teamCurrentQuest.questName}
