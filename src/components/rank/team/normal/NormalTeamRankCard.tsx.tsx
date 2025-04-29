@@ -22,7 +22,12 @@ export const NormalRankTeamCard = ({ team, rank }: Props) => {
         <article className="border rounded-3xl p-4 shadow-md bg-sub-light w-full h-24 flex items-center justify-between overflow-hidden cursor-pointer hover:scale-[1.03] duration-200">
           <div className="flex items-center gap-3 flex-1 min-w-0">
             <NormalTeamRankLabel rank={rank} />
-            <NormalTeamEmblem teamName={team.teamName} embluem={team.emblem} />
+            <div className="hidden md:block">
+              <NormalTeamEmblem
+                teamName={team.teamName}
+                embluem={team.emblem}
+              />
+            </div>
             <NormalTeamInfo team={team} />
           </div>
         </article>
