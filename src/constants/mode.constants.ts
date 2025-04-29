@@ -2,6 +2,7 @@ export const LINKBUTTON_MODE = {
   NAV: 'nav',
   RANK: 'rank',
   COMMON: 'common',
+  SHOP: 'shop',
 };
 
 export const TITLE_MODE = {
@@ -33,7 +34,10 @@ export const ACTIONBUTTON_MODE = {
   SECONDARY_SMALL: 'secondary-small',
   DARK_GRAY_SMALL: 'dark-gray-small',
   ROUNDED_MD: 'rounded-md',
+  ROUNDED_MD_SMALL: 'rounded-md-small',
   ROUNDED_MD_LIGHT_GRAY: 'rounded-md-light-gray',
+  ROUNDED_MD_APPLY: 'rounded-md-apply',
+  ROUNDED_MD_APPLIED: 'rounded-md-applied',
   ROUNDED_MD_REVERSE: 'rounded-md-reverse',
   LOGOUT: 'logout',
 } as const;

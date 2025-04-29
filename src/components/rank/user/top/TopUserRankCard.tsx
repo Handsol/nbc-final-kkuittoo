@@ -15,6 +15,7 @@ import {
   rankCardInfoWrapper,
 } from '@/styles/rankCardStyles';
 import { Z_INDEX } from '@/constants/z-index.constants';
+import UserProfileImage from '@/components/common/UserProfileImage';
 
 type Props = {
   user: UserData;
@@ -33,6 +34,7 @@ export const TopUserRankCard = ({ user, rank, animationDelay = 0 }: Props) => {
   const topFaceHeight = rank === 1 ? 'h-8' : 'h-6';
 
   const userLevel = getUserLevel(user.totalPoints);
+  const userItem = user.userItems;
 
   return (
     <>
@@ -48,7 +50,7 @@ export const TopUserRankCard = ({ user, rank, animationDelay = 0 }: Props) => {
             Lv.{userLevel}
           </UserTitle>
           <motion.div {...floatAnimation}>
-            <TopUserAvatar userName={user.name} level={userLevel} />
+            <UserProfileImage level={userLevel} size="xl" items={userItem} />
           </motion.div>
         </div>
 

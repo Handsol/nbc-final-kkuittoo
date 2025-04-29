@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Text from '@/components/common/Text';
-import { IMAGE_ASSETS } from '@/constants/assets.contants';
+import { IMAGE_ASSETS } from '@/constants/assets.constants';
 
 const HabitListLoading = () => {
   return (

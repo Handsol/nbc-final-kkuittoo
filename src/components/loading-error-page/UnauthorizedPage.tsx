@@ -4,7 +4,7 @@ import { LINKBUTTON_MODE, TITLE_MODE } from '@/constants/mode.constants';
 import React from 'react';
 import { PATH } from '@/constants/path.constants';
 import Image from 'next/image';
-import { IMAGE_ASSETS } from '@/constants/assets.contants';
+import { IMAGE_ASSETS } from '@/constants/assets.constants';
 import LinkButton from '../common/button/LinkButton';
 import { Z_INDEX } from '@/constants/z-index.constants';
 

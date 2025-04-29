@@ -60,6 +60,11 @@ const ActionButton = forwardRef<HTMLButtonElement, ActionButtonProps>(
         variantStyle = 'bg-main text-white hover:bg-sub';
         roundedStyle = 'rounded-md';
         break;
+      case ACTIONBUTTON_MODE.ROUNDED_MD_SMALL:
+        sizeStyle = 'w-[100px] h-[36px]';
+        variantStyle = 'bg-main text-white hover:bg-sub';
+        roundedStyle = 'rounded-md';
+        break;
       case ACTIONBUTTON_MODE.ROUNDED_MD_LIGHT_GRAY:
         sizeStyle = 'w-[180px] h-[40px]';
         variantStyle =
@@ -75,6 +80,18 @@ const ActionButton = forwardRef<HTMLButtonElement, ActionButtonProps>(
         sizeStyle = 'px-5 text-body-lg w-full';
         variantStyle =
           'text-black border border-transparent hover:text-white hover:bg-medium-gray bg-light-gray';
+        roundedStyle = 'rounded-md';
+        break;
+      case ACTIONBUTTON_MODE.ROUNDED_MD_APPLY:
+        sizeStyle = 'w-[100px] h-[36px]';
+        variantStyle =
+          'bg-white border-2 border-main hover:bg-sub font-dohyeon text-body-sm text-main';
+        roundedStyle = 'rounded-md';
+        break;
+      case ACTIONBUTTON_MODE.ROUNDED_MD_APPLIED:
+        sizeStyle = 'w-[100px] h-[36px]';
+        variantStyle =
+          'flex flex-row items-center justify-center gap-2 bg-sub-light font-dohyeon text-body-sm text-main border-2 border-main hover:bg-sub';
         roundedStyle = 'rounded-md';
         break;
       default:

@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@/constants/query-keys.constants';
-import { fetchGetUserProfile } from '../services/user-actions.services';
+import { fetchGetUserProfileWithClient } from '../services/user-client.services';
 
 /**
  * 사용자의 프로필 조회하기 위한 React Query 훅
@@ -10,8 +10,8 @@ import { fetchGetUserProfile } from '../services/user-actions.services';
 export const useUserQuery = (userId: string) => {
   return useQuery({
     queryKey: QUERY_KEYS.SINGLE_USER(userId),
-    queryFn: () => fetchGetUserProfile(userId),
+    queryFn: () => fetchGetUserProfileWithClient(userId),
     enabled: !!userId,
-    staleTime: 5 * 60 * 1000,
+    staleTime: 0,
   });
 };
