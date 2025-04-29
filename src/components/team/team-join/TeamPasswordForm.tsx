@@ -61,6 +61,7 @@ const TeamPasswordForm = ({ teamId }: TeamPasswordFormProps) => {
       });
 
       // 팀 페이지로 이동
+      router.refresh(); // 캐시 갱신
       router.push(`${PATH.TEAM}/${teamId}`);
     }
   };
