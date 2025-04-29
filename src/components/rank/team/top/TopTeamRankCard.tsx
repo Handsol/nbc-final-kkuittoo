@@ -46,7 +46,7 @@ export const TopRankTeamCard = ({ team, rank, animationDelay }: Props) => {
             <UserTitle mode={USER_TITLE_MODE.CARD_NAME}>
               {team.teamName}
             </UserTitle>
-            <TeamOpenNotEditMode isOpened={team.isOpened} />
+            <TeamOpenNotEditMode teamId={team.id} />
           </div>
           <UserTitle mode={USER_TITLE_MODE.CARD_LEVEL}>
             Lv.{currentQuest.id}

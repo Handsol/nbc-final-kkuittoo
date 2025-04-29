@@ -1,17 +1,27 @@
+'use client';
+
+import { CommonLoadingSpinner } from '@/components/common/CommonLoadingSpinner';
+import { useSingleTeamQuery } from '@/lib/queries/useSingleTeamQuery';
 import { FaLock } from 'react-icons/fa6';
 import { FaLockOpen } from 'react-icons/fa6';
 
 type TeamOpenNotEditModeProps = {
-  isOpened: boolean;
+  teamId: string;
 };
 
-const TeamOpenNotEditMode = ({ isOpened }: TeamOpenNotEditModeProps) => {
+const TeamOpenNotEditMode = ({ teamId }: TeamOpenNotEditModeProps) => {
+  // tanstack query - useQuery
+  const { data: teamData, isPending } = useSingleTeamQuery(teamId);
+
+  if (isPending) return <CommonLoadingSpinner size={20} />;
+
+  // 데이터 페칭 실패 시 예외처리
+  if (!teamData) throw new Error('팀 데이터 가져오기 실패');
+
   return (
-    <>
-      <div className="flex items-center gap-2">
-        {isOpened ? <FaLockOpen /> : <FaLock />}
-      </div>
-    </>
+    <div className="flex items-center gap-2">
+      {teamData.isOpened ? <FaLockOpen /> : <FaLock />}
+    </div>
   );
 };
 
