@@ -17,12 +17,12 @@ export const TeamRankHeader = () => {
       <div className="flex w-full md:hidden">
         <Link href={PATH.RANK.USERS} className="w-full">
           <button className={getTabButtonClass(pathname === PATH.RANK.USERS)}>
-            유저
+            Users
           </button>
         </Link>
         <Link href={PATH.RANK.TEAMS} className="w-full">
           <button className={getTabButtonClass(pathname === PATH.RANK.TEAMS)}>
-            팀
+            Teams
           </button>
         </Link>
       </div>
@@ -30,10 +30,10 @@ export const TeamRankHeader = () => {
       {/* PC용 LinkButton */}
       <div className="hidden md:flex space-x-4 p-12 md:w-full">
         <LinkButton mode={LINKBUTTON_MODE.RANK} href={PATH.RANK.USERS}>
-          유저
+          Users
         </LinkButton>
         <LinkButton mode={LINKBUTTON_MODE.RANK} href={PATH.RANK.TEAMS} disabled>
-          팀
+          Teams
         </LinkButton>
       </div>
 
