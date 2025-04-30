@@ -3,28 +3,26 @@
 import { getUserImageByLevel } from '@/lib/utils/user.utils';
 import { CardUserItemData } from '@/types/rank.type';
 import Image from 'next/image';
+import clsx from 'clsx';
+import {
+  CONTAINER_SIZE_CLASSES,
+  IMAGE_SIZE_CLASSES,
+  type ProfileImageSize,
+} from '@/constants/image.constants';
+import { Z_INDEX } from '@/constants/z-index.constants';
 
 type UserProfileImageProps = {
   level: number;
-  size?: 'sm' | 'md' | 'lg' | 'xl';
+  size?: ProfileImageSize;
   items?: CardUserItemData[];
-};
-
-const SIZE_VARIANTS = {
-  sm: 100,
-  md: 112,
-  lg: 128,
-  xl: 150,
 };
 
 const UserProfileImage = ({
   level,
-  size = 'md',
+  size = 'sidebar',
   items,
 }: UserProfileImageProps) => {
   const userImageSrc = getUserImageByLevel(level);
-  const profileSize = SIZE_VARIANTS[size];
-  const borderSize = profileSize + 10;
 
   // 현재 적용 중인 아이템
   let currentAppliedItem: string | null = null;
@@ -39,8 +37,10 @@ const UserProfileImage = ({
 
   return (
     <div
-      className="relative flex items-center justify-center"
-      style={{ width: borderSize, height: borderSize }}
+      className={clsx(
+        'relative flex items-center justify-center',
+        CONTAINER_SIZE_CLASSES[size],
+      )}
     >
       {/* 테두리 */}
       {currentAppliedItem && (
@@ -48,13 +48,15 @@ const UserProfileImage = ({
           src={currentAppliedItem}
           alt="border"
           fill
-          className="absolute rounded-full object-cover"
+          className={`absolute rounded-full object-cover z-${Z_INDEX.RANK_LABEL} `}
         />
       )}
       {/* 프로필 캐릭터 */}
       <div
-        className="absolute rounded-full overflow-hidden"
-        style={{ width: profileSize, height: profileSize }}
+        className={clsx(
+          'absolute rounded-full overflow-hidden',
+          IMAGE_SIZE_CLASSES[size],
+        )}
       >
         <Image
           src={userImageSrc}
