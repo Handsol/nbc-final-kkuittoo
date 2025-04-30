@@ -28,7 +28,7 @@ const SidebarProfile = () => {
   const userItems = profileData.userItems;
 
   return (
-    <div className="my-[10px] flex flex-col items-center gap-1 md:gap-3">
+    <div className="my-[10px] flex flex-col items-center gap-[2px] ">
       <UserProfileImage level={level} size="lg" items={userItems} />
 
       <UserProfileEdit

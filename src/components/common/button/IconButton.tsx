@@ -20,7 +20,7 @@ type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
   ({ mode, disabled = false, ...props }, ref) => {
     const baseClasses =
-      'w-9 h-9 flex items-center justify-center rounded-full transition-colors w-4 h-4';
+      'w-4 h-4 flex items-center justify-center rounded-full transition-colors';
 
     let icon;
     let variantClasses;
