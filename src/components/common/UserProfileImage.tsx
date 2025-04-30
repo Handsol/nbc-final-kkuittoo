@@ -3,59 +3,62 @@
 import { getUserImageByLevel } from '@/lib/utils/user.utils';
 import { CardUserItemData } from '@/types/rank.type';
 import Image from 'next/image';
+import clsx from 'clsx';
+import { Z_INDEX } from '@/constants/z-index.constants';
+
+type ProfileImageSize = 'TOPRANK' | 'NORMALRANK' | 'MEMBER' | 'SIDEBAR';
 
 type UserProfileImageProps = {
   level: number;
-  size?: 'sm' | 'md' | 'lg' | 'xl';
+  size?: ProfileImageSize;
   items?: CardUserItemData[];
-};
-
-const SIZE_VARIANTS = {
-  sm: 100,
-  md: 112,
-  lg: 128,
-  xl: 150,
 };
 
 const UserProfileImage = ({
   level,
-  size = 'md',
+  size = 'SIDEBAR',
   items,
 }: UserProfileImageProps) => {
   const userImageSrc = getUserImageByLevel(level);
-  const profileSize = SIZE_VARIANTS[size];
-  const borderSize = profileSize + 10;
 
-  // 현재 적용 중인 아이템
   let currentAppliedItem: string | null = null;
-
   if (items && items.length > 0) {
     const appliedItem = items.find((item) => item.isApplied);
-
     if (appliedItem) {
       currentAppliedItem = appliedItem.item.itemImage;
     }
   }
 
+  const containerClass = clsx('relative flex items-center justify-center', {
+    'w-[100px] h-[100px] md:w-[160px] md:h-[160px]': size === 'TOPRANK',
+    'w-[100px] h-[100px] md:w-[100px] md:h-[100px]': size === 'NORMALRANK',
+    'w-[120px] h-[120px] md:w-[110px] md:h-[110px]': size === 'MEMBER',
+    'w-[120px] h-[120px] md:w-[150px] md:h-[150px]': size === 'SIDEBAR',
+  });
+
+  const imageWrapperClass = clsx(
+    'relative z-[30] rounded-full overflow-hidden',
+    {
+      'w-[90px] h-[90px] md:w-[150px] md:h-[150px]': size === 'TOPRANK',
+      'w-[90px] h-[90px] md:w-[90px] md:h-[90px]': size === 'NORMALRANK',
+      'w-[120px] h-[120px] md:w-[110px] md:h-[110px]': size === 'MEMBER',
+      'w-[110px] h-[110px] md:w-[150px] md:h-[150px]': size === 'SIDEBAR',
+    },
+  );
+
   return (
-    <div
-      className="relative flex items-center justify-center"
-      style={{ width: borderSize, height: borderSize }}
-    >
+    <div className={containerClass}>
       {/* 테두리 */}
       {currentAppliedItem && (
         <Image
           src={currentAppliedItem}
           alt="border"
           fill
-          className="absolute rounded-full object-cover"
+          className={`absolute z-${Z_INDEX.RANK_LABEL} rounded-full object-cover`}
         />
       )}
       {/* 프로필 캐릭터 */}
-      <div
-        className="absolute rounded-full overflow-hidden"
-        style={{ width: profileSize, height: profileSize }}
-      >
+      <div className={imageWrapperClass}>
         <Image
           src={userImageSrc}
           alt="user profile"

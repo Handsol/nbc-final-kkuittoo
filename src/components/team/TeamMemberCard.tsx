@@ -41,34 +41,47 @@ const TeamMemberCard = ({
         <div className="text-body-sm font-semibold">
           <UserTitle mode={USER_TITLE_MODE.CARD_RANK}>{rank}</UserTitle>
         </div>
-        <div className="grid grid-cols-[auto_1fr] gap-3 items-start">
-          <div className="items-center pl-8">
+
+        <div className="grid grid-cols-[auto_1fr] gap-3 items-start min-h-[140px]">
+          {/* 이미지 */}
+          <div className="flex justify-center pl-8">
             <UserProfileImage
               level={memberLevel}
-              size="sm"
+              size="MEMBER"
               items={memberItemList}
             />
           </div>
-          <div className="flex flex-col justify-between w-full items-center">
-            <div>
-              <UserTitle mode={USER_TITLE_MODE.CARD_LEVEL}>
-                Lv.{memberLevel}
-              </UserTitle>
-              <div className="truncate">
-                <UserTitle mode={USER_TITLE_MODE.CARD_NAME}>
-                  {member.name}
-                </UserTitle>
-              </div>
-              <Text className="break-words text-body-sm text-dark-gray w-full">
-                {member.bio}
-              </Text>
-            </div>
-            <div className="absolute bottom-2 right-4 text-body-sm font-semibold">
-              <Text>기여도</Text>
-              <UserTitle mode={USER_TITLE_MODE.CARD_LEVEL}>
-                {totalContribution}점
-              </UserTitle>
-            </div>
+
+          {/* 텍스트 */}
+          <div className="flex flex-col gap-1 w-full overflow-hidden">
+            {/* Lv 표시 */}
+            <UserTitle
+              mode={USER_TITLE_MODE.CARD_LEVEL}
+              className="text-body-sm md:text-base"
+            >
+              Lv.{memberLevel}
+            </UserTitle>
+
+            {/* 이름 */}
+            <UserTitle
+              mode={USER_TITLE_MODE.CARD_NAME}
+              className="truncate text-body-sm md:text-base w-full max-w-full overflow-hidden text-ellipsis whitespace-nowrap"
+            >
+              {member.name}
+            </UserTitle>
+
+            {/* 소개글 */}
+            <Text className="text-body-sm text-dark-gray w-full max-w-full overflow-hidden line-clamp-2 break-words">
+              {member.bio}
+            </Text>
+          </div>
+
+          {/* 기여도 */}
+          <div className="absolute bottom-2 right-4 text-body-sm font-semibold text-right">
+            <Text>기여도</Text>
+            <UserTitle mode={USER_TITLE_MODE.CARD_LEVEL}>
+              {totalContribution}점
+            </UserTitle>
           </div>
         </div>
       </div>
@@ -82,7 +95,7 @@ const TeamMemberCard = ({
           </div>
           <UserProfileImage
             level={memberLevel}
-            size="sm"
+            size="MEMBER"
             items={memberItemList}
           />
           <div className="min-w-[60px] text-body-sm">

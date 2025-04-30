@@ -52,7 +52,7 @@ const PurchasedItemList = ({ userId }: PurchasedItemListProps) => {
         mode={TITLE_MODE.SECTION_SUBTITLE}
         className="text-body-md text-medium-gray"
       >
-        {`Purchased Items (${itemNumber})`}
+        {`구입한 상품 목록 (${itemNumber})`}
       </Title>
       <section className="w-full grid grid-cols-1 md:grid-cols-2 mt-[24px] gap-[24px]">
         {purchasedItemList?.map((item) => (

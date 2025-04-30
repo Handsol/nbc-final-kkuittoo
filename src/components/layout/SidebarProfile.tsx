@@ -24,12 +24,12 @@ const SidebarProfile = () => {
       (sum: number, p: UserPoint) => sum + p.points,
       0,
     ) || 0;
-  const level = Math.floor(totalPoints / 20) + 1;
+  const level = Math.floor(totalPoints / 10) + 1;
   const userItems = profileData.userItems;
 
   return (
     <div className="my-[10px] flex flex-col items-center gap-1 md:gap-3">
-      <UserProfileImage level={level} size="lg" items={userItems} />
+      <UserProfileImage level={level} size="SIDEBAR" items={userItems} />
 
       <UserProfileEdit
         name={profileData.name}

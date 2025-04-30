@@ -34,7 +34,7 @@ const NotPurchasedItemList = ({
         mode={TITLE_MODE.SECTION_SUBTITLE}
         className="text-body-md text-medium-gray"
       >
-        {`All Items (${itemNumber})`}
+        {`구입 가능한 상품 목록 (${itemNumber})`}
       </Title>
       <ul className={shopItemListUlStyle}>
         {itemList?.map((item: ShopItem) => (
