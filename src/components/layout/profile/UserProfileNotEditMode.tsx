@@ -15,7 +15,7 @@ type Props = {
 
 const UserProfileNotEditMode = ({ name, bio, userId, onEdit }: Props) => {
   return (
-    <div className="flex flex-col gap-2 items-center min-h-[160px] justify-between">
+    <div className="flex flex-col gap-2 items-center min-h-[120px] justify-between">
       <div className="flex flex-col items-center">
         <UserTitle mode={USER_TITLE_MODE.CARD_NAME} className="text-md">
           {name}
@@ -25,7 +25,7 @@ const UserProfileNotEditMode = ({ name, bio, userId, onEdit }: Props) => {
         </UserTitle>
       </div>
 
-      <Text className="font-dohyeon text-center text-body-md break-all w-full max-h-[80px] overflow-hidden">
+      <Text className="font-dohyeon text-center text-body-md break-all w-full max-h-[60px] overflow-hidden">
         {bio}
       </Text>
 

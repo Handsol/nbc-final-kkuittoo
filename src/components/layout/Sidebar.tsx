@@ -13,7 +13,7 @@ const Sidebar = ({
   onClose?: () => void;
 }) => {
   return (
-    <aside className="sticky top-0 h-screen w-[240px] bg-white px-4 py-[30px] md:py-[40px] flex flex-col shrink-0 md:shadow-sidebar-purple-right">
+    <aside className="sticky top-0 h-screen w-[240px] bg-white px-4 py-[24px] flex flex-col shrink-0 md:shadow-sidebar-purple-right">
       <div className="flex flex-col items-center">
         {/* 모바일일 때는 닫기 버튼, 아니면 로고 */}
         {isMobile ? (
@@ -31,11 +31,11 @@ const Sidebar = ({
         <SidebarNav />
       </div>
 
-      <div className="flex flex-col pt-10 gap-3 items-center w-full">
+      <div className="flex flex-col pt-4 gap-2 items-center w-full">
         <SidebarProfile />
         <LogoutButton />
       </div>
-      <div className="flex flex-col pt-6 md:pt-10 gap-3 items-center">
+      <div className="flex flex-col pt-6 md:pt-6 gap-2 items-center">
         <HowToUse />
       </div>
     </aside>

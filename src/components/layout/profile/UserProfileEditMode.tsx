@@ -35,7 +35,7 @@ const UserProfileEditMode = ({
   };
 
   return (
-    <div className="flex flex-col gap-1 items-center min-h-[160px] justify-between">
+    <div className="flex flex-col items-center min-h-[120px] justify-between">
       <CommonInputBar
         id="name"
         placeholder={PLACEHOLDER.USER_NICKNAME}
@@ -43,14 +43,14 @@ const UserProfileEditMode = ({
       />
       <ErrorMessage>{errors.name && errors.name.message}</ErrorMessage>
       <textarea
-        className="w-full h-14 rounded-xl px-4 py-1 bg-light-gray font-pretendard text-body-sm"
+        className="w-full h-11 rounded-xl px-4 bg-light-gray font-pretendard text-body-sm"
         id="bio"
         placeholder={PLACEHOLDER.USER_BIO}
         {...register('bio', userProfileValidation.bio)}
       />
       <ErrorMessage>{errors.bio && errors.bio.message}</ErrorMessage>
 
-      <div className="flex gap-2 mt-2">
+      <div className="flex gap-6">
         <IconButton
           mode={ICONBUTTON_MODE.CONFIRM}
           onClick={handleSubmit(handleOnSubmit)}

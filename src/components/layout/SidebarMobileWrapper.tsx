@@ -43,7 +43,7 @@ const SidebarMobileWrapper = () => {
     return () => {
       document.body.style.overflow = '';
     };
-  }, [isOpen]); // isOpen 상태가 변경될 때마다 실행
+  }, [isOpen]);
 
   return (
     <>
