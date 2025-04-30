@@ -6,7 +6,7 @@ import Image from 'next/image';
 import clsx from 'clsx';
 import { Z_INDEX } from '@/constants/z-index.constants';
 
-type ProfileImageSize = 'topRank' | 'normalRank' | 'member' | 'sidebar';
+type ProfileImageSize = 'TOPRANK' | 'NORMALRANK' | 'MEMBER' | 'SIDEBAR';
 
 type UserProfileImageProps = {
   level: number;
@@ -16,7 +16,7 @@ type UserProfileImageProps = {
 
 const UserProfileImage = ({
   level,
-  size = 'sidebar',
+  size = 'SIDEBAR',
   items,
 }: UserProfileImageProps) => {
   const userImageSrc = getUserImageByLevel(level);
@@ -30,19 +30,19 @@ const UserProfileImage = ({
   }
 
   const containerClass = clsx('relative flex items-center justify-center', {
-    'w-[100px] h-[100px] md:w-[160px] md:h-[160px]': size === 'topRank',
-    'w-[100px] h-[100px] md:w-[100px] md:h-[100px]': size === 'normalRank',
-    'w-[120px] h-[120px] md:w-[110px] md:h-[110px]': size === 'member',
-    'w-[120px] h-[120px] md:w-[150px] md:h-[150px]': size === 'sidebar',
+    'w-[100px] h-[100px] md:w-[160px] md:h-[160px]': size === 'TOPRANK',
+    'w-[100px] h-[100px] md:w-[100px] md:h-[100px]': size === 'NORMALRANK',
+    'w-[120px] h-[120px] md:w-[110px] md:h-[110px]': size === 'MEMBER',
+    'w-[120px] h-[120px] md:w-[150px] md:h-[150px]': size === 'SIDEBAR',
   });
 
   const imageWrapperClass = clsx(
     'relative z-[30] rounded-full overflow-hidden',
     {
-      'w-[90px] h-[90px] md:w-[150px] md:h-[150px]': size === 'topRank',
-      'w-[90px] h-[90px] md:w-[90px] md:h-[90px]': size === 'normalRank',
-      'w-[120px] h-[120px] md:w-[110px] md:h-[110px]': size === 'member',
-      'w-[110px] h-[110px] md:w-[150px] md:h-[150px]': size === 'sidebar',
+      'w-[90px] h-[90px] md:w-[150px] md:h-[150px]': size === 'TOPRANK',
+      'w-[90px] h-[90px] md:w-[90px] md:h-[90px]': size === 'NORMALRANK',
+      'w-[120px] h-[120px] md:w-[110px] md:h-[110px]': size === 'MEMBER',
+      'w-[110px] h-[110px] md:w-[150px] md:h-[150px]': size === 'SIDEBAR',
     },
   );
 
