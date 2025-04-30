@@ -23,14 +23,20 @@ export const NormalUserRankCard = ({ user, rank }: Props) => {
     <>
       <article
         onClick={() => setIsModalOpen(true)}
-        className="border rounded-3xl p-4 shadow-md bg-sub-light w-full h-24 flex flex-row items-center cursor-pointer hover:scale-[1.03] duration-200"
+        className="border rounded-3xl p-4 shadow-md bg-sub-light w-full min-h-24 flex flex-row items-center cursor-pointer hover:scale-[1.03] duration-200"
       >
         {/* 랭크 영역: width 18px, height 40px, 오른쪽에 25px 여백 */}
         <div className="mr-[25px]">
           <NormalUserRankLabel rank={rank} />
         </div>
         {/* 이미지 영역 */}
-        <UserProfileImage level={userLevel} size="sm" items={userItem} />
+        <div className="flex items-center justify-center min-w-[100px]">
+          <UserProfileImage
+            level={userLevel}
+            size="normalRank"
+            items={userItem}
+          />
+        </div>
         {/* 이미지와 정보 영역 사이에 25px 간격 */}
         <div className="ml-[25px] flex-1">
           <NormalUserInfo user={user} />
