@@ -29,7 +29,7 @@ const SidebarProfile = () => {
 
   return (
     <div className="my-[10px] flex flex-col items-center gap-1 md:gap-3">
-      <UserProfileImage level={level} size="sidebar" items={userItems} />
+      <UserProfileImage level={level} size="SIDEBAR" items={userItems} />
 
       <UserProfileEdit
         name={profileData.name}

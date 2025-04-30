@@ -33,7 +33,7 @@ export const NormalUserRankCard = ({ user, rank }: Props) => {
         <div className="flex items-center justify-center min-w-[100px]">
           <UserProfileImage
             level={userLevel}
-            size="normalRank"
+            size="NORMALRANK"
             items={userItem}
           />
         </div>

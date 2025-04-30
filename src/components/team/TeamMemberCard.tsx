@@ -47,7 +47,7 @@ const TeamMemberCard = ({
           <div className="flex justify-center pl-8">
             <UserProfileImage
               level={memberLevel}
-              size="member"
+              size="MEMBER"
               items={memberItemList}
             />
           </div>
@@ -95,7 +95,7 @@ const TeamMemberCard = ({
           </div>
           <UserProfileImage
             level={memberLevel}
-            size="member"
+            size="MEMBER"
             items={memberItemList}
           />
           <div className="min-w-[60px] text-body-sm">
