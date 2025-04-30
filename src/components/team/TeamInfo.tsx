@@ -91,7 +91,7 @@ const TeamInfo = async ({ id, editMode = true }: TeamQuestProps) => {
       </div>
 
       {/* 모바일 버전 */}
-      <div className="md:hidden w-full min-w-[375px] px-4 py-4 flex flex-col">
+      <div className="md:hidden w-full min-w-[344px] px-4 py-4 flex flex-col">
         <div className="flex gap-4 items-start">
           <div className="w-[120px] h-[120px] flex-shrink-0">
             <Image
@@ -105,7 +105,7 @@ const TeamInfo = async ({ id, editMode = true }: TeamQuestProps) => {
 
           <div className="flex-1 min-w-0 flex flex-col">
             {/* 토글 버튼 + 엠블럼*/}
-            <div className="w-full flex justify-between items-center mb-2 ml-4">
+            <div className="w-full flex justify-between items-center ml-4">
               <div>
                 {canEdit ? (
                   <TeamOpenToggleButton teamId={teamId} />
@@ -129,15 +129,15 @@ const TeamInfo = async ({ id, editMode = true }: TeamQuestProps) => {
               teamName={teamName}
               currentQuestName={teamCurrentQuest.questName}
             />
-
-            {/* 프로그래스 바 */}
-            <div className="mt-3">
-              <TeamProgress
-                teamTotalPoints={teamTotalPoints}
-                currentQuestRequired={teamCurrentQuest.requiredPoints}
-              />
-            </div>
           </div>
+        </div>
+
+        {/* 프로그래스 바 */}
+        <div className="mt-3">
+          <TeamProgress
+            teamTotalPoints={teamTotalPoints}
+            currentQuestRequired={teamCurrentQuest.requiredPoints}
+          />
         </div>
 
         {/* 팀 소개 */}

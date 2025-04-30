@@ -4,6 +4,8 @@
 
 [kkuitddo 바로가기](https://www.kkuitddo.com/)
 
+> 게스트 로그인: 로그인 화면에서 `테스트 계정으로 로그인` 버튼을 클릭하면, 회원가입이나 별도 로그인 없이 바로 사이트 기능을 체험할 수 있습니다. 게스트 계정으로 접속해 대부분의 기능을 자유롭게 이용 가능합니다.
+
 **kkuitddo(꾸잇두)** 는 “꾸준히+it+do”라는 의미로, 게임형 습관 관리 웹앱입니다. 복잡해서 쉽게 포기하게 되는 기존 습관 앱들의 단점을 극복하고, “즐기면서 습관을 만들자”는 모토로 출발했습니다.
 
 하루 습관을 수행할 때마다 포인트를 받고, 캐릭터를 성장/레벨업 하는 구조로 이루어져 있습니다. 랭킹 시스템과 팀 퀘스트, 실시간 채팅 등 다양한 기능을 제공하여 혼자서도, 여럿이서도 재미있게 습관을 만들 수 있습니다. 특히, 요일별 체크, 팀 공개 여부 설정, 유저/팀 검색 및 상세 정보 모달창 등 실제 사용 흐름을 고려한 기능 구현에 집중하였습니다.
@@ -119,7 +121,10 @@ kkuitddo와 함께 지속가능한 습관을 만들어보세요! 💪🔥
 
 ### 🗄️ **백엔드 및 데이터베이스**
 
-![AWS](https://img.shields.io/badge/AWS-527FFF.svg?style=for-the-badge&logo=amazonrds&logoColor=white) ![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white) ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white) <img src="https://img.shields.io/badge/pusher-300D4F?style=for-the-badge&logo=pusher&logoColor=white">
+<img src="https://img.shields.io/badge/AWS RDS-527FFF.svg?style=for-the-badge&logo=amazonrds&logoColor=white">
+<img src="https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white">
+<img src="https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white">
+<img src="https://img.shields.io/badge/pusher-300D4F?style=for-the-badge&logo=pusher&logoColor=white">
 
 ### 🗃️ **상태관리 및 유효성 검사**
 
@@ -131,43 +136,57 @@ kkuitddo와 함께 지속가능한 습관을 만들어보세요! 💪🔥
 
 ## 🚀 주요 기능
 
-📝 **소셜 로그인 및 사이드바**
+**🔐 소셜 로그인 및 사이드바**
 
-- 소셜 로그인 기능으로 구글 로그인을 지원합니다.
-- 사이드 바에서 로그인한 유저의 프로필 정보(캐릭터, 닉네임, 소개글, 고유아이디)를 확인할 수 있습니다.
-- 또한, 유저의 닉네임과 소개글을 수정할 수 있습니다.
-- 게스트 로그인을 통해 로그인을 하지 않아도 사이트를 체험할 수 있습니다.
+<img src="https://velog.velcdn.com/images/verdantgreeny/post/5e84879b-f715-4a51-aebc-1fcaf3c5d272/image.png" width="400">
 
-🏠 **대시보드**
+- **구글 소셜 로그인** 지원
+- **사이드바 프로필 관리**
+  - 캐릭터, 닉네임, 소개글, 고유아이디 표시
+  - 닉네임/소개글 실시간 수정
+- **게스트 모드**로 비로그인 체험 가능
 
-- 습관을 생성, 수정 및 삭제하고, 요일/태그 필터로 필터링하며 습관 수행 시 포인트를 추가할 수 있습니다.
-- React Hook Form과 Zod를 활용해 실시간 유효성 검사를 적용하고, 쿨다운과 포인트 제한에 따라 버튼 상태를 동적으로 제어합니다.
-- URL 쿼리를 통한 필터링과 클라이언트 측 정렬(포인트 버튼 활성화 우선)을 결합해 습관을 실시간으로 정리합니다.
-- `더보기` 버튼으로 페이지네이션을 구현했습니다
+**🏠 대시보드**
 
-🏋️‍♂️ **팀**
+<img src="https://velog.velcdn.com/images/verdantgreeny/post/99976248-bed8-40d8-8829-2c156f38c1ea/image.png" width="400">
 
-- 친구들과 팀을 이뤄 팀을 생성하여 함께 포인트를 쌓을 수 있습니다.
-- 팀을 생성할 때, React Hook Form과 Zod를 활용해 실시간 유효성 검사를 적용하였습니다.
-- 팀의 소개글과 공개/비공개 여부를 수정할 수 있습니다.
-- 팀 생성자의 경우 `팀 해체하기` 버튼, 팀원의 경우 `팀 탈퇴하기` 버튼이 각각 렌더링되며, 팀 생성자를 제외한 다른 팀원이 있을 경우 해체가 불가능합니다.
-- `팀 초대하기` 버튼을 통해 해당 팀의 url과 비밀번호를 카카오 공유하기로 공유할 수 있습니다.
-- 팀원들과 실시간 채팅이 가능하고, 팀원이 아닌 사람은 볼 수 없습니다.
+- **습관 CRUD** (생성/수정/삭제)
+- **필터링 시스템**: 요일/태그 기준
+- **포인트 적립**: 습관 수행 시 자동 획득
+- **실시간 유효성 검사**: React Hook Form + Zod
+- **정렬 기능**: URL 쿼리 + 클라이언트 측 처리
+- **페이지네이션**: '더보기' 버튼 구현
 
-🏅 **랭킹**
+**👥 팀 기능**
 
-- 전체 유저와 팀 랭킹을 확인할 수 있습니다.
-- 전체 유저와 팀의 총 포인트를 기준으로 랭킹을 확인할 수 있습니다.
-- 상위 3명의 유저 및 팀은 단상 스타일로 시각적으로 강조하여 표시됩니다.
-- 유저명과 팀명을 각각 검색할 수 있는 검색 기능과, '더보기' 버튼을 통한 페이지네이션 기능을 지원합니다.
+<img src="https://velog.velcdn.com/images/verdantgreeny/post/4cbe9210-9c73-4845-b70c-0b02cf9dd622/image.png" width="400">
 
-💵 **상점**
+- **팀 생성** 및 그룹 포인트 시스템
+- **팀 설정 관리**: 소개글, 공개/비공개 전환
+- **권한 분리**:
+  - 생성자: 팀 해체 (팀원 없을 시)
+  - 멤버: 자유 탈퇴
+- **초대 시스템**: 카카오 공유 링크 + 비밀번호
+- **실시간 채팅**: 팀원 전용 채널
 
-- 상점에서 프로필을 꾸밀 수 있는 아이템을 구매할 수 있습니다.
-- 토스 페이먼츠 SDK가 제공하는 테스트 키를 사용하여 실제 결제가 이뤄지지 않습니다. (결제 로직은 구현되었지만, 실질적으로 금액이 빠져나가지 않습니다.)
-- 구매한 상품과 구매하기 전 상품은 리스트가 분리되어 표시됩니다.
-- 구매한 상품은 유저의 프로필에 적용 및 해제가 가능합니다.
-- 상품 적용 시 해당 유저의 캐릭터 이미지에 액자 적용됩니다.
+**🏆 랭킹 시스템**
+
+<img src="https://velog.velcdn.com/images/verdantgreeny/post/5f862f23-d10d-44e8-9b0b-c7fc1b0ddd3f/image.png" width="400">
+
+- **종합 랭킹**: 유저/팀 별 포인트 순위
+- **시각적 강조**: 상위 3위 골드/실버/브론즈 디자인
+- **검색 기능**: 유저명/팀명 즉시 검색
+- **페이지네이션**: '더보기'로 추가 데이터 로드
+
+**🛍️ 상점**
+
+<img src="https://velog.velcdn.com/images/verdantgreeny/post/a9c8f71c-26ff-48a2-808d-30c6d37d3df2/image.png" width="400">
+
+- **프로필 커스터마이징**: 액자/아이템 구매
+- **결제 시스템**: 토스 페이먼츠 SDK 연동 (테스트 모드)
+- **구매 상태 표시**: 보유/미보유 아이템 구분
+- **실시간 적용**: 구매 즉시 프로필 반영
+- **액자 효과**: 캐릭터 이미지에 자동 적용
 
 ## 📁 프로젝트 구조
 

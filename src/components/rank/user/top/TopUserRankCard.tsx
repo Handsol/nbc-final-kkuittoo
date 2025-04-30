@@ -52,7 +52,7 @@ export const TopUserRankCard = ({ user, rank, animationDelay = 0 }: Props) => {
           <motion.div {...floatAnimation}>
             <UserProfileImage
               level={userLevel}
-              size="topRank"
+              size="TOPRANK"
               items={userItem}
             />
           </motion.div>
