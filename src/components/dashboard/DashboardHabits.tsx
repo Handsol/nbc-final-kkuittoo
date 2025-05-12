@@ -77,7 +77,7 @@ const DashboardHabits = ({
           fetchNextPage={fetchNextPage}
           hasNextPage={hasNextPage}
           isFetchingNextPage={isFetchingNextPage}
-          isInitialLoading={isPending && !isFetchingNextPage} //전체 목록을 처음 불러올 때만 더보기 눌렀을 때는 X
+          isInitialLoading={isPending && !isFetchingNextPage} 
         />
       </div>
     </div>
