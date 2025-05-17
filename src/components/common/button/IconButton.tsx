@@ -40,7 +40,7 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
       case ICONBUTTON_MODE.POINT:
         icon = disabled ? (
           cooldownSeconds > 0 ? (
-            <Text className="text-body-sm font-bold">
+            <Text className="text-body-xs font-bold">
               {formatCooldownTime(cooldownSeconds)}
             </Text>
           ) : (

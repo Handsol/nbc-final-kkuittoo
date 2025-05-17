@@ -25,8 +25,8 @@ const DashboardErrorState = ({ onRetry }: DashboardErrorStateProps) => (
     >
       <AlertTriangle size={56} className="text-main" aria-hidden />
 
-      <Text className="font-bold text-lg text-main">데이터 로딩 실패</Text>
-      <Text className="text-medium-gray mb-6">
+      <Text className="font-bold text-body-xl text-main">데이터 로딩 실패</Text>
+      <Text className="text-medium-gray text-body-xs mb-[24px]">
         습관 정보를 불러오는 중 문제가 발생했습니다.
         <br />
         잠시 후 다시 시도해 주세요.
