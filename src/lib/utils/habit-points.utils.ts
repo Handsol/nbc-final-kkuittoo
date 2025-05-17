@@ -2,15 +2,11 @@ import {
   MAX_POINTS_PER_DAY,
   ONE_HOUR_COOLDOWN_MS,
 } from '@/constants/habits.constants';
-import { Habit, UserPoint } from '@prisma/client';
+import { UserPoint } from '@prisma/client';
 import { getToday } from './habit-date.utils';
 import { QUERY_KEYS } from '@/constants/query-keys.constants';
 import { InfiniteData } from '@tanstack/react-query';
-import {
-  HabitsQueryResult,
-  HabitWithPoints,
-  PageParam,
-} from '@/types/habits.type';
+import { HabitsQueryResult, PageParam } from '@/types/habits.type';
 
 /**
  * 쿨다운 상태와 남은 시간을 반환

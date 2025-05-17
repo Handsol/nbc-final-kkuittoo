@@ -2,9 +2,15 @@ import { Info, Sprout } from 'lucide-react';
 import Text from '@/components/common/Text';
 import ActionButton from '@/components/common/button/ActionButton';
 import { ACTIONBUTTON_MODE } from '@/constants/mode.constants';
+import clsx from 'clsx';
 
 const HabitEmptyState = ({ onCreate }: { onCreate: () => void }) => (
-  <li className="flex flex-col items-center gap-[16px] py-[24px] bg-sub/20 rounded-xl shadow-inner">
+  <li
+    className={clsx(
+      'flex flex-col items-center gap-[16px] py-[24px]',
+      'bg-sub/20 rounded-xl shadow-inner',
+    )}
+  >
     <Sprout size={56} className="text-main/40" aria-hidden />
 
     {/* 제목 */}

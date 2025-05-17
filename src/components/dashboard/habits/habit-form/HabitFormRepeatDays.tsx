@@ -9,6 +9,7 @@ import HabitSelectButton from '../habit-filter/HabitSelectButton';
 import ErrorMessage from '@/components/common/ErrorMessage';
 import { useEffect } from 'react';
 import { useHabitRepeatDays } from '@/lib/hooks/useHabitRepeatDays';
+import clsx from 'clsx';
 
 type HabitFormRepeatDaysProps = {
   selectedDays: string[];
@@ -32,7 +33,12 @@ const HabitFormRepeatDays = ({
   return (
     <div className="flex flex-col gap-[12px]">
       <div className="flex items-center gap-[16px]">
-        <label className="block text-body-md font-semibold text-dark-gray font-dohyeon">
+        <label
+          className={clsx(
+            'block text-body-md font-semibold text-dark-gray',
+            'font-dohyeon',
+          )}
+        >
           주기
         </label>
         {/* 주기 옵션: 매일, 주중, 주말 */}

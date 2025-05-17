@@ -2,6 +2,7 @@ import { HabitFormData } from '@/types/habits.type';
 import { useHabitFormHandler } from '@/lib/hooks/useHabitFormHandler';
 import HabitFormActions from './habit-form/HabitFormActions';
 import HabitFormFields from './habit-form/HabitFormFields';
+import clsx from 'clsx';
 
 type HabitFormProps = {
   onCancel: () => void;
@@ -29,7 +30,10 @@ const HabitForm: React.FC<HabitFormProps> = ({
 
   return (
     <form
-      className="px-6 py-12 bg-white rounded-xl shadow flex flex-col gap-6 w-full max-w-[380px] mx-auto animate-fade-down"
+      className={clsx(
+        'px-6 py-12 bg-white rounded-xl shadow flex flex-col gap-6',
+        'w-full max-w-[380px] mx-auto animate-fade-down',
+      )}
       onSubmit={handleSubmit(handleFormSubmit)}
       aria-label="Habit form"
     >

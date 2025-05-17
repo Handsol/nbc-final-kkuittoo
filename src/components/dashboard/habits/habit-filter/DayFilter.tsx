@@ -1,4 +1,5 @@
 import { DAY_LABELS, DAYS_OF_WEEK } from '@/constants/habits.constants';
+import clsx from 'clsx';
 
 type DayFilterProps = {
   selectedDay: string[];
@@ -20,16 +21,13 @@ const DayFilter = ({ selectedDay, setSelectedDay }: DayFilterProps) => {
       {DAYS_OF_WEEK.map((day, i) => (
         <label
           key={day}
-          className={`
-            flex-shrink-0 w-[calc(100%/7)] pb-[8px] text-body-sm border-b-4 font-dohyeon 
-            transition-all duration-200 ease-in-out cursor-pointer
-            text-center
-            ${
-              selectedDay.includes(day)
-                ? 'border-main text-main font-semibold'
-                : 'border-light-gray text-dark-gray'
-            }
-          `}
+          className={clsx(
+            'flex-shrink-0 w-[calc(100%/7)] pb-[8px] text-body-sm border-b-4 font-dohyeon',
+            'transition-all duration-200 ease-in-out cursor-pointer text-center',
+            selectedDay.includes(day)
+              ? 'border-main text-main font-semibold'
+              : 'border-light-gray text-dark-gray',
+          )}
         >
           <input
             type="checkbox"

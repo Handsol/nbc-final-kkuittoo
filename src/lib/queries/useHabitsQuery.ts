@@ -3,6 +3,7 @@ import { QUERY_KEYS } from '@/constants/query-keys.constants';
 import { HabitsQueryResult, PageParam } from '@/types/habits.type';
 import { fetchGetAllHabits } from '../services/habit-client.services';
 import { Categories } from '@prisma/client';
+import { PAGINATION } from '@/constants/pagination.constants';
 
 /**
  * 사용자의 습관 목록을 조회하기 위한 React Query 훅
@@ -22,7 +23,9 @@ export const useHabitsQuery = (
     PageParam
   >({
     queryKey: QUERY_KEYS.HABITS(userId, selectedDay, selectedCategory),
-    queryFn: async ({ pageParam = { skip: 0, take: 5 } }) => {
+    queryFn: async ({
+      pageParam = { skip: 0, take: PAGINATION.DEFAULT_TAKE },
+    }) => {
       const response = await fetchGetAllHabits(
         pageParam.skip,
         pageParam.take,
@@ -51,9 +54,9 @@ export const useHabitsQuery = (
         return undefined;
       }
 
-      return { skip: lastPage.nextSkip, take: 5 };
+      return { skip: lastPage.nextSkip, take: PAGINATION.DEFAULT_TAKE };
     },
-    initialPageParam: { skip: 0, take: 5 },
+    initialPageParam: { skip: 0, take: PAGINATION.DEFAULT_TAKE },
     enabled: !!userId,
     staleTime: 0,
     placeholderData: (previousData) => previousData, //새로운 쿼리키로 재패치하기 전까지 이전 값을 유지할 데이터를 만들어주는 개념
