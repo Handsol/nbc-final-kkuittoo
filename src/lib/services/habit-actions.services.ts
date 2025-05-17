@@ -6,11 +6,12 @@ import { Categories } from '@prisma/client';
 import { getCurrentDayField } from '../utils/habit-filter.utils';
 import { isCooldownActive } from '../utils/habit-points.utils';
 import { HABIT_ERROR_MESSAGES } from '@/constants/error-messages.constants';
+import { PAGINATION } from '@/constants/pagination.constants';
 
 export const fetchGetUserHabits = async (
   userId: string,
   skip = 0,
-  take = 5,
+  take = PAGINATION.DEFAULT_TAKE,
   days: string[] = [],
   category: Categories | null = null,
 ): Promise<{ habits: HabitWithPoints[]; totalHabits: number }> => {

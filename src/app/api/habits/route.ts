@@ -9,6 +9,7 @@ import { createHabitSchema } from '@/lib/schema/habit.schema';
 import { Categories } from '@prisma/client';
 import { getCurrentDayField } from '@/lib/utils/habit-filter.utils';
 import { isCooldownActive } from '@/lib/utils/habit-points.utils';
+import { PAGINATION } from '@/constants/pagination.constants';
 
 /**
  * 사용자의 모든 Habit 목록을 조회
@@ -28,7 +29,7 @@ export const GET = async (request: NextRequest) => {
   try {
     const { searchParams } = new URL(request.url);
     const skip = Number(searchParams.get('skip') ?? 0);
-    const take = Number(searchParams.get('take') ?? 5);
+    const take = Number(searchParams.get('take') ?? PAGINATION.DEFAULT_TAKE);
     const days = searchParams.get('days')?.split(',') ?? [];
     const category = searchParams.get('category') as Categories | null;
 

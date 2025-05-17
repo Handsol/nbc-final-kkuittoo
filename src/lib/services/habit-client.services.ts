@@ -1,3 +1,4 @@
+import { PAGINATION } from '@/constants/pagination.constants';
 import { API_PATH } from '@/constants/path.constants';
 import { CreateHabit, HabitWithPoints, UpdateHabit } from '@/types/habits.type';
 import { Categories, Habit } from '@prisma/client';
@@ -13,13 +14,13 @@ import { Categories, Habit } from '@prisma/client';
  */
 export const fetchGetAllHabits = async (
   skip: number = 0,
-  take: number = 5,
+  take: number = PAGINATION.DEFAULT_TAKE,
   days?: string[],
   category?: Categories | null,
 ): Promise<{ habits: HabitWithPoints[]; totalHabits: number }> => {
   const params = new URLSearchParams();
   params.set('skip', skip.toString()); // 몇 개 건너뛸지
-  params.set('take', take.toString()); // 몇 개 가져올지
+  params.set('take', take.toString()); // 몇 개 져올지
 
   if (days && days.length > 0) {
     params.set('days', days.join(',')); // 요일 필터 (쉼표로 구분)
