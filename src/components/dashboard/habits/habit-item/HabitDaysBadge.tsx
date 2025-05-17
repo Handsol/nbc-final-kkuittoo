@@ -1,6 +1,7 @@
 import { Habit } from '@prisma/client';
 import Text from '@/components/common/Text';
 import { getActiveDays, isTodayDay } from '@/lib/utils/habit-date.utils';
+import clsx from 'clsx';
 
 const HabitDaysBadge = ({ habit }: { habit: Habit }) => {
   const activeDays = getActiveDays(habit);
@@ -10,8 +11,12 @@ const HabitDaysBadge = ({ habit }: { habit: Habit }) => {
         return (
           <Text
             key={key}
-            className={`px-[3px] py-[2px] rounded-full text-body-xs leading-none 
-              ${isTodayDay(key) ? 'bg-main text-light-gray' : 'bg-light-gray text-medium-gray'}`}
+            className={clsx(
+              'px-[3px] py-[2px] rounded-full text-body-xs leading-none',
+              isTodayDay(key)
+                ? 'bg-main text-light-gray'
+                : 'bg-light-gray text-medium-gray',
+            )}
           >
             {label}
           </Text>

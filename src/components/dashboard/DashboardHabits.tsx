@@ -9,6 +9,7 @@ import { HabitWithPoints } from '@/types/habits.type';
 import { useHabitsControls } from '@/lib/hooks/useHabitsControls';
 import { useHabitRecords } from '@/lib/hooks/useHabitRecords';
 import useHabitsFilter from '@/lib/hooks/useHabitsFilter';
+import clsx from 'clsx';
 
 type DashboardHabitsProps = {
   userId: string;
@@ -52,7 +53,9 @@ const DashboardHabits = ({
   }
 
   return (
-    <div className="flex flex-col h-full px-4 md:px-[40px] gap-[32px]">
+    <div
+      className={clsx('flex flex-col h-full gap-[32px]', 'px-4 md:px-[40px]')}
+    >
       <HabitHeader
         habitsCount={totalHabits}
         filteredCount={habits.length}
@@ -77,7 +80,7 @@ const DashboardHabits = ({
           fetchNextPage={fetchNextPage}
           hasNextPage={hasNextPage}
           isFetchingNextPage={isFetchingNextPage}
-          isInitialLoading={isPending && !isFetchingNextPage} 
+          isInitialLoading={isPending && !isFetchingNextPage}
         />
       </div>
     </div>
