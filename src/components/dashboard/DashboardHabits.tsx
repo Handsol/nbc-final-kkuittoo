@@ -1,6 +1,5 @@
 'use client';
 
-import Text from '../common/Text';
 import HabitHeader from './habits/HabitHeader';
 import HabitList from './habits/HabitList';
 import HabitsFilter from './habits/HabitsFilter';
@@ -10,6 +9,7 @@ import { useHabitsControls } from '@/lib/hooks/useHabitsControls';
 import { useHabitRecords } from '@/lib/hooks/useHabitRecords';
 import useHabitsFilter from '@/lib/hooks/useHabitsFilter';
 import clsx from 'clsx';
+import DashboardErrorState from './DashboardErrorState';
 
 type DashboardHabitsProps = {
   userId: string;
@@ -49,7 +49,7 @@ const DashboardHabits = ({
   const { isCreating, handleToggleCreate } = useHabitsControls();
 
   if (isError) {
-    return <Text>데이터를 불러오는 데 실패했습니다.</Text>;
+    return <DashboardErrorState onRetry={() => window.location.reload()} />;
   }
 
   return (
