@@ -5,6 +5,7 @@ import {
 import { Categories } from '@prisma/client';
 import { SELECTBUTTON_MODE } from '@/constants/mode.constants';
 import HabitSelectButton from '../habit-filter/HabitSelectButton';
+import clsx from 'clsx';
 
 type HabitFormTagsProps = {
   category: Categories;
@@ -13,10 +14,14 @@ type HabitFormTagsProps = {
 
 const HabitFormTags = ({ category, setCategory }: HabitFormTagsProps) => (
   <>
-    <label className="block mb-[8px] text-body-md font-semibold text-dark-gray font-dohyeon">
+    <label
+      className={clsx(
+        'block mb-[8px] text-body-md font-semibold text-dark-gray font-dohyeon',
+      )}
+    >
       태그
     </label>
-    <div className="flex flex-wrap gap-[6px] md:gap-[8px]">
+    <div className={clsx('flex flex-wrap', 'gap-[6px] md:gap-[8px]')}>
       {HABIT_CATEGORIES.map((c) => (
         <HabitSelectButton
           key={c}

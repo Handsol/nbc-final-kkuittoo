@@ -1,5 +1,6 @@
 import ActionButton from '@/components/common/button/ActionButton';
 import { ACTIONBUTTON_MODE } from '@/constants/mode.constants';
+import clsx from 'clsx';
 
 type HabitFormActionsProps = {
   onCancel: () => void;
@@ -13,7 +14,7 @@ const HabitFormActions = ({
   isSubmitting,
 }: HabitFormActionsProps) => (
   <footer
-    className="flex justify-center gap-[16px] mt-[16px]"
+    className={clsx('flex justify-center gap-[16px] mt-[16px]')}
     aria-label="Form actions"
   >
     <ActionButton
