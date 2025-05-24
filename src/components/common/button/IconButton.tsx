@@ -4,10 +4,12 @@ import { ICONBUTTON_MODE } from '@/constants/mode.constants';
 import { FaCheck } from 'react-icons/fa6';
 import { motion } from 'framer-motion';
 import Text from '../Text';
+import { formatCooldownTime } from '@/lib/utils/habit-points.utils';
 
 type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   mode: string;
   disabled?: boolean;
+  cooldownSeconds?: number;
 };
 
 /**
@@ -18,7 +20,7 @@ type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
  * @extends {ButtonHTMLAttributes<HTMLButtonElement>}
  */
 const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
-  ({ mode, disabled = false, ...props }, ref) => {
+  ({ mode, disabled = false, cooldownSeconds = 0, ...props }, ref) => {
     const baseClasses =
       'w-4 h-4 flex items-center justify-center rounded-full transition-colors';
 
@@ -37,11 +39,17 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
         break;
       case ICONBUTTON_MODE.POINT:
         icon = disabled ? (
-          <Text className="text-body-md font-bold">+P</Text>
+          cooldownSeconds > 0 ? (
+            <Text className="text-body-xs font-bold">
+              {formatCooldownTime(cooldownSeconds)}
+            </Text>
+          ) : (
+            <Text className="text-body-md font-bold">+P</Text>
+          )
         ) : (
           <motion.span
             whileHover={{
-              rotate: [0, -10, 10, -10, 10, -10, 10, 0], // 좌우로 흔들
+              rotate: [0, -10, 10, -10, 10, -10, 10, 0],
               scale: 1.2,
             }}
             transition={{

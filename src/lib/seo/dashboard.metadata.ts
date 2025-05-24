@@ -1,3 +1,4 @@
+import { IMAGE_ASSETS } from '@/constants/assets.constants';
 import { PROJECT_URL } from '@/constants/path.constants';
 import { Metadata } from 'next';
 
@@ -14,7 +15,7 @@ export const dashboardMetadata: Metadata = {
     url: `${PROJECT_URL}/dashboard`,
     images: [
       {
-        url: 'assets/images/test01.png',
+        url: `${PROJECT_URL}${IMAGE_ASSETS.SPRITE.PINK}`,
         width: 1200,
         height: 630,
         alt: 'DASHBOARD 미리보기',

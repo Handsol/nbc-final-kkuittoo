@@ -34,10 +34,8 @@ const HabitItem = ({ habit, userId }: HabitItemProps) => {
     onEditToggle: setIsEditing,
   });
 
-  const { todayPoints, isDisabled, daysString } = useHabitItemState(
-    habit,
-    isAddPending,
-  );
+  const { todayPoints, isDisabled, daysString, remainingSeconds } =
+    useHabitItemState(habit, isAddPending);
 
   const handleConfirmAddPoint = async () => {
     await handleAddPoint(todayPoints);
@@ -58,6 +56,7 @@ const HabitItem = ({ habit, userId }: HabitItemProps) => {
             mode={ICONBUTTON_MODE.POINT}
             disabled={isDisabled}
             aria-label="Add point"
+            cooldownSeconds={remainingSeconds}
           />
         </ConfirmDialog>
 

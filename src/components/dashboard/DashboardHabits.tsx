@@ -1,6 +1,5 @@
 'use client';
 
-import Text from '../common/Text';
 import HabitHeader from './habits/HabitHeader';
 import HabitList from './habits/HabitList';
 import HabitsFilter from './habits/HabitsFilter';
@@ -9,6 +8,8 @@ import { HabitWithPoints } from '@/types/habits.type';
 import { useHabitsControls } from '@/lib/hooks/useHabitsControls';
 import { useHabitRecords } from '@/lib/hooks/useHabitRecords';
 import useHabitsFilter from '@/lib/hooks/useHabitsFilter';
+import clsx from 'clsx';
+import DashboardErrorState from './DashboardErrorState';
 
 type DashboardHabitsProps = {
   userId: string;
@@ -48,11 +49,13 @@ const DashboardHabits = ({
   const { isCreating, handleToggleCreate } = useHabitsControls();
 
   if (isError) {
-    return <Text>데이터를 불러오는 데 실패했습니다.</Text>;
+    return <DashboardErrorState onRetry={() => window.location.reload()} />;
   }
 
   return (
-    <div className="flex flex-col h-full px-4 md:px-[40px] gap-[32px]">
+    <div
+      className={clsx('flex flex-col h-full gap-[32px]', 'px-4 md:px-[40px]')}
+    >
       <HabitHeader
         habitsCount={totalHabits}
         filteredCount={habits.length}
@@ -77,7 +80,7 @@ const DashboardHabits = ({
           fetchNextPage={fetchNextPage}
           hasNextPage={hasNextPage}
           isFetchingNextPage={isFetchingNextPage}
-          isInitialLoading={isPending && !isFetchingNextPage} //전체 목록을 처음 불러올 때만 더보기 눌렀을 때는 X
+          isInitialLoading={isPending && !isFetchingNextPage}
         />
       </div>
     </div>

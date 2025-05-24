@@ -1,5 +1,6 @@
 import { InputHTMLAttributes, ReactNode } from 'react';
 import { SELECTBUTTON_MODE } from '@/constants/mode.constants';
+import clsx from 'clsx';
 
 type HabitSelectButtonProps = InputHTMLAttributes<HTMLInputElement> & {
   mode: string;
@@ -61,11 +62,14 @@ const HabitSelectButton = ({
 
   return (
     <label
-      className={`
-    ${baseStyle} ${sizeStyle} ${disabledStyle}
-    ${disabled ? 'pointer-events-none' : 'hover:scale-105'}
-    transform transition-transform
-  `}
+      className={clsx(
+        baseStyle,
+        sizeStyle,
+        'transform transition-transform',
+        disabled
+          ? 'bg-light-gray text-medium-gray cursor-not-allowed border-light-gray pointer-events-none'
+          : [variantStyle, 'hover:scale-105'],
+      )}
     >
       <input
         type={inputType}

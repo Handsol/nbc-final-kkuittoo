@@ -13,7 +13,7 @@ const HabitFormActions = ({
   isSubmitting,
 }: HabitFormActionsProps) => (
   <footer
-    className="flex justify-center gap-[16px] mt-[16px]"
+    className={'flex justify-center gap-[16px] mt-[16px]'}
     aria-label="Form actions"
   >
     <ActionButton

@@ -1,6 +1,6 @@
 import { ACTIONBUTTON_MODE } from '@/constants/mode.constants';
 import { Slot } from '@radix-ui/react-slot';
-import { round } from 'lodash';
+import clsx from 'clsx';
 import { ButtonHTMLAttributes, forwardRef } from 'react';
 
 type ActionButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -70,6 +70,7 @@ const ActionButton = forwardRef<HTMLButtonElement, ActionButtonProps>(
         variantStyle =
           'bg-light-gray text-black hover:bg-medium-gray hover:text-white';
         roundedStyle = 'rounded-md';
+        break;
       case ACTIONBUTTON_MODE.ROUNDED_MD_REVERSE:
         sizeStyle = 'w-[150px] h-[40px] md:w-[180px] md:h-[40px]';
         variantStyle =
@@ -101,18 +102,20 @@ const ActionButton = forwardRef<HTMLButtonElement, ActionButtonProps>(
         break;
     }
 
-    const disabledStyle = disabled
-      ? `bg-light-gray text-medium-gray cursor-not-allowed ${roundedStyle}`
-      : `${variantStyle} ${roundedStyle}`;
-
-    // asChild가 true일 경우, Slot을 사용하면 부모 컴포넌트(AlertDialogTrigger, AlertDialogAction....)의 역할을 그대로 수행하면서
-    // 내부 버튼 스타일만!!! 입혀줌(ActionButton이 button이 아님 그냥 스타일만 입혀줌). 그래서 button 중첩(hydration 오류) 없이 스타일을 재사용할 수 있음.
     const Component = asChild ? Slot : 'button';
 
     return (
       <Component
         ref={ref}
-        className={`${baseStyle} ${sizeStyle} ${disabledStyle}`}
+        className={clsx(
+          baseStyle,
+          sizeStyle,
+          roundedStyle,
+          {
+            'bg-light-gray text-medium-gray cursor-not-allowed': disabled,
+          },
+          !disabled && variantStyle,
+        )}
         disabled={disabled}
         {...props}
       >
