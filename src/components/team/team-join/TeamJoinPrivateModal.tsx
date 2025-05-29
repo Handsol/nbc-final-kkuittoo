@@ -22,12 +22,11 @@ type TeamJoinPrivateModalProps = {
 };
 
 const TeamJoinPrivateModal = ({ teamId, mode }: TeamJoinPrivateModalProps) => {
-  // 모달창 state
   const [isModalOpen, setIsModalOpen] = useState(false);
   const isTeamJoinButton = mode === JOINBUTTON_MODE.TEAM_PAGE;
 
   const handleJoinSuccess = () => {
-    setIsModalOpen(false); // 모달 닫기
+    setIsModalOpen(false);
   };
 
   return (

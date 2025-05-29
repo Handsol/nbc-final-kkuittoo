@@ -21,20 +21,17 @@ type TeamBioProps = {
 const TeamBioEditMode = ({ teamBio, teamId }: TeamBioProps) => {
   const [isEditMode, setIsEditMode] = useState(false);
 
-  // react-hook-form
   const { teamBioValidation, register, handleSubmit, errors } =
     useTeamBioUpdateForm(teamBio);
 
-  // tanstack query - useMutation
   const { mutate, isPending: isTeamBioPending } = useTeamBioMutation(teamId);
-  // tanstack query - useQuery
   const {
     data: teamData,
     isPending: isTeamDataPending,
     isError: isTeamDataError,
   } = useSingleTeamQuery(teamId);
 
-  // form onSubmit handler
+  // form onSubmit 핸들러
   const handleOnSubmit = (data: TeamFormData) => {
     mutate(data);
     setIsEditMode(false);
@@ -44,7 +41,6 @@ const TeamBioEditMode = ({ teamBio, teamId }: TeamBioProps) => {
   const handleEditBtnClick = () => {
     setIsEditMode(true);
   };
-
   const handleCancelBtnClick = () => {
     setIsEditMode(false);
   };
