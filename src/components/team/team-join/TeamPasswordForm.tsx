@@ -24,11 +24,9 @@ type TeamPasswordFormProps = {
 };
 
 const TeamPasswordForm = ({ teamId, onSuccess }: TeamPasswordFormProps) => {
-  // toast + router
   const { toast } = useToast();
   const router = useRouter();
 
-  //react-hook-form
   const {
     register,
     handleSubmit,
@@ -61,11 +59,11 @@ const TeamPasswordForm = ({ teamId, onSuccess }: TeamPasswordFormProps) => {
         description: TEAM_TOAST_MESSAGES.SUCCESS.TEAM_JOIN.DESCRIPTION(),
       });
 
-      onSuccess?.(); // 모달 닫기
+      onSuccess?.();
 
-      // 팀 페이지로 이동
+      // 팀 페이지로 이동 및 새로고침
       router.push(`${PATH.TEAM}/${teamId}`);
-      router.refresh(); //refresh 호출
+      router.refresh();
     }
   };
 

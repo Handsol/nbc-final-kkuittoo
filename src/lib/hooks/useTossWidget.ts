@@ -1,5 +1,5 @@
 import { ANONYMOUS, loadTossPayments } from '@tosspayments/tosspayments-sdk';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type useTossWidgetProps = {
   isOpen: boolean;

@@ -23,20 +23,7 @@ type TeamJoinProps = {
  * 팀 가입 버튼 컴포넌트
  * 1. 공개 팀 : ConfirmDialog로 확인/취소 버튼 모달로 가입
  * 2. 비공개 팀 : 비밀번호 입력 Form이 등장, 비밀번호 유효검증 로직 통과 후 가입
- *
- * 데이터 fetch 로직 위치
- *   서버 컴포넌트 : team-actions.services.ts
- *   클라이언트 컴포넌트 : team-client.services.ts
- * @param team {TeamData} : 카드에 해당하는 팀의 모든 정보
- *        서버 => fetchGetTeamData(teamId)
- *        클라 => fetchGetSingleTeam(teamId)
- * @param hasTeam {boolean} : 해당 유저가 가입한 팀이 있는지 여부
- *        서버 => fetchGetMyTeamData(userId)
- *        클라 => !로직 구현해야함
- * @param currentMembers {number} : 카드에 해당하는 팀의 멤버 수
- *        서버 => fetchGetMyTeamMemberData(teamId)
- *        클라 => fetchGetSingleTeam(teamId)
- *                          (여기에 멤버 데이터도 있음)
+
  * @returns
  */
 

@@ -13,7 +13,6 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { TEAMS_MESSAGES } from '@/constants/error-messages.constants';
-import ErrorMessage from '@/components/common/ErrorMessage';
 
 type TeamSizeSelectProps = {
   control: Control<TeamFormInputs, any, TeamFormInputs>;

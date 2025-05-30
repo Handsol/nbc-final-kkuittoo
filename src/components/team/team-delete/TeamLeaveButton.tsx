@@ -13,9 +13,7 @@ type TeamLeaveButtonProps = {
 };
 
 const TeamLeaveButton = ({ id }: TeamLeaveButtonProps) => {
-  // toast
   const { toast } = useToast();
-  // route
   const router = useRouter();
 
   // alert-dialog에 들어갈 컨텐츠
@@ -37,7 +35,7 @@ const TeamLeaveButton = ({ id }: TeamLeaveButtonProps) => {
         });
         // 캐시 갱신 및 리다이렉트
         router.push(PATH.RANK.TEAMS);
-        router.refresh(); //캐시 갱신
+        router.refresh();
       }
     } catch (error) {
       console.error('팀 탈퇴 중 오류 발생:', error);

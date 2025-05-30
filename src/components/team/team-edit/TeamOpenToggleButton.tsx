@@ -4,7 +4,6 @@ import { CommonLoadingSpinner } from '@/components/common/CommonLoadingSpinner';
 import { Switch } from '@/components/ui/switch';
 import { useTeamOpenMutation } from '@/lib/mutations/useTeamOpenMutation';
 import { useSingleTeamQuery } from '@/lib/queries/useSingleTeamQuery';
-import Image from 'next/image';
 import { FaLock } from 'react-icons/fa6';
 import { FaLockOpen } from 'react-icons/fa6';
 
@@ -13,14 +12,12 @@ type TeamOpenToggleButtonProps = {
 };
 
 const TeamOpenToggleButton = ({ teamId }: TeamOpenToggleButtonProps) => {
-  // tanstack query - useQuery
   const { data: teamData, isPending } = useSingleTeamQuery(teamId);
-  // tanstack query - useMutation
   const { mutate } = useTeamOpenMutation(teamId);
 
   if (isPending) return <CommonLoadingSpinner size={20} />;
 
-  // 데이터 페칭 실패 시 예외처리
+  // 데이터 패칭 실패 시 예외처리
   if (!teamData) throw new Error('팀 데이터 가져오기 실패');
 
   return (

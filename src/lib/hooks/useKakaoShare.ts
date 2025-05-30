@@ -40,7 +40,7 @@ export const useKakaoShare = (id: string) => {
       content: {
         title: 'kkuitddo | 우리 팀에 가입할래요?',
         description: `팀 비밀번호 : ${password}`,
-        imageUrl: `${PROJECT_URL}${IMAGE_ASSETS.SPRITE.PINK}`, // 반드시 https + 공개 이미지
+        imageUrl: `${PROJECT_URL}${IMAGE_ASSETS.SPRITE.PINK}`,
         link: {
           mobileWebUrl: `${PROJECT_URL}${PATH.TEAM}/${id}`,
           webUrl: `${PROJECT_URL}${PATH.TEAM}/${id}`,

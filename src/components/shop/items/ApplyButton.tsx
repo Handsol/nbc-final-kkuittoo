@@ -1,5 +1,4 @@
 import ActionButton from '@/components/common/button/ActionButton';
-import Text from '@/components/common/Text';
 import { ACTIONBUTTON_MODE } from '@/constants/mode.constants';
 
 type ApplyProps = {

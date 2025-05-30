@@ -2,7 +2,6 @@
 
 import { IMAGE_ASSETS } from '@/constants/assets.constants';
 import { PATH } from '@/constants/path.constants';
-import { Z_INDEX } from '@/constants/z-index.constants';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
