@@ -15,7 +15,7 @@ const Sidebar = ({
   return (
     <aside className="sticky top-0 h-screen w-[240px] bg-white px-4 py-[24px] flex flex-col shrink-0 md:shadow-sidebar-purple-right">
       <div className="flex flex-col items-center">
-        {/* 모바일일 때는 닫기 버튼, 아니면 로고 */}
+        {/* 모바일: 닫기 버튼, 데스크탑: 로고 */}
         {isMobile ? (
           <button
             className="self-start text-medium-gray hover:text-main"

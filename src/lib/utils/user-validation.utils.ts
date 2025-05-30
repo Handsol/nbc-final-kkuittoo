@@ -1,7 +1,7 @@
 import { USER_ERROR_MESSAGES } from '@/constants/error-messages.constants';
 import { HTTP_STATUS } from '@/constants/http-status.constants';
 import { USER_VALIDATION } from '@/constants/validation.constants';
-import { UpdateProfile, User } from '@/types/profile.type';
+import { UpdateProfile } from '@/types/profile.type';
 import { NextResponse } from 'next/server';
 
 /**

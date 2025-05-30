@@ -12,7 +12,6 @@ const SidebarProfile = () => {
   const session = getUserClientSession();
   const userId = session?.data?.user.id ?? '';
 
-  // tanstack query : useQuery
   const { data: profileData, isPending } = useUserQuery(userId);
 
   if (!session) return <UnauthorizedPage />;
