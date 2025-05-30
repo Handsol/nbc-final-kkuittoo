@@ -8,6 +8,7 @@ import { ICONBUTTON_MODE } from '@/constants/mode.constants';
 import { useUserUpdateForm } from '@/lib/hooks/useUserUpdateForm';
 import ErrorMessage from '@/components/common/ErrorMessage';
 import { PLACEHOLDER } from '@/constants/placeholder.constants';
+import { useRouter } from 'next/navigation';
 
 type Props = UserFormData & {
   userId: string;
@@ -22,6 +23,7 @@ const UserProfileEditMode = ({
   onCancel,
   onSuccess,
 }: Props) => {
+  const router = useRouter();
   const { userProfileValidation, register, handleSubmit, errors } =
     useUserUpdateForm(name, bio);
 
@@ -30,6 +32,7 @@ const UserProfileEditMode = ({
   const handleOnSubmit = (data: UserFormData) => {
     updateUser(data);
     onSuccess();
+    router.refresh();
   };
 
   return (
