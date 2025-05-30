@@ -22,11 +22,9 @@ const UserProfileEditMode = ({
   onCancel,
   onSuccess,
 }: Props) => {
-  // react-hook-form
   const { userProfileValidation, register, handleSubmit, errors } =
     useUserUpdateForm(name, bio);
 
-  // tanstack query - useMutation
   const { mutate: updateUser, isPending } = useUserProfileMutation(userId);
 
   const handleOnSubmit = (data: UserFormData) => {

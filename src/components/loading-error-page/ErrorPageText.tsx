@@ -3,7 +3,6 @@ import Title from '../common/Title';
 import { LINKBUTTON_MODE, TITLE_MODE } from '@/constants/mode.constants';
 import Text from '../common/Text';
 import LinkButton from '../common/button/LinkButton';
-import { PATH } from '@/constants/path.constants';
 
 type ErrorPageTextProps = {
   contents: {

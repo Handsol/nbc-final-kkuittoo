@@ -2,7 +2,6 @@
 
 import { IMAGE_ASSETS } from '@/constants/assets.constants';
 import { PATH } from '@/constants/path.constants';
-import { Z_INDEX } from '@/constants/z-index.constants';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -12,10 +11,10 @@ const GlobalLoadingBar = () => {
   const pathname = usePathname();
 
   useEffect(() => {
-    // path가 없거나 마이페이지가 아닌 경우 아무것도 return 하지 않음
+    // 대시보드 경로가 아니면 로딩 바를 표시하지 않음
     if (!pathname || !pathname.startsWith(PATH.DASHBOARD)) return;
 
-    // localStorage에서 마이페이지 방문 여부 확인 => 없으면 로딩 페이지 실행
+    // 최초 방문 시에만 로딩 바 표시
     const hasVisitedDashboardBefore = localStorage.getItem(
       'hasVisitedDashboardBefore',
     );

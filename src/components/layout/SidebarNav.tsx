@@ -14,7 +14,7 @@ const SidebarNav = () => {
   const { data: team, refetch } = useMyTeamQuery(userId);
   const pathname = usePathname();
 
-  // 경로 변경 시마다 팀 데이터 리페치
+  // 경로 변경 시 팀 정보 다시 가져오기
   useEffect(() => {
     refetch();
   }, [pathname, refetch]);
@@ -35,7 +35,7 @@ const SidebarNav = () => {
           key={item.name}
           mode={LINKBUTTON_MODE.NAV}
           href={item.href}
-          disabled={pathname === item.href} //현재 경로와 href가 같으면
+          disabled={pathname === item.href}
         >
           {item.name}
         </LinkButton>
