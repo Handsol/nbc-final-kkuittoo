@@ -1,4 +1,3 @@
-// 유저 랭킹에 필요한 타입
 export type UserData = {
   id: string;
   name: string | null;
@@ -6,11 +5,10 @@ export type UserData = {
   email: string;
   totalPoints: number;
   userPoints: { points: number }[];
-  userItems: CardUserItemData[]; // 포인트 배열 (합산해서 랭킹 계산)
+  userItems: CardUserItemData[];
   rank: number;
 };
 
-// 카드에 들어가는 유저 아이템 타입
 export type CardUserItemData = {
   isApplied: boolean;
   itemId: string;
@@ -30,10 +28,10 @@ export type TeamWithPoints = {
 };
 
 export type TeamCardProps = {
-  team: TeamWithPoints; // 팀 데이터
-  rank: number; // 순위
-  isTopRank: boolean; // 상단 3위 여부
-  animationDelay?: number; // 애니메이션 지연 시간
+  team: TeamWithPoints;
+  rank: number;
+  isTopRank: boolean;
+  animationDelay?: number;
   hasTeam: boolean;
 };
 

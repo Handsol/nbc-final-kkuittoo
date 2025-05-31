@@ -1,7 +1,6 @@
 'use server';
 
 import { prisma } from '../prisma';
-import { TeamWithPoints } from '@/types/rank.type';
 import { TEAMS_MESSAGES } from '@/constants/error-messages.constants';
 import { revalidatePath } from 'next/cache';
 
