@@ -8,8 +8,7 @@ type Props = {
 export const UserTopSection = ({ topUsers }: Props) => {
   const ordered = [topUsers[1], topUsers[0], topUsers[2]]; // 2,1,3 순서
 
-  // 딜레이를 3등부터 먼저 나오도록 순서 맞추기
-  const delays = [300, 600, 100]; // index 0=2등(왼), 1=1등(가운데), 2=3등(오른)
+  const delays = [300, 600, 100];
 
   return (
     <section className="mb-8">

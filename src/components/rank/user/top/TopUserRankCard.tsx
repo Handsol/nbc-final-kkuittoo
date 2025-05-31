@@ -1,5 +1,4 @@
 import { UserData } from '@/types/rank.type';
-import { TopUserAvatar } from './TopUserAvatar';
 import UserTitle from '@/components/common/UserTitle';
 import { USER_TITLE_MODE } from '@/constants/mode.constants';
 import { getUserLevel } from '@/lib/utils/user-level.utils';
@@ -9,7 +8,6 @@ import UserDetailModal from '../UserDetailModal';
 import { motion } from 'framer-motion';
 import {
   floatAnimation,
-  podiumBaseStyle,
   podiumTopFaceBaseStyle,
   rankCardContainer,
   rankCardInfoWrapper,

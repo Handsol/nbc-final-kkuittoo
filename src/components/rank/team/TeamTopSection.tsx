@@ -14,7 +14,7 @@ export const TeamTopSection = ({ topTeams, hasTeam }: Props) => {
     <section className="mb-8">
       <div className="grid grid-cols-3 gap-[10px] md:grid-cols-3 md:gap-[52px] items-end">
         {ordered.map((team, idx) => {
-          const rank = topTeams.indexOf(team) + 1; // 실제 순위 유지
+          const rank = topTeams.indexOf(team) + 1;
           return (
             <div key={team.id} className="flex justify-center">
               <TeamCard

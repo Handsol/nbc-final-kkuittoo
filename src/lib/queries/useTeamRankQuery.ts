@@ -10,7 +10,7 @@ export const useTeamRankQuery = () => {
     queryKey: ['teams'],
     queryFn: ({ pageParam = 0 }) =>
       fetchGetTeamRankList(pageParam as number, BATCH_SIZE.TEAM_RANK),
-    initialPageParam: 8, // 초기 8개 (상단 3개 + 하단 5개 기준이면)
+    initialPageParam: 8, // 초기 8개 (상단 3개 + 하단 5개 기준)
     getNextPageParam: (lastPage, allPages) => {
       if (lastPage.length < BATCH_SIZE.TEAM_RANK) {
         return undefined;

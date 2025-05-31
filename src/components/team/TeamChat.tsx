@@ -41,7 +41,6 @@ type TeamChatProps = {
   */
 }
 export const TeamChat = ({ teamId, userTeamInfo }: TeamChatProps) => {
-  //해당 팀 멤버가 아닌 경우 채팅창 비활성화
   const { isThisTeamMember } = userTeamInfo;
   if (!isThisTeamMember) return <TeamChatDisabled />;
 
@@ -67,11 +66,9 @@ export const TeamChat = ({ teamId, userTeamInfo }: TeamChatProps) => {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        // GET 요청을 보내서 teamId에 해당하는 메시지 가져오기
         const response = await fetch(`/api/chat?teamId=${teamId}`);
         if (response.ok) {
           const data = await response.json();
-          // 요청 성공 시 setMessages에 상태를 저장하고 실패하면 에러 출력
           setMessages(data);
         }
       } catch (error) {
@@ -82,19 +79,12 @@ export const TeamChat = ({ teamId, userTeamInfo }: TeamChatProps) => {
     fetchMessages();
 
     // Pusher 설정
-    // Pusher에 연결 후 .env에 저장된 키와 정보를 사용
     const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY!, {
       cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER!,
     });
-    // pusher.subscribe(teamId)
-    // 여기서 teamId는 채팅방의 고유 번호니까, 각 팀 채팅방마다 다른 채널이 생기는 느낌
-    // 비유하자면 pusher.subscribe('team-123')은 123채널로 라디오 주파수를 맞춘다
     const channel = pusher.subscribe(teamId);
     channel.bind('new-message', (message: TeamMessage) => {
-      // new-message 이벤트가 발생하면(다른 누군가가 채팅을 보내면)
-      // 메시지를 배열에 추가하고
       setMessages((prev) => [...prev, message]);
-      // 스크롤을 맨 아래로 내린다
       scrollToBottom();
     });
     // Pusher 사용이 끝난 후 리소스 정리
@@ -110,9 +100,7 @@ export const TeamChat = ({ teamId, userTeamInfo }: TeamChatProps) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // 메시지가 비어있거나, 로그인이 안 된 경우 전송 금지
     if (!newMessage.trim() || !session?.user) return;
-    // api/chat에 POST 요청 보내서 서버에 메시지 저장 & 실시간으로 다른 유저에게 전송
     try {
       const response = await fetch('/api/chat', {
         method: 'POST',
