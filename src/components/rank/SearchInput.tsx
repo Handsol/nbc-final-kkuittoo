@@ -17,11 +17,6 @@ export const SearchInput = ({ placeholder }: SearchInputProps) => {
   const [searchTerm, setSearchTerm] = useState(searchParams.get('q') || '');
   const [isPending, setIsPending] = useTransition();
 
-  {
-    /* lodash.debounce 사용 */
-  }
-  // 디바운싱? 쓰로틀링?
-  // lodash? use-debounce?
   const handleSearch = useMemo(
     () =>
       debounce((value: string) => {
