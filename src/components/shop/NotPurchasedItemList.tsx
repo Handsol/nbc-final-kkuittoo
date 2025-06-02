@@ -21,7 +21,7 @@ const NotPurchasedItemList = ({
 }: NotPurchasedItemListProps) => {
   // tanstack query를 사용해 구매하지 않은 아이템 리스트를 가져오기
   const { data: itemList } = useQuery<ShopItem[]>({
-    queryKey: [QUERY_KEYS.NOT_PURCHASED_ITEMS], // 배열 형태로 사용
+    queryKey: [QUERY_KEYS.NOT_PURCHASED_ITEMS],
     queryFn: fetchGetNotPurchasedItemList,
   });
 

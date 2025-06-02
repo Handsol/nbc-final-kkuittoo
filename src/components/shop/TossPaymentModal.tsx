@@ -68,8 +68,6 @@ const TossPaymentModal = ({
         customerName: userId,
         customerMobilePhone: null,
       });
-
-      //여기랑 successURL에서도 데이터 인서트 테스트 해보기
     } catch (error) {
       console.error(error);
       toast({

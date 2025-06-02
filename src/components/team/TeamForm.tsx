@@ -1,6 +1,5 @@
 'use client';
 
-import Title from '@/components/common/Title';
 import {
   ACTIONBUTTON_MODE,
   ICONBUTTON_MODE,
@@ -24,11 +23,9 @@ import { TEAM_TOAST_MESSAGES } from '@/constants/toast-messages.contants';
 import IconButton from '../common/button/IconButton';
 
 const TeamForm = () => {
-  //router
   const router = useRouter();
-  //toast
   const { toast } = useToast();
-  // react-hook-form
+
   const { register, handleSubmit, errors, watch, control } =
     useTeamCreateForm();
   // input 콘텐츠 : name, bio, emblem
@@ -36,7 +33,7 @@ const TeamForm = () => {
 
   const handleCloseButtonClick = () => handleCloseModalWithSuccess(router);
 
-  // submit 로직
+  // submit 핸들러
   const onSubmit = async (data: TeamFormInputs) => {
     try {
       const result = await fetchCreateNewTeam(data);

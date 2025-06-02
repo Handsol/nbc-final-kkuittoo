@@ -8,7 +8,6 @@ import TeamOpenToggleButton from './team-edit/TeamOpenToggleButton';
 import TeamOpenNotEditMode from './team-edit/TeamOpenNotEditMode';
 import TeamProgress from './TeamProgress';
 import TeamBioEditMode from './team-edit/TeamBioEditMode';
-import Text from '../common/Text';
 import Image from 'next/image';
 import { getUserSession } from '@/lib/services/getUserSession.services';
 import { getCurrentTeamQuest } from '@/lib/utils/team.utils';
@@ -27,10 +26,9 @@ const TeamInfo = async ({ id, editMode = true }: TeamQuestProps) => {
   // 팀의 전체 포인트와 현재 퀘스트를 가져오는 로직
   const { teamTotalPoints } = await fetchGetTeamTotalPoints(id);
   const teamCurrentQuest = getCurrentTeamQuest(teamTotalPoints);
+
   // 현재 로그인한 유저 정보
   const session = await getUserSession();
-
-  //세션이 없을 경우 로그인 필요페이지로 return
   if (!session) {
     return <UnauthorizedPage />;
   }
@@ -38,7 +36,7 @@ const TeamInfo = async ({ id, editMode = true }: TeamQuestProps) => {
   // 팀 생성자 여부 판단
   const userId = session.user.id;
   const isOwner = teamData.ownerId === userId;
-  // editMode가 false(대시보드)이면 무조건 수정 불가능하도록 변경
+  // editMode가 false이면 수정 불가능하도록 변경
   const canEdit = editMode && isOwner;
 
   const { teamName, teamBio, emblem, id: teamId } = teamData;
