@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { checkAuth } from '@/lib/utils/auth-route-handler.utils';
 import { USER_ERROR_MESSAGES } from '@/constants/error-messages.constants';
-import { HTTP_STATUS } from '@/constants/http-status.constants';
 import { errorResponse } from '@/lib/utils/user-response.utils';
 
 /**
